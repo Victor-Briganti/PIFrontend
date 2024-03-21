@@ -23,7 +23,7 @@ function Header() {
             <img src={logo} alt="Adopets" width={125} height={110} />
           </IconButton>
           <Typography variant="h2" component="div" width={"120"}>
-            <b>Adopets</b>
+            <b>Adopet</b>
           </Typography>
         </Stack>
         <Stack direction="row" spacing="2">

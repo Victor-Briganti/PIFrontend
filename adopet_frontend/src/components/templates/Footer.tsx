@@ -1,5 +1,5 @@
 import React from "react";
-import { Typography, Link, BottomNavigation, Divider } from "@mui/material";
+import { Typography, Link, BottomNavigation } from "@mui/material";
 
 function Copyright(props: any) {
   return (
