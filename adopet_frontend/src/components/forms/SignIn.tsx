@@ -1,9 +1,13 @@
-import BaseSubmit from "./BaseSubmit";
 import axios from "axios";
+import BaseSubmit from "./BaseSubmit";
+import Cookies from 'js-cookie';
 
 class SignIn extends BaseSubmit {
   constructor() {
     super();
+    const csrfToken = Cookies.get('csrftoken');
+    axios.defaults.headers.post["X-CSRFToken"] = csrfToken;
+    axios.defaults.withCredentials = true;
   }
 
   async send(event: React.FormEvent<HTMLFormElement>) {
