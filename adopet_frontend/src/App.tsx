@@ -1,5 +1,5 @@
 import { Fragment, useState } from 'react'
-import SignUp from './components/SignUp'
+import Register from './components/Register'
 import SignIn from './components/SignIn'
 import './App.css'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
@@ -13,7 +13,7 @@ function App() {
         <Routes> // Switch
           <Route path="/signin" element={<SignIn />}>
             </Route>
-          <Route path="/signup" element={<SignUp />}>
+          <Route path="/register" element={<Register />}>
           </Route>
         </Routes>
         </Fragment>
