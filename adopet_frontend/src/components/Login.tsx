@@ -1,23 +1,22 @@
 import * as React from "react";
 import * as MuiMaterial from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import { useNavigate } from "react-router-dom";
 import CopyRight from "./CopyRight";
+import SignIn from "./forms/SignIn";
 
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = MuiMaterial.createTheme();
 
 export default function Login() {
-  const navigate = useNavigate();
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
+  const useHandleSubmit = () => {
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+      const signin = new SignIn();
+      signin.send(event);
+    };
+    return handleSubmit;
   };
-  navigate("/signin"); // redireciona p/ a tela de SignUp
+
+  const handleSubmit = useHandleSubmit();
 
   return (
     <MuiMaterial.ThemeProvider theme={defaultTheme}>
