@@ -17,7 +17,7 @@ class SignIn extends BaseSubmit {
     const password = data.get("password");
 
     try {
-      const response = await axios.post(this.host + "/usuario/login/", {
+      const response = await axios.post(this.host + "/user/login/", {
         email: email,
         password: password,
       });

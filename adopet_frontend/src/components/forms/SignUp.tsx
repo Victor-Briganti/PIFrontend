@@ -15,7 +15,7 @@ class SignUp extends BaseSubmit {
     const password = data.get("password");
 
     try {
-      const response = await axios.post(this.host + "/usuario/signup/", {
+      const response = await axios.post(this.host + "/user/register/", {
         name: name,
         surname: surname,
         email: email,
