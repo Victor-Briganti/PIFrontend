@@ -9,15 +9,15 @@ class SignUp extends BaseSubmit {
   async send(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    const name = data.get("name");
-    const surname = data.get("surname");
+    const firstname = data.get("firstname");
+    const lastname = data.get("lastname");
     const email = data.get("email");
     const password = data.get("password");
 
     try {
       const response = await axios.post(this.host + "/user/register/", {
-        name: name,
-        surname: surname,
+        firstname: firstname,
+        lastname: lastname,
         email: email,
         password: password,
       });

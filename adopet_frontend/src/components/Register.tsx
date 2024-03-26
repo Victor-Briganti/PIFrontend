@@ -10,15 +10,10 @@ const defaultTheme = MuiMaterial.createTheme();
 
 export default function Register() {
   const useHandleSubmit = () => {
-    const navigate = useNavigate();
-    
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
       const signup = new SignUp();
       signup.send(event);
-      
-      navigate("/signin"); // redireciona p/ a tela de SignIn apos o cadastro
     } 
-
     return handleSubmit;
   }
 
@@ -52,10 +47,10 @@ export default function Register() {
               <MuiMaterial.Grid item xs={12} sm={6}>
                 <MuiMaterial.TextField
                   autoComplete="given-name"
-                  name="name"
+                  name="firstname"
                   required
                   fullWidth
-                  id="name"
+                  id="firstname"
                   label="Nome"
                   autoFocus
                 />
@@ -64,9 +59,9 @@ export default function Register() {
                 <MuiMaterial.TextField
                   required
                   fullWidth
-                  id="surname"
+                  id="lastname"
                   label="Sobrenome"
-                  name="surname"
+                  name="lastname"
                   autoComplete="family-name"
                 />
               </MuiMaterial.Grid>
