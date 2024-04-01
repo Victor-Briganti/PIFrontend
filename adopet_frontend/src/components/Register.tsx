@@ -1,9 +1,8 @@
 import * as React from "react";
-import { useNavigate } from "react-router";
 import * as MuiMaterial from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import CopyRight from "./CopyRight";
-import SignUp from "./forms/SignUp";
+import SignUp from "./forms/LoginSubmit";
 
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = MuiMaterial.createTheme();

@@ -1,23 +1,23 @@
-import BaseSubmit from "./BaseSubmit";
 import axios from "axios";
+import BaseSubmit from "./BaseSubmit";
+import Cookies from 'js-cookie';
 
-class SignUp extends BaseSubmit {
+class RegisterSubmit extends BaseSubmit {
   constructor() {
     super();
+    const csrfToken = Cookies.get('csrftoken');
+    axios.defaults.headers.post["X-CSRFToken"] = csrfToken;
+    axios.defaults.withCredentials = true;
   }
 
   async send(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    const firstname = data.get("firstname");
-    const lastname = data.get("lastname");
     const email = data.get("email");
     const password = data.get("password");
 
     try {
-      const response = await axios.post(this.host + "/user/register/", {
-        firstname: firstname,
-        lastname: lastname,
+      const response = await axios.post(this.host + "/user/login/", {
         email: email,
         password: password,
       });
@@ -28,4 +28,4 @@ class SignUp extends BaseSubmit {
   }
 }
 
-export default SignUp;
+export default RegisterSubmit;
