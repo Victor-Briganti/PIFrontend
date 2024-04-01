@@ -2,7 +2,7 @@ import axios from "axios";
 import BaseSubmit from "./BaseSubmit";
 import Cookies from "js-cookie";
 
-class UserView extends BaseSubmit {
+class UserGet extends BaseSubmit {
   constructor() {
     super();
     const csrfToken = Cookies.get("csrftoken");
@@ -14,10 +14,11 @@ class UserView extends BaseSubmit {
     try {
       const response = await axios.get(this.host + "/user/");
       console.log(response.data);
+      return response.data;
     } catch (error) {
       console.error(error);
     }
   }
 }
 
-export default UserView;
+export default UserGet;
