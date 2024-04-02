@@ -25,7 +25,7 @@ export default function Profile() {
     return <div>Carregando...</div>;
   }
 
-  const handleLogout = async () => {
+  const handleLogout = async (event) => {
     const logoutSubmit = new LogoutSubmit();
     logoutSubmit.send(event);
   };
@@ -49,7 +49,6 @@ export default function Profile() {
             {`Último login: ${user.last_login}`}
           </MuiMaterial.Typography>
           <MuiMaterial.Button
-            type="logout"
             fullWidth
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
