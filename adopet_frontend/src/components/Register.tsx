@@ -1,5 +1,4 @@
 import * as React from "react";
-import { useNavigate } from "react-router";
 import * as MuiMaterial from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import CopyRight from "./CopyRight";
@@ -13,9 +12,9 @@ export default function Register() {
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
       const signup = new SignUp();
       signup.send(event);
-    } 
+    };
     return handleSubmit;
-  }
+  };
 
   const handleSubmit = useHandleSubmit();
 

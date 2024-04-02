@@ -1,25 +1,29 @@
-import { Fragment, useState } from 'react'
-import Register from './components/Register'
-import Login from './components/Login'
-import './App.css'
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
+import { Fragment /*useState*/ } from "react";
+import Register from "./components/Register";
+import Login from "./components/Login";
+import Profile from "./components/Profile";
+import Home from "./components/Home";
+import "./App.css";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 function App() {
-  const [count, setCount] = useState(0)
+  // const [count, setCount] = useState(0);
 
   return (
     <div className="App">
-      <Router> 
+      <Router>
         <Fragment>
-        <Routes> // Switch
-          <Route path="/login" element={<Login />}>
-            </Route>
-          <Route path="/register" element={<Register />}>
-          </Route>
-        </Routes>
+          <Routes>
+            {" "}
+            // Switch
+            <Route path="/login" element={<Login />}></Route>
+            <Route path="/register" element={<Register />}></Route>
+            <Route path="/profile" element={<Profile />}></Route>
+            <Route path="/" element={<Home />}></Route>
+          </Routes>
         </Fragment>
       </Router>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
