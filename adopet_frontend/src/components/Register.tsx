@@ -2,16 +2,32 @@ import * as React from "react";
 import * as MuiMaterial from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import CopyRight from "./CopyRight";
-import SignUp from "./forms/SignUp";
+import RegisterSubmit from "./forms/RegisterSubmit";
 
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = MuiMaterial.createTheme();
 
 export default function Register() {
+  const [messageError, setMessageError] = React.useState<string>("");
+
   const useHandleSubmit = () => {
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-      const signup = new SignUp();
-      signup.send(event);
+      // Intercepta a submissão do formulário pelo navegador
+      event.preventDefault();
+
+      // Extrai os valores do formulário
+      const formData = new FormData(event.currentTarget);
+
+      // Verifica senhas
+      if (formData.get("password") !== formData.get("confirmPassword")) {
+        setMessageError("Senhas não coincidem.");
+        return;
+      }
+
+      formData.delete("confirmPassword");
+
+      const registerSubmit = new RegisterSubmit();
+      registerSubmit.send(event);
     };
     return handleSubmit;
   };
@@ -85,6 +101,17 @@ export default function Register() {
                   autoComplete="new-password"
                 />
               </MuiMaterial.Grid>
+              <MuiMaterial.Grid item xs={12}>
+                <MuiMaterial.TextField
+                  required
+                  fullWidth
+                  name="confirmPassword"
+                  label="Confirmar Senha"
+                  type="password"
+                  id="confirmPassword"
+                  autoComplete="new-password"
+                />
+              </MuiMaterial.Grid>
             </MuiMaterial.Grid>
             <MuiMaterial.Button
               type="submit"
@@ -94,6 +121,11 @@ export default function Register() {
             >
               Cadastrar
             </MuiMaterial.Button>
+            {messageError && (
+              <MuiMaterial.Alert variant="filled" severity="error">
+                {messageError}
+              </MuiMaterial.Alert>
+            )}
             <MuiMaterial.Grid container justifyContent="flex-end">
               <MuiMaterial.Grid item>
                 <MuiMaterial.Link href="#" variant="body2">
