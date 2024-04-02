@@ -1,6 +1,7 @@
 import * as React from "react";
 import * as MuiMaterial from "@mui/material";
 import UserGet from "./forms/UserGet";
+import LogoutSubmit from "./forms/LogoutSubmit";
 import { User } from "./models/User";
 
 // TODO: Verificar como alterar o tema padrão do Material-UI
@@ -13,16 +14,22 @@ export default function Profile() {
   // Quando o componente é montado, faz uma requisição GET para a API
   React.useEffect(() => {
     const userGet = new UserGet();
-    userGet.send().then(data => {
+    userGet.send().then((data) => {
       setUser(new User(data));
     });
   }, []);
 
   // Se o usuário ainda não foi carregado, exibe uma mensagem de carregamento
+  // TODO: Verificar se o usuário não está logado mostrar uma tela de erro
   if (!user) {
     return <div>Carregando...</div>;
   }
-  
+
+  const handleLogout = async () => {
+    const logoutSubmit = new LogoutSubmit();
+    logoutSubmit.send(event);
+  };
+
   // Exibe as informações do usuário
   return (
     <MuiMaterial.ThemeProvider theme={defaultTheme}>
@@ -41,6 +48,15 @@ export default function Profile() {
           <MuiMaterial.Typography sx={{ mb: 1.5 }} color="text.secondary">
             {`Último login: ${user.last_login}`}
           </MuiMaterial.Typography>
+          <MuiMaterial.Button
+            type="logout"
+            fullWidth
+            variant="contained"
+            sx={{ mt: 3, mb: 2 }}
+            onClick={handleLogout}
+          >
+            Sair
+          </MuiMaterial.Button>
         </MuiMaterial.CardContent>
       </MuiMaterial.Card>
     </MuiMaterial.ThemeProvider>

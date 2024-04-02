@@ -2,7 +2,7 @@ import * as React from "react";
 import * as MuiMaterial from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import CopyRight from "./CopyRight";
-import RegisterSubmit from "./forms/RegisterSubmit";
+import LoginSubmit from "./forms/LoginSubmit";
 
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = MuiMaterial.createTheme();
@@ -10,8 +10,8 @@ const defaultTheme = MuiMaterial.createTheme();
 export default function Login() {
   const useHandleSubmit = () => {
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-      const registerSubmit = new RegisterSubmit();
-      registerSubmit.send(event);
+      const loginSubmit = new LoginSubmit();
+      loginSubmit.send(event);
     };
     return handleSubmit;
   };
