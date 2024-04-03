@@ -1,11 +1,13 @@
 import * as React from "react";
 import * as MuiMaterial from "@mui/material";
-import UserGet from "./forms/UserGet";
-import DeleteSubmit from "./forms/DeleteSubmit";
+import AxiosUser from "./api/AxiosUser";
 import { User } from "./models/User";
 
 // TODO: Verificar como alterar o tema padrão do Material-UI
 const defaultTheme = MuiMaterial.createTheme();
+
+// Instância axios para acessar o usuário
+const axiosUser = new AxiosUser();
 
 export default function Profile() {
   // Inicializa o estado do usuário como nulo
@@ -16,8 +18,7 @@ export default function Profile() {
 
   // Quando o componente é montado, faz uma requisição GET para a API
   React.useEffect(() => {
-    const userGet = new UserGet();
-    userGet.send().then((data) => {
+    axiosUser.getUserInfo().then((data: User) => {
       setUser(new User(data));
     });
   }, []);
@@ -29,8 +30,8 @@ export default function Profile() {
   }
 
   const handleConfirm = (event) => {
-    const deleteSubmit = new DeleteSubmit();
-    deleteSubmit.send(event);
+    event.preventDefault();
+    axiosUser.removeUser();
     setOpenModal(false);
   };
 
