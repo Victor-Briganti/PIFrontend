@@ -1,12 +1,14 @@
 import * as React from "react";
 import * as MuiMaterial from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import UserGet from "./forms/UserGet";
-import ChangeSubmit from "./forms/ChangeSubmit";
+import AxiosUser from "./api/AxiosUser";
 import { User } from "./models/User";
 
 // TODO: Verificar como alterar o tema padrão do Material-UI
 const defaultTheme = MuiMaterial.createTheme();
+
+// Instância axios para acessar o usuário
+const axiosUser = new AxiosUser();
 
 export default function ChangePassword() {
   const [user, setUser] = React.useState<User | null>(null);
@@ -16,13 +18,19 @@ export default function ChangePassword() {
     null
   );
 
+  // Quando o componente é montado, faz uma requisição GET para a API
   React.useEffect(() => {
-    const userGet = new UserGet();
-    userGet.send().then((data) => {
+    axiosUser.getUserInfo().then((data: User) => {
       setUser(new User(data));
     });
   }, []);
 
+  // Se o usuário ainda não foi carregado, exibe uma mensagem de carregamento
+  if (!user) {
+    return <div>Carregando...</div>;
+  }
+
+  // Função que é chamada quando o formulário é submetido
   const handleSubmit = (event) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
@@ -36,14 +44,24 @@ export default function ChangePassword() {
     setOpenModal(true);
   };
 
+  // Função que é chamada quando o usuário confirma a alteração de senha
   const handleConfirm = () => {
-    const changeSubmit = new ChangeSubmit();
-    if (currentFormData !== null) {
-      changeSubmit.sendWithUser(currentFormData, user);
+    const password = currentFormData?.get("password");
+
+    // Verifica se a senha é válida
+    if (
+      currentFormData === null ||
+      password === null ||
+      typeof password !== "string"
+    ) {
+      setMessageError("Senha não pode ser vazia");
+    } else {
+      axiosUser.changePassword(user.id, password);
     }
     setOpenModal(false);
   };
 
+  // Função que é chamada quando o usuário fecha o modal de confirmação
   const handleCloseModal = () => {
     setCurrentFormData(null);
     setOpenModal(false);

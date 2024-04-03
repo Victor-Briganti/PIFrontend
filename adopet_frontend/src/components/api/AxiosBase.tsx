@@ -11,10 +11,45 @@ abstract class AxiosBase<T> {
     axios.defaults.withCredentials = true;
   }
 
-  protected abstract get(url: string, config : AxiosRequestConfig) : AxiosResponse;
-  protected abstract post(url: string, data: T | null, config : AxiosRequestConfig) : AxiosResponse;
-  protected abstract put(url: string, data: T | null, config : AxiosRequestConfig) : AxiosResponse;
-  protected abstract delete(url: string, config : AxiosRequestConfig) : AxiosResponse;
+  protected async get(url: string, config = {}) {
+      try {
+          const response = await axios.get(this.host + url, config);
+          console.log(response.data);
+          return response.data;
+      } catch (error) {
+          console.error(error);
+      }
+  }
+
+  protected async post(url: string, data: T | null = null, config = {}) {
+    try {
+      const response = await axios.post(this.host + url, data, config);
+      console.log(response.data);
+      return response.data;
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  protected async put(url: string, data: T | null = null, config = {}) {
+    try {
+      const response = await axios.put(this.host + url, data, config);
+      console.log(response.data);
+      return response.data;
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  protected async delete(url: string, config: AxiosRequestConfig<any> = {}) {
+    try {
+      const response = await axios.delete(this.host + url, config);
+      console.log(response.data);
+      return response.data;
+    } catch (error) {
+      console.error(error);
+    }
+  }
 }
 
 export default AxiosBase;

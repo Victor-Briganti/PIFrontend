@@ -6,7 +6,7 @@ import { User } from "./models/User";
 // TODO: Verificar como alterar o tema padrão do Material-UI
 const defaultTheme = MuiMaterial.createTheme();
 
-// Instancia a classe AxiosBase para requisições
+// Instância axios para acessar o usuário
 const axiosProfile = new AxiosUser();
 
 export default function Profile() {
@@ -15,7 +15,7 @@ export default function Profile() {
 
   // Quando o componente é montado, faz uma requisição GET para a API
   React.useEffect(() => {
-    axiosProfile.getUserInfo().then((data) => {
+    axiosProfile.getUserInfo().then((data: User) => {
       setUser(new User(data));
     });
   }, []);
