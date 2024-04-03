@@ -3,6 +3,7 @@ import Register from "./components/Register";
 import Login from "./components/Login";
 import Profile from "./components/Profile";
 import ChangePassword from "./components/ChangePassword";
+import Delete from "./components/Delete";
 import Home from "./components/Home";
 import "./App.css";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
@@ -18,6 +19,7 @@ function App() {
             <Route path="/register" element={<Register />}></Route>
             <Route path="/profile" element={<Profile />}></Route>
             <Route path="/changepassword" element={<ChangePassword />}></Route>
+            <Route path="/delete" element={<Delete />}></Route>
             <Route path="/" element={<Home />}></Route>
           </Routes>
         </Fragment>
