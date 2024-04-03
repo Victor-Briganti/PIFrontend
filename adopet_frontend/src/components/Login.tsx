@@ -14,20 +14,27 @@ export default function Login() {
   const [messageWarning, setMessageWarning] = React.useState<string>("");
   const useHandleSubmit = () => {
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+      // Intercepta a submissão do formulário pelo navegador
       event.preventDefault();
+
+      // Extrai os valores do formulário
       const data = new FormData(event.currentTarget);
       const email = data.get("email");
       const password = data.get("password");
 
-      if (email === "" && password === "") {
-        setMessageWarning("Informações vazias");
-      } else if (email === "") {
-        setMessageWarning("Email não pode estar vazio");
-      } else if (password === "") {
-        setMessageWarning("Senha não pode estar vazio");
-      } else {
-        setMessageWarning("");
-        axiosUser.login(email, password);
+      switch (true) {
+        case email === "" && password === "":
+          setMessageWarning("Informações vazias");
+          break;
+        case email === "":
+          setMessageWarning("Email não pode estar vazio");
+          break;
+        case password === "":
+          setMessageWarning("Senha não pode estar vazio");
+          break;
+        default:
+          setMessageWarning("");
+          axiosUser.login(email, password);
       }
     };
     return handleSubmit;

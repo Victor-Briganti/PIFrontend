@@ -2,10 +2,13 @@ import * as React from "react";
 import * as MuiMaterial from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import CopyRight from "./CopyRight";
-import RegisterSubmit from "./forms/RegisterSubmit";
+import AxiosUser from "./api/AxiosUser";
 
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = MuiMaterial.createTheme();
+
+// Instância axios para acessar o usuário
+const axiosUser = new AxiosUser();
 
 export default function Register() {
   const [messageError, setMessageError] = React.useState<string>("");
@@ -17,17 +20,37 @@ export default function Register() {
 
       // Extrai os valores do formulário
       const formData = new FormData(event.currentTarget);
+      const email = formData.get("email");
+      const firstname = formData.get("firstname");
+      const lastname = formData.get("lastname");
+      const password = formData.get("password");
+      const confirmPassword = formData.get("confirmPassword");
 
-      // Verifica senhas
-      if (formData.get("password") !== formData.get("confirmPassword")) {
-        setMessageError("Senhas não coincidem.");
-        return;
-      }
-
-      formData.delete("confirmPassword");
-
-      const registerSubmit = new RegisterSubmit();
-      registerSubmit.send(event);
+      switch (true) {
+        case email === "" && firstname === "" && lastname === "" && password === "" && confirmPassword === "":
+          setMessageError("Todos os campos estão vazios.")
+          break;
+        case firstname === "":
+          setMessageError("Campo nome não pode ser vazio.")
+          break;
+        case lastname === "":
+          setMessageError("Campo sobrenome não pode ser vazio.")
+          break;
+        case email === "":
+          setMessageError("Campo endereço email não pode ser vazio.")
+          break;
+        case password === "":
+          setMessageError("Campo senha não pode ser vazio.")
+          break;
+        case confirmPassword === "":
+          setMessageError("Campo confirmar senha não pode ser vazio.")
+          break;
+        case password !== confirmPassword:
+          setMessageError("Senhas não coincidem.")
+          break;
+        default:
+          axiosUser.register(email, password, firstname, lastname);
+      }      
     };
     return handleSubmit;
   };
