@@ -2,16 +2,33 @@ import * as React from "react";
 import * as MuiMaterial from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import CopyRight from "./CopyRight";
-import LoginSubmit from "./forms/LoginSubmit";
+import AxiosUser from "./api/AxiosUser";
 
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = MuiMaterial.createTheme();
 
+// Instância axios para acessar o usuário
+const axiosUser = new AxiosUser();
+
 export default function Login() {
+  const [messageWarning, setMessageWarning] = React.useState<string>("");
   const useHandleSubmit = () => {
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-      const loginSubmit = new LoginSubmit();
-      loginSubmit.send(event);
+      event.preventDefault();
+      const data = new FormData(event.currentTarget);
+      const email = data.get("email");
+      const password = data.get("password");
+
+      if (email === "" && password === "") {
+        setMessageWarning("Informações vazias");
+      } else if (email === "") {
+        setMessageWarning("Email não pode estar vazio");
+      } else if (password === "") {
+        setMessageWarning("Senha não pode estar vazio");
+      } else {
+        setMessageWarning("");
+        axiosUser.login(email, password);
+      }
     };
     return handleSubmit;
   };
@@ -70,6 +87,11 @@ export default function Login() {
             >
               Entrar
             </MuiMaterial.Button>
+            {messageWarning && (
+              <MuiMaterial.Alert variant="filled" severity="warning">
+                {messageWarning}
+              </MuiMaterial.Alert>
+            )}
             <MuiMaterial.Grid container>
               <MuiMaterial.Grid item xs>
                 <MuiMaterial.Link href="#" variant="body2">
