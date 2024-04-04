@@ -7,21 +7,34 @@ import { User } from "./models/User";
 const defaultTheme = MuiMaterial.createTheme();
 
 // Instância axios para acessar o usuário
-const axiosProfile = new AxiosUser();
+const axiosUser = new AxiosUser();
 
 export default function Profile() {
-  // Inicializa o estado do usuário como nulo
   const [user, setUser] = React.useState<User | null>(null);
+  const [messageError, setMessageError] = React.useState<string>("");
 
   // Quando o componente é montado, faz uma requisição GET para a API
   React.useEffect(() => {
-    axiosProfile.getUserInfo().then((data: User) => {
-      setUser(new User(data));
-    });
+    axiosUser
+      .getUserInfo()
+      .then((data: User) => {
+        setUser(new User(data));
+      })
+      .catch((error) => {
+        if (error.message === "Authentication credentials were not provided.") {
+          setMessageError("Área restrita, faça login para acessar.");
+        }
+      });
   }, []);
 
   // Se o usuário ainda não foi carregado, exibe uma mensagem de carregamento
-  if (!user) {
+  if (!user && messageError !== "") {
+    return (
+      <div>
+        <h1>{messageError}</h1>
+      </div>
+    );
+  } else if (!user) {
     return <div>Carregando...</div>;
   }
 
@@ -48,7 +61,7 @@ export default function Profile() {
           fullWidth
           variant="contained"
           sx={{ mt: 3, mb: 2 }}
-          onClick={() => axiosProfile.logout()}
+          onClick={() => axiosUser.logout()}
         >
           Sair
         </MuiMaterial.Button>

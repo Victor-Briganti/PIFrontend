@@ -27,7 +27,6 @@ export default function ChangePassword() {
       })
       .catch((error) => {
         if (error.message === "Authentication credentials were not provided.") {
-          console.log("Aqui");
           setMessageError("Área restrita, faça login para acessar.");
         }
       });

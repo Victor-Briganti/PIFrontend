@@ -10,7 +10,7 @@ const defaultTheme = MuiMaterial.createTheme();
 // Instância axios para acessar o usuário
 const axiosUser = new AxiosUser();
 
-export default function Register() {
+export default function RegisterUser() {
   const [messageError, setMessageError] = React.useState<string>("");
 
   const useHandleSubmit = () => {

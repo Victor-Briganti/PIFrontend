@@ -1,5 +1,6 @@
 import { Fragment /*useState*/ } from "react";
-import Register from "./components/Register";
+import RegisterUser from "./components/RegisterUser";
+import RegisterAnimal from "./components/RegisterAnimal";
 import Login from "./components/Login";
 import Profile from "./components/Profile";
 import ChangePassword from "./components/ChangePassword";
@@ -18,7 +19,8 @@ function App() {
             {" "}
             // Switch
             <Route path="/login" element={<Login />}></Route>
-            <Route path="/register" element={<Register />}></Route>
+            <Route path="/register_user" element={<RegisterUser />}></Route>
+            <Route path="/register_animal" element={<RegisterAnimal />}></Route>
             <Route path="/profile" element={<Profile />}></Route>
             <Route path="/changepassword" element={<ChangePassword />}></Route>
             <Route path="/delete" element={<Delete />}></Route>

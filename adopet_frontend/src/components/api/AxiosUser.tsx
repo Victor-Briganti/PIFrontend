@@ -31,7 +31,7 @@ class AxiosUser extends AxiosBase<User> {
   async logout() {
     return await this.post("logout/");
   }
- 
+
   async removeUser() {
     return await this.delete("delete/");
   }
