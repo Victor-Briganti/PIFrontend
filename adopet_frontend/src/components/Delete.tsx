@@ -12,20 +12,34 @@ const axiosUser = new AxiosUser();
 export default function Profile() {
   // Inicializa o estado do usuário como nulo
   const [user, setUser] = React.useState<User | null>(null);
+  const [messageError, setMessageError] = React.useState<string>("");
 
   // Controle do modal
   const [openModal, setOpenModal] = React.useState<boolean>(false);
 
   // Quando o componente é montado, faz uma requisição GET para a API
   React.useEffect(() => {
-    axiosUser.getUserInfo().then((data: User) => {
-      setUser(new User(data));
-    });
+    axiosUser
+      .getUserInfo()
+      .then((data: User) => {
+        setUser(new User(data));
+      })
+      .catch((error) => {
+        if (error.message === "Authentication credentials were not provided.") {
+          console.log("Aqui");
+          setMessageError("Área restrita, faça login para acessar.");
+        }
+      });
   }, []);
 
   // Se o usuário ainda não foi carregado, exibe uma mensagem de carregamento
-  // TODO: Verificar se o usuário não está logado mostrar uma tela de erro
-  if (!user) {
+  if (!user && messageError !== "") {
+    return (
+      <div>
+        <h1>{messageError}</h1>
+      </div>
+    );
+  } else if (!user) {
     return <div>Carregando...</div>;
   }
 

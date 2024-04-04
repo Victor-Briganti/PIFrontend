@@ -20,13 +20,27 @@ export default function ChangePassword() {
 
   // Quando o componente é montado, faz uma requisição GET para a API
   React.useEffect(() => {
-    axiosUser.getUserInfo().then((data: User) => {
-      setUser(new User(data));
-    });
+    axiosUser
+      .getUserInfo()
+      .then((data: User) => {
+        setUser(new User(data));
+      })
+      .catch((error) => {
+        if (error.message === "Authentication credentials were not provided.") {
+          console.log("Aqui");
+          setMessageError("Área restrita, faça login para acessar.");
+        }
+      });
   }, []);
 
   // Se o usuário ainda não foi carregado, exibe uma mensagem de carregamento
-  if (!user) {
+  if (!user && messageError !== "") {
+    return (
+      <div>
+        <h1>{messageError}</h1>
+      </div>
+    );
+  } else if (!user) {
     return <div>Carregando...</div>;
   }
 

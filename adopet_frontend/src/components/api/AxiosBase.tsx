@@ -1,4 +1,4 @@
-import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
+import axios, { AxiosRequestConfig } from "axios";
 import Cookies from "js-cookie";
 
 abstract class AxiosBase<T> {
@@ -12,13 +12,15 @@ abstract class AxiosBase<T> {
   }
 
   protected async get(url: string, config = {}) {
-      try {
-          const response = await axios.get(this.host + url, config);
-          console.log(response.data);
-          return response.data;
-      } catch (error) {
-          console.error(error);
-      }
+    try {
+      const response = await axios.get(this.host + url, config);
+      console.log(response.data);
+      return response.data;
+    } catch (error) {
+      console.error(error);
+      const detail = error.response.data.detail;
+      throw new Error(detail);
+    }
   }
 
   protected async post(url: string, data: T | null = null, config = {}) {
@@ -28,6 +30,8 @@ abstract class AxiosBase<T> {
       return response.data;
     } catch (error) {
       console.error(error);
+      const detail = error.response.data.detail;
+      throw new Error(detail);
     }
   }
 
@@ -38,6 +42,8 @@ abstract class AxiosBase<T> {
       return response.data;
     } catch (error) {
       console.error(error);
+      const detail = error.response.data.detail;
+      throw new Error(detail);
     }
   }
 
@@ -48,6 +54,8 @@ abstract class AxiosBase<T> {
       return response.data;
     } catch (error) {
       console.error(error);
+      const detail = error.response.data.detail;
+      throw new Error(detail);
     }
   }
 }
