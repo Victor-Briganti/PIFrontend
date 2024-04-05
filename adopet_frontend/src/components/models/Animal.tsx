@@ -1,8 +1,3 @@
-type Choice = {
-  value: string;
-  label: string;
-};
-
 export class Animal {
   id?: number;
   // temperament?: string[];
@@ -18,10 +13,6 @@ export class Animal {
   is_house_trained?: boolean;
   is_special_neeeds?: boolean;
   is_active?: boolean;
-
-  specie_choices?: Choice[];
-  size_choices?: Choice[];
-  gender_choices?: Choice[];
 
   constructor(data: any | null) {
     if (data === null) return;
@@ -40,20 +31,20 @@ export class Animal {
     this.is_house_trained = data.is_house_trained;
     this.is_special_neeeds = data.is_special_neeeds;
     this.is_active = data.is_active;
+  }
 
-    this.specie_choices = data.specie_choices;
-    this.size_choices = data.size_choices;
-    this.gender_choices = data.gender_choices;
+  private verifyNegativeNum(label: string, value: string) {
+    if (isNaN(Number(value))) throw new Error(label + " deve ser númerico");
+
+    if (Number(value) < 0) throw new Error(label + " não pode ser negativo");
   }
 
   saveFormData(data: FormData | null) {
-    if (data === null) {
-      console.log("Nullo 1");
-      return;
-    }
+    if (data === null) return;
 
     const id = data.get("id");
     if (id !== null) {
+      this.verifyNegativeNum("ID", id.toString());
       this.id = Number(id);
     }
 
@@ -64,6 +55,7 @@ export class Animal {
 
     const age = data.get("age");
     if (age !== null) {
+      this.verifyNegativeNum("Idade", age.toString());
       this.age = Number(age);
     }
 
@@ -89,6 +81,7 @@ export class Animal {
 
     const weight = data.get("weight");
     if (weight !== null) {
+      this.verifyNegativeNum("Peso", weight.toString());
       this.weight = Number(weight);
     }
 
@@ -115,34 +108,6 @@ export class Animal {
     const is_active = data.get("is_active");
     if (is_active !== null) {
       this.is_active = is_active === "true";
-    }
-  }
-
-  saveChoices(data: FormData) {
-    if (data === null) {
-      console.log("Nullo 2");
-      return;
-    }
-
-    const specieChoices = data.get("specieChoices");
-    if (specieChoices !== null) {
-      this.specie_choices = JSON.parse(specieChoices as string).map(
-        ([value, label]: [string, string]) => ({ value, label })
-      );
-    }
-
-    const sizeChoices = data.get("sizeChoices");
-    if (sizeChoices !== null) {
-      this.size_choices = JSON.parse(sizeChoices as string).map(
-        ([value, label]: [string, string]) => ({ value, label })
-      );
-    }
-
-    const genderChoices = data.get("genderChoices");
-    if (genderChoices !== null) {
-      this.gender_choices = JSON.parse(genderChoices as string).map(
-        ([value, label]: [string, string]) => ({ value, label })
-      );
     }
   }
 }

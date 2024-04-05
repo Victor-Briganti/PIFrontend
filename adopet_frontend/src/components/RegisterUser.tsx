@@ -27,30 +27,34 @@ export default function RegisterUser() {
       const confirmPassword = formData.get("confirmPassword");
 
       switch (true) {
-        case email === "" && firstname === "" && lastname === "" && password === "" && confirmPassword === "":
-          setMessageError("Todos os campos estão vazios.")
+        case email === "" &&
+          firstname === "" &&
+          lastname === "" &&
+          password === "" &&
+          confirmPassword === "":
+          setMessageError("Todos os campos estão vazios.");
           break;
         case firstname === "":
-          setMessageError("Campo nome não pode ser vazio.")
+          setMessageError("Campo nome não pode ser vazio.");
           break;
         case lastname === "":
-          setMessageError("Campo sobrenome não pode ser vazio.")
+          setMessageError("Campo sobrenome não pode ser vazio.");
           break;
         case email === "":
-          setMessageError("Campo endereço email não pode ser vazio.")
+          setMessageError("Campo endereço email não pode ser vazio.");
           break;
         case password === "":
-          setMessageError("Campo senha não pode ser vazio.")
+          setMessageError("Campo senha não pode ser vazio.");
           break;
         case confirmPassword === "":
-          setMessageError("Campo confirmar senha não pode ser vazio.")
+          setMessageError("Campo confirmar senha não pode ser vazio.");
           break;
         case password !== confirmPassword:
-          setMessageError("Senhas não coincidem.")
+          setMessageError("Senhas não coincidem.");
           break;
         default:
           axiosUser.register(email, password, firstname, lastname);
-      }      
+      }
     };
     return handleSubmit;
   };
@@ -93,6 +97,7 @@ export default function RegisterUser() {
                   autoFocus
                 />
               </MuiMaterial.Grid>
+
               <MuiMaterial.Grid item xs={12} sm={6}>
                 <MuiMaterial.TextField
                   required
@@ -103,6 +108,7 @@ export default function RegisterUser() {
                   autoComplete="family-name"
                 />
               </MuiMaterial.Grid>
+
               <MuiMaterial.Grid item xs={12}>
                 <MuiMaterial.TextField
                   required
@@ -113,6 +119,7 @@ export default function RegisterUser() {
                   autoComplete="email"
                 />
               </MuiMaterial.Grid>
+
               <MuiMaterial.Grid item xs={12}>
                 <MuiMaterial.TextField
                   required
@@ -124,6 +131,7 @@ export default function RegisterUser() {
                   autoComplete="new-password"
                 />
               </MuiMaterial.Grid>
+
               <MuiMaterial.Grid item xs={12}>
                 <MuiMaterial.TextField
                   required
@@ -144,11 +152,13 @@ export default function RegisterUser() {
             >
               Cadastrar
             </MuiMaterial.Button>
+
             {messageError && (
               <MuiMaterial.Alert variant="filled" severity="error">
                 {messageError}
               </MuiMaterial.Alert>
             )}
+
             <MuiMaterial.Grid container justifyContent="flex-end">
               <MuiMaterial.Grid item>
                 <MuiMaterial.Link href="#" variant="body2">
