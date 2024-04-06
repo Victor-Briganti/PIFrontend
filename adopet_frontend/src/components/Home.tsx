@@ -1,5 +1,6 @@
 import * as React from "react";
 import * as MuiMaterial from "@mui/material";
+// import { MuiMaterial.Box } from "@mui/material";
 import Header from "./Header";
 // import Copyright from "./CopyRight";
 import Footer from "./Footer";
@@ -89,7 +90,6 @@ export default function Home() {
         </MuiMaterial.Box>
       </MuiMaterial.Box>
       <Footer />
-      {/* <Copyright /> */}
     </MuiMaterial.Box>
   );
 }

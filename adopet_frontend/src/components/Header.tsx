@@ -38,7 +38,7 @@ function Header() {
           <MuiMaterial.Button href="/">
             <img
               // Imagem da logo
-              src={`./public/vite.svg?w=164&h=164&fit=crop&auto=format`}
+              src={`/public/vite.svg?w=164&h=164&fit=crop&auto=format`}
               loading="lazy"
             />
             <MuiMaterial.Typography
@@ -91,10 +91,21 @@ function Header() {
               }}
             >
               {pages.map((page) => (
-                <MuiMaterial.MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <MuiMaterial.Typography textAlign="center">
+                <MuiMaterial.MenuItem
+                  sx={{ padding: "0px" }}
+                  key={page}
+                  onClick={handleCloseNavMenu}
+                >
+                  <MuiMaterial.Link
+                    textAlign="center"
+                    href={pageLink[pages.indexOf(page)]}
+                    width={"100%"}
+                    sx={{ px: "14px" }}
+                    underline="none"
+                    color={"textPrimary"}
+                  >
                     {page}
-                  </MuiMaterial.Typography>
+                  </MuiMaterial.Link>
                 </MuiMaterial.MenuItem>
               ))}
             </MuiMaterial.Menu>
@@ -117,7 +128,7 @@ function Header() {
             <MuiMaterial.Tooltip title="Configurações de Usuário">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <MuiMaterial.Avatar
-                  alt="Augusto"
+                  alt="User Avatar"
                   //   imagem do usuário
                   src="/static/images/avatar/2.jpg"
                 />
@@ -141,13 +152,19 @@ function Header() {
             >
               {settings.map((setting) => (
                 <MuiMaterial.MenuItem
+                  sx={{ padding: "0px" }}
                   key={setting}
-                  href={settingLink[settings.indexOf(setting)]}
                   onClick={handleCloseUserMenu}
                 >
-                  <MuiMaterial.Typography textAlign="center">
+                  <MuiMaterial.Link
+                    textAlign="center"
+                    sx={{ px: "14px" }}
+                    href={settingLink[settings.indexOf(setting)]}
+                    underline="none"
+                    color={"textPrimary"}
+                  >
                     {setting}
-                  </MuiMaterial.Typography>
+                  </MuiMaterial.Link>
                 </MuiMaterial.MenuItem>
               ))}
             </MuiMaterial.Menu>

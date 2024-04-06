@@ -5,6 +5,7 @@ import Profile from "./components/Profile";
 import ChangePassword from "./components/ChangePassword";
 import Delete from "./components/Delete";
 import Home from "./components/Home";
+import About from "./components/About";
 import Animals from "./components/AnimalGrid";
 import "./App.css";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
@@ -26,6 +27,7 @@ function App() {
             <Route path="/delete" element={<Delete />}></Route>
             <Route path="/animals" element={<Animals />}></Route>
             <Route path="/" element={<Home />}></Route>
+            <Route path="/about" element={<About />}></Route>
           </Routes>
         </Router>
       </div>
