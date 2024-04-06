@@ -5,9 +5,6 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { Animal } from "./models/Animal";
 import { AnimalFormChoice } from "./models/AnimalFormChoice";
 
-// TODO: Verificar como alterar o tema padrão do Material-UI
-const defaultTheme = MuiMaterial.createTheme();
-
 // Instância axios para acessar o usuário
 const axiosAnimal = new AxiosAnimal();
 
@@ -74,7 +71,7 @@ export default function RegisterAnimal() {
       })
       .catch((error) => {
         setLoadError(
-          "Erro ao carregar as opções de formulário. Tente novamente.",
+          "Erro ao carregar as opções de formulário. Tente novamente."
         );
       });
   }, []);
@@ -91,193 +88,191 @@ export default function RegisterAnimal() {
   }
 
   return (
-    <MuiMaterial.ThemeProvider theme={defaultTheme}>
-      <MuiMaterial.Container component="main" maxWidth="xs">
-        <MuiMaterial.CssBaseline />
+    <MuiMaterial.Container component="main" maxWidth="xs">
+      <MuiMaterial.CssBaseline />
+      <MuiMaterial.Box
+        sx={{
+          marginTop: 8,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        <MuiMaterial.Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+          <LockOutlinedIcon />
+        </MuiMaterial.Avatar>
+        <MuiMaterial.Typography component="h1" variant="h5">
+          Registro de Animais
+        </MuiMaterial.Typography>
         <MuiMaterial.Box
-          sx={{
-            marginTop: 8,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
+          component="form"
+          noValidate
+          onSubmit={handleSubmit}
+          sx={{ mt: 3 }}
         >
-          <MuiMaterial.Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-            <LockOutlinedIcon />
-          </MuiMaterial.Avatar>
-          <MuiMaterial.Typography component="h1" variant="h5">
-            Registro de Animais
-          </MuiMaterial.Typography>
-          <MuiMaterial.Box
-            component="form"
-            noValidate
-            onSubmit={handleSubmit}
-            sx={{ mt: 3 }}
-          >
-            <MuiMaterial.Grid container spacing={2}>
-              <MuiMaterial.Grid item xs={12} sm={12}>
-                <MuiMaterial.TextField
-                  required
-                  fullWidth
-                  id="name"
-                  label="Nome"
-                  name="name"
-                />
-              </MuiMaterial.Grid>
-
-              <MuiMaterial.Grid item xs={12} sm={12}>
-                <MuiMaterial.TextField
-                  required
-                  fullWidth
-                  id="age"
-                  label="Idade"
-                  name="age"
-                />
-              </MuiMaterial.Grid>
-
-              <MuiMaterial.Grid item xs={12} sm={12}>
-                <MuiMaterial.TextField
-                  required
-                  fullWidth
-                  id="weight"
-                  label="Peso"
-                  name="weight"
-                />
-              </MuiMaterial.Grid>
-
-              <MuiMaterial.Grid item xs={12} sm={12}>
-                <MuiMaterial.TextField
-                  required
-                  fullWidth
-                  id="coat"
-                  label="Pelagem"
-                  name="coat"
-                />
-              </MuiMaterial.Grid>
-
-              <MuiMaterial.Grid item xs={12} sm={12}>
-                <MuiMaterial.FormControl sx={{ m: 1, minWidth: 400 }}>
-                  <MuiMaterial.InputLabel id="specieInput">
-                    Espécie
-                  </MuiMaterial.InputLabel>
-                  <MuiMaterial.Select
-                    labelId="specieLabel"
-                    id="specie"
-                    value={specie}
-                    label="Espécie *"
-                    onChange={handleSpecie}
-                  >
-                    {choices.mapSpecies()}
-                  </MuiMaterial.Select>
-                  <MuiMaterial.FormHelperText>
-                    Campo Obrigatório
-                  </MuiMaterial.FormHelperText>
-                </MuiMaterial.FormControl>
-              </MuiMaterial.Grid>
-
-              <MuiMaterial.Grid item xs={12} sm={12}>
-                <MuiMaterial.FormControl sx={{ m: 1, minWidth: 400 }}>
-                  <MuiMaterial.InputLabel id="genderInput">
-                    Sexo
-                  </MuiMaterial.InputLabel>
-                  <MuiMaterial.Select
-                    labelId="genderLabel"
-                    id="gender"
-                    value={gender}
-                    label="Espécie *"
-                    onChange={handleGender}
-                  >
-                    {choices.mapGender()}
-                  </MuiMaterial.Select>
-                  <MuiMaterial.FormHelperText>
-                    Campo Obrigatório
-                  </MuiMaterial.FormHelperText>
-                </MuiMaterial.FormControl>
-              </MuiMaterial.Grid>
-
-              <MuiMaterial.Grid item xs={12} sm={12}>
-                <MuiMaterial.FormControl sx={{ m: 1, minWidth: 400 }}>
-                  <MuiMaterial.InputLabel id="sizeInput">
-                    Tamanho
-                  </MuiMaterial.InputLabel>
-                  <MuiMaterial.Select
-                    labelId="sizeLabel"
-                    id="size"
-                    value={size}
-                    label="Tamanho *"
-                    onChange={handleSize}
-                  >
-                    {choices.mapSize()}
-                  </MuiMaterial.Select>
-                  <MuiMaterial.FormHelperText>
-                    Campo Obrigatório
-                  </MuiMaterial.FormHelperText>
-                </MuiMaterial.FormControl>
-              </MuiMaterial.Grid>
-
-              <MuiMaterial.Grid item xs={12} sm={12}>
-                <MuiMaterial.TextField
-                  required
-                  fullWidth
-                  id="description"
-                  label="Descrição"
-                  name="description"
-                  multiline
-                  rows={5}
-                />
-              </MuiMaterial.Grid>
-
-              <MuiMaterial.Grid item xs={12} sm={12}>
-                <MuiMaterial.FormGroup>
-                  <MuiMaterial.Grid item xs={12} sm={12}>
-                    <MuiMaterial.FormControlLabel
-                      control={
-                        <MuiMaterial.Checkbox
-                          id="is_house_trained"
-                          checked={isHouseTrained}
-                          onChange={handleHouseTrained}
-                        />
-                      }
-                      label="Sabe usar a caixa de areia ou o tapete higiênico"
-                    />
-                  </MuiMaterial.Grid>
-
-                  <MuiMaterial.Grid item xs={12} sm={12}>
-                    <MuiMaterial.FormControlLabel
-                      control={
-                        <MuiMaterial.Checkbox
-                          id="is_special_needs"
-                          checked={isSpecialNeeds}
-                          onChange={handleSpecialNeeds}
-                        />
-                      }
-                      label="Possui necessidades especiais"
-                    />
-                  </MuiMaterial.Grid>
-                </MuiMaterial.FormGroup>
-              </MuiMaterial.Grid>
-
-              <MuiMaterial.Grid item xs={12} sm={12}>
-                <MuiMaterial.Button
-                  type="submit"
-                  fullWidth
-                  variant="contained"
-                  sx={{ mt: 3, mb: 2 }}
-                >
-                  Cadastrar
-                </MuiMaterial.Button>
-              </MuiMaterial.Grid>
-              {messageError && (
-                <MuiMaterial.Grid item xs={12} sm={12}>
-                  <MuiMaterial.Alert variant="filled" severity="error">
-                    {messageError}
-                  </MuiMaterial.Alert>
-                </MuiMaterial.Grid>
-              )}
+          <MuiMaterial.Grid container spacing={2}>
+            <MuiMaterial.Grid item xs={12} sm={12}>
+              <MuiMaterial.TextField
+                required
+                fullWidth
+                id="name"
+                label="Nome"
+                name="name"
+              />
             </MuiMaterial.Grid>
-          </MuiMaterial.Box>
+
+            <MuiMaterial.Grid item xs={12} sm={12}>
+              <MuiMaterial.TextField
+                required
+                fullWidth
+                id="age"
+                label="Idade"
+                name="age"
+              />
+            </MuiMaterial.Grid>
+
+            <MuiMaterial.Grid item xs={12} sm={12}>
+              <MuiMaterial.TextField
+                required
+                fullWidth
+                id="weight"
+                label="Peso"
+                name="weight"
+              />
+            </MuiMaterial.Grid>
+
+            <MuiMaterial.Grid item xs={12} sm={12}>
+              <MuiMaterial.TextField
+                required
+                fullWidth
+                id="coat"
+                label="Pelagem"
+                name="coat"
+              />
+            </MuiMaterial.Grid>
+
+            <MuiMaterial.Grid item xs={12} sm={12}>
+              <MuiMaterial.FormControl sx={{ m: 1, minWidth: 400 }}>
+                <MuiMaterial.InputLabel id="specieInput">
+                  Espécie
+                </MuiMaterial.InputLabel>
+                <MuiMaterial.Select
+                  labelId="specieLabel"
+                  id="specie"
+                  value={specie}
+                  label="Espécie *"
+                  onChange={handleSpecie}
+                >
+                  {choices.mapSpecies()}
+                </MuiMaterial.Select>
+                <MuiMaterial.FormHelperText>
+                  Campo Obrigatório
+                </MuiMaterial.FormHelperText>
+              </MuiMaterial.FormControl>
+            </MuiMaterial.Grid>
+
+            <MuiMaterial.Grid item xs={12} sm={12}>
+              <MuiMaterial.FormControl sx={{ m: 1, minWidth: 400 }}>
+                <MuiMaterial.InputLabel id="genderInput">
+                  Sexo
+                </MuiMaterial.InputLabel>
+                <MuiMaterial.Select
+                  labelId="genderLabel"
+                  id="gender"
+                  value={gender}
+                  label="Espécie *"
+                  onChange={handleGender}
+                >
+                  {choices.mapGender()}
+                </MuiMaterial.Select>
+                <MuiMaterial.FormHelperText>
+                  Campo Obrigatório
+                </MuiMaterial.FormHelperText>
+              </MuiMaterial.FormControl>
+            </MuiMaterial.Grid>
+
+            <MuiMaterial.Grid item xs={12} sm={12}>
+              <MuiMaterial.FormControl sx={{ m: 1, minWidth: 400 }}>
+                <MuiMaterial.InputLabel id="sizeInput">
+                  Tamanho
+                </MuiMaterial.InputLabel>
+                <MuiMaterial.Select
+                  labelId="sizeLabel"
+                  id="size"
+                  value={size}
+                  label="Tamanho *"
+                  onChange={handleSize}
+                >
+                  {choices.mapSize()}
+                </MuiMaterial.Select>
+                <MuiMaterial.FormHelperText>
+                  Campo Obrigatório
+                </MuiMaterial.FormHelperText>
+              </MuiMaterial.FormControl>
+            </MuiMaterial.Grid>
+
+            <MuiMaterial.Grid item xs={12} sm={12}>
+              <MuiMaterial.TextField
+                required
+                fullWidth
+                id="description"
+                label="Descrição"
+                name="description"
+                multiline
+                rows={5}
+              />
+            </MuiMaterial.Grid>
+
+            <MuiMaterial.Grid item xs={12} sm={12}>
+              <MuiMaterial.FormGroup>
+                <MuiMaterial.Grid item xs={12} sm={12}>
+                  <MuiMaterial.FormControlLabel
+                    control={
+                      <MuiMaterial.Checkbox
+                        id="is_house_trained"
+                        checked={isHouseTrained}
+                        onChange={handleHouseTrained}
+                      />
+                    }
+                    label="Sabe usar a caixa de areia ou o tapete higiênico"
+                  />
+                </MuiMaterial.Grid>
+
+                <MuiMaterial.Grid item xs={12} sm={12}>
+                  <MuiMaterial.FormControlLabel
+                    control={
+                      <MuiMaterial.Checkbox
+                        id="is_special_needs"
+                        checked={isSpecialNeeds}
+                        onChange={handleSpecialNeeds}
+                      />
+                    }
+                    label="Possui necessidades especiais"
+                  />
+                </MuiMaterial.Grid>
+              </MuiMaterial.FormGroup>
+            </MuiMaterial.Grid>
+
+            <MuiMaterial.Grid item xs={12} sm={12}>
+              <MuiMaterial.Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
+              >
+                Cadastrar
+              </MuiMaterial.Button>
+            </MuiMaterial.Grid>
+            {messageError && (
+              <MuiMaterial.Grid item xs={12} sm={12}>
+                <MuiMaterial.Alert variant="filled" severity="error">
+                  {messageError}
+                </MuiMaterial.Alert>
+              </MuiMaterial.Grid>
+            )}
+          </MuiMaterial.Grid>
         </MuiMaterial.Box>
-      </MuiMaterial.Container>
-    </MuiMaterial.ThemeProvider>
+      </MuiMaterial.Box>
+    </MuiMaterial.Container>
   );
 }
