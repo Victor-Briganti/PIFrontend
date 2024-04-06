@@ -1,5 +1,5 @@
 import * as React from "react";
-import * as MuiMaterial from "@mui/material";
+import * as MUI from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import CopyRight from "./CopyRight";
 import AxiosUser from "./api/AxiosUser";
@@ -40,9 +40,9 @@ export default function Login() {
   const handleSubmit = useHandleSubmit();
 
   return (
-    <MuiMaterial.Container component="main" maxWidth="xs">
-      <MuiMaterial.CssBaseline />
-      <MuiMaterial.Box
+    <MUI.Container component="main" maxWidth="xs">
+      <MUI.CssBaseline />
+      <MUI.Box
         sx={{
           marginTop: 8,
           display: "flex",
@@ -50,19 +50,19 @@ export default function Login() {
           alignItems: "center",
         }}
       >
-        <MuiMaterial.Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+        <MUI.Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
           <LockOutlinedIcon />
-        </MuiMaterial.Avatar>
-        <MuiMaterial.Typography component="h1" variant="h5">
-          Sign in
-        </MuiMaterial.Typography>
-        <MuiMaterial.Box
+        </MUI.Avatar>
+        <MUI.Typography component="h1" variant="h5">
+          Login
+        </MUI.Typography>
+        <MUI.Box
           component="form"
           onSubmit={handleSubmit}
           noValidate
           sx={{ mt: 1 }}
         >
-          <MuiMaterial.TextField
+          <MUI.TextField
             margin="normal"
             required
             fullWidth
@@ -72,7 +72,7 @@ export default function Login() {
             autoComplete="email"
             autoFocus
           />
-          <MuiMaterial.TextField
+          <MUI.TextField
             margin="normal"
             required
             fullWidth
@@ -82,34 +82,34 @@ export default function Login() {
             id="password"
             autoComplete="current-password"
           />
-          <MuiMaterial.Button
+          <MUI.Button
             type="submit"
             fullWidth
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
           >
             Entrar
-          </MuiMaterial.Button>
+          </MUI.Button>
           {messageWarning && (
-            <MuiMaterial.Alert variant="filled" severity="warning">
+            <MUI.Alert variant="filled" severity="warning">
               {messageWarning}
-            </MuiMaterial.Alert>
+            </MUI.Alert>
           )}
-          <MuiMaterial.Grid container>
-            <MuiMaterial.Grid item xs>
-              <MuiMaterial.Link href="#" variant="body2">
+          <MUI.Grid container>
+            <MUI.Grid item xs>
+              <MUI.Link href="#" variant="body2">
                 Esqueceu a senha?
-              </MuiMaterial.Link>
-            </MuiMaterial.Grid>
-            <MuiMaterial.Grid item>
-              <MuiMaterial.Link href="#" variant="body2">
+              </MUI.Link>
+            </MUI.Grid>
+            <MUI.Grid item>
+              <MUI.Link href="#" variant="body2">
                 {"Não possui uma conta? Cadastre-se"}
-              </MuiMaterial.Link>
-            </MuiMaterial.Grid>
-          </MuiMaterial.Grid>
-        </MuiMaterial.Box>
-      </MuiMaterial.Box>
+              </MUI.Link>
+            </MUI.Grid>
+          </MUI.Grid>
+        </MUI.Box>
+      </MUI.Box>
       <CopyRight sx={{ mt: 8, mb: 4 }} />
-    </MuiMaterial.Container>
+    </MUI.Container>
   );
 }

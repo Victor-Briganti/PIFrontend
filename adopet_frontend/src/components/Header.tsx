@@ -1,5 +1,5 @@
 import * as React from "react";
-import * as MuiMaterial from "@mui/material";
+import * as MUI from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 
@@ -32,16 +32,16 @@ function Header() {
   };
 
   return (
-    <MuiMaterial.AppBar>
-      <MuiMaterial.Container maxWidth="xl">
-        <MuiMaterial.Toolbar disableGutters>
-          <MuiMaterial.Button href="/">
+    <MUI.AppBar>
+      <MUI.Container maxWidth="xl">
+        <MUI.Toolbar disableGutters>
+          <MUI.Button href="/">
             <img
               // Imagem da logo
               src={`/public/vite.svg?w=164&h=164&fit=crop&auto=format`}
               loading="lazy"
             />
-            <MuiMaterial.Typography
+            <MUI.Typography
               variant="h6"
               noWrap
               component={"span"}
@@ -57,12 +57,12 @@ function Header() {
               }}
             >
               Adopet
-            </MuiMaterial.Typography>
-          </MuiMaterial.Button>
-          <MuiMaterial.Box
+            </MUI.Typography>
+          </MUI.Button>
+          <MUI.Box
             sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}
           >
-            <MuiMaterial.IconButton
+            <MUI.IconButton
               size="large"
               aria-label="account of current user"
               aria-controls="menu-appbar"
@@ -71,8 +71,8 @@ function Header() {
               color="inherit"
             >
               <MenuIcon />
-            </MuiMaterial.IconButton>
-            <MuiMaterial.Menu
+            </MUI.IconButton>
+            <MUI.Menu
               id="menu-appbar"
               anchorEl={anchorElNav}
               anchorOrigin={{
@@ -91,12 +91,12 @@ function Header() {
               }}
             >
               {pages.map((page) => (
-                <MuiMaterial.MenuItem
+                <MUI.MenuItem
                   sx={{ padding: "0px" }}
                   key={page}
                   onClick={handleCloseNavMenu}
                 >
-                  <MuiMaterial.Link
+                  <MUI.Link
                     textAlign="center"
                     href={pageLink[pages.indexOf(page)]}
                     width={"100%"}
@@ -105,36 +105,36 @@ function Header() {
                     color={"textPrimary"}
                   >
                     {page}
-                  </MuiMaterial.Link>
-                </MuiMaterial.MenuItem>
+                  </MUI.Link>
+                </MUI.MenuItem>
               ))}
-            </MuiMaterial.Menu>
-          </MuiMaterial.Box>
-          <MuiMaterial.Box
+            </MUI.Menu>
+          </MUI.Box>
+          <MUI.Box
             sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}
           >
             {pages.map((page) => (
-              <MuiMaterial.Button
+              <MUI.Button
                 key={page}
                 href={pageLink[pages.indexOf(page)]}
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: "white", display: "block" }}
               >
                 {page}
-              </MuiMaterial.Button>
+              </MUI.Button>
             ))}
-          </MuiMaterial.Box>
-          <MuiMaterial.Box sx={{ flexGrow: 0 }}>
-            <MuiMaterial.Tooltip title="Configurações de Usuário">
+          </MUI.Box>
+          <MUI.Box sx={{ flexGrow: 0 }}>
+            <MUI.Tooltip title="Configurações de Usuário">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <MuiMaterial.Avatar
+                <MUI.Avatar
                   alt="User Avatar"
                   //   imagem do usuário
                   src="/static/images/avatar/2.jpg"
                 />
               </IconButton>
-            </MuiMaterial.Tooltip>
-            <MuiMaterial.Menu
+            </MUI.Tooltip>
+            <MUI.Menu
               sx={{ mt: "45px" }}
               id="menu-appbar"
               anchorEl={anchorElUser}
@@ -151,12 +151,12 @@ function Header() {
               onClose={handleCloseUserMenu}
             >
               {settings.map((setting) => (
-                <MuiMaterial.MenuItem
+                <MUI.MenuItem
                   sx={{ padding: "0px" }}
                   key={setting}
                   onClick={handleCloseUserMenu}
                 >
-                  <MuiMaterial.Link
+                  <MUI.Link
                     textAlign="center"
                     sx={{ px: "14px" }}
                     href={settingLink[settings.indexOf(setting)]}
@@ -164,14 +164,14 @@ function Header() {
                     color={"textPrimary"}
                   >
                     {setting}
-                  </MuiMaterial.Link>
-                </MuiMaterial.MenuItem>
+                  </MUI.Link>
+                </MUI.MenuItem>
               ))}
-            </MuiMaterial.Menu>
-          </MuiMaterial.Box>
-        </MuiMaterial.Toolbar>
-      </MuiMaterial.Container>
-    </MuiMaterial.AppBar>
+            </MUI.Menu>
+          </MUI.Box>
+        </MUI.Toolbar>
+      </MUI.Container>
+    </MUI.AppBar>
   );
 }
 export default Header;

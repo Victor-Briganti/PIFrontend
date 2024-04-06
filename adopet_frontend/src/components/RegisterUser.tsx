@@ -1,5 +1,5 @@
 import * as React from "react";
-import * as MuiMaterial from "@mui/material";
+import * as MUI from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import CopyRight from "./CopyRight";
 import AxiosUser from "./api/AxiosUser";
@@ -63,9 +63,9 @@ export default function RegisterUser() {
   const handleSubmit = useHandleSubmit();
 
   return (
-    <MuiMaterial.Container component="main" maxWidth="xs">
-      <MuiMaterial.CssBaseline />
-      <MuiMaterial.Box
+    <MUI.Container component="main" maxWidth="xs">
+      <MUI.CssBaseline />
+      <MUI.Box
         sx={{
           marginTop: 8,
           display: "flex",
@@ -73,21 +73,21 @@ export default function RegisterUser() {
           alignItems: "center",
         }}
       >
-        <MuiMaterial.Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+        <MUI.Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
           <LockOutlinedIcon />
-        </MuiMaterial.Avatar>
-        <MuiMaterial.Typography component="h1" variant="h5">
+        </MUI.Avatar>
+        <MUI.Typography component="h1" variant="h5">
           Cadastrar-se
-        </MuiMaterial.Typography>
-        <MuiMaterial.Box
+        </MUI.Typography>
+        <MUI.Box
           component="form"
           noValidate
           onSubmit={handleSubmit}
           sx={{ mt: 3 }}
         >
-          <MuiMaterial.Grid container spacing={2}>
-            <MuiMaterial.Grid item xs={12} sm={6}>
-              <MuiMaterial.TextField
+          <MUI.Grid container spacing={2}>
+            <MUI.Grid item xs={12} sm={6}>
+              <MUI.TextField
                 autoComplete="given-name"
                 name="firstname"
                 required
@@ -96,9 +96,9 @@ export default function RegisterUser() {
                 label="Nome"
                 autoFocus
               />
-            </MuiMaterial.Grid>
-            <MuiMaterial.Grid item xs={12} sm={6}>
-              <MuiMaterial.TextField
+            </MUI.Grid>
+            <MUI.Grid item xs={12} sm={6}>
+              <MUI.TextField
                 required
                 fullWidth
                 id="lastname"
@@ -106,9 +106,9 @@ export default function RegisterUser() {
                 name="lastname"
                 autoComplete="family-name"
               />
-            </MuiMaterial.Grid>
-            <MuiMaterial.Grid item xs={12}>
-              <MuiMaterial.TextField
+            </MUI.Grid>
+            <MUI.Grid item xs={12}>
+              <MUI.TextField
                 required
                 fullWidth
                 id="email"
@@ -116,9 +116,9 @@ export default function RegisterUser() {
                 name="email"
                 autoComplete="email"
               />
-            </MuiMaterial.Grid>
-            <MuiMaterial.Grid item xs={12}>
-              <MuiMaterial.TextField
+            </MUI.Grid>
+            <MUI.Grid item xs={12}>
+              <MUI.TextField
                 required
                 fullWidth
                 name="password"
@@ -127,9 +127,9 @@ export default function RegisterUser() {
                 id="password"
                 autoComplete="new-password"
               />
-            </MuiMaterial.Grid>
-            <MuiMaterial.Grid item xs={12}>
-              <MuiMaterial.TextField
+            </MUI.Grid>
+            <MUI.Grid item xs={12}>
+              <MUI.TextField
                 required
                 fullWidth
                 name="confirmPassword"
@@ -138,31 +138,31 @@ export default function RegisterUser() {
                 id="confirmPassword"
                 autoComplete="new-password"
               />
-            </MuiMaterial.Grid>
-          </MuiMaterial.Grid>
-          <MuiMaterial.Button
+            </MUI.Grid>
+          </MUI.Grid>
+          <MUI.Button
             type="submit"
             fullWidth
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
           >
             Cadastrar
-          </MuiMaterial.Button>
+          </MUI.Button>
           {messageError && (
-            <MuiMaterial.Alert variant="filled" severity="error">
+            <MUI.Alert variant="filled" severity="error">
               {messageError}
-            </MuiMaterial.Alert>
+            </MUI.Alert>
           )}
-          <MuiMaterial.Grid container justifyContent="flex-end">
-            <MuiMaterial.Grid item>
-              <MuiMaterial.Link href="#" variant="body2">
+          <MUI.Grid container justifyContent="flex-end">
+            <MUI.Grid item>
+              <MUI.Link href="#" variant="body2">
                 Já possui uma conta? Entrar
-              </MuiMaterial.Link>
-            </MuiMaterial.Grid>
-          </MuiMaterial.Grid>
-        </MuiMaterial.Box>
-      </MuiMaterial.Box>
+              </MUI.Link>
+            </MUI.Grid>
+          </MUI.Grid>
+        </MUI.Box>
+      </MUI.Box>
       <CopyRight sx={{ mt: 5 }} />
-    </MuiMaterial.Container>
+    </MUI.Container>
   );
 }

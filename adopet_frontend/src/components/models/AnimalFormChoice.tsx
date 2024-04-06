@@ -1,4 +1,4 @@
-import * as MuiMaterial from "@mui/material";
+import * as MUI from "@mui/material";
 
 type AnimalTypeChoice = {
   label: string;
@@ -37,25 +37,25 @@ export class AnimalFormChoice {
 
   mapSpecies() {
     return this.specie_choices.map((choice: AnimalTypeChoice) => (
-      <MuiMaterial.MenuItem key={choice.label} value={choice.label}>
+      <MUI.MenuItem key={choice.label} value={choice.label}>
         {choice.value}
-      </MuiMaterial.MenuItem>
+      </MUI.MenuItem>
     ));
   }
 
   mapSize() {
     return this.size_choices.map((choice: AnimalTypeChoice) => (
-      <MuiMaterial.MenuItem key={choice.label} value={choice.label}>
+      <MUI.MenuItem key={choice.label} value={choice.label}>
         {choice.value}
-      </MuiMaterial.MenuItem>
+      </MUI.MenuItem>
     ));
   }
 
   mapGender() {
     return this.gender_choices.map((choice: AnimalTypeChoice) => (
-      <MuiMaterial.MenuItem key={choice.label} value={choice.label}>
+      <MUI.MenuItem key={choice.label} value={choice.label}>
         {choice.value}
-      </MuiMaterial.MenuItem>
+      </MUI.MenuItem>
     ));
   }
 }

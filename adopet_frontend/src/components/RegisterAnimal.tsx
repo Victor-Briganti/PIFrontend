@@ -1,5 +1,5 @@
 import * as React from "react";
-import * as MuiMaterial from "@mui/material";
+import * as MUI from "@mui/material";
 import AxiosAnimal from "./api/AxiosAnimal";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { Animal } from "./models/Animal";
@@ -20,15 +20,15 @@ export default function RegisterAnimal() {
   const [isHouseTrained, setHouseTrained] = React.useState<boolean>(false);
   const [isSpecialNeeds, setSpecialNeeds] = React.useState<boolean>(false);
 
-  const handleSpecie = (event: MuiMaterial.SelectChangeEvent) => {
+  const handleSpecie = (event: MUI.SelectChangeEvent) => {
     setSpecie(event.target.value);
   };
 
-  const handleGender = (event: MuiMaterial.SelectChangeEvent) => {
+  const handleGender = (event: MUI.SelectChangeEvent) => {
     setGender(event.target.value);
   };
 
-  const handleSize = (event: MuiMaterial.SelectChangeEvent) => {
+  const handleSize = (event: MUI.SelectChangeEvent) => {
     setSize(event.target.value);
   };
 
@@ -88,9 +88,9 @@ export default function RegisterAnimal() {
   }
 
   return (
-    <MuiMaterial.Container component="main" maxWidth="xs">
-      <MuiMaterial.CssBaseline />
-      <MuiMaterial.Box
+    <MUI.Container component="main" maxWidth="xs">
+      <MUI.CssBaseline />
+      <MUI.Box
         sx={{
           marginTop: 8,
           display: "flex",
@@ -98,65 +98,65 @@ export default function RegisterAnimal() {
           alignItems: "center",
         }}
       >
-        <MuiMaterial.Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+        <MUI.Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
           <LockOutlinedIcon />
-        </MuiMaterial.Avatar>
-        <MuiMaterial.Typography component="h1" variant="h5">
+        </MUI.Avatar>
+        <MUI.Typography component="h1" variant="h5">
           Registro de Animais
-        </MuiMaterial.Typography>
-        <MuiMaterial.Box
+        </MUI.Typography>
+        <MUI.Box
           component="form"
           noValidate
           onSubmit={handleSubmit}
           sx={{ mt: 3 }}
         >
-          <MuiMaterial.Grid container spacing={2}>
-            <MuiMaterial.Grid item xs={12} sm={12}>
-              <MuiMaterial.TextField
+          <MUI.Grid container spacing={2}>
+            <MUI.Grid item xs={12} sm={12}>
+              <MUI.TextField
                 required
                 fullWidth
                 id="name"
                 label="Nome"
                 name="name"
               />
-            </MuiMaterial.Grid>
+            </MUI.Grid>
 
-            <MuiMaterial.Grid item xs={12} sm={12}>
-              <MuiMaterial.TextField
+            <MUI.Grid item xs={12} sm={12}>
+              <MUI.TextField
                 required
                 fullWidth
                 id="age"
                 label="Idade"
                 name="age"
               />
-            </MuiMaterial.Grid>
+            </MUI.Grid>
 
-            <MuiMaterial.Grid item xs={12} sm={12}>
-              <MuiMaterial.TextField
+            <MUI.Grid item xs={12} sm={12}>
+              <MUI.TextField
                 required
                 fullWidth
                 id="weight"
                 label="Peso"
                 name="weight"
               />
-            </MuiMaterial.Grid>
+            </MUI.Grid>
 
-            <MuiMaterial.Grid item xs={12} sm={12}>
-              <MuiMaterial.TextField
+            <MUI.Grid item xs={12} sm={12}>
+              <MUI.TextField
                 required
                 fullWidth
                 id="coat"
                 label="Pelagem"
                 name="coat"
               />
-            </MuiMaterial.Grid>
+            </MUI.Grid>
 
-            <MuiMaterial.Grid item xs={12} sm={12}>
-              <MuiMaterial.FormControl sx={{ m: 1, minWidth: 400 }}>
-                <MuiMaterial.InputLabel id="specieInput">
+            <MUI.Grid item xs={12} sm={12}>
+              <MUI.FormControl sx={{ m: 1, minWidth: 400 }}>
+                <MUI.InputLabel id="specieInput">
                   Espécie
-                </MuiMaterial.InputLabel>
-                <MuiMaterial.Select
+                </MUI.InputLabel>
+                <MUI.Select
                   labelId="specieLabel"
                   id="specie"
                   value={specie}
@@ -164,19 +164,19 @@ export default function RegisterAnimal() {
                   onChange={handleSpecie}
                 >
                   {choices.mapSpecies()}
-                </MuiMaterial.Select>
-                <MuiMaterial.FormHelperText>
+                </MUI.Select>
+                <MUI.FormHelperText>
                   Campo Obrigatório
-                </MuiMaterial.FormHelperText>
-              </MuiMaterial.FormControl>
-            </MuiMaterial.Grid>
+                </MUI.FormHelperText>
+              </MUI.FormControl>
+            </MUI.Grid>
 
-            <MuiMaterial.Grid item xs={12} sm={12}>
-              <MuiMaterial.FormControl sx={{ m: 1, minWidth: 400 }}>
-                <MuiMaterial.InputLabel id="genderInput">
+            <MUI.Grid item xs={12} sm={12}>
+              <MUI.FormControl sx={{ m: 1, minWidth: 400 }}>
+                <MUI.InputLabel id="genderInput">
                   Sexo
-                </MuiMaterial.InputLabel>
-                <MuiMaterial.Select
+                </MUI.InputLabel>
+                <MUI.Select
                   labelId="genderLabel"
                   id="gender"
                   value={gender}
@@ -184,19 +184,19 @@ export default function RegisterAnimal() {
                   onChange={handleGender}
                 >
                   {choices.mapGender()}
-                </MuiMaterial.Select>
-                <MuiMaterial.FormHelperText>
+                </MUI.Select>
+                <MUI.FormHelperText>
                   Campo Obrigatório
-                </MuiMaterial.FormHelperText>
-              </MuiMaterial.FormControl>
-            </MuiMaterial.Grid>
+                </MUI.FormHelperText>
+              </MUI.FormControl>
+            </MUI.Grid>
 
-            <MuiMaterial.Grid item xs={12} sm={12}>
-              <MuiMaterial.FormControl sx={{ m: 1, minWidth: 400 }}>
-                <MuiMaterial.InputLabel id="sizeInput">
+            <MUI.Grid item xs={12} sm={12}>
+              <MUI.FormControl sx={{ m: 1, minWidth: 400 }}>
+                <MUI.InputLabel id="sizeInput">
                   Tamanho
-                </MuiMaterial.InputLabel>
-                <MuiMaterial.Select
+                </MUI.InputLabel>
+                <MUI.Select
                   labelId="sizeLabel"
                   id="size"
                   value={size}
@@ -204,15 +204,15 @@ export default function RegisterAnimal() {
                   onChange={handleSize}
                 >
                   {choices.mapSize()}
-                </MuiMaterial.Select>
-                <MuiMaterial.FormHelperText>
+                </MUI.Select>
+                <MUI.FormHelperText>
                   Campo Obrigatório
-                </MuiMaterial.FormHelperText>
-              </MuiMaterial.FormControl>
-            </MuiMaterial.Grid>
+                </MUI.FormHelperText>
+              </MUI.FormControl>
+            </MUI.Grid>
 
-            <MuiMaterial.Grid item xs={12} sm={12}>
-              <MuiMaterial.TextField
+            <MUI.Grid item xs={12} sm={12}>
+              <MUI.TextField
                 required
                 fullWidth
                 id="description"
@@ -221,14 +221,14 @@ export default function RegisterAnimal() {
                 multiline
                 rows={5}
               />
-            </MuiMaterial.Grid>
+            </MUI.Grid>
 
-            <MuiMaterial.Grid item xs={12} sm={12}>
-              <MuiMaterial.FormGroup>
-                <MuiMaterial.Grid item xs={12} sm={12}>
-                  <MuiMaterial.FormControlLabel
+            <MUI.Grid item xs={12} sm={12}>
+              <MUI.FormGroup>
+                <MUI.Grid item xs={12} sm={12}>
+                  <MUI.FormControlLabel
                     control={
-                      <MuiMaterial.Checkbox
+                      <MUI.Checkbox
                         id="is_house_trained"
                         checked={isHouseTrained}
                         onChange={handleHouseTrained}
@@ -236,12 +236,12 @@ export default function RegisterAnimal() {
                     }
                     label="Sabe usar a caixa de areia ou o tapete higiênico"
                   />
-                </MuiMaterial.Grid>
+                </MUI.Grid>
 
-                <MuiMaterial.Grid item xs={12} sm={12}>
-                  <MuiMaterial.FormControlLabel
+                <MUI.Grid item xs={12} sm={12}>
+                  <MUI.FormControlLabel
                     control={
-                      <MuiMaterial.Checkbox
+                      <MUI.Checkbox
                         id="is_special_needs"
                         checked={isSpecialNeeds}
                         onChange={handleSpecialNeeds}
@@ -249,30 +249,30 @@ export default function RegisterAnimal() {
                     }
                     label="Possui necessidades especiais"
                   />
-                </MuiMaterial.Grid>
-              </MuiMaterial.FormGroup>
-            </MuiMaterial.Grid>
+                </MUI.Grid>
+              </MUI.FormGroup>
+            </MUI.Grid>
 
-            <MuiMaterial.Grid item xs={12} sm={12}>
-              <MuiMaterial.Button
+            <MUI.Grid item xs={12} sm={12}>
+              <MUI.Button
                 type="submit"
                 fullWidth
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
               >
                 Cadastrar
-              </MuiMaterial.Button>
-            </MuiMaterial.Grid>
+              </MUI.Button>
+            </MUI.Grid>
             {messageError && (
-              <MuiMaterial.Grid item xs={12} sm={12}>
-                <MuiMaterial.Alert variant="filled" severity="error">
+              <MUI.Grid item xs={12} sm={12}>
+                <MUI.Alert variant="filled" severity="error">
                   {messageError}
-                </MuiMaterial.Alert>
-              </MuiMaterial.Grid>
+                </MUI.Alert>
+              </MUI.Grid>
             )}
-          </MuiMaterial.Grid>
-        </MuiMaterial.Box>
-      </MuiMaterial.Box>
-    </MuiMaterial.Container>
+          </MUI.Grid>
+        </MUI.Box>
+      </MUI.Box>
+    </MUI.Container>
   );
 }

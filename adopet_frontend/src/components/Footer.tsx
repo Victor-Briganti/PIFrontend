@@ -1,5 +1,5 @@
 import * as React from "react";
-import * as MuiMaterial from "@mui/material";
+import * as MUI from "@mui/material";
 import Copyright from "./CopyRight";
 import {
   Email,
@@ -11,7 +11,7 @@ import {
 } from "@mui/icons-material";
 export default function Footer() {
   return (
-    <MuiMaterial.Grid
+    <MUI.Grid
       container
       spacing={2}
       alignItems={"end"}
@@ -24,19 +24,19 @@ export default function Footer() {
         width: "100%",
       }}
     >
-      <MuiMaterial.Grid item xs={"auto"} color={"HighlightText"}>
-        <MuiMaterial.Typography
+      <MUI.Grid item xs={"auto"} color={"HighlightText"}>
+        <MUI.Typography
           variant="h5"
           component={"strong"}
           color="inherit"
           noWrap
         >
           UTFPR CAMPO MOURÃO
-        </MuiMaterial.Typography>
+        </MUI.Typography>
         <br />
         <br />
         <br />
-        <MuiMaterial.Typography
+        <MUI.Typography
           variant="caption"
           component={"i"}
           color="inherit"
@@ -54,51 +54,51 @@ export default function Footer() {
             </div>
             <div>Via Rosalina Maria dos Santos, 1233</div>
           </div>
-        </MuiMaterial.Typography>
-        <MuiMaterial.Typography
+        </MUI.Typography>
+        <MUI.Typography
           variant="caption"
           component={"i"}
           color="inherit"
           noWrap
         >
           87301-899 Campo Mourão - PR - Brasil
-        </MuiMaterial.Typography>
-      </MuiMaterial.Grid>
-      <MuiMaterial.Grid item xs flexGrow={1}>
+        </MUI.Typography>
+      </MUI.Grid>
+      <MUI.Grid item xs flexGrow={1}>
         <Copyright color={"HighlightText"} />
-      </MuiMaterial.Grid>
-      <MuiMaterial.Grid item xs={"auto"} color={"HighlightText"}>
-        <MuiMaterial.Typography
+      </MUI.Grid>
+      <MUI.Grid item xs={"auto"} color={"HighlightText"}>
+        <MUI.Typography
           variant="h5"
           component={"strong"}
           color="inherit"
           noWrap
         >
           CONTATO
-        </MuiMaterial.Typography>
+        </MUI.Typography>
         <br />
-        <MuiMaterial.Typography
+        <MUI.Typography
           variant="caption"
           component={"i"}
           color="inherit"
           noWrap
         >
           Redes Sociais
-        </MuiMaterial.Typography>
+        </MUI.Typography>
         <br />
-        <MuiMaterial.Typography variant="caption" color="inherit" noWrap>
-          <MuiMaterial.IconButton color="inherit">
+        <MUI.Typography variant="caption" color="inherit" noWrap>
+          <MUI.IconButton color="inherit">
             <Instagram fontSize="small" />
-          </MuiMaterial.IconButton>
-          <MuiMaterial.IconButton color="inherit">
+          </MUI.IconButton>
+          <MUI.IconButton color="inherit">
             <Facebook fontSize="small" />
-          </MuiMaterial.IconButton>
-          <MuiMaterial.IconButton color="inherit">
+          </MUI.IconButton>
+          <MUI.IconButton color="inherit">
             <Twitter fontSize="small" />
-          </MuiMaterial.IconButton>
-        </MuiMaterial.Typography>
+          </MUI.IconButton>
+        </MUI.Typography>
         <br />
-        <MuiMaterial.Typography
+        <MUI.Typography
           variant="caption"
           component={"i"}
           color="inherit"
@@ -116,8 +116,8 @@ export default function Footer() {
             </div>
             <div>&nbsp; Fone: +44 99999-9999</div>
           </div>
-        </MuiMaterial.Typography>
-        <MuiMaterial.Typography
+        </MUI.Typography>
+        <MUI.Typography
           variant="caption"
           component={"i"}
           color="inherit"
@@ -135,8 +135,8 @@ export default function Footer() {
             </div>
             <div>&nbsp; Email: info@example.com</div>
           </div>
-        </MuiMaterial.Typography>
-      </MuiMaterial.Grid>
-    </MuiMaterial.Grid>
+        </MUI.Typography>
+      </MUI.Grid>
+    </MUI.Grid>
   );
 }

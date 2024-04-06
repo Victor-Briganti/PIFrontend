@@ -1,5 +1,5 @@
 import * as React from "react";
-import * as MuiMaterial from "@mui/material";
+import * as MUI from "@mui/material";
 import AxiosUser from "./api/AxiosUser";
 import { User } from "./models/User";
 
@@ -37,30 +37,30 @@ export default function Profile() {
 
   // Exibe as informações do usuário
   return (
-    <MuiMaterial.Card sx={{ minWidth: 600 }}>
-      <MuiMaterial.CardContent>
-        <MuiMaterial.Typography
+    <MUI.Card sx={{ minWidth: 600 }}>
+      <MUI.CardContent>
+        <MUI.Typography
           sx={{ fontSize: 14 }}
           color="text.secondary"
           gutterBottom
         >
           {`Bem vindo ${user.firstname} ${user.lastname}`}
-        </MuiMaterial.Typography>
-        <MuiMaterial.Typography variant="h5" component="div">
+        </MUI.Typography>
+        <MUI.Typography variant="h5" component="div">
           {`Email: ${user.email}`}
-        </MuiMaterial.Typography>
-        <MuiMaterial.Typography sx={{ mb: 1.5 }} color="text.secondary">
+        </MUI.Typography>
+        <MUI.Typography sx={{ mb: 1.5 }} color="text.secondary">
           {`Último login: ${user.last_login}`}
-        </MuiMaterial.Typography>
-      </MuiMaterial.CardContent>
-      <MuiMaterial.Button
+        </MUI.Typography>
+      </MUI.CardContent>
+      <MUI.Button
         fullWidth
         variant="contained"
         sx={{ mt: 3, mb: 2 }}
         onClick={() => axiosUser.logout()}
       >
         Sair
-      </MuiMaterial.Button>
-    </MuiMaterial.Card>
+      </MUI.Button>
+    </MUI.Card>
   );
 }

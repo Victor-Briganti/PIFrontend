@@ -1,5 +1,5 @@
 import * as React from "react";
-import * as MuiMaterial from "@mui/material";
+import * as MUI from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import AxiosUser from "./api/AxiosUser";
 import { User } from "./models/User";
@@ -82,10 +82,10 @@ export default function ChangePassword() {
   }
 
   return (
-    <MuiMaterial.Box>
-      <MuiMaterial.Container component="main" maxWidth="xs">
-        <MuiMaterial.CssBaseline />
-        <MuiMaterial.Box
+    <MUI.Box>
+      <MUI.Container component="main" maxWidth="xs">
+        <MUI.CssBaseline />
+        <MUI.Box
           sx={{
             marginTop: 8,
             display: "flex",
@@ -93,17 +93,17 @@ export default function ChangePassword() {
             alignItems: "center",
           }}
         >
-          <MuiMaterial.Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+          <MUI.Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
             <LockOutlinedIcon />
-          </MuiMaterial.Avatar>
-          <MuiMaterial.Typography component="h1" variant="h5">
+          </MUI.Avatar>
+          <MUI.Typography component="h1" variant="h5">
             Alterar Senha
-          </MuiMaterial.Typography>
+          </MUI.Typography>
           <form onSubmit={handleSubmit} noValidate>
-            <MuiMaterial.Typography variant="h5" component="div">
+            <MUI.Typography variant="h5" component="div">
               {`${user.email}`}
-            </MuiMaterial.Typography>
-            <MuiMaterial.TextField
+            </MUI.Typography>
+            <MUI.TextField
               margin="normal"
               required
               fullWidth
@@ -113,7 +113,7 @@ export default function ChangePassword() {
               id="password"
               autoComplete="current-password"
             />
-            <MuiMaterial.TextField
+            <MUI.TextField
               margin="normal"
               required
               fullWidth
@@ -123,38 +123,38 @@ export default function ChangePassword() {
               id="confirmPassword"
               autoComplete="current-password"
             />
-            <MuiMaterial.Button
+            <MUI.Button
               type="submit"
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
               Alterar Senha
-            </MuiMaterial.Button>
+            </MUI.Button>
             {messageError && (
-              <MuiMaterial.Alert variant="filled" severity="error">
+              <MUI.Alert variant="filled" severity="error">
                 {messageError}
-              </MuiMaterial.Alert>
+              </MUI.Alert>
             )}
           </form>
-        </MuiMaterial.Box>
-      </MuiMaterial.Container>
-      <MuiMaterial.Dialog
+        </MUI.Box>
+      </MUI.Container>
+      <MUI.Dialog
         open={openModal}
         onClose={handleCloseModal}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        <MuiMaterial.DialogTitle id="alert-dialog-title">
+        <MUI.DialogTitle id="alert-dialog-title">
           {"Deseja alterar sua senha?"}
-        </MuiMaterial.DialogTitle>
-        <MuiMaterial.DialogContent>
-          <MuiMaterial.DialogContentText id="alert-dialog-description">
+        </MUI.DialogTitle>
+        <MUI.DialogContent>
+          <MUI.DialogContentText id="alert-dialog-description">
             Essa ação não pode ser desfeita.
-          </MuiMaterial.DialogContentText>
-        </MuiMaterial.DialogContent>
-        <MuiMaterial.DialogActions>
-          <MuiMaterial.Button
+          </MUI.DialogContentText>
+        </MUI.DialogContent>
+        <MUI.DialogActions>
+          <MUI.Button
             onClick={handleConfirm}
             color="primary"
             autoFocus
@@ -165,12 +165,12 @@ export default function ChangePassword() {
             }}
           >
             Confirmar
-          </MuiMaterial.Button>
-          <MuiMaterial.Button onClick={handleCloseModal} color="primary">
+          </MUI.Button>
+          <MUI.Button onClick={handleCloseModal} color="primary">
             Cancelar
-          </MuiMaterial.Button>
-        </MuiMaterial.DialogActions>
-      </MuiMaterial.Dialog>
-    </MuiMaterial.Box>
+          </MUI.Button>
+        </MUI.DialogActions>
+      </MUI.Dialog>
+    </MUI.Box>
   );
 }
