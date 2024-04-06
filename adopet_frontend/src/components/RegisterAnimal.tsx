@@ -60,7 +60,9 @@ export default function RegisterAnimal() {
       setMessageError(error.message);
       return;
     }
-    console.log(animal);
+    axiosAnimal.registerAnimal(animal).catch((error) => {
+      setMessageError("Erro ao carregar ao salvar o animal. Tente novamente.");
+    });
   };
 
   // Quando o componente é montado, faz uma requisição GET para a API

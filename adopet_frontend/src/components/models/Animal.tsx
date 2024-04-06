@@ -1,6 +1,6 @@
 export class Animal {
   id?: number;
-  // temperament?: string[];
+  temperament?: string[];
   name?: string;
   age?: number;
   specie?: string;
@@ -11,14 +11,14 @@ export class Animal {
   adoption_date?: string;
   description?: string;
   is_house_trained?: boolean;
-  is_special_neeeds?: boolean;
+  is_special_needs?: boolean;
   is_active?: boolean;
 
   constructor(data: any | null) {
     if (data === null) return;
 
     this.id = data.id;
-    // this.temperament = data.temperament;
+    this.temperament = data.temperament;
     this.name = data.name;
     this.age = data.age;
     this.specie = data.specie;
@@ -29,7 +29,7 @@ export class Animal {
     this.adoption_date = data.adoption_date;
     this.description = data.description;
     this.is_house_trained = data.is_house_trained;
-    this.is_special_neeeds = data.is_special_neeeds;
+    this.is_special_needs = data.is_special_needs;
     this.is_active = data.is_active;
   }
 
@@ -100,14 +100,20 @@ export class Animal {
       this.is_house_trained = is_house_trained === "true";
     }
 
-    const is_special_neeeds = data.get("is_special_neeeds");
-    if (is_special_neeeds !== null) {
-      this.is_special_neeeds = is_special_neeeds === "true";
+    const is_special_needs = data.get("is_special_needs");
+    if (is_special_needs !== null) {
+      this.is_special_needs = is_special_needs === "true";
+    } else {
+      this.is_special_needs = false;
     }
 
     const is_active = data.get("is_active");
     if (is_active !== null) {
       this.is_active = is_active === "true";
+    } else {
+      this.is_active = true;
     }
+
+    this.temperament = [];
   }
 }
