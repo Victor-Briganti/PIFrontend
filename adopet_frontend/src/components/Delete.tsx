@@ -3,9 +3,6 @@ import * as MuiMaterial from "@mui/material";
 import AxiosUser from "./api/AxiosUser";
 import { User } from "./models/User";
 
-// TODO: Verificar como alterar o tema padrão do Material-UI
-const defaultTheme = MuiMaterial.createTheme();
-
 // Instância axios para acessar o usuário
 const axiosUser = new AxiosUser();
 
@@ -59,7 +56,7 @@ export default function Profile() {
 
   // Exibe as informações do usuário
   return (
-    <MuiMaterial.ThemeProvider theme={defaultTheme}>
+    <MuiMaterial.Box>
       <MuiMaterial.Card sx={{ minWidth: 600 }}>
         <MuiMaterial.CardContent>
           <MuiMaterial.Typography
@@ -117,6 +114,6 @@ export default function Profile() {
           </MuiMaterial.Button>
         </MuiMaterial.DialogActions>
       </MuiMaterial.Dialog>
-    </MuiMaterial.ThemeProvider>
+    </MuiMaterial.Box>
   );
 }

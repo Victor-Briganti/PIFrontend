@@ -7,6 +7,7 @@ const pages = ["Sobre Nós", "Contato", "Blog"];
 const pageLink = ["/about", "/contact", "/blog"];
 const settings = ["Perfil", "Sair"];
 const settingLink = ["/profile", "/logout"];
+
 function Header() {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
@@ -34,7 +35,7 @@ function Header() {
     <MuiMaterial.AppBar>
       <MuiMaterial.Container maxWidth="xl">
         <MuiMaterial.Toolbar disableGutters>
-          <MuiMaterial.Button href="/#">
+          <MuiMaterial.Button href="/">
             <img
               // Imagem da logo
               src={`./public/vite.svg?w=164&h=164&fit=crop&auto=format`}
@@ -43,7 +44,8 @@ function Header() {
             <MuiMaterial.Typography
               variant="h6"
               noWrap
-              component="a"
+              component={"span"}
+              className="logo"
               sx={{
                 mr: 2,
                 display: { xs: "none", md: "flex" },

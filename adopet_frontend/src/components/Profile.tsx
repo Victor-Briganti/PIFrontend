@@ -3,9 +3,6 @@ import * as MuiMaterial from "@mui/material";
 import AxiosUser from "./api/AxiosUser";
 import { User } from "./models/User";
 
-// TODO: Verificar como alterar o tema padrão do Material-UI
-const defaultTheme = MuiMaterial.createTheme();
-
 // Instância axios para acessar o usuário
 const axiosUser = new AxiosUser();
 
@@ -40,32 +37,30 @@ export default function Profile() {
 
   // Exibe as informações do usuário
   return (
-    <MuiMaterial.ThemeProvider theme={defaultTheme}>
-      <MuiMaterial.Card sx={{ minWidth: 600 }}>
-        <MuiMaterial.CardContent>
-          <MuiMaterial.Typography
-            sx={{ fontSize: 14 }}
-            color="text.secondary"
-            gutterBottom
-          >
-            {`Bem vindo ${user.firstname} ${user.lastname}`}
-          </MuiMaterial.Typography>
-          <MuiMaterial.Typography variant="h5" component="div">
-            {`Email: ${user.email}`}
-          </MuiMaterial.Typography>
-          <MuiMaterial.Typography sx={{ mb: 1.5 }} color="text.secondary">
-            {`Último login: ${user.last_login}`}
-          </MuiMaterial.Typography>
-        </MuiMaterial.CardContent>
-        <MuiMaterial.Button
-          fullWidth
-          variant="contained"
-          sx={{ mt: 3, mb: 2 }}
-          onClick={() => axiosUser.logout()}
+    <MuiMaterial.Card sx={{ minWidth: 600 }}>
+      <MuiMaterial.CardContent>
+        <MuiMaterial.Typography
+          sx={{ fontSize: 14 }}
+          color="text.secondary"
+          gutterBottom
         >
-          Sair
-        </MuiMaterial.Button>
-      </MuiMaterial.Card>
-    </MuiMaterial.ThemeProvider>
+          {`Bem vindo ${user.firstname} ${user.lastname}`}
+        </MuiMaterial.Typography>
+        <MuiMaterial.Typography variant="h5" component="div">
+          {`Email: ${user.email}`}
+        </MuiMaterial.Typography>
+        <MuiMaterial.Typography sx={{ mb: 1.5 }} color="text.secondary">
+          {`Último login: ${user.last_login}`}
+        </MuiMaterial.Typography>
+      </MuiMaterial.CardContent>
+      <MuiMaterial.Button
+        fullWidth
+        variant="contained"
+        sx={{ mt: 3, mb: 2 }}
+        onClick={() => axiosUser.logout()}
+      >
+        Sair
+      </MuiMaterial.Button>
+    </MuiMaterial.Card>
   );
 }

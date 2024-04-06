@@ -4,9 +4,6 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import AxiosUser from "./api/AxiosUser";
 import { User } from "./models/User";
 
-// TODO: Verificar como alterar o tema padrão do Material-UI
-const defaultTheme = MuiMaterial.createTheme();
-
 // Instância axios para acessar o usuário
 const axiosUser = new AxiosUser();
 
@@ -85,7 +82,7 @@ export default function ChangePassword() {
   }
 
   return (
-    <MuiMaterial.ThemeProvider theme={defaultTheme}>
+    <MuiMaterial.Box>
       <MuiMaterial.Container component="main" maxWidth="xs">
         <MuiMaterial.CssBaseline />
         <MuiMaterial.Box
@@ -174,6 +171,6 @@ export default function ChangePassword() {
           </MuiMaterial.Button>
         </MuiMaterial.DialogActions>
       </MuiMaterial.Dialog>
-    </MuiMaterial.ThemeProvider>
+    </MuiMaterial.Box>
   );
 }
