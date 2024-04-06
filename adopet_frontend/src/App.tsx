@@ -7,9 +7,10 @@ import Delete from "./components/Delete";
 import Home from "./components/Home";
 import About from "./components/About";
 import Animals from "./components/AnimalGrid";
+import Theme from "./components/Theme";
+import FileUpload from "./components/FileUpload";
 import "./App.css";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Theme from "./components/Theme";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
             <Route path="/animals" element={<Animals />}></Route>
             <Route path="/" element={<Home />}></Route>
             <Route path="/about" element={<About />}></Route>
+            <Route path="/fileupload" element={<FileUpload />}></Route>
           </Routes>
         </Router>
       </div>

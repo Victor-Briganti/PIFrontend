@@ -6,17 +6,25 @@ import { ImageAnimal } from "../models/ImageAnimal";
 class AxiosAnimalImage extends AxiosBase<ImageAnimal> {
   constructor() {
     super();
-    this.host = this.host + "/animal/image/";
+    this.host = this.host + "/animal/images/";
+  }
+
+  async register(image: ImageAnimal) {
+    return await this.post("register/", image, {
+      headers: {
+        "Content-type": "multipart/form-data",
+      },
+    });
   }
 }
 
 class AxiosAnimal extends AxiosBase<Animal> {
-  public axiosAnimalImage: AxiosAnimalImage;
+  public axiosImage: AxiosAnimalImage;
 
   constructor() {
     super();
     this.host = this.host + "/animal/";
-    this.axiosAnimalImage = new AxiosAnimalImage();
+    this.axiosImage = new AxiosAnimalImage();
   }
 
   async registerAnimal(animal: Animal) {
@@ -33,6 +41,10 @@ class AxiosAnimal extends AxiosBase<Animal> {
 
   async getChoices() {
     return await this.get("choices/");
+  }
+
+  async sendImage(image: ImageAnimal) {
+    return this.axiosImage.register(image);
   }
 }
 
