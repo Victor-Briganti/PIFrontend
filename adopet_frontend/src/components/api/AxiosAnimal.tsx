@@ -16,6 +16,10 @@ class AxiosAnimalImage extends AxiosBase<ImageAnimal> {
       },
     });
   }
+
+  async filterBy(id: number) {
+    return await this.get("filterby/" + id);
+  }
 }
 
 class AxiosAnimal extends AxiosBase<Animal> {
@@ -25,6 +29,14 @@ class AxiosAnimal extends AxiosBase<Animal> {
     super();
     this.host = this.host + "/animal/";
     this.axiosImage = new AxiosAnimalImage();
+  }
+
+  async listAnimals() {
+    return await this.get("");
+  }
+  
+  async listImagesById(id: number) {
+    return await this.axiosImage.filterBy(id);
   }
 
   async registerAnimal(animal: Animal) {
