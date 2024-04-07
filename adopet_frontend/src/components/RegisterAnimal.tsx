@@ -4,6 +4,7 @@ import AxiosAnimal from "./api/AxiosAnimal";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { Animal } from "./models/Animal";
 import { AnimalFormChoice } from "./models/AnimalFormChoice";
+import { useNavigate } from "react-router-dom";
 
 // Instância axios para acessar o usuário
 const axiosAnimal = new AxiosAnimal();
@@ -19,6 +20,7 @@ export default function RegisterAnimal() {
   const [size, setSize] = React.useState<string>("");
   const [isHouseTrained, setHouseTrained] = React.useState<boolean>(false);
   const [isSpecialNeeds, setSpecialNeeds] = React.useState<boolean>(false);
+  const navigate = useNavigate();
 
   const handleSpecie = (event: MUI.SelectChangeEvent) => {
     setSpecie(event.target.value);
@@ -51,15 +53,27 @@ export default function RegisterAnimal() {
     formData.append("is_special_needs", isSpecialNeeds.toString());
     formData.append("is_house_trained", isHouseTrained.toString());
     const animal = new Animal(null);
+
     try {
       animal.saveFormData(formData);
     } catch (error: any) {
       setMessageError(error.message);
       return;
     }
-    axiosAnimal.registerAnimal(animal).catch((error) => {
+    const response = await axiosAnimal.registerAnimal(animal).catch((error) => {
       setMessageError("Erro ao carregar ao salvar o animal. Tente novamente.");
     });
+
+    try {
+      navigate("/animalupload", {
+        state: { animalName: response.name, animalId: response.id },
+      });
+    } catch (error) {
+      setMessageError(
+        "Não foi possível redirecionar para a página de upload de imagens."
+      );
+      console.log(error);
+    }
   };
 
   // Quando o componente é montado, faz uma requisição GET para a API
@@ -153,9 +167,7 @@ export default function RegisterAnimal() {
 
             <MUI.Grid item xs={12} sm={12}>
               <MUI.FormControl sx={{ m: 1, minWidth: 400 }}>
-                <MUI.InputLabel id="specieInput">
-                  Espécie
-                </MUI.InputLabel>
+                <MUI.InputLabel id="specieInput">Espécie</MUI.InputLabel>
                 <MUI.Select
                   labelId="specieLabel"
                   id="specie"
@@ -165,17 +177,13 @@ export default function RegisterAnimal() {
                 >
                   {choices.mapSpecies()}
                 </MUI.Select>
-                <MUI.FormHelperText>
-                  Campo Obrigatório
-                </MUI.FormHelperText>
+                <MUI.FormHelperText>Campo Obrigatório</MUI.FormHelperText>
               </MUI.FormControl>
             </MUI.Grid>
 
             <MUI.Grid item xs={12} sm={12}>
               <MUI.FormControl sx={{ m: 1, minWidth: 400 }}>
-                <MUI.InputLabel id="genderInput">
-                  Sexo
-                </MUI.InputLabel>
+                <MUI.InputLabel id="genderInput">Sexo</MUI.InputLabel>
                 <MUI.Select
                   labelId="genderLabel"
                   id="gender"
@@ -185,17 +193,13 @@ export default function RegisterAnimal() {
                 >
                   {choices.mapGender()}
                 </MUI.Select>
-                <MUI.FormHelperText>
-                  Campo Obrigatório
-                </MUI.FormHelperText>
+                <MUI.FormHelperText>Campo Obrigatório</MUI.FormHelperText>
               </MUI.FormControl>
             </MUI.Grid>
 
             <MUI.Grid item xs={12} sm={12}>
               <MUI.FormControl sx={{ m: 1, minWidth: 400 }}>
-                <MUI.InputLabel id="sizeInput">
-                  Tamanho
-                </MUI.InputLabel>
+                <MUI.InputLabel id="sizeInput">Tamanho</MUI.InputLabel>
                 <MUI.Select
                   labelId="sizeLabel"
                   id="size"
@@ -205,9 +209,7 @@ export default function RegisterAnimal() {
                 >
                   {choices.mapSize()}
                 </MUI.Select>
-                <MUI.FormHelperText>
-                  Campo Obrigatório
-                </MUI.FormHelperText>
+                <MUI.FormHelperText>Campo Obrigatório</MUI.FormHelperText>
               </MUI.FormControl>
             </MUI.Grid>
 

@@ -43,7 +43,7 @@ class AxiosAnimal extends AxiosBase<Animal> {
     return await this.get("choices/");
   }
 
-  async sendImage(image: ImageAnimal) {
+  async uploadImage(image: ImageAnimal) {
     return this.axiosImage.register(image);
   }
 }

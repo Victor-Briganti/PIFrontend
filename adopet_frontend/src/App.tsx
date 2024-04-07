@@ -8,7 +8,7 @@ import Home from "./components/Home";
 import About from "./components/About";
 import Animals from "./components/AnimalGrid";
 import Theme from "./components/Theme";
-import FileUpload from "./components/FileUpload";
+import AnimalImageUpload from "./components/AnimalImageUpload";
 import "./App.css";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
@@ -18,18 +18,16 @@ function App() {
       <div className="App">
         <Router>
           <Routes>
-            {" "}
-            // Switch
             <Route path="/login" element={<Login />}></Route>
-            <Route path="/register_user" element={<RegisterUser />}></Route>
-            <Route path="/register_animal" element={<RegisterAnimal />}></Route>
+            <Route path="/registeruser" element={<RegisterUser />}></Route>
+            <Route path="/registeranimal" element={<RegisterAnimal />}></Route>
             <Route path="/profile" element={<Profile />}></Route>
             <Route path="/changepassword" element={<ChangePassword />}></Route>
             <Route path="/delete" element={<Delete />}></Route>
             <Route path="/animals" element={<Animals />}></Route>
             <Route path="/" element={<Home />}></Route>
             <Route path="/about" element={<About />}></Route>
-            <Route path="/fileupload" element={<FileUpload />}></Route>
+            <Route path="/animalupload" element={<AnimalImageUpload />}></Route>
           </Routes>
         </Router>
       </div>
