@@ -2,7 +2,6 @@ import * as React from "react";
 import * as MUI from "@mui/material";
 import AxiosAnimal from "./api/AxiosAnimal";
 import { Animal } from "./models/Animal";
-import { ImageAnimal } from "./models/ImageAnimal";
 
 const axiosAnimal = new AxiosAnimal();
 
@@ -41,12 +40,31 @@ function AnimalCard({ animal }: { animal: Animal }) {
 
 export default function AnimalGrid() {
   const [animals, setAnimals] = React.useState([]);
+  const [page, setPage] = React.useState<number>(1);
+  const [totalPages, setTotalPages] = React.useState<number>(1);
+
+  const handlePageChange = (
+    event: React.ChangeEvent<unknown>,
+    value: number
+  ) => {
+    axiosAnimal
+      .listAnimals(value)
+      .then((response) => {
+        setAnimals(response.results); 
+        setPage(value);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
 
   React.useEffect(() => {
     axiosAnimal
       .listAnimals()
       .then((response) => {
-        setAnimals(response.results);
+        setAnimals(response.results); 
+        setTotalPages(Math.ceil(response.count / 10));
+        console.log(response.count);
       })
       .catch((error) => {
         console.error(error);
@@ -72,6 +90,14 @@ export default function AnimalGrid() {
           </MUI.Grid>
         ))}
       </MUI.Grid>
+
+      {totalPages && (
+        <MUI.Pagination
+          count={totalPages}
+          page={page}
+          onChange={handlePageChange}
+        />
+      )}
     </MUI.Container>
   );
 }

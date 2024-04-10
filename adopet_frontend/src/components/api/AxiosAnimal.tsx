@@ -31,7 +31,10 @@ class AxiosAnimal extends AxiosBase<Animal> {
     this.axiosImage = new AxiosAnimalImage();
   }
 
-  async listAnimals() {
+  async listAnimals(page: number = 0) {
+    if (page > 0) {
+      return await this.get("?page=" + page);
+    }
     return await this.get("");
   }
   
