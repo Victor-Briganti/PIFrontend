@@ -116,4 +116,31 @@ export class Animal {
 
     this.temperament = [];
   }
+
+  getSpecie(): string | undefined {
+    if (this.specie === "cat") {
+      return "Gato";
+    } else {
+      return "Cachorro";
+    }
+  }
+
+  getGender(): string | undefined {
+    if (this.gender === "M") {
+      return "Macho";
+    } else {
+      return "Fêmea";
+    }
+  }
+
+  getSize(): string | undefined {
+    switch (this.size) {
+      case "small":
+        return "Pequeno Porte";
+      case "medium":
+        return "Médio Porte";
+      case "large":
+        return "Grande Porte";
+    }
+  }
 }

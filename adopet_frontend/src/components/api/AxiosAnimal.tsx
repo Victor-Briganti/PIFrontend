@@ -37,6 +37,10 @@ class AxiosAnimal extends AxiosBase<Animal> {
     }
     return await this.get("");
   }
+
+  async getAnimalById(id: number) {
+    return await this.get(id.toString())
+  }
   
   async listImagesById(id: number) {
     return await this.axiosImage.filterBy(id);

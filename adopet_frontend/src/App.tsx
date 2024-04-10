@@ -7,6 +7,7 @@ import Delete from "./components/Delete";
 import Home from "./components/Home";
 import About from "./components/About";
 import Animals from "./components/AnimalGrid";
+import AnimalDetail from "./components/AnimalDetail";
 import Theme from "./components/Theme";
 import AnimalImageUpload from "./components/AnimalImageUpload";
 import "./App.css";
@@ -25,6 +26,7 @@ function App() {
             <Route path="/changepassword" element={<ChangePassword />}></Route>
             <Route path="/delete" element={<Delete />}></Route>
             <Route path="/animals" element={<Animals />}></Route>
+            <Route path="/animaldetail" element={<AnimalDetail />}></Route>
             <Route path="/" element={<Home />}></Route>
             <Route path="/about" element={<About />}></Route>
             <Route path="/animalupload" element={<AnimalImageUpload />}></Route>
