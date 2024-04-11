@@ -2,11 +2,13 @@ import * as React from "react";
 import * as MUI from "@mui/material";
 import AxiosAnimal from "./api/AxiosAnimal";
 import { Animal } from "./models/Animal";
+import { useNavigate } from "react-router-dom";
 
 const axiosAnimal = new AxiosAnimal();
 
 function AnimalCard({ animal }: { animal: Animal }) {
   const [imageUrl, setImageUrl] = React.useState("");
+  const navigate = useNavigate();
 
   React.useEffect(() => {
     if (animal.id) {
@@ -21,8 +23,18 @@ function AnimalCard({ animal }: { animal: Animal }) {
     }
   }, [animal.id]);
 
+  const handleClick = () => {
+    try {
+      navigate("/animaldetail", {
+        state: { animalId: animal.id },
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
-    <MUI.Card sx={{ maxWidth: 345 }}>
+    <MUI.Card sx={{ maxWidth: 345 }} onClick={handleClick}>
       <MUI.CardActionArea>
         <MUI.CardMedia component="img" height="200" image={imageUrl} />
         <MUI.CardContent>
