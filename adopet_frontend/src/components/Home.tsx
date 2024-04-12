@@ -16,12 +16,7 @@ export default function Home() {
     >
       <MUI.CssBaseline />
       <Header />
-      <MUI.Box
-        className="content"
-        flexGrow={1}
-        overflow={"scroll"}
-        paddingY={10}
-      >
+      <MUI.Box className="content" paddingY={10}>
         <MUI.Box>
           Lorem ipsum dolor, sit amet consectetur adipisicing elit. Repellat
           officiis quas magni eius sit fugiat quisquam ipsam, distinctio optio

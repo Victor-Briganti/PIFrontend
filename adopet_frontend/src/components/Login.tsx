@@ -3,12 +3,14 @@ import * as MUI from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import CopyRight from "./CopyRight";
 import AxiosUser from "./api/AxiosUser";
+import { useNavigate } from "react-router-dom";
 
 // Instância axios para acessar o usuário
 const axiosUser = new AxiosUser();
 
 export default function Login() {
   const [messageWarning, setMessageWarning] = React.useState<string>("");
+  const navigate = useNavigate();
   const useHandleSubmit = () => {
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
       // Intercepta a submissão do formulário pelo navegador
@@ -31,9 +33,13 @@ export default function Login() {
           break;
         default:
           setMessageWarning("");
-          axiosUser.login(email, password);
+          // axiosUser.login(email, password);
+          await axiosUser.login(email, password);
+          navigate("/"); // Navigate to the home page or any other route
+          window.location.reload();
       }
     };
+    // console.log(handleSubmit);
     return handleSubmit;
   };
 

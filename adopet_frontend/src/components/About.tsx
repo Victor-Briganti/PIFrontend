@@ -16,7 +16,7 @@ export default function About() {
       <Header />
       <MUI.Box
         className="content"
-        flexGrow={1}
+        // flexGrow={1}
         overflow={"scroll"}
         paddingY={10}
       ></MUI.Box>
