@@ -12,6 +12,7 @@ import {
 export default function Footer() {
   return (
     <MUI.Grid
+      flexGrow={1}
       container
       spacing={2}
       alignItems={"end"}

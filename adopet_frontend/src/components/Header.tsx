@@ -2,13 +2,34 @@ import * as React from "react";
 import * as MUI from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
+import AxiosUser from "./api/AxiosUser";
+import { User } from "./models/User";
 
-const pages = ["Sobre Nós", "Contato", "Blog"];
-const pageLink = ["/about", "/contact", "/blog"];
+const pages = ["Sobre Nós", "Contato"];
+const pageLink = ["/about", "/contact"];
 const settings = ["Perfil", "Sair"];
-const settingLink = ["/profile", "/logout"];
+const settingLink = ["/profile"];
+// Instância axios para acessar o usuário
+const axiosUser = new AxiosUser();
 
 function Header() {
+  const [user, setUser] = React.useState<User | null>(null);
+  const [messageError, setMessageError] = React.useState<string>("");
+
+  // Quando o componente é montado, faz uma requisição GET para a API
+  React.useEffect(() => {
+    axiosUser
+      .getUserInfo()
+      .then((data: User) => {
+        setUser(new User(data));
+      })
+      .catch((error) => {
+        if (error.message === "Authentication credentials were not provided.") {
+          setMessageError("Área restrita, faça login para acessar.");
+        }
+      });
+  }, []);
+
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
   );
@@ -27,6 +48,15 @@ function Header() {
     setAnchorElNav(null);
   };
 
+  const handleLogout = async () => {
+    try {
+      await axiosUser.logout();
+      window.location.reload();
+    } catch (error) {
+      console.error("Logout failed:", error);
+    }
+  };
+
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
@@ -38,7 +68,9 @@ function Header() {
           <MUI.Button href="/">
             <img
               // Imagem da logo
-              src={`/public/vite.svg?w=164&h=164&fit=crop&auto=format`}
+              src={"/public/logo.png"}
+              width={100}
+              height={100}
               loading="lazy"
             />
             <MUI.Typography
@@ -59,9 +91,7 @@ function Header() {
               Adopet
             </MUI.Typography>
           </MUI.Button>
-          <MUI.Box
-            sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}
-          >
+          <MUI.Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <MUI.IconButton
               size="large"
               aria-label="account of current user"
@@ -110,9 +140,7 @@ function Header() {
               ))}
             </MUI.Menu>
           </MUI.Box>
-          <MUI.Box
-            sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}
-          >
+          <MUI.Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
               <MUI.Button
                 key={page}
@@ -124,51 +152,70 @@ function Header() {
               </MUI.Button>
             ))}
           </MUI.Box>
-          <MUI.Box sx={{ flexGrow: 0 }}>
-            <MUI.Tooltip title="Configurações de Usuário">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <MUI.Avatar
-                  alt="User Avatar"
-                  //   imagem do usuário
-                  src="/static/images/avatar/2.jpg"
-                />
-              </IconButton>
-            </MUI.Tooltip>
-            <MUI.Menu
-              sx={{ mt: "45px" }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              {settings.map((setting) => (
-                <MUI.MenuItem
-                  sx={{ padding: "0px" }}
-                  key={setting}
-                  onClick={handleCloseUserMenu}
-                >
-                  <MUI.Link
-                    textAlign="center"
-                    sx={{ px: "14px" }}
-                    href={settingLink[settings.indexOf(setting)]}
-                    underline="none"
-                    color={"textPrimary"}
+          {user ? (
+            // está logado
+            <MUI.Box sx={{ flexGrow: 0 }}>
+              <MUI.Tooltip title="Configurações de Usuário">
+                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                  <MUI.Avatar
+                    alt={user.firstname}
+                    //   imagem do usuário
+                    src="/"
+                  />
+                </IconButton>
+              </MUI.Tooltip>
+              <MUI.Menu
+                sx={{ mt: "45px" }}
+                id="menu-appbar"
+                anchorEl={anchorElUser}
+                anchorOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                open={Boolean(anchorElUser)}
+                onClose={handleCloseUserMenu}
+              >
+                {settings.map((setting) => (
+                  <MUI.MenuItem
+                    sx={{ padding: "0px" }}
+                    key={setting}
+                    onClick={handleCloseUserMenu}
                   >
-                    {setting}
-                  </MUI.Link>
-                </MUI.MenuItem>
-              ))}
-            </MUI.Menu>
-          </MUI.Box>
+                    <MUI.Link
+                      textAlign="center"
+                      sx={{ px: "14px" }}
+                      underline="none"
+                      color={"textPrimary"}
+                      href={settingLink[settings.indexOf(setting)]}
+                      onClick={setting === "Sair" ? handleLogout : undefined}
+                    >
+                      {setting}
+                    </MUI.Link>
+                  </MUI.MenuItem>
+                ))}
+              </MUI.Menu>
+            </MUI.Box>
+          ) : (
+            <MUI.Box display={"flex"} flexDirection={"row"}>
+              <MUI.Button
+                href="/login"
+                sx={{ my: 2, color: "white", display: "block" }}
+              >
+                Entrar
+              </MUI.Button>
+              <MUI.Button
+                href="/registeruser"
+                sx={{ my: 2, color: "white", display: "block" }}
+              >
+                Registrar
+              </MUI.Button>
+            </MUI.Box>
+          )}
         </MUI.Toolbar>
       </MUI.Container>
     </MUI.AppBar>
