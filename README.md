@@ -1,4 +1,4 @@
-# Manus ONG (Projeto Integrador)
+# Adopet ONG (Projeto Integrador)
 
 ## Tecnologias
 

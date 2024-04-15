@@ -3,12 +3,14 @@ import * as MUI from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import CopyRight from "./CopyRight";
 import AxiosUser from "./api/AxiosUser";
+import { useNavigate } from "react-router-dom";
 
 // Instância axios para acessar o usuário
 const axiosUser = new AxiosUser();
 
 export default function RegisterUser() {
   const [messageError, setMessageError] = React.useState<string>("");
+  const navigate = useNavigate();
 
   const useHandleSubmit = () => {
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -25,37 +27,34 @@ export default function RegisterUser() {
 
       switch (true) {
         case email === "" &&
-         
           firstname === "" &&
-         
           lastname === "" &&
-         
           password === "" &&
-         
           confirmPassword === "":
-          setMessageError("Todos os campos estão vazios.");;
+          setMessageError("Todos os campos estão vazios.");
           break;
         case firstname === "":
-          setMessageError("Campo nome não pode ser vazio.");;
+          setMessageError("Campo nome não pode ser vazio.");
           break;
         case lastname === "":
-          setMessageError("Campo sobrenome não pode ser vazio.");;
+          setMessageError("Campo sobrenome não pode ser vazio.");
           break;
         case email === "":
-          setMessageError("Campo endereço email não pode ser vazio.");;
+          setMessageError("Campo endereço email não pode ser vazio.");
           break;
         case password === "":
-          setMessageError("Campo senha não pode ser vazio.");;
+          setMessageError("Campo senha não pode ser vazio.");
           break;
         case confirmPassword === "":
-          setMessageError("Campo confirmar senha não pode ser vazio.");;
+          setMessageError("Campo confirmar senha não pode ser vazio.");
           break;
         case password !== confirmPassword:
-          setMessageError("Senhas não coincidem.");;
+          setMessageError("Senhas não coincidem.");
           break;
         default:
-          axiosUser.register(email, password, firstname, lastname);
-      }
+          await axiosUser.register(email, password, firstname, lastname);
+          navigate("/login");
+        }
     };
     return handleSubmit;
   };
@@ -153,9 +152,9 @@ export default function RegisterUser() {
               {messageError}
             </MUI.Alert>
           )}
-          <MUI.Grid container justifyContent="flex-end">
+          <MUI.Grid container justifyContent="center" alignItems="center">
             <MUI.Grid item>
-              <MUI.Link href="#" variant="body2">
+              <MUI.Link href="http://localhost:5173/login" variant="body2">
                 Já possui uma conta? Entrar
               </MUI.Link>
             </MUI.Grid>

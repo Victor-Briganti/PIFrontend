@@ -101,14 +101,9 @@ export default function Login() {
               {messageWarning}
             </MUI.Alert>
           )}
-          <MUI.Grid container>
-            <MUI.Grid item xs>
-              <MUI.Link href="#" variant="body2">
-                Esqueceu a senha?
-              </MUI.Link>
-            </MUI.Grid>
+          <MUI.Grid container justifyContent="center" alignItems="center">
             <MUI.Grid item>
-              <MUI.Link href="#" variant="body2">
+              <MUI.Link href="http://localhost:5173/registeruser" variant="body2">
                 {"Não possui uma conta? Cadastre-se"}
               </MUI.Link>
             </MUI.Grid>

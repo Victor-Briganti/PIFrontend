@@ -66,13 +66,15 @@ function Header() {
       <MUI.Container maxWidth="xl">
         <MUI.Toolbar disableGutters>
           <MUI.Button href="/">
-            <img
-              // Imagem da logo
-              src={"/public/logo.png"}
-              width={100}
-              height={100}
-              loading="lazy"
-            />
+            <MUI.Box pr={2}>
+              <img
+                // Imagem da logo
+                src={"/public/logo.png"}
+                width={50}
+                height={50}
+                loading="lazy"
+              />
+            </MUI.Box>
             <MUI.Typography
               variant="h6"
               noWrap
