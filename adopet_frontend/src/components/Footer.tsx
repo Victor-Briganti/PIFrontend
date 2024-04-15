@@ -134,7 +134,7 @@ export default function Footer() {
             <div>
               <Email fontSize="small" />
             </div>
-            <div>&nbsp; Email: info@example.com</div>
+            <div>&nbsp; Email: adopetcontato@email.com</div>
           </div>
         </MUI.Typography>
       </MUI.Grid>
