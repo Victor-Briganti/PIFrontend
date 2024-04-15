@@ -4,6 +4,7 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import CopyRight from "./CopyRight";
 import AxiosUser from "./api/AxiosUser";
 import { useNavigate } from "react-router-dom";
+import Main from "./Main";
 
 // Instância axios para acessar o usuário
 const axiosUser = new AxiosUser();
@@ -54,7 +55,7 @@ export default function RegisterUser() {
         default:
           await axiosUser.register(email, password, firstname, lastname);
           navigate("/login");
-        }
+      }
     };
     return handleSubmit;
   };
@@ -62,7 +63,7 @@ export default function RegisterUser() {
   const handleSubmit = useHandleSubmit();
 
   return (
-    <MUI.Container component="main" maxWidth="xs">
+    <Main>
       <MUI.CssBaseline />
       <MUI.Box
         sx={{
@@ -162,6 +163,6 @@ export default function RegisterUser() {
         </MUI.Box>
       </MUI.Box>
       <CopyRight sx={{ mt: 5 }} />
-    </MUI.Container>
+    </Main>
   );
 }

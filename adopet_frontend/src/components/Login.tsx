@@ -3,6 +3,7 @@ import * as MUI from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import CopyRight from "./CopyRight";
 import AxiosUser from "./api/AxiosUser";
+import Main from "./Main";
 import { useNavigate } from "react-router-dom";
 
 // Instância axios para acessar o usuário
@@ -46,7 +47,7 @@ export default function Login() {
   const handleSubmit = useHandleSubmit();
 
   return (
-    <MUI.Container component="main" maxWidth="xs">
+    <Main>
       <MUI.CssBaseline />
       <MUI.Box
         sx={{
@@ -103,7 +104,10 @@ export default function Login() {
           )}
           <MUI.Grid container justifyContent="center" alignItems="center">
             <MUI.Grid item>
-              <MUI.Link href="http://localhost:5173/registeruser" variant="body2">
+              <MUI.Link
+                href="http://localhost:5173/registeruser"
+                variant="body2"
+              >
                 {"Não possui uma conta? Cadastre-se"}
               </MUI.Link>
             </MUI.Grid>
@@ -111,6 +115,6 @@ export default function Login() {
         </MUI.Box>
       </MUI.Box>
       <CopyRight sx={{ mt: 8, mb: 4 }} />
-    </MUI.Container>
+    </Main>
   );
 }

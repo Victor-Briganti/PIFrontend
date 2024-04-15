@@ -4,19 +4,15 @@ import * as MUI from "@mui/material";
 import Header from "./Header";
 // import Copyright from "./CopyRight";
 import Footer from "./Footer";
+import Main from "./Main";
+import Content from "./Content";
 
 export default function Home() {
   return (
-    <MUI.Box
-      component="main"
-      display={"flex"}
-      justifyContent={"center"}
-      flexDirection={"column"}
-      height={"100vh"}
-    >
+    <Main>
       <MUI.CssBaseline />
       <Header />
-      <MUI.Box className="content" paddingY={10}>
+      <Content>
         <MUI.Box>
           Lorem ipsum dolor, sit amet consectetur adipisicing elit. Repellat
           officiis quas magni eius sit fugiat quisquam ipsam, distinctio optio
@@ -83,8 +79,8 @@ export default function Home() {
           reiciendis nam vero tenetur iure beatae deleniti ad totam, pariatur
           sunt!
         </MUI.Box>
-      </MUI.Box>
+      </Content>
       <Footer />
-    </MUI.Box>
+    </Main>
   );
 }

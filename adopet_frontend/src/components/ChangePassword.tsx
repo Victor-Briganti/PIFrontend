@@ -3,6 +3,7 @@ import * as MUI from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import AxiosUser from "./api/AxiosUser";
 import { User } from "./models/User";
+import Main from "./Main";
 
 // Instância axios para acessar o usuário
 const axiosUser = new AxiosUser();
@@ -83,7 +84,7 @@ export default function ChangePassword() {
 
   return (
     <MUI.Box>
-      <MUI.Container component="main" maxWidth="xs">
+      <Main>
         <MUI.CssBaseline />
         <MUI.Box
           sx={{
@@ -138,7 +139,7 @@ export default function ChangePassword() {
             )}
           </form>
         </MUI.Box>
-      </MUI.Container>
+      </Main>
       <MUI.Dialog
         open={openModal}
         onClose={handleCloseModal}

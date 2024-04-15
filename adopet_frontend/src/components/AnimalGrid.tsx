@@ -3,6 +3,10 @@ import * as MUI from "@mui/material";
 import AxiosAnimal from "./api/AxiosAnimal";
 import { Animal } from "./models/Animal";
 import { useNavigate } from "react-router-dom";
+import Main from "./Main";
+import Content from "./Content";
+import Header from "./Header";
+import Footer from "./Footer";
 
 const axiosAnimal = new AxiosAnimal();
 
@@ -62,7 +66,7 @@ export default function AnimalGrid() {
     axiosAnimal
       .listAnimals(value)
       .then((response) => {
-        setAnimals(response.results); 
+        setAnimals(response.results);
         setPage(value);
       })
       .catch((error) => {
@@ -74,7 +78,7 @@ export default function AnimalGrid() {
     axiosAnimal
       .listAnimals()
       .then((response) => {
-        setAnimals(response.results); 
+        setAnimals(response.results);
         setTotalPages(Math.ceil(response.count / 10));
         console.log(response.count);
       })
@@ -92,24 +96,27 @@ export default function AnimalGrid() {
   }
 
   return (
-    <MUI.Container component="main" maxWidth="xs">
+    <Main>
       <MUI.CssBaseline />
+      <Header />
+      <Content>
+        <MUI.Grid container spacing={3}>
+          {animals.map((animal: Animal) => (
+            <MUI.Grid item key={animal.id} xs={4}>
+              <AnimalCard animal={animal} />
+            </MUI.Grid>
+          ))}
+        </MUI.Grid>
 
-      <MUI.Grid container spacing={3}>
-        {animals.map((animal: Animal) => (
-          <MUI.Grid item key={animal.id} xs={4}>
-            <AnimalCard animal={animal} />
-          </MUI.Grid>
-        ))}
-      </MUI.Grid>
-
-      {totalPages && (
-        <MUI.Pagination
-          count={totalPages}
-          page={page}
-          onChange={handlePageChange}
-        />
-      )}
-    </MUI.Container>
+        {totalPages && (
+          <MUI.Pagination
+            count={totalPages}
+            page={page}
+            onChange={handlePageChange}
+          />
+        )}
+      </Content>
+      <Footer />
+    </Main>
   );
 }
