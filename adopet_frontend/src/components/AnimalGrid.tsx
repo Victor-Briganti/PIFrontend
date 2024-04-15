@@ -3,6 +3,8 @@ import * as MUI from "@mui/material";
 import AxiosAnimal from "./api/AxiosAnimal";
 import { Animal } from "./models/Animal";
 import { useNavigate } from "react-router-dom";
+import Header from "./Header";
+import Footer from "./Footer";
 
 const axiosAnimal = new AxiosAnimal();
 
@@ -62,7 +64,7 @@ export default function AnimalGrid() {
     axiosAnimal
       .listAnimals(value)
       .then((response) => {
-        setAnimals(response.results); 
+        setAnimals(response.results);
         setPage(value);
       })
       .catch((error) => {
@@ -74,7 +76,7 @@ export default function AnimalGrid() {
     axiosAnimal
       .listAnimals()
       .then((response) => {
-        setAnimals(response.results); 
+        setAnimals(response.results);
         setTotalPages(Math.ceil(response.count / 10));
         console.log(response.count);
       })
@@ -92,9 +94,19 @@ export default function AnimalGrid() {
   }
 
   return (
-    <MUI.Container component="main" maxWidth="xs">
+    <MUI.Box
+    component="main"
+    display="flex"
+    flexDirection="column"
+    minHeight="100vh"
+  >
+    <Header />
+    <MUI.Container
+      component="main"
+      maxWidth="lg"
+      sx={{ paddingTop: "100px", paddingBottom: "20px", flexGrow: 1 }}
+    >
       <MUI.CssBaseline />
-
       <MUI.Grid container spacing={3}>
         {animals.map((animal: Animal) => (
           <MUI.Grid item key={animal.id} xs={4}>
@@ -102,14 +114,17 @@ export default function AnimalGrid() {
           </MUI.Grid>
         ))}
       </MUI.Grid>
-
       {totalPages && (
-        <MUI.Pagination
-          count={totalPages}
-          page={page}
-          onChange={handlePageChange}
-        />
+        <MUI.Box display="flex" justifyContent="center" alignItems="center">
+          <MUI.Pagination
+            count={totalPages}
+            page={page}
+            onChange={handlePageChange}
+          />
+        </MUI.Box>
       )}
     </MUI.Container>
+    <Footer />
+  </MUI.Box>
   );
 }
