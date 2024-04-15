@@ -1,33 +1,24 @@
-import * as React from "react";
-import * as MUI from "@mui/material";
-import IconButton from "@mui/material/IconButton";
-import MenuIcon from "@mui/icons-material/Menu";
 import AxiosUser from "./api/AxiosUser";
 import { User } from "./models/User";
+import React, { useState } from "react";
+import * as MUI from "@mui/material";
+import MenuIcon from "@mui/icons-material/Menu";
+
+const axiosUser = new AxiosUser();
 
 const pages = ["Sobre Nós", "Contato"];
 const pageLink = ["/about", "/contact"];
 const settings = ["Perfil", "Sair"];
 const settingLink = ["/profile"];
-// Instância axios para acessar o usuário
-const axiosUser = new AxiosUser();
 
-function Header() {
+export default function Header() {
   const [user, setUser] = React.useState<User | null>(null);
-  const [messageError, setMessageError] = React.useState<string>("");
+  const [open, setOpen] = useState(false);
 
-  // Quando o componente é montado, faz uma requisição GET para a API
   React.useEffect(() => {
-    axiosUser
-      .getUserInfo()
-      .then((data: User) => {
-        setUser(new User(data));
-      })
-      .catch((error) => {
-        if (error.message === "Authentication credentials were not provided.") {
-          setMessageError("Área restrita, faça login para acessar.");
-        }
-      });
+    axiosUser.getUserInfo().then((data: User) => {
+      setUser(new User(data));
+    });
   }, []);
 
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
@@ -62,7 +53,7 @@ function Header() {
   };
 
   return (
-    <MUI.AppBar>
+    <MUI.AppBar color="primary">
       <MUI.Container maxWidth="xl">
         <MUI.Toolbar disableGutters>
           <MUI.Button href="/">
@@ -85,7 +76,6 @@ function Header() {
                 display: { xs: "none", md: "flex" },
                 fontFamily: "monospace",
                 fontWeight: 700,
-                letterSpacing: ".3rem",
                 color: "white",
                 textDecoration: "none",
               }}
@@ -158,13 +148,13 @@ function Header() {
             // está logado
             <MUI.Box sx={{ flexGrow: 0 }}>
               <MUI.Tooltip title="Configurações de Usuário">
-                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                <MUI.IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                   <MUI.Avatar
                     alt={user.firstname}
                     //   imagem do usuário
                     src="/"
                   />
-                </IconButton>
+                </MUI.IconButton>
               </MUI.Tooltip>
               <MUI.Menu
                 sx={{ mt: "45px" }}
@@ -223,4 +213,3 @@ function Header() {
     </MUI.AppBar>
   );
 }
-export default Header;
