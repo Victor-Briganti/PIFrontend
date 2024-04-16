@@ -3,15 +3,41 @@ import * as MUI from "@mui/material";
 import Header from "./Header";
 import Footer from "./Footer";
 import { Link } from "react-router-dom"; // Importe o Link do React Router
-import Main from "./Main";
-import Content from "./Content";
 
 export default function About() {
+  const theme = MUI.useTheme();
+
   return (
-    <Main>
-      <MUI.CssBaseline />
+    <MUI.Box
+      component="main"
+      display={"flex"}
+      bgcolor="secondary.light"
+      color="primary.contrastText"
+      justifyContent={"center"}
+      flexDirection={"column"}
+      alignItems={"center"}
+    >
       <Header />
-      <Content>
+      <MUI.CssBaseline />
+      <MUI.Container
+        component="main"
+        maxWidth="lg"
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+          bgcolor: "background.paper",
+          color: "text.primary",
+          padding: 2,
+          borderRadius: 1,
+          marginTop: "auto",
+          marginBottom: "auto",
+          paddingTop: "100px",
+          paddingBottom: "20px",
+          flexGrow: 1,
+        }}
+      >
         <MUI.Typography variant="h4" gutterBottom textAlign="left">
           Sobre o Adopete
         </MUI.Typography>
@@ -65,14 +91,16 @@ export default function About() {
           comercializar animais serão banidos.
         </MUI.Typography>
         <MUI.Typography variant="body1" paragraph textAlign="left">
-          Adote um Amigo! <Link to="/login">Clique aqui</Link> para conhecer os
-          cães e gatos que estão ansiosos para encontrar um lar. Antes de tomar
-          essa decisão importante, recomendamos que você leia nossas dicas sobre
-          adoção para garantir que está preparado para receber um novo membro na
-          família!
+          <Link to="/login" style={{ color: theme.palette.primary.main, textDecoration: "none", paddingRight: "6px"}}>
+              Adote um Amigo
+          </Link>
+          para conhecer os cães e gatos que estão ansiosos para encontrar um
+          lar. Antes de tomar essa decisão importante, recomendamos que você
+          leia nossas dicas sobre adoção para garantir que está preparado para
+          receber um novo membro na família!
         </MUI.Typography>
-      </Content>
+      </MUI.Container>
       <Footer />
-    </Main>
+    </MUI.Box>
   );
 }

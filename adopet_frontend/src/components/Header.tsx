@@ -6,8 +6,8 @@ import MenuIcon from "@mui/icons-material/Menu";
 
 const axiosUser = new AxiosUser();
 
-const pages = ["Sobre Nós", "Contato"];
-const pageLink = ["/about", "/contact"];
+const pages = ["Sobre Nós", "Contato", "Animais"];
+const pageLink = ["/about", "/contact", "/animals"];
 const settings = ["Perfil", "Sair"];
 const settingLink = ["/profile"];
 
@@ -204,7 +204,7 @@ export default function Header() {
                 href="/registeruser"
                 sx={{ my: 2, color: "white", display: "block" }}
               >
-                Registrar
+                Cadastre-se
               </MUI.Button>
             </MUI.Box>
           )}
