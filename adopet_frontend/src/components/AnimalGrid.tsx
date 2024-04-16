@@ -38,7 +38,7 @@ function AnimalCard({ animal }: { animal: Animal }) {
   return (
     <MUI.Card sx={{ maxWidth: 345 }} onClick={handleClick}>
       <MUI.CardActionArea>
-        <MUI.CardMedia component="img" height="200" image={imageUrl} />
+        <MUI.CardMedia component="img" height="auto" image={imageUrl} />
         <MUI.CardContent>
           <MUI.Typography gutterBottom variant="h5" component="div">
             {animal.name}
@@ -77,8 +77,7 @@ export default function AnimalGrid() {
       .listAnimals()
       .then((response) => {
         setAnimals(response.results);
-        setTotalPages(Math.ceil(response.count / 10));
-        console.log(response.count);
+        setTotalPages(Math.ceil(response.count / 9));
       })
       .catch((error) => {
         console.error(error);
