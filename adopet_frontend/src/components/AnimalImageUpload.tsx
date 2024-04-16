@@ -5,6 +5,7 @@ import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { HighlightOffRounded } from "@mui/icons-material";
 import { ImageAnimal } from "./models/ImageAnimal";
 import AxiosAnimal from "./api/AxiosAnimal";
+import { useNavigate } from "react-router-dom";
 
 // Intância axios para acessar o usuário
 const axiosAnimal = new AxiosAnimal();
@@ -15,6 +16,7 @@ export default function FileUpload() {
   const [imagePreviews, setImagePreviews] = React.useState<string[]>([]);
   const [animalImages, setAnimalImages] = React.useState<ImageAnimal[]>([]);
   const location = useLocation();
+  const navigate = useNavigate();
 
   const handleDragOver = React.useCallback((event) => {
     event.preventDefault();
@@ -109,6 +111,7 @@ export default function FileUpload() {
       axiosAnimal.uploadImage(image).catch((error) => {
         console.error("Erro ao enviar a imagem:", error);
       });
+      navigate("/");
     }
   };
 

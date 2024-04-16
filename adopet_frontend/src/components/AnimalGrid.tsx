@@ -77,8 +77,7 @@ export default function AnimalGrid() {
       .listAnimals()
       .then((response) => {
         setAnimals(response.results);
-        setTotalPages(Math.ceil(response.count / 10));
-        console.log(response.count);
+        setTotalPages(Math.ceil(response.count / 9));
       })
       .catch((error) => {
         console.error(error);
