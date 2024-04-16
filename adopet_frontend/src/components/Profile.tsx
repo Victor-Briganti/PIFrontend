@@ -2,6 +2,9 @@ import * as React from "react";
 import * as MUI from "@mui/material";
 import AxiosUser from "./api/AxiosUser";
 import { User } from "./models/User";
+import Main from "./Main";
+import Header from "./Header";
+import Footer from "./Footer";
 
 // Instância axios para acessar o usuário
 const axiosUser = new AxiosUser();
@@ -37,30 +40,70 @@ export default function Profile() {
 
   // Exibe as informações do usuário
   return (
-    <MUI.Card sx={{ minWidth: 600 }}>
-      <MUI.CardContent>
-        <MUI.Typography
-          sx={{ fontSize: 14 }}
-          color="text.secondary"
-          gutterBottom
-        >
-          {`Bem vindo ${user.firstname} ${user.lastname}`}
-        </MUI.Typography>
-        <MUI.Typography variant="h5" component="div">
-          {`Email: ${user.email}`}
-        </MUI.Typography>
-        <MUI.Typography sx={{ mb: 1.5 }} color="text.secondary">
-          {`Último login: ${user.last_login}`}
-        </MUI.Typography>
-      </MUI.CardContent>
-      <MUI.Button
-        fullWidth
-        variant="contained"
-        sx={{ mt: 3, mb: 2 }}
-        onClick={() => axiosUser.logout()}
-      >
-        Sair
-      </MUI.Button>
-    </MUI.Card>
+    <Main
+      height="100vh"
+      bgcolor="secondary.light"
+      color="primary.contrastText"
+      sx={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      <Header />
+      <MUI.Box sx={{ paddingBottom: 10, paddingTop: 20 }}>
+        <MUI.Card sx={{ minWidth: 600 }}>
+          <MUI.CardContent>
+            <MUI.Box
+              display="flex"
+              justifyContent="center"
+              alignItems="center"
+              marginBottom={3}
+            >
+              <MUI.Avatar alt={user.firstname} src="/" />
+            </MUI.Box>
+            <MUI.Typography
+              sx={{ fontSize: 14 }}
+              color="text.secondary"
+              gutterBottom
+            >
+              <MUI.Box
+                display="flex"
+                justifyContent="center"
+                alignItems="center"
+              >
+                {`Bem vindo ${user.firstname} ${user.lastname}`}
+              </MUI.Box>
+              <MUI.Box
+                display="flex"
+                justifyContent="center"
+                alignItems="center"
+              >
+                {`Email: ${user.email}`}
+              </MUI.Box>
+              <MUI.Button
+                fullWidth
+                sx={{ mt: 2, mb: 2 }}
+                href="/registeranimal"
+              >
+                Cadastrar Animal
+              </MUI.Button>
+              <MUI.Button fullWidth sx={{ mb: 2 }} href="/changepassword">
+                Alterar Senha
+              </MUI.Button>
+              <MUI.Button
+                fullWidth
+                variant="contained"
+                sx={{ mb: 2 }}
+                onClick={() => axiosUser.logout()}
+              >
+                Sair
+              </MUI.Button>
+            </MUI.Typography>
+          </MUI.CardContent>
+        </MUI.Card>
+      </MUI.Box>
+      <Footer />
+    </Main>
   );
 }
