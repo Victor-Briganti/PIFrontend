@@ -38,7 +38,7 @@ function AnimalCard({ animal }: { animal: Animal }) {
   return (
     <MUI.Card sx={{ maxWidth: 345 }} onClick={handleClick}>
       <MUI.CardActionArea>
-        <MUI.CardMedia component="img" height="200" image={imageUrl} />
+        <MUI.CardMedia component="img" height="auto" image={imageUrl} />
         <MUI.CardContent>
           <MUI.Typography gutterBottom variant="h5" component="div">
             {animal.name}

@@ -57,7 +57,7 @@ export default function AnimalCarousel() {
               component="img"
               sx={{
                 width: "100%",
-                height: "500px",
+                height: "auto",
                 objectFit: "cover",
               }}
               src={imageAnimal.image}
