@@ -3,8 +3,6 @@ import * as MUI from "@mui/material";
 import AxiosAnimal from "./api/AxiosAnimal";
 import { Animal } from "./models/Animal";
 import { useNavigate } from "react-router-dom";
-import Main from "./Main";
-import Content from "./Content";
 import Header from "./Header";
 import Footer from "./Footer";
 
@@ -96,27 +94,37 @@ export default function AnimalGrid() {
   }
 
   return (
-    <Main>
+    <MUI.Box
+    component="main"
+    display="flex"
+    flexDirection="column"
+    minHeight="100vh"
+  >
+    <Header />
+    <MUI.Container
+      component="main"
+      maxWidth="lg"
+      sx={{ paddingTop: "100px", paddingBottom: "20px", flexGrow: 1 }}
+    >
       <MUI.CssBaseline />
-      <Header />
-      <Content>
-        <MUI.Grid container spacing={3}>
-          {animals.map((animal: Animal) => (
-            <MUI.Grid item key={animal.id} xs={4}>
-              <AnimalCard animal={animal} />
-            </MUI.Grid>
-          ))}
-        </MUI.Grid>
-
-        {totalPages && (
+      <MUI.Grid container spacing={3}>
+        {animals.map((animal: Animal) => (
+          <MUI.Grid item key={animal.id} xs={4}>
+            <AnimalCard animal={animal} />
+          </MUI.Grid>
+        ))}
+      </MUI.Grid>
+      {totalPages && (
+        <MUI.Box display="flex" justifyContent="center" alignItems="center">
           <MUI.Pagination
             count={totalPages}
             page={page}
             onChange={handlePageChange}
           />
-        )}
-      </Content>
-      <Footer />
-    </Main>
+        </MUI.Box>
+      )}
+    </MUI.Container>
+    <Footer />
+  </MUI.Box>
   );
 }
