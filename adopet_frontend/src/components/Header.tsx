@@ -6,8 +6,8 @@ import MenuIcon from "@mui/icons-material/Menu";
 
 const axiosUser = new AxiosUser();
 
-const pages = ["Sobre Nós", "Contato", "Animais"];
-const pageLink = ["/about", "/contact", "/animals"];
+const pages = ["Sobre Nós", "Doação", "Animais"];
+const pageLink = ["/about", "/Donation", "/animals"];
 const settings = ["Perfil", "Sair"];
 const settingLink = ["/profile"];
 
