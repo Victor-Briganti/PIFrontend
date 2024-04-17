@@ -10,6 +10,7 @@ import Animals from "./components/AnimalGrid";
 import AnimalDetail from "./components/AnimalDetail";
 import Theme from "./components/Theme";
 import AnimalImageUpload from "./components/AnimalImageUpload";
+import Donation from "./components/Donation";
 import "./App.css";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
@@ -30,6 +31,7 @@ function App() {
             <Route path="/" element={<Home />}></Route>
             <Route path="/about" element={<About />}></Route>
             <Route path="/animalupload" element={<AnimalImageUpload />}></Route>
+             <Route path="/donation" element={<Donation />} />
           </Routes>
         </Router>
       </div>
