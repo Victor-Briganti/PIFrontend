@@ -3,6 +3,7 @@ import { User } from "./models/User";
 import React, { useState } from "react";
 import * as MUI from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
+import { useNavigate } from "react-router-dom";
 
 const axiosUser = new AxiosUser();
 
@@ -14,6 +15,7 @@ const settingLink = ["/profile"];
 export default function Header() {
   const [user, setUser] = React.useState<User | null>(null);
   const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
 
   React.useEffect(() => {
     axiosUser.getUserInfo().then((data: User) => {
@@ -32,7 +34,7 @@ export default function Header() {
     setAnchorElNav(event.currentTarget);
   };
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElUser(event.currentTarget);
+    navigate("/profile");
   };
 
   const handleCloseNavMenu = () => {
@@ -156,41 +158,6 @@ export default function Header() {
                   />
                 </MUI.IconButton>
               </MUI.Tooltip>
-              <MUI.Menu
-                sx={{ mt: "45px" }}
-                id="menu-appbar"
-                anchorEl={anchorElUser}
-                anchorOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                open={Boolean(anchorElUser)}
-                onClose={handleCloseUserMenu}
-              >
-                {settings.map((setting) => (
-                  <MUI.MenuItem
-                    sx={{ padding: "0px" }}
-                    key={setting}
-                    onClick={handleCloseUserMenu}
-                  >
-                    <MUI.Link
-                      textAlign="center"
-                      sx={{ px: "14px" }}
-                      underline="none"
-                      color={"textPrimary"}
-                      href={settingLink[settings.indexOf(setting)]}
-                      onClick={setting === "Sair" ? handleLogout : undefined}
-                    >
-                      {setting}
-                    </MUI.Link>
-                  </MUI.MenuItem>
-                ))}
-              </MUI.Menu>
             </MUI.Box>
           ) : (
             <MUI.Box display={"flex"} flexDirection={"row"}>
