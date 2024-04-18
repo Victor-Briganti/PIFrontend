@@ -8,25 +8,21 @@ interface MainProps {
   sx?: React.CSSProperties;
 }
 
-export default function Main({
-  children,
-  height,
-  bgcolor,
-  color,
-  sx,
-}: MainProps) {
+export default function Main({ children, bgcolor, color, sx }: MainProps) {
   return (
     <MUI.Box
       component="main"
       display={"flex"}
       flexDirection={"column"}
       alignItems={"center"}
-      height={height}
       bgcolor={bgcolor}
       color={color}
       sx={sx}
       minHeight="100vh"
+      height={"100%"}
+      flexGrow={1}
     >
+      <MUI.CssBaseline />
       {children}
     </MUI.Box>
   );
