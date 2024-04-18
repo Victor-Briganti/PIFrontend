@@ -5,12 +5,15 @@ import AxiosAnimal from "./api/AxiosAnimal";
 import { ImageAnimal } from "./models/ImageAnimal";
 import { Animal } from "./models/Animal";
 import { useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const axiosAnimal = new AxiosAnimal();
 
 export default function AnimalCarousel() {
   const [images, setImages] = React.useState<ImageAnimal[]>([]);
   const [animal, setAnimal] = React.useState<Animal | null>(null);
+  const [openModal, setOpenModal] = React.useState<boolean>(false);
+  const navigate = useNavigate();
   const location = useLocation();
 
   React.useEffect(() => {
@@ -43,6 +46,27 @@ export default function AnimalCarousel() {
       </div>
     );
   }
+
+  const handleAnimalChange = (event) => {
+    navigate("/changeanimal", { state: { animal: animal } });
+  };
+
+  // Função que é chamada quando o formulário é submetido
+  const handleExclusion = (event) => {
+    event.preventDefault();
+    setOpenModal(true);
+  };
+
+  const handleExclusionConfirm = () => {
+    axiosAnimal.deleteAnimal(animal.id).then(() => {
+      navigate("/animals");
+    });
+  };
+
+  // Função que é chamada quando o usuário fecha o modal de confirmação
+  const handleCloseModal = () => {
+    setOpenModal(false);
+  };
 
   return (
     <MUI.Box sx={{ maxWidth: 800, flexGrow: 1, margin: "auto", mt: 5 }}>
@@ -83,6 +107,57 @@ export default function AnimalCarousel() {
           {animal.is_special_needs ? "Sim" : "Não"}
         </MUI.Typography>
       </MUI.Box>
+      <MUI.Box paddingTop="20px">
+        <MUI.Button
+          fullWidth
+          variant="contained"
+          onClick={handleAnimalChange}
+          sx={{ mb: 2 }}
+        >
+          Alterar Informações
+        </MUI.Button>
+        <MUI.Button
+          fullWidth
+          variant="contained"
+          color="error"
+          sx={{ mb: 2 }}
+          onClick={handleExclusion}
+        >
+          Excluir
+        </MUI.Button>
+      </MUI.Box>
+      <MUI.Dialog
+        open={openModal}
+        onClose={handleCloseModal}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <MUI.DialogTitle id="alert-dialog-title">
+          Deseja excluir {animal.name}?
+        </MUI.DialogTitle>
+        <MUI.DialogContent>
+          <MUI.DialogContentText id="alert-dialog-description">
+            Essa ação não pode ser desfeita.
+          </MUI.DialogContentText>
+        </MUI.DialogContent>
+        <MUI.DialogActions>
+          <MUI.Button
+            onClick={handleExclusionConfirm}
+            color="primary"
+            autoFocus
+            style={{
+              marginRight: "10px",
+              backgroundColor: "red",
+              color: "white",
+            }}
+          >
+            Confirmar
+          </MUI.Button>
+          <MUI.Button onClick={handleCloseModal} color="primary">
+            Cancelar
+          </MUI.Button>
+        </MUI.DialogActions>
+      </MUI.Dialog>
     </MUI.Box>
   );
 }

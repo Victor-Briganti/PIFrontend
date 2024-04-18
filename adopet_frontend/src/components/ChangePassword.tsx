@@ -4,6 +4,7 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import AxiosUser from "./api/AxiosUser";
 import { User } from "./models/User";
 import Main from "./Main";
+import { useNavigate } from "react-router-dom";
 
 // Instância axios para acessar o usuário
 const axiosUser = new AxiosUser();
@@ -15,6 +16,7 @@ export default function ChangePassword() {
   const [currentFormData, setCurrentFormData] = React.useState<FormData | null>(
     null
   );
+  const navigate = useNavigate();
 
   // Quando o componente é montado, faz uma requisição GET para a API
   React.useEffect(() => {
@@ -66,10 +68,13 @@ export default function ChangePassword() {
       typeof password !== "string"
     ) {
       setMessageError("Senha não pode ser vazia");
+    } else if (password !== null && password.toString().length < 8) {
+      setMessageError("Senha deve ter no mínimo 8 caracteres");
     } else {
       axiosUser.changePassword(user.id, password);
     }
     setOpenModal(false);
+    navigate("/");
   };
 
   // Função que é chamada quando o usuário fecha o modal de confirmação
