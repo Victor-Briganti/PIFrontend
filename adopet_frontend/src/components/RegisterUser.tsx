@@ -52,6 +52,9 @@ export default function RegisterUser() {
         case password !== confirmPassword:
           setMessageError("Senhas não coincidem.");
           break;
+        case password !== null && password.toString().length < 8:
+          setMessageError("Senha deve ter no mínimo 8 caracteres");
+          break;
         default:
           await axiosUser.register(email, password, firstname, lastname);
           navigate("/login");
