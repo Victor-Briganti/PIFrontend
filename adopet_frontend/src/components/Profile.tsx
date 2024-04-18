@@ -5,6 +5,7 @@ import { User } from "./models/User";
 import Main from "./Main";
 import Header from "./Header";
 import Footer from "./Footer";
+import { useNavigate } from "react-router-dom";
 
 // Instância axios para acessar o usuário
 const axiosUser = new AxiosUser();
@@ -12,6 +13,7 @@ const axiosUser = new AxiosUser();
 export default function Profile() {
   const [user, setUser] = React.useState<User | null>(null);
   const [messageError, setMessageError] = React.useState<string>("");
+  const navigate = useNavigate();
 
   // Quando o componente é montado, faz uma requisição GET para a API
   React.useEffect(() => {
@@ -95,7 +97,10 @@ export default function Profile() {
                 fullWidth
                 variant="contained"
                 sx={{ mb: 2 }}
-                onClick={() => axiosUser.logout()}
+                onClick={() => {
+                  axiosUser.logout();
+                  navigate("/");
+                }}
               >
                 Sair
               </MUI.Button>
