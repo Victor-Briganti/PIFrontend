@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 const axiosAnimal = new AxiosAnimal();
 
 export default function FileUpload() {
+  const [messageError, setMessageError] = React.useState<string>("");
   const [dragOver, setDragOver] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
   const [imagePreviews, setImagePreviews] = React.useState<string[]>([]);
@@ -109,7 +110,7 @@ export default function FileUpload() {
     for (let i = 0; i < animalImages.length; i++) {
       const image = animalImages[i];
       axiosAnimal.uploadImage(image).catch((error) => {
-        console.error("Erro ao enviar a imagem:", error);
+        setMessageError("Erro ao enviar imagem");
       });
       navigate("/");
     }
@@ -216,6 +217,11 @@ export default function FileUpload() {
                 </MUI.Grid>
               ))}
             </MUI.Grid>
+          )}
+          {messageError && (
+            <MUI.Alert variant="filled" severity="error">
+              {messageError}
+            </MUI.Alert>
           )}
         </MUI.Box>
       </MUI.Box>
