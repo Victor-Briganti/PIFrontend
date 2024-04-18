@@ -13,9 +13,11 @@ export default function About() {
       display={"flex"}
       bgcolor="secondary.light"
       color="primary.contrastText"
-      justifyContent={"center"}
       flexDirection={"column"}
       alignItems={"center"}
+      minHeight={"100vh"}
+      height={"100%"}
+      flexGrow={1}
     >
       <Header />
       <MUI.CssBaseline />
@@ -25,7 +27,6 @@ export default function About() {
         sx={{
           display: "flex",
           flexDirection: "column",
-          justifyContent: "center",
           alignItems: "center",
           bgcolor: "background.paper",
           color: "text.primary",
@@ -39,7 +40,7 @@ export default function About() {
         }}
       >
         <MUI.Typography variant="h4" gutterBottom textAlign="left">
-          Sobre o Adopete
+          Sobre o Adopet
         </MUI.Typography>
         <MUI.Typography variant="body1" paragraph textAlign="left">
           Aqui na Adopet, acreditamos firmemente que todos os animais de rua
@@ -91,8 +92,15 @@ export default function About() {
           comercializar animais serão banidos.
         </MUI.Typography>
         <MUI.Typography variant="body1" paragraph textAlign="left">
-          <Link to="/login" style={{ color: theme.palette.primary.main, textDecoration: "none", paddingRight: "6px"}}>
-              Adote um Amigo
+          <Link
+            to="/login"
+            style={{
+              color: theme.palette.primary.main,
+              textDecoration: "none",
+              paddingRight: "6px",
+            }}
+          >
+            Adote um Amigo
           </Link>
           para conhecer os cães e gatos que estão ansiosos para encontrar um
           lar. Antes de tomar essa decisão importante, recomendamos que você

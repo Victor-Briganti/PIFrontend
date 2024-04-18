@@ -13,13 +13,10 @@ export default function Footer() {
   return (
     <MUI.Grid
       container
-      flexGrow={1}
       spacing={2}
       justifyContent={"center"}
       alignItems={"end"}
       sx={{
-        position: "static",
-        bottom: "0%",
         marginX: "0px",
         padding: 3,
         backgroundColor: "black",

@@ -41,7 +41,7 @@ export default function Profile() {
   // Exibe as informações do usuário
   return (
     <Main
-      height="100vh"
+      height="100%"
       bgcolor="secondary.light"
       color="primary.contrastText"
       sx={{
@@ -51,7 +51,7 @@ export default function Profile() {
       }}
     >
       <Header />
-      <MUI.Box sx={{ paddingBottom: 10, paddingTop: 20 }}>
+      <MUI.Box flexGrow={1} sx={{ paddingBottom: 10, paddingTop: 20 }}>
         <MUI.Card sx={{ minWidth: 600 }}>
           <MUI.CardContent>
             <MUI.Box

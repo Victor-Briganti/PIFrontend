@@ -15,7 +15,7 @@ const banners = [
 
 export default function Home() {
   return (
-    <Main height="200vh" bgcolor="secondary.light" color="primary.contrastText">
+    <Main bgcolor="secondary.light" color="primary.contrastText">
       <Header />
       <MUI.CssBaseline />
       <MUI.Container
@@ -24,7 +24,6 @@ export default function Home() {
         sx={{
           display: "flex",
           flexDirection: "column",
-          justifyContent: "center",
           alignItems: "flex-start",
           bgcolor: "background.paper",
           color: "text.primary",
@@ -35,7 +34,8 @@ export default function Home() {
           paddingTop: "100px",
           paddingBottom: "20px",
           flexGrow: 1,
-          height: "1000vh",
+          height: "100%",
+          minHeight: "100vh",
         }}
       >
         <Carousel

@@ -2,13 +2,19 @@ import * as MUI from "@mui/material";
 
 interface MainProps {
   children: React.ReactNode;
-  height?: string
-  bgcolor?: string
-  color?: string
+  height?: string;
+  bgcolor?: string;
+  color?: string;
   sx?: React.CSSProperties;
 }
 
-export default function Main({ children, height, bgcolor, color, sx }: MainProps) {
+export default function Main({
+  children,
+  height,
+  bgcolor,
+  color,
+  sx,
+}: MainProps) {
   return (
     <MUI.Box
       component="main"
@@ -19,6 +25,7 @@ export default function Main({ children, height, bgcolor, color, sx }: MainProps
       bgcolor={bgcolor}
       color={color}
       sx={sx}
+      minHeight="100vh"
     >
       {children}
     </MUI.Box>
