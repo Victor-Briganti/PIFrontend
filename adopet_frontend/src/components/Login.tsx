@@ -23,21 +23,18 @@ export default function Login() {
       const password = data.get("password");
 
       switch (true) {
-        case email === "" && password === "":
-          setMessageWarning("Informações vazias");
-          break;
-        case email === "":
-          setMessageWarning("Email não pode estar vazio");
-          break;
-        case password === "":
-          setMessageWarning("Senha não pode estar vazio");
+        case (email === "") || (password === ""):
+          setMessageWarning("Campo obrigatório não preenchido");
           break;
         default:
           setMessageWarning("");
           // axiosUser.login(email, password);
-          await axiosUser.login(email, password);
-          navigate("/"); // Navigate to the home page or any other route
-          window.location.reload();
+          axiosUser.login(email, password).then((response)=> {
+            navigate("/");
+            window.location.reload();
+          }).catch((error) => {
+            setMessageWarning("Email ou senha inválidos");
+          });
       }
     };
     // console.log(handleSubmit);

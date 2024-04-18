@@ -39,6 +39,20 @@ export class Animal {
     if (Number(value) < 0) throw new Error(label + " não pode ser negativo");
   }
 
+  private stringValidator(label: string, value: string) {
+    const stringValidation = /^[a-zA-Z]+$/;
+
+    if (!stringValidation.test(value))
+      throw new Error("Campo " + label + " inválido");
+  }
+
+  private numberValidator(label: string, value: string) {
+    const numberValidation = /^[0-9]+$/;
+
+    if (!numberValidation.test(value))
+      throw new Error("Campo " + label + " inválido");
+  }
+
   saveFormData(data: FormData | null) {
     if (data === null) return;
 
@@ -50,12 +64,14 @@ export class Animal {
 
     const name = data.get("name");
     if (name !== null) {
+      this.stringValidator("Nome", name.toString());
       this.name = name.toString();
     }
 
     const age = data.get("age");
     if (age !== null) {
       this.verifyNegativeNum("Idade", age.toString());
+      this.numberValidator("Idade", age.toString());
       this.age = Number(age);
     }
 
@@ -74,15 +90,15 @@ export class Animal {
       this.size = size.toString();
     }
 
-    const coat = data.get("coat");
-    if (coat !== null) {
-      this.coat = coat.toString();
-    }
-
     const weight = data.get("weight");
     if (weight !== null) {
       this.verifyNegativeNum("Peso", weight.toString());
       this.weight = Number(weight);
+    }
+
+    const coat = data.get("coat");
+    if (coat !== null) {
+      this.coat = coat.toString();
     }
 
     const adoption_date = data.get("adoption_date");
@@ -142,5 +158,24 @@ export class Animal {
       case "large":
         return "Grande Porte";
     }
+  }
+
+  validateRegister(): void {
+    if (this.name === "") throw new Error("Nome é um campo obrigatório");
+
+    if (this.age === undefined || isNaN(this.age))
+      throw new Error("Idade é um campo obrigatório");
+
+    if (this.weight !== undefined && !isNaN(this.weight)) {
+      this.numberValidator("Peso", this.weight.toString());
+    }
+
+    if (this.coat !== undefined && this.coat !== "") {
+      this.stringValidator("Pelagem", this.coat.toString());
+    }
+
+    if (this.specie === "") throw new Error("Espécie é um campo obrigatório");
+    if (this.gender === "") throw new Error("Genêro é um campo obrigatório");
+    if (this.size === "") throw new Error("Tamanho é um campo obrigatório");
   }
 }
