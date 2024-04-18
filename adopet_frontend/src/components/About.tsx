@@ -3,42 +3,17 @@ import * as MUI from "@mui/material";
 import Header from "./Header";
 import Footer from "./Footer";
 import { Link } from "react-router-dom"; // Importe o Link do React Router
+import Main from "./Main";
+import Content from "./Content";
 
 export default function About() {
   const theme = MUI.useTheme();
 
   return (
-    <MUI.Box
-      component="main"
-      display={"flex"}
-      bgcolor="secondary.light"
-      color="primary.contrastText"
-      flexDirection={"column"}
-      alignItems={"center"}
-      minHeight={"100vh"}
-      height={"100%"}
-      flexGrow={1}
-    >
+    <Main>
       <Header />
       <MUI.CssBaseline />
-      <MUI.Container
-        component="main"
-        maxWidth="lg"
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          bgcolor: "background.paper",
-          color: "text.primary",
-          padding: 2,
-          borderRadius: 1,
-          marginTop: "auto",
-          marginBottom: "auto",
-          paddingTop: "100px",
-          paddingBottom: "20px",
-          flexGrow: 1,
-        }}
-      >
+      <Content>
         <MUI.Typography variant="h4" gutterBottom textAlign="left">
           Sobre o Adopet
         </MUI.Typography>
@@ -107,8 +82,8 @@ export default function About() {
           leia nossas dicas sobre adoção para garantir que está preparado para
           receber um novo membro na família!
         </MUI.Typography>
-      </MUI.Container>
+      </Content>
       <Footer />
-    </MUI.Box>
+    </Main>
   );
 }
