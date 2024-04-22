@@ -40,7 +40,7 @@ export class Animal {
   }
 
   private stringValidator(label: string, value: string) {
-    const stringValidation = /^[a-zA-Z]+$/;
+    const stringValidation = /^[a-zA-Z\s]+$/;
 
     if (!stringValidation.test(value))
       throw new Error("Campo " + label + " inválido");

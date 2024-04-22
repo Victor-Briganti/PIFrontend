@@ -74,7 +74,7 @@ export default function ChangePassword() {
       axiosUser.changePassword(user.id, password);
     }
     setOpenModal(false);
-    navigate("/");
+    navigate("/login");
   };
 
   // Função que é chamada quando o usuário fecha o modal de confirmação

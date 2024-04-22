@@ -166,6 +166,7 @@ export default function ChangeAnimal() {
 
             <MUI.Grid item xs={12} sm={12}>
               <MUI.TextField
+                required
                 fullWidth
                 id="weight"
                 label="Peso"
@@ -176,6 +177,7 @@ export default function ChangeAnimal() {
 
             <MUI.Grid item xs={12} sm={12}>
               <MUI.TextField
+                required
                 fullWidth
                 id="coat"
                 label="Pelagem"

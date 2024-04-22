@@ -61,7 +61,7 @@ export default function RegisterAnimal() {
       setMessageError(error.message);
       return;
     }
-    
+
     const response = await axiosAnimal.registerAnimal(animal).catch((error) => {
       setMessageError("Erro ao carregar ao salvar o animal. Tente novamente.");
     });
@@ -149,6 +149,7 @@ export default function RegisterAnimal() {
 
             <MUI.Grid item xs={12} sm={12}>
               <MUI.TextField
+                required
                 fullWidth
                 id="weight"
                 label="Peso"
@@ -158,6 +159,7 @@ export default function RegisterAnimal() {
 
             <MUI.Grid item xs={12} sm={12}>
               <MUI.TextField
+                required
                 fullWidth
                 id="coat"
                 label="Pelagem"
