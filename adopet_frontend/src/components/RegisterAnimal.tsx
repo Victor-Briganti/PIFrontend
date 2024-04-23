@@ -72,7 +72,7 @@ export default function RegisterAnimal() {
       });
     } catch (error) {
       setMessageError(
-        "Não foi possível redirecionar para a página de upload de imagens."
+        "Não foi possível redirecionar para a página de upload de imagens.",
       );
       console.log(error);
     }
@@ -87,7 +87,7 @@ export default function RegisterAnimal() {
       })
       .catch((error) => {
         setLoadError(
-          "Erro ao carregar as opções de formulário. Tente novamente."
+          "Erro ao carregar as opções de formulário. Tente novamente.",
         );
       });
   }, []);

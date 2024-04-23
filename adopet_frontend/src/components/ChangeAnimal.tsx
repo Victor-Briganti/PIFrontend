@@ -72,7 +72,7 @@ export default function ChangeAnimal() {
       .then(() => navigate("/animals"))
       .catch((error) => {
         setMessageError(
-          "Erro ao carregar ao salvar o animal. Tente novamente."
+          "Erro ao carregar ao salvar o animal. Tente novamente.",
         );
       });
   };
@@ -86,7 +86,7 @@ export default function ChangeAnimal() {
       })
       .catch((error) => {
         setLoadError(
-          "Erro ao carregar as opções de formulário. Tente novamente."
+          "Erro ao carregar as opções de formulário. Tente novamente.",
         );
       });
 
