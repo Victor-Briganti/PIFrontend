@@ -38,14 +38,21 @@ function AnimalCard({ animal }: { animal: Animal }) {
   return (
     <MUI.Card sx={{ maxWidth: 345 }} onClick={handleClick}>
       <MUI.CardActionArea>
-        <MUI.CardMedia component="img" height="auto" image={imageUrl} />
+        <MUI.CardMedia component="img" height="250px" image={imageUrl} />
         <MUI.CardContent>
           <MUI.Typography gutterBottom variant="h5" component="div">
             {animal.name}
           </MUI.Typography>
-          <MUI.Typography variant="body2" color="text.secondary">
-            {animal.description}
-          </MUI.Typography>
+          {animal.description && animal.description.length > 90 ? (
+            // <MUI.Typography>{animal.description.slice(70)}</MUI.Typography>
+            <MUI.Typography variant="body2" color="text.secondary">
+              {animal.description.slice(0, 90)}..
+            </MUI.Typography>
+          ) : (
+            <MUI.Typography variant="body2" color="text.secondary">
+              {animal.description}
+            </MUI.Typography>
+          )}
         </MUI.CardContent>
       </MUI.CardActionArea>
     </MUI.Card>
@@ -94,36 +101,36 @@ export default function AnimalGrid() {
 
   return (
     <MUI.Box
-    component="main"
-    display="flex"
-    flexDirection="column"
-    minHeight="100vh"
-  >
-    <Header />
-    <MUI.Container
       component="main"
-      maxWidth="lg"
-      sx={{ paddingTop: "100px", paddingBottom: "20px", flexGrow: 1 }}
+      display="flex"
+      flexDirection="column"
+      minHeight="100vh"
     >
-      <MUI.CssBaseline />
-      <MUI.Grid container spacing={3}>
-        {animals.map((animal: Animal) => (
-          <MUI.Grid item key={animal.id} xs={4}>
-            <AnimalCard animal={animal} />
-          </MUI.Grid>
-        ))}
-      </MUI.Grid>
-      {totalPages && (
-        <MUI.Box display="flex" justifyContent="center" alignItems="center">
-          <MUI.Pagination
-            count={totalPages}
-            page={page}
-            onChange={handlePageChange}
-          />
-        </MUI.Box>
-      )}
-    </MUI.Container>
-    <Footer />
-  </MUI.Box>
+      <Header />
+      <MUI.Container
+        component="main"
+        maxWidth="lg"
+        sx={{ paddingTop: "100px", paddingBottom: "20px", flexGrow: 1 }}
+      >
+        <MUI.CssBaseline />
+        <MUI.Grid container spacing={3}>
+          {animals.map((animal: Animal) => (
+            <MUI.Grid item key={animal.id} xs={4}>
+              <AnimalCard animal={animal} />
+            </MUI.Grid>
+          ))}
+        </MUI.Grid>
+        {totalPages && (
+          <MUI.Box display="flex" justifyContent="center" alignItems="center">
+            <MUI.Pagination
+              count={totalPages}
+              page={page}
+              onChange={handlePageChange}
+            />
+          </MUI.Box>
+        )}
+      </MUI.Container>
+      <Footer />
+    </MUI.Box>
   );
 }

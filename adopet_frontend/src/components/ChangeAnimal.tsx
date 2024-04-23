@@ -4,12 +4,12 @@ import AxiosAnimal from "./api/AxiosAnimal";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { Animal } from "./models/Animal";
 import { AnimalFormChoice } from "./models/AnimalFormChoice";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 // Instância axios para acessar o usuário
 const axiosAnimal = new AxiosAnimal();
 
-export default function RegisterAnimal() {
+export default function ChangeAnimal() {
   const [choices, setChoices] = React.useState<AnimalFormChoice | null>(null);
   const [loadError, setLoadError] = React.useState<string>("");
   const [messageError, setMessageError] = React.useState<string>("");
@@ -21,6 +21,7 @@ export default function RegisterAnimal() {
   const [isHouseTrained, setHouseTrained] = React.useState<boolean>(false);
   const [isSpecialNeeds, setSpecialNeeds] = React.useState<boolean>(false);
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleSpecie = (event: MUI.SelectChangeEvent) => {
     setSpecie(event.target.value);
@@ -54,6 +55,8 @@ export default function RegisterAnimal() {
     formData.append("is_house_trained", isHouseTrained.toString());
     const animal = new Animal(null);
 
+    console.log(animal);
+
     try {
       animal.saveFormData(formData);
       animal.validateRegister();
@@ -62,20 +65,16 @@ export default function RegisterAnimal() {
       return;
     }
 
-    const response = await axiosAnimal.registerAnimal(animal).catch((error) => {
-      setMessageError("Erro ao carregar ao salvar o animal. Tente novamente.");
-    });
+    animal.id = location.state.animal.id;
 
-    try {
-      navigate("/animalupload", {
-        state: { animalName: response.name, animalId: response.id },
+    const response = await axiosAnimal
+      .updateAnimal(animal)
+      .then(() => navigate("/animals"))
+      .catch((error) => {
+        setMessageError(
+          "Erro ao carregar ao salvar o animal. Tente novamente."
+        );
       });
-    } catch (error) {
-      setMessageError(
-        "Não foi possível redirecionar para a página de upload de imagens."
-      );
-      console.log(error);
-    }
   };
 
   // Quando o componente é montado, faz uma requisição GET para a API
@@ -90,6 +89,14 @@ export default function RegisterAnimal() {
           "Erro ao carregar as opções de formulário. Tente novamente."
         );
       });
+
+    if (location.state) {
+      setHouseTrained(location.state.animal.is_house_trained);
+      setSpecialNeeds(location.state.animal.is_special_needs);
+      setSize(location.state.animal.size);
+      setSpecie(location.state.animal.specie);
+      setGender(location.state.animal.gender);
+    }
   }, []);
 
   // Se as opções ainda não foram carregadas, exibe uma mensagem de carregamento
@@ -99,9 +106,17 @@ export default function RegisterAnimal() {
         <h1>{loadError}</h1>
       </div>
     );
+  } else if (!location.state) {
+    return (
+      <div>
+        <h1>Não foi possível carregar informações do animal</h1>
+      </div>
+    );
   } else if (!choices) {
     return <div>Carregando...</div>;
   }
+
+  console.log(location.state.animal);
 
   return (
     <MUI.Container component="main" maxWidth="xs">
@@ -118,7 +133,7 @@ export default function RegisterAnimal() {
           <LockOutlinedIcon />
         </MUI.Avatar>
         <MUI.Typography component="h1" variant="h5">
-          Registro de Animais
+          Alterar {location.state.animal.name}
         </MUI.Typography>
         <MUI.Box
           component="form"
@@ -134,6 +149,7 @@ export default function RegisterAnimal() {
                 id="name"
                 label="Nome"
                 name="name"
+                defaultValue={location.state.animal.name}
               />
             </MUI.Grid>
 
@@ -144,6 +160,7 @@ export default function RegisterAnimal() {
                 id="age"
                 label="Idade"
                 name="age"
+                defaultValue={location.state.animal.age}
               />
             </MUI.Grid>
 
@@ -154,6 +171,7 @@ export default function RegisterAnimal() {
                 id="weight"
                 label="Peso"
                 name="weight"
+                defaultValue={location.state.animal.weight}
               />
             </MUI.Grid>
 
@@ -164,6 +182,7 @@ export default function RegisterAnimal() {
                 id="coat"
                 label="Pelagem"
                 name="coat"
+                defaultValue={location.state.animal.coat}
               />
             </MUI.Grid>
 
@@ -173,9 +192,9 @@ export default function RegisterAnimal() {
                 <MUI.Select
                   labelId="specieLabel"
                   id="specie"
-                  value={specie}
                   label="Espécie *"
                   onChange={handleSpecie}
+                  value={specie}
                 >
                   {choices.mapSpecies()}
                 </MUI.Select>
@@ -189,9 +208,9 @@ export default function RegisterAnimal() {
                 <MUI.Select
                   labelId="genderLabel"
                   id="gender"
-                  value={gender}
                   label="Espécie *"
                   onChange={handleGender}
+                  value={gender}
                 >
                   {choices.mapGender()}
                 </MUI.Select>
@@ -205,9 +224,9 @@ export default function RegisterAnimal() {
                 <MUI.Select
                   labelId="sizeLabel"
                   id="size"
-                  value={size}
                   label="Tamanho *"
                   onChange={handleSize}
+                  value={size}
                 >
                   {choices.mapSize()}
                 </MUI.Select>
@@ -223,6 +242,7 @@ export default function RegisterAnimal() {
                 name="description"
                 multiline
                 rows={5}
+                defaultValue={location.state.animal.description}
               />
             </MUI.Grid>
 
@@ -235,6 +255,7 @@ export default function RegisterAnimal() {
                         id="is_house_trained"
                         checked={isHouseTrained}
                         onChange={handleHouseTrained}
+                        defaultValue={location.state.animal.is_house_trained}
                       />
                     }
                     label="Sabe usar a caixa de areia ou o tapete higiênico"
@@ -248,6 +269,7 @@ export default function RegisterAnimal() {
                         id="is_special_needs"
                         checked={isSpecialNeeds}
                         onChange={handleSpecialNeeds}
+                        defaultValue={location.state.animal.is_special_needs}
                       />
                     }
                     label="Possui necessidades especiais"
@@ -263,7 +285,7 @@ export default function RegisterAnimal() {
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
               >
-                Cadastrar
+                Alterar
               </MUI.Button>
             </MUI.Grid>
             {messageError && (

@@ -23,18 +23,24 @@ export default function Login() {
       const password = data.get("password");
 
       switch (true) {
-        case (email === "") || (password === ""):
+        case email === "" || password === "":
           setMessageWarning("Campo obrigatório não preenchido");
+          break;
+        case password !== null && password.toString().length < 8:
+          setMessageWarning("Senha deve ter no mínimo 8 caracteres");
           break;
         default:
           setMessageWarning("");
           // axiosUser.login(email, password);
-          axiosUser.login(email, password).then((response)=> {
-            navigate("/");
-            window.location.reload();
-          }).catch((error) => {
-            setMessageWarning("Email ou senha inválidos");
-          });
+          axiosUser
+            .login(email, password)
+            .then((response) => {
+              navigate("/");
+              window.location.reload();
+            })
+            .catch((error) => {
+              setMessageWarning("Email ou senha inválidos");
+            });
       }
     };
     // console.log(handleSubmit);

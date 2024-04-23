@@ -4,6 +4,7 @@ import Header from "./Header";
 import Footer from "./Footer";
 import Carousel from "react-material-ui-carousel";
 import Main from "./Main";
+import Content from "./Content";
 
 // Define your banners here
 const banners = [
@@ -17,27 +18,7 @@ export default function Home() {
   return (
     <Main bgcolor="secondary.light" color="primary.contrastText">
       <Header />
-      <MUI.CssBaseline />
-      <MUI.Container
-        component="main"
-        maxWidth="lg"
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "flex-start",
-          bgcolor: "background.paper",
-          color: "text.primary",
-          padding: 2,
-          borderRadius: 1,
-          marginTop: "auto",
-          marginBottom: "auto",
-          paddingTop: "100px",
-          paddingBottom: "20px",
-          flexGrow: 1,
-          height: "100%",
-          minHeight: "100vh",
-        }}
-      >
+      <Content>
         <Carousel
           sx={{
             width: "100%",
@@ -119,7 +100,8 @@ export default function Home() {
           ao animal tudo o que ele precisa. Adotar um animal é um compromisso de
           longo prazo, que exige tempo, amor e dedicação.
         </MUI.Typography>
-      </MUI.Container>
+      </Content>
+      {/* </MUI.Container> */}
       <Footer />
     </Main>
   );

@@ -39,9 +39,9 @@ class AxiosAnimal extends AxiosBase<Animal> {
   }
 
   async getAnimalById(id: number) {
-    return await this.get(id.toString())
+    return await this.get(id.toString());
   }
-  
+
   async listImagesById(id: number) {
     return await this.axiosImage.filterBy(id);
   }
@@ -55,7 +55,7 @@ class AxiosAnimal extends AxiosBase<Animal> {
   }
 
   async updateAnimal(animal: Animal) {
-    return await this.put("update/", animal);
+    return await this.put("update/" + animal.id, animal);
   }
 
   async getChoices() {

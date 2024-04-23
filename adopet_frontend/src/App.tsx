@@ -8,6 +8,7 @@ import Home from "./components/Home";
 import About from "./components/About";
 import Animals from "./components/AnimalGrid";
 import AnimalDetail from "./components/AnimalDetail";
+import ChangeAnimal from "./components/ChangeAnimal";
 import Theme from "./components/Theme";
 import AnimalImageUpload from "./components/AnimalImageUpload";
 import Donation from "./components/Donation";
@@ -28,10 +29,11 @@ function App() {
             <Route path="/delete" element={<Delete />}></Route>
             <Route path="/animals" element={<Animals />}></Route>
             <Route path="/animaldetail" element={<AnimalDetail />}></Route>
+            <Route path="/changeanimal" element={<ChangeAnimal />}></Route>
             <Route path="/" element={<Home />}></Route>
             <Route path="/about" element={<About />}></Route>
             <Route path="/animalupload" element={<AnimalImageUpload />}></Route>
-             <Route path="/donation" element={<Donation />} />
+            <Route path="/donation" element={<Donation />} />
           </Routes>
         </Router>
       </div>
