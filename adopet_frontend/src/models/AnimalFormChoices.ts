@@ -72,4 +72,11 @@ export class AnimalFormChoice {
   getSizes(): { label: string; value: string }[] {
     return this.size_choices;
   }
+
+  toJSON(): any {
+    return {
+      age_choices: this?.age_choices,
+      coat_choices: this?.coat_choices,
+    };
+  }
 }

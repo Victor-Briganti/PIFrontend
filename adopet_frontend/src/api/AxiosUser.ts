@@ -1,4 +1,3 @@
-import axios from "axios";
 import AxiosBase from "./AxiosBase";
 import { User } from "../models/User";
 
@@ -14,11 +13,11 @@ class AxiosUser extends AxiosBase<User> {
     });
   }
 
-  async register(
+  async registerUser(
     email: string,
     password: string,
     firstname: string,
-    lastname: string
+    lastname: string,
   ) {
     return await this.post("register/", {
       email,

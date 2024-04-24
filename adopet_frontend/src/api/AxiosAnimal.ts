@@ -1,4 +1,3 @@
-import axios from "axios";
 import AxiosBase from "./AxiosBase";
 import { Animal } from "../models/Animal";
 import { ImageAnimal } from "../models/ImageAnimal";
@@ -9,8 +8,8 @@ class AxiosAnimalImage extends AxiosBase<ImageAnimal> {
     this.host = this.host + "/animal/images/";
   }
 
-  async register(image: ImageAnimal) {
-    return await this.post("register/", image, {
+  async upload(image: ImageAnimal) {
+    return await this.post("upload/", image, {
       headers: {
         "Content-type": "multipart/form-data",
       },
@@ -55,7 +54,9 @@ class AxiosAnimal extends AxiosBase<Animal> {
   }
 
   async updateAnimal(animal: Animal) {
-    return await this.put("update/" + animal.id, animal);
+    if (animal.getId() === undefined) throw new Error("Animal com id inválido");
+
+    return await this.put("update/" + animal.getId(), animal);
   }
 
   async getChoices() {
@@ -63,7 +64,7 @@ class AxiosAnimal extends AxiosBase<Animal> {
   }
 
   async uploadImage(image: ImageAnimal) {
-    return this.axiosImage.register(image);
+    return this.axiosImage.upload(image);
   }
 }
 

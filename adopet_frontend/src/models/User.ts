@@ -32,32 +32,48 @@ export class User {
       this.is_superuser = false;
     }
 
-    if (data.email !== undefined && data.email !== null && !this.validatedEmail(data.email)) {
+    if (
+      data.email !== undefined &&
+      data.email !== null &&
+      !this.validatedEmail(data.email)
+    ) {
       this.email = data.email;
     } else {
-      throw new Error("Campo email é inválido")
+      throw new Error("Campo email é inválido");
     }
 
-    if (data.firstname !== undefined && data.firstname !== null &&
+    if (
+      data.firstname !== undefined &&
+      data.firstname !== null &&
       !this.validatedName(data.firstname) &&
-      data.firstname !== "" && data.firstname.length <= 100) {
+      data.firstname !== "" &&
+      data.firstname.length <= 100
+    ) {
       this.firstname = data.firstname;
     } else {
-      throw new Error("Campo primeiro nome é inválido")
+      throw new Error("Campo primeiro nome é inválido");
     }
 
-    if (data.lastname !== undefined && data.lastname !== null &&
+    if (
+      data.lastname !== undefined &&
+      data.lastname !== null &&
       !this.validatedName(data.lastname) &&
-      data.lastname !== "" && data.lastname.length <= 100) {
+      data.lastname !== "" &&
+      data.lastname.length <= 100
+    ) {
       this.lastname = data.lastname;
     } else {
-      throw new Error("Campo último nome é inválido")
+      throw new Error("Campo último nome é inválido");
     }
 
-    if (data.password !== undefined && data.password !== null && data.password.length >= 8) {
+    if (
+      data.password !== undefined &&
+      data.password !== null &&
+      data.password.length >= 8
+    ) {
       this.password = data.password;
     } else {
-      throw new Error("Campo senha é inválido")
+      throw new Error("Campo senha é inválido");
     }
 
     if (data.is_active !== undefined && data.is_active !== null) {
@@ -78,16 +94,14 @@ export class User {
 
   private validatedEmail(value: string): boolean {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (emailRegex.test(value) === false)
-      return false;
+    if (emailRegex.test(value) === false) return false;
 
     return true;
   }
 
   private validatedName(value: string): boolean {
     const numberRegex = /{[0-9]}/;
-    if (numberRegex.test(value) || !value.trim())
-      return false;
+    if (numberRegex.test(value) || !value.trim()) return false;
 
     return true;
   }
@@ -104,7 +118,7 @@ export class User {
     return this.email;
   }
 
-  getFirstname(): string  {
+  getFirstname(): string {
     return this?.lastname;
   }
 
@@ -134,21 +148,20 @@ export class User {
 
   setEmail(value: string) {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (emailRegex.test(value) === false)
-      throw new Error("Email não é valido");
+    if (emailRegex.test(value) === false) throw new Error("Email não é valido");
 
     this.email = value;
   }
 
   setFirstName(value: string) {
-    if(!this.validatedName(value) || value === "" || value.length > 100)
+    if (!this.validatedName(value) || value === "" || value.length > 100)
       throw new Error("Primeiro nome inválido");
 
     this.firstname = value;
   }
 
   setLastName(value: string) {
-    if(!this.validatedName(value) || value === "" || value.length > 100)
+    if (!this.validatedName(value) || value === "" || value.length > 100)
       throw new Error("Último nome inválido");
 
     this.lastname = value;
@@ -158,5 +171,20 @@ export class User {
     if (value.length < 8)
       throw new Error("Senha deve ter no mínimo 8 caracteres");
     this.password = value;
+  }
+
+  toJSON(): any {
+    return {
+      last_login: this?.last_login,
+      is_superuser: this?.is_superuser,
+      email: this?.email,
+      firstname: this?.firstname,
+      lastname: this?.lastname,
+      password: this?.password,
+      is_active: this?.is_active,
+      is_staff: this?.is_staff,
+      groups: this?.groups,
+      user_permissions: this?.user_permissions,
+    };
   }
 }

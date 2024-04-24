@@ -28,4 +28,12 @@ export class ImageAnimal {
   getAnimalId(): string | unknown {
     return this?.animalId;
   }
+
+  toJSON(): any {
+    return {
+      id: this?.id,
+      image: this?.image,
+      animal: this?.animalId,
+    };
+  }
 }

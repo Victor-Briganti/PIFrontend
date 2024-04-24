@@ -1,4 +1,4 @@
-import { Address } from './Address';
+import { Address } from "./Address";
 
 type AdopterFormData = {
   user?: number;
@@ -24,19 +24,31 @@ export class Adopter {
       throw new Error("Campo usuário inválido");
     }
 
-    if (data.birth_date !== undefined && data.birth_date !== null && this.verifyBirthDate(data.birth_date)) {
+    if (
+      data.birth_date !== undefined &&
+      data.birth_date !== null &&
+      this.verifyBirthDate(data.birth_date)
+    ) {
       this.birth_date = data.birth_date;
     } else {
       throw new Error("Campo aniversário inválido");
     }
 
-    if (data.phone !== undefined && data.phone !== null && this.verifyPhone(data.phone)) {
+    if (
+      data.phone !== undefined &&
+      data.phone !== null &&
+      this.verifyPhone(data.phone)
+    ) {
       this.phone = data.phone;
     } else {
       throw new Error("Campo telefone inválido");
     }
 
-    if (data.cpf !== undefined && data.cpf !== null && this.verifyCPF(data.cpf)) {
+    if (
+      data.cpf !== undefined &&
+      data.cpf !== null &&
+      this.verifyCPF(data.cpf)
+    ) {
       this.cpf = data.cpf;
     } else {
       throw new Error("Campo CPF inválido");
@@ -52,8 +64,7 @@ export class Adopter {
   }
 
   private verifyCPF(value: string): boolean {
-    if (!/[0-9]{11}/.test(value) || value === "00000000000")
-      return false;
+    if (!/[0-9]{11}/.test(value) || value === "00000000000") return false;
 
     let soma = 0;
 
@@ -69,8 +80,7 @@ export class Adopter {
       resto = 11 - resto;
     }
 
-    if (resto !== parseInt(value.substring(9, 10)))
-      return false;
+    if (resto !== parseInt(value.substring(9, 10))) return false;
 
     soma = 0;
 
@@ -85,22 +95,19 @@ export class Adopter {
       resto = 11 - resto;
     }
 
-    if (resto !== parseInt(value.substring(10, 11)))
-      return false;
+    if (resto !== parseInt(value.substring(10, 11))) return false;
 
     return true;
   }
 
   private verifyBirthDate(value: string): boolean {
-    if (!/[0-9]{4}-[0-9]{2}-[0-9]{2}/.test(value))
-      return false;
+    if (!/[0-9]{4}-[0-9]{2}-[0-9]{2}/.test(value)) return false;
 
     return true;
   }
 
   private verifyPhone(value: string): boolean {
-    if (!/[0-9]{11}/.test(value))
-      return false;
+    if (!/[0-9]{11}/.test(value)) return false;
 
     return true;
   }
@@ -126,30 +133,37 @@ export class Adopter {
   }
 
   setUser(value: number) {
-    if (value < 0)
-      throw new Error("Usuário inválido");
+    if (value < 0) throw new Error("Usuário inválido");
 
     this.user = value;
   }
 
   setBirthDate(value: string) {
-    if (!this.verifyBirthDate(value))
-      throw new Error("Aniversário inválido");
+    if (!this.verifyBirthDate(value)) throw new Error("Aniversário inválido");
 
     this.birth_date = value;
   }
 
   setPhone(value: string) {
-    if (!this.verifyPhone(value))
-      throw new Error("Telefone inválido");
+    if (!this.verifyPhone(value)) throw new Error("Telefone inválido");
 
     this.phone = value;
   }
 
   setCPF(value: string) {
-    if (!this.verifyCPF(value))
-      throw new Error("CPF inválido");
+    if (!this.verifyCPF(value)) throw new Error("CPF inválido");
 
     this.cpf = value;
   }
-};
+
+  toJSON(): any {
+    return {
+      user: this?.user,
+      birth_date: this?.birth_date,
+      phone: this?.phone,
+      cpf: this?.cpf,
+      is_active: this?.is_active,
+      address: this?.address.toJSON(),
+    };
+  }
+}

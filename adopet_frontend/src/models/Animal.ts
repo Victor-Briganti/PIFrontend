@@ -16,7 +16,7 @@ type AnimalFormData = {
   is_vaccinated?: boolean;
   is_castrated?: boolean;
   is_active?: boolean;
-}
+};
 
 export class Animal {
   private id?: number;
@@ -49,9 +49,13 @@ export class Animal {
       this.temperament = "";
     }
 
-    if (data.name !== undefined && data.name !== null &&
+    if (
+      data.name !== undefined &&
+      data.name !== null &&
       this.validateName(data.name) &&
-      data.name !== "" && data.name.length <= 100) {
+      data.name !== "" &&
+      data.name.length <= 100
+    ) {
       this.name = data.name;
     } else {
       throw new Error("Campo nome inválido");
@@ -76,8 +80,7 @@ export class Animal {
     }
 
     if (data.weight !== undefined && data.weight !== null) {
-      if (data.weight < 0)
-        throw new Error("Campo peso inválido");
+      if (data.weight < 0) throw new Error("Campo peso inválido");
 
       this.weight = data.weight;
     } else {
@@ -91,31 +94,31 @@ export class Animal {
     this.description = data.description;
 
     if (data.is_house_trained !== undefined && data.is_house_trained !== null) {
-    this.is_house_trained = data.is_house_trained;
+      this.is_house_trained = data.is_house_trained;
     } else {
       this.is_house_trained = false;
     }
 
     if (data.is_special_needs !== undefined && data.is_special_needs !== null) {
-    this.is_special_needs = data.is_special_needs;
+      this.is_special_needs = data.is_special_needs;
     } else {
       this.is_special_needs = false;
     }
 
     if (data.is_castrated !== undefined && data.is_castrated !== null) {
-    this.is_castrated = data.is_castrated;
+      this.is_castrated = data.is_castrated;
     } else {
       this.is_castrated = false;
     }
 
     if (data.is_vaccinated !== undefined && data.is_vaccinated !== null) {
-    this.is_vaccinated = data.is_vaccinated;
+      this.is_vaccinated = data.is_vaccinated;
     } else {
       this.is_vaccinated = false;
     }
 
     if (data.is_active !== undefined && data.is_active !== null) {
-    this.is_active = data.is_active;
+      this.is_active = data.is_active;
     } else {
       this.is_active = true;
     }
@@ -123,8 +126,7 @@ export class Animal {
 
   private validateName(value: string): boolean {
     const numberRegex = /{0-9}/;
-    if(numberRegex.test(value) || !value.trim())
-      return false;
+    if (numberRegex.test(value) || !value.trim()) return false;
 
     return true;
   }
@@ -199,14 +201,13 @@ export class Animal {
 
   setTemperament(value: string) {
     if (value.length > 100)
-      throw new Error("Temperamento tem um limite de 100 caracteres")
+      throw new Error("Temperamento tem um limite de 100 caracteres");
 
     this.temperament = value;
   }
 
   setName(value: string) {
-    if (!this.validateName(value))
-      throw new Error("Nome inválido")
+    if (!this.validateName(value)) throw new Error("Nome inválido");
 
     this.name = value;
   }
@@ -216,15 +217,13 @@ export class Animal {
   }
 
   setSpecie(value: string) {
-    if (!this.validateName(value))
-      throw new Error("Espécie inválida")
+    if (!this.validateName(value)) throw new Error("Espécie inválida");
 
     this.specie = value;
   }
 
   setGender(value: string) {
-    if (!this.validateName(value))
-      throw new Error("Genêro inválido")
+    if (!this.validateName(value)) throw new Error("Genêro inválido");
 
     this.gender = value;
   }
@@ -238,8 +237,7 @@ export class Animal {
   }
 
   setWeight(value: number) {
-    if (value < 0)
-      throw new Error("Peso inválido");
+    if (value < 0) throw new Error("Peso inválido");
 
     this.weight = value;
   }
@@ -270,5 +268,27 @@ export class Animal {
 
   setActive(value: boolean) {
     this.is_active = value;
+  }
+
+  toJSON(): any {
+    return {
+      id: this?.id,
+      temperament: this?.temperament,
+      name: this?.name,
+      age: this?.age,
+      specie: this?.specie,
+      gender: this?.gender,
+      size: this?.size,
+      coat: this?.coat,
+      weight: this?.weight,
+      adoption_date: this?.adoption_date,
+      register_date: this?.register_date,
+      description: this?.description,
+      is_house_trained: this?.is_house_trained,
+      is_special_needs: this?.is_special_needs,
+      is_vaccinated: this?.is_vaccinated,
+      is_castrated: this?.is_castrated,
+      is_active: this?.is_active,
+    };
   }
 }
