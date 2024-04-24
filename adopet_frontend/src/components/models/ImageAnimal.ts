@@ -1,9 +1,15 @@
+type ImageFormData = {
+  id?: number;
+  image?: string;
+  animal?: number;
+};
+
 export class ImageAnimal {
   private id?: number;
   private image?: string;
   private animalId?: number;
 
-  constructor(data: any) {
+  constructor(data: ImageFormData) {
     if (data === null) return;
 
     this.id = data.id;

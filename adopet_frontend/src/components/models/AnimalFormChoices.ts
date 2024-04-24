@@ -3,6 +3,14 @@ type AnimalTypeChoice = {
   value: string;
 };
 
+type AnimalFormData = {
+  age_choices: [string, string][];
+  coat_choices: [string, string][];
+  gender_choices: [string, string][];
+  specie_choices: [string, string][];
+  size_choices: [string, string][];
+};
+
 export class AnimalFormChoice {
   age_choices: AnimalTypeChoice[] = [];
   coat_choices: AnimalTypeChoice[] = [];
@@ -10,7 +18,7 @@ export class AnimalFormChoice {
   specie_choices: AnimalTypeChoice[] = [];
   size_choices: AnimalTypeChoice[] = [];
 
-  constructor(data: any | null) {
+  constructor(data: AnimalFormData | null) {
     if (data === null) return;
 
     for (let i = 0; i < data.age_choices.length; i++) {
