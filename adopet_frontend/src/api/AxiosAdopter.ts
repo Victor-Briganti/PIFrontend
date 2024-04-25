@@ -15,12 +15,12 @@ class AxiosAdopter extends AxiosBase<Adopter> {
     return await this.post("register/", adopter);
   }
 
-  async removeAdopter(id: number) {
-    return await this.delete("register/", id);
+  async removeAdopter() {
+    return await this.delete("register/");
   }
 
-  async updateAdopter(adopter: Adopter) {
-    return await this.delete("update/", adopter);
+  async updateAdopter() {
+    return await this.delete("update/");
   }
 }
 

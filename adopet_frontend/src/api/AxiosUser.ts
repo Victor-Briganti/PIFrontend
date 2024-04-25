@@ -1,13 +1,28 @@
 import AxiosBase from "./AxiosBase";
 import { User } from "../models/User";
 
+interface LoginData {
+  email: string;
+  password: string;
+}
+
+interface RegisterData extends LoginData {
+  firstname: string;
+  lastname: string;
+}
+
+interface ChangePasswordData {
+  id: number;
+  password: string;
+}
+
 class AxiosUser extends AxiosBase<User> {
   constructor() {
     super();
     this.host = this.host + "/user/";
   }
   async login(email: string, password: string) {
-    return await this.post("login/", {
+    return await this.post<LoginData>("login/", {
       email,
       password,
     });
@@ -17,9 +32,9 @@ class AxiosUser extends AxiosBase<User> {
     email: string,
     password: string,
     firstname: string,
-    lastname: string,
+    lastname: string
   ) {
-    return await this.post("register/", {
+    return await this.post<RegisterData>("register/", {
       email,
       password,
       firstname,
@@ -40,7 +55,7 @@ class AxiosUser extends AxiosBase<User> {
   }
 
   async changePassword(id: number, password: string) {
-    return await this.put("update/", {
+    return await this.put<ChangePasswordData>("update/", {
       id: id,
       password: password,
     });
