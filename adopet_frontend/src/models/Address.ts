@@ -1,190 +1,133 @@
-type AddressFormData = {
-  id?: number;
-  zip_code?: string;
-  street?: string;
-  house_number?: string;
-  complement?: string;
-  district?: string;
-  city?: string;
-  state?: string;
-};
+import City from "./City";
+import { validatedName, validatedNumber } from "../utils/Verification";
 
-export class Address {
-  private id?: number;
-  private zip_code: string;
-  private street: string;
-  private house_number: string;
-  private complement: string;
-  private district: string;
-  private city: string;
-  private state: string;
+interface AddressFormData {
+  city: City;
+  zipCode: string;
+  district: string;
+  street: string;
+  complement: string;
+  houseNumber: string;
+}
 
-  constructor(data: AddressFormData) {
-    this.id = data.id;
+export default class Address {
+  private city!: City;
+  private zipCode!: string;
+  private district!: string;
+  private street!: string;
+  private complement!: string;
+  private houseNumber!: string;
 
-    if (
-      data.zip_code !== undefined &&
-      data.zip_code !== null &&
-      this.validatedNumber(data.zip_code)
-    ) {
-      this.zip_code = data.zip_code;
-    } else {
-      throw new Error("Campo CEP inválido");
+  Address(address: AddressFormData) {
+    if (validatedNumber(address.zipCode) === false) {
+      throw new Error(`CEP inválido: ${address.district}`);
     }
 
-    if (
-      data.street !== undefined &&
-      data.street !== null &&
-      data.street !== "" &&
-      data.street.length < 100
-    ) {
-      this.street = data.street;
-    } else {
-      throw new Error("Campo logradouro inválido");
+    if (validatedName(address.district, 100) === false) {
+      throw new Error(`Bairro com nome inválido: ${address.district}`);
     }
 
-    if (data.house_number !== undefined && data.house_number !== null) {
-      this.house_number = data.house_number;
-    } else {
-      throw new Error("Campo número da casa inválido");
+    if (validatedName(address.street, 100) === false) {
+      throw new Error(`Logradouro com nome inválido: ${address.district}`);
     }
 
-    if (
-      data.complement !== undefined &&
-      data.complement !== null &&
-      data.complement !== "" &&
-      data.complement.length < 100
-    ) {
-      this.complement = data.complement;
-    } else {
-      throw new Error("Campo complemento inválido");
+    if (address.complement.length > 100) {
+      throw new Error(`Complemento tem um limite de 100 caracteres`);
     }
 
-    if (
-      data.district !== undefined &&
-      data.district !== null &&
-      data.complement !== "" &&
-      data.complement.length < 100
-    ) {
-      this.district = data.district;
-    } else {
-      throw new Error("Campo bairro inválido");
+    if (address.houseNumber === "") {
+      throw new Error(`Número da casa não pode ser vazio`);
     }
 
-    if (
-      data.city !== undefined &&
-      data.city !== null &&
-      data.city !== "" &&
-      data.city.length < 100
-    ) {
-      this.city = data.city;
-    } else {
-      throw new Error("Campo cidade inválido");
+    if (address.houseNumber.length > 10) {
+      throw new Error(`Número da casa tem limite de 10 caracteres`);
     }
 
-    if (
-      data.state !== undefined &&
-      data.state !== null &&
-      data.state !== "" &&
-      data.state.length !== 2
-    ) {
-      this.state = data.state;
-    } else {
-      throw new Error("Campo estado inválido");
-    }
+    this.city = address.city;
+    this.zipCode = address.zipCode;
+    this.district = address.district;
+    this.street = address.street;
+    this.complement = address.complement;
+    this.houseNumber = address.houseNumber;
   }
 
-  private validatedNumber(value: string): boolean {
-    const numberRegex = /{[0-9]}/;
-    if (numberRegex.test(value) || !value.trim()) return false;
-
-    return true;
+  getUF(): string {
+    return this.city.getUF();
   }
 
-  getId(): number | undefined {
-    return this?.id;
+  getCityName(): string {
+    return this.city.getName();
   }
 
   getZipCode(): string {
-    return this.zip_code;
-  }
-
-  getStreet(): string {
-    return this.street;
-  }
-
-  getHouseNumber(): string {
-    return this.house_number;
-  }
-
-  getComplement(): string {
-    return this.complement;
+    return this.zipCode;
   }
 
   getDistrict(): string {
     return this.district;
   }
 
-  getCity(): string {
-    return this.city;
+  getStreet(): string {
+    return this.street;
   }
 
-  getState(): string {
-    return this.state;
+  getComplement(): string {
+    return this.complement;
   }
 
-  setZipCode(value: string) {
-    if (this.validatedNumber(value) && value.length > 100)
-      throw new Error("CEP inválido");
-
-    this.zip_code = value;
+  getHouseNumber(): string {
+    return this.houseNumber;
   }
 
-  setStreet(value: string) {
-    if (value !== "" && value.length < 100) throw new Error("Rua inválida");
-
-    this.street = value;
+  setUF(uf: string) {
+    this.city.setUF(uf);
   }
 
-  setHouseNumber(value: string) {
-    this.house_number = value;
+  setCityName(cityName: string) {
+    this.city.setName(cityName);
   }
 
-  setComplement(value: string) {
-    if (value !== "" && value.length < 100)
-      throw new Error("Logradouro inválido");
+  setZipCode(zipCode: string) {
+    if (validatedNumber(zipCode) === false) {
+      throw new Error(`CEP inválido: ${zipCode}`);
+    }
 
-    this.complement = value;
+    this.zipCode = zipCode;
   }
 
-  setDistrict(value: string) {
-    if (value !== "" && value.length < 100) throw new Error("Bairro inválido");
+  setDistrict(district: string) {
+    if (validatedName(district, 100) === false) {
+      throw new Error(`Bairro com nome inválido: ${district}`);
+    }
 
-    this.district = value;
+    this.district = district;
   }
 
-  setCity(value: string) {
-    if (value !== "" && value.length < 100) throw new Error("Cidade inválida");
+  setStreet(street: string) {
+    if (validatedName(street, 100) === false) {
+      throw new Error(`Logradouro com nome inválido: ${street}`);
+    }
 
-    this.city = value;
+    this.street;
   }
 
-  setState(value: string) {
-    if (value !== "" && value.length !== 2) throw new Error("Estado inválida");
+  setComplement(complement: string) {
+    if (complement.length > 100) {
+      throw new Error(`Complemento tem um limite de 100 caracteres`);
+    }
 
-    this.state = value;
+    this.complement;
   }
 
-  toJSON(): any {
-    return {
-      id: this?.id,
-      zip_code: this?.zip_code,
-      street: this?.street,
-      house_number: this?.house_number,
-      complement: this?.complement,
-      district: this?.district,
-      city: this?.city,
-      state: this?.state,
-    };
+  setHouseNumber(houseNumber: string) {
+    if (houseNumber === "") {
+      throw new Error(`Número da casa não pode ser vazio`);
+    }
+
+    if (houseNumber.length > 10) {
+      throw new Error(`Número da casa tem limite de 10 caracteres`);
+    }
+
+    this.houseNumber;
   }
 }
