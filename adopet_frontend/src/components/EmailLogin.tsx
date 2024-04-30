@@ -21,3 +21,4 @@ function EmailField() {
     />
   );
 }
+export default EmailField;

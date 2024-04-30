@@ -21,3 +21,4 @@ function PasswordField() {
       />
     );
   }
+  export default PasswordField;

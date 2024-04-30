@@ -2,44 +2,12 @@ import * as React from "react";
 import * as MUI from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import CopyRight from "../components/CopyRight";
-{/*import AxiosUser from "./api/AxiosUser"; */}
 import Main from "../components/container/Main";
 import { useNavigate } from "react-router-dom";
 import SubmitButton from "../components/SubmitButton";
+import EmailField from "../components/EmailLogin"; 
+import PasswordField from "../components/PasswordLogin";
 
-// Componente para o campo de e-mail
-function EmailField() {
-  return (
-    <MUI.TextField
-      margin="normal"
-      required
-      fullWidth
-      id="email"
-      label="Endereço de Email"
-      name="email"
-      autoComplete="email"
-      autoFocus
-    />
-  );
-}
-
-// Componente para o campo de senha
-function PasswordField() {
-  return (
-    <MUI.TextField
-      margin="normal"
-      required
-      fullWidth
-      name="password"
-      label="Senha"
-      type="password"
-      id="password"
-      autoComplete="current-password"
-    />
-  );
-}
-
-// Componente para o avatar
 function LockAvatar() {
   return (
     <MUI.Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
@@ -49,7 +17,7 @@ function LockAvatar() {
 }
 
 // Instância axios para acessar o usuário
-{/*const axiosUser = new AxiosUser();*/}
+// const axiosUser = new AxiosUser();
 
 export default function Login() {
   const [messageWarning, setMessageWarning] = React.useState<string>("");
@@ -81,8 +49,6 @@ export default function Login() {
     }
   };
 
-
-
   return (
     <Main>
       <MUI.CssBaseline />
@@ -104,8 +70,8 @@ export default function Login() {
           noValidate
           sx={{ mt: 1 }}
         >
-          <EmailField />
-          <PasswordField />
+          <EmailField /> 
+          <PasswordField /> 
           {messageWarning && (
             <MUI.Alert variant="filled" severity="warning">
               {messageWarning}
