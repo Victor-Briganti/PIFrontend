@@ -14,13 +14,7 @@ export default class State {
 
   setUF(uf: string): void {
     let key: string;
-    try {
-      key = this.statesMap.getKey(uf);
-    } catch (err) {
-      console.log(`Estado não definido: ${err}`);
-      return;
-    }
-
+    key = this.statesMap.getKey(uf);
     this.uf = key;
   }
 }
