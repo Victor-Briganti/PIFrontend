@@ -1,14 +1,15 @@
-import AxiosBase from "./AxiosBase";
-import { Animal } from "../models/Animal";
-import { ImageAnimal } from "../models/ImageAnimal";
+import Animal from "../models/Animal";
+import AnimalImage from "../models/AnimalImage";
+import AxiosBase from "./Super/AxiosBase";
+import Pagination from "../models/Pagination";
 
-class AxiosAnimalImage extends AxiosBase<ImageAnimal> {
+class AxiosAnimalImage extends AxiosBase<AnimalImage> {
   constructor() {
     super();
     this.host = this.host + "/animal/images/";
   }
 
-  async upload(image: ImageAnimal) {
+  async uploadImage(image: AnimalImage): Promise<AnimalImage> {
     return await this.post("upload/", image, {
       headers: {
         "Content-type": "multipart/form-data",
@@ -16,13 +17,29 @@ class AxiosAnimalImage extends AxiosBase<ImageAnimal> {
     });
   }
 
-  async filterBy(id: number) {
+  async deleteImage(id: number) {
+    if (id < 0) {
+      throw new Error("Imagem de Animal com ID inválido: " + id);
+    }
+
+    return await this.delete("delete/" + id);
+  }
+
+  async updateImage(image: AnimalImage): Promise<AnimalImage> {
+    if (image.getId() === undefined || (image.getId() ?? -1) < 0) {
+      throw new Error("Imagem de Animal com ID inválido: " + image.getId());
+    }
+
+    return await this.put("update/" + image.getId(), image);
+  }
+
+  async filterBy(id: number): Promise<AnimalImage[]> {
     return await this.get("filterby/" + id);
   }
 }
 
 class AxiosAnimal extends AxiosBase<Animal> {
-  public axiosImage: AxiosAnimalImage;
+  private axiosImage: AxiosAnimalImage;
 
   constructor() {
     super();
@@ -30,41 +47,61 @@ class AxiosAnimal extends AxiosBase<Animal> {
     this.axiosImage = new AxiosAnimalImage();
   }
 
-  async listAnimals(page: number = 0) {
-    if (page > 0) {
-      return await this.get("?page=" + page);
-    }
-    return await this.get("");
+  async listAnimals(page: number = 0): Promise<Pagination<Animal>> {
+    const response = await this.get(page > 0 ? "?page=${page}" : "");
+    return new Pagination<Animal>(response);
   }
 
-  async getAnimalById(id: number) {
+  async getAnimalByID(id: number): Promise<Animal> {
+    if (id < 0) {
+      throw new Error("Animal com ID inválido: " + id);
+    }
+
     return await this.get(id.toString());
   }
 
-  async listImagesById(id: number) {
-    return await this.axiosImage.filterBy(id);
-  }
-
-  async registerAnimal(animal: Animal) {
+  async registerAnimal(animal: Animal): Promise<Animal> {
     return await this.post("register/", animal);
   }
 
   async deleteAnimal(id: number) {
+    if (id < 0) {
+      throw new Error("Animal com ID inválido: " + id);
+    }
+
     return await this.delete("delete/" + id);
   }
 
-  async updateAnimal(animal: Animal) {
-    if (animal.getId() === undefined) throw new Error("Animal com id inválido");
+  async updateAnimal(animal: Animal): Promise<Animal> {
+    if (animal.getId() === undefined || (animal.getId() ?? -1) < 0) {
+      throw new Error("Animal com ID inválido: " + animal.getId());
+    }
 
     return await this.put("update/" + animal.getId(), animal);
   }
 
-  async getChoices() {
-    return await this.get("choices/");
+  async getChoices(animal: Animal): Promise<Animal> {
+    if (animal.getId() === undefined || (animal.getId() ?? -1) < 0) {
+      throw new Error("Animal com ID inválido: " + animal.getId());
+    }
+
+    return await this.put("update/" + animal.getId(), animal);
   }
 
-  async uploadImage(image: ImageAnimal) {
-    return this.axiosImage.upload(image);
+  async uploadImage(image: AnimalImage): Promise<AnimalImage> {
+    return this.axiosImage.updateImage(image);
+  }
+
+  async deleteImage(id: number) {
+    return this.axiosImage.deleteImage(id);
+  }
+
+  async updateImage(image: AnimalImage): Promise<AnimalImage> {
+    return this.axiosImage.updateImage(image);
+  }
+
+  async listImageByID(id: number): Promise<AnimalImage[]> {
+    return this.axiosImage.filterBy(id);
   }
 }
 

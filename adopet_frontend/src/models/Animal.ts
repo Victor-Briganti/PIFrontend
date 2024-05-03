@@ -7,6 +7,7 @@ import SpecieChoiceMap from "./Choices/SpecieChoiceMap";
 import { validatedName } from "../utils/Verification";
 
 interface AnimalFormData {
+  id?: number;
   donor?: number;
   name: string;
   age: string;
@@ -16,7 +17,7 @@ interface AnimalFormData {
   coat?: string;
   temperament?: string;
   weight?: number;
-  register_date?: string;
+  register_date?: Date;
   description?: string;
   is_house_trained?: boolean;
   is_special_needs?: boolean;
@@ -33,6 +34,7 @@ export default class Animal {
   private sizeMap: SizeChoiceMap = new SizeChoiceMap();
   private specieMap: SpecieChoiceMap = new SpecieChoiceMap();
 
+  private id?: number;
   private donor?: number;
   private name: string;
   private age: string;
@@ -42,7 +44,7 @@ export default class Animal {
   private coat?: string;
   private temperament?: string;
   private weight?: number;
-  private register_date?: string;
+  private register_date?: Date;
   private description?: string;
   private is_house_trained?: boolean;
   private is_special_needs?: boolean;
@@ -52,6 +54,10 @@ export default class Animal {
   private is_adopted?: boolean;
 
   constructor(data: AnimalFormData) {
+    if (data.id !== undefined && data.id < 0) {
+      throw new Error("Animal não pode ter o id negativo");
+    }
+
     if (data.donor !== undefined && data.donor < 0) {
       throw new Error("Doador não pode ter o id negativo");
     }
@@ -60,14 +66,7 @@ export default class Animal {
       throw new Error(`Nome inválido: ${data.name}`);
     }
 
-    if (data.register_date !== undefined) {
-      const dateValidate = new Date(data.register_date);
-      if (!isNaN(dateValidate.getTime())) {
-        this.register_date = data.register_date;
-      } else {
-        throw new Error(`Data de registro inválida: ${data.register_date}`);
-      }
-    }
+    this.register_date = data.register_date;
 
     if (data.weight !== undefined && data.weight < 0) {
       throw new Error(`Peso não pode ser negativo.`);
@@ -128,6 +127,10 @@ export default class Animal {
     this.specie = specieMapped;
   }
 
+  getId(): number | undefined {
+    return this.id;
+  }
+
   getDonor(): number | undefined {
     return this.donor;
   }
@@ -168,7 +171,7 @@ export default class Animal {
     return this.weight;
   }
 
-  getRegisterDate(): string | undefined {
+  getRegisterDate(): Date | undefined {
     return this.register_date;
   }
 
@@ -200,6 +203,14 @@ export default class Animal {
     return this.is_adopted;
   }
 
+  setId(id: number) {
+    if (id !== undefined && id < 0) {
+      throw new Error("Animal não pode ter o id negativo");
+    }
+
+    this.id = id;
+  }
+
   setDonor(donor: number) {
     if (donor < 0) {
       throw new Error("Doador não pode ter o id negativo");
@@ -217,7 +228,7 @@ export default class Animal {
   }
 
   setage(age: string) {
-    const agemapped = this.agemap.getvalue(age);
+    const agemapped = this.ageMap.getValue(age);
     this.age = agemapped;
   }
 
@@ -245,13 +256,8 @@ export default class Animal {
     this.temperament = temperament;
   }
 
-  setRegisterDate(register_date: string) {
-    const dateValidate = new Date(register_date);
-    if (!isNaN(dateValidate.getTime())) {
-      this.register_date = register_date;
-    } else {
-      throw new Error(`Data de registro inválida: ${register_date}`);
-    }
+  setRegisterDate(register_date: Date) {
+    this.register_date = register_date;
   }
 
   setIsHouseTrained(is_house_trained: boolean) {

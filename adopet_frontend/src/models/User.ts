@@ -2,7 +2,7 @@ import { validatedEmail, validatedName } from "../utils/Verification";
 
 interface UserFormData {
   id?: number;
-  last_login?: string;
+  last_login?: Date;
   is_superuser?: boolean;
   email: string;
   firstname: string;
@@ -15,7 +15,7 @@ interface UserFormData {
 
 export default class User {
   private id?: number;
-  private last_login?: string;
+  private last_login?: Date;
   private is_superuser?: boolean;
   private email: string;
   private firstname: string;
@@ -42,12 +42,7 @@ export default class User {
       this.id = data.id;
     }
 
-    if (data.last_login !== undefined) {
-      const dateValidate = new Date(data.last_login);
-      if (!isNaN(dateValidate.getTime())) {
-        this.last_login = data.last_login;
-      }
-    }
+    this.last_login = data.last_login;
 
     if (data.is_active !== undefined) {
       this.is_active = data.is_active;
@@ -78,7 +73,7 @@ export default class User {
     return this?.id;
   }
 
-  getLastLogin(): string | undefined {
+  getLastLogin(): Date | undefined {
     return this?.last_login;
   }
 
@@ -122,11 +117,8 @@ export default class User {
     this.id = id;
   }
 
-  setLastLogin(last_login: string) {
-    const dateValidate = new Date(last_login);
-    if (!isNaN(dateValidate.getTime())) {
-      this.last_login = last_login;
-    }
+  setLastLogin(last_login: Date) {
+    this.last_login = last_login;
   }
 
   setIsSuperuser(is_superuser: boolean) {

@@ -4,7 +4,7 @@ interface UserMetadataFormData {
   user: number;
   address: number;
   cpf: string;
-  birth_date: string;
+  birth_date: Date;
   phone: string;
   is_active?: boolean;
 }
@@ -13,7 +13,7 @@ export default class UserMetadata {
   private user: number;
   private address: number;
   private cpf: string;
-  private birth_date: string;
+  private birth_date: Date;
   private phone: string;
   private is_active?: boolean;
 
@@ -34,12 +34,7 @@ export default class UserMetadata {
       throw new Error(`Telefone inválido: ${data.phone}`);
     }
 
-    const dateValidate = new Date(data.birth_date);
-    if (!isNaN(dateValidate.getTime())) {
-      this.birth_date = data.birth_date;
-    } else {
-      throw new Error(`Aniversário inválido: ${data.birth_date}`);
-    }
+    this.birth_date = data.birth_date;
 
     if (data.is_active !== undefined) {
       this.is_active = data.is_active;
@@ -66,7 +61,7 @@ export default class UserMetadata {
     return this.cpf;
   }
 
-  getbirthDate(): string {
+  getbirthDate(): Date {
     return this.birth_date;
   }
 
@@ -102,13 +97,8 @@ export default class UserMetadata {
     this.cpf = cpf;
   }
 
-  setbirthDate(birth_date: string) {
-    const dateValidate = new Date(birth_date);
-    if (!isNaN(dateValidate.getTime())) {
-      this.birth_date = birth_date;
-    } else {
-      throw new Error(`Aniversário inválid: ${birth_date}`);
-    }
+  setbirthDate(birth_date: Date) {
+    this.birth_date = birth_date;
   }
 
   setPhone(phone: string) {
