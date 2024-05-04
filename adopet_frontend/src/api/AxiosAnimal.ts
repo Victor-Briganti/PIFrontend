@@ -1,9 +1,9 @@
 import Animal from "../models/Animal";
 import AnimalImage from "../models/AnimalImage";
-import AxiosBase from "./Super/AxiosBase";
+import SuperAxios from "./super/SuperAxios";
 import Pagination from "../models/Pagination";
 
-class AxiosAnimalImage extends AxiosBase<AnimalImage> {
+class AxiosAnimalImage extends SuperAxios<AnimalImage> {
   constructor() {
     super();
     this.host = this.host + "/animal/images/";
@@ -42,7 +42,7 @@ class AxiosAnimalImage extends AxiosBase<AnimalImage> {
   }
 }
 
-class AxiosAnimal extends AxiosBase<Animal> {
+class AxiosAnimal extends SuperAxios<Animal> {
   private axiosImage: AxiosAnimalImage;
 
   constructor() {

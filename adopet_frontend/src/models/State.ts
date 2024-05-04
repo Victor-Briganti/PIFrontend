@@ -1,4 +1,4 @@
-import StateChoiceMap from "./Choices/StateChoiceMap";
+import { StateChoiceMap } from "./choices/ChoicesMap";
 
 export default class State {
   private statesMap: StateChoiceMap = new StateChoiceMap();
@@ -13,8 +13,6 @@ export default class State {
   }
 
   setUF(uf: string): void {
-    let key: string;
-    key = this.statesMap.getKey(uf);
-    this.uf = key;
+    this.uf = this.statesMap.getKey(uf);
   }
 }

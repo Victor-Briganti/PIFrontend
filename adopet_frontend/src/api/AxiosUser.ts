@@ -1,4 +1,5 @@
-import AxiosBase from "./Super/AxiosBase";
+import SuperAxios from "./super/SuperAxios";
+import User from "../models/User";
 import UserCommon from "../models/UserCommon";
 import UserMetadata from "../models/UserMetadata";
 
@@ -12,13 +13,13 @@ interface FieldUpdate {
   value: string;
 }
 
-class AxiosUserMetadata extends AxiosBase<UserCommon> {
+class AxiosUserMetadata extends SuperAxios<UserCommon> {
   constructor() {
     super();
     this.host = this.host + "/user/metadata/";
   }
 
-  async getMetadata(): Promise<UserMetadata> {
+  async getUserMetadata(): Promise<UserMetadata> {
     return await this.get("");
   }
 
@@ -31,7 +32,7 @@ class AxiosUserMetadata extends AxiosBase<UserCommon> {
   }
 }
 
-class AxiosUserCommon extends AxiosBase<UserCommon> {
+class AxiosUser extends SuperAxios<UserCommon> {
   axiosUserMetadata: AxiosUserMetadata;
 
   constructor() {
@@ -59,7 +60,7 @@ class AxiosUserCommon extends AxiosBase<UserCommon> {
     return await this.delete("delete/");
   }
 
-  async getUserInfo(): Promise<UserCommon> {
+  async getUserCommon(): Promise<UserCommon> {
     return await this.get("");
   }
 
@@ -75,16 +76,24 @@ class AxiosUserCommon extends AxiosBase<UserCommon> {
     });
   }
 
-  async getMetadata(): Promise<UserMetadata> {
-    return await this.axiosUserMetadata.getMetadata();
+  async getUserMetadata(): Promise<UserMetadata> {
+    return await this.axiosUserMetadata.getUserMetadata();
   }
 
   async registerMetadata(metadata: UserMetadata): Promise<UserMetadata> {
     return await this.axiosUserMetadata.registerMetadata(metadata);
   }
+
   async updateMetadata(metadata: UserMetadata): Promise<UserMetadata> {
     return await this.axiosUserMetadata.updateMetadata(metadata);
   }
+
+  async getUser(): Promise<User> {
+    const userCommon = this.getUserCommon();
+    const userMetadata = this.getUserMetadata();
+
+    return new User(await userCommon, await userMetadata);
+  }
 }
 
-export default AxiosUserCommon;
+export default AxiosUser;

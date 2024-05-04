@@ -1,7 +1,7 @@
-import AxiosBase from "./Super/AxiosBase";
+import SuperAxios from "./super/SuperAxios";
 import City from "../models/City";
 
-class AxiosCity extends AxiosBase<City> {
+class AxiosCity extends SuperAxios<City> {
   constructor() {
     super();
     this.host = this.host + "/address/city/";

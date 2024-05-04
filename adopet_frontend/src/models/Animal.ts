@@ -1,8 +1,10 @@
-import AgeChoiceMap from "./Choices/AgeChoiceMap";
-import CoatChoiceMap from "./Choices/CoatChoiceMap";
-import GenderChoiceMap from "./Choices/GenderChoiceMap";
-import SizeChoiceMap from "./Choices/SizeChoiceMap";
-import SpecieChoiceMap from "./Choices/SpecieChoiceMap";
+import {
+  AgeChoiceMap,
+  CoatChoiceMap,
+  GenderChoiceMap,
+  SizeChoiceMap,
+  SpecieChoiceMap,
+} from "./choices/ChoicesMap";
 
 import { validatedName } from "../utils/Verification";
 
