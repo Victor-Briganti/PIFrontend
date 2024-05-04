@@ -1,4 +1,4 @@
-import { validatedNumber } from "../utils/Verification";
+import { validatedNumber, validatedCPF } from "../utils/Verification";
 
 interface UserMetadataFormData {
   user: number;
@@ -26,7 +26,7 @@ export default class UserMetadata {
       throw new Error("Endereço não pode ser um id negativo");
     }
 
-    if (validatedNumber(data.cpf)) {
+    if (validatedCPF(data.cpf)) {
       throw new Error(`CPF inválido: ${data.cpf}`);
     }
 
@@ -73,14 +73,6 @@ export default class UserMetadata {
     return this.is_active;
   }
 
-  setUser(user: number) {
-    if (user < 0) {
-      throw new Error("Usuário não pode ser um id negativo");
-    }
-
-    this.user = user;
-  }
-
   setAddress(address: number) {
     if (address < 0) {
       throw new Error("Endereço não poder ser um id negativo");
@@ -90,7 +82,7 @@ export default class UserMetadata {
   }
 
   setCpf(cpf: string) {
-    if (validatedNumber(cpf)) {
+    if (validatedCPF(cpf)) {
       throw new Error(`CPF inválido: ${cpf}`);
     }
 

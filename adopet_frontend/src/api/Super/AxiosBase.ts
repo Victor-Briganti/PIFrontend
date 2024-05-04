@@ -27,7 +27,7 @@ abstract class AxiosBase<T> {
   protected async post<D = T>(
     url: string,
     data: D | null = null,
-    config?: AxiosRequestConfig
+    config?: AxiosRequestConfig,
   ) {
     try {
       const response = await axios.post(this.host + url, data, config);
@@ -44,7 +44,7 @@ abstract class AxiosBase<T> {
   protected async put<D = T>(
     url: string,
     data: D | null = null,
-    config?: AxiosRequestConfig
+    config?: AxiosRequestConfig,
   ) {
     try {
       const response = await axios.put(this.host + url, data, config);

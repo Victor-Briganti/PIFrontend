@@ -30,7 +30,11 @@ class AxiosAnimalImage extends AxiosBase<AnimalImage> {
       throw new Error("Imagem de Animal com ID inválido: " + image.getId());
     }
 
-    return await this.put("update/" + image.getId(), image);
+    return await this.put("update/" + image.getId(), image, {
+      headers: {
+        "Content-type": "multipart/form-data",
+      },
+    });
   }
 
   async filterBy(id: number): Promise<AnimalImage[]> {

@@ -1,65 +1,90 @@
-import AxiosBase from "./AxiosBase";
-import { User } from "../models/User";
+import AxiosBase from "./Super/AxiosBase";
+import UserCommon from "../models/UserCommon";
+import UserMetadata from "../models/UserMetadata";
 
 interface LoginData {
   email: string;
   password: string;
 }
 
-interface RegisterData extends LoginData {
-  firstname: string;
-  lastname: string;
-}
-
-interface ChangePasswordData {
+interface FieldUpdate {
   id: number;
-  password: string;
+  value: string;
 }
 
-class AxiosUser extends AxiosBase<User> {
+class AxiosUserMetadata extends AxiosBase<UserCommon> {
   constructor() {
     super();
-    this.host = this.host + "/user/";
-  }
-  async login(email: string, password: string) {
-    return await this.post<LoginData>("login/", {
-      email,
-      password,
-    });
+    this.host = this.host + "/user/metadata/";
   }
 
-  async registerUser(
-    email: string,
-    password: string,
-    firstname: string,
-    lastname: string
-  ) {
-    return await this.post<RegisterData>("register/", {
-      email,
-      password,
-      firstname,
-      lastname,
-    });
-  }
-
-  async logout() {
-    return await this.post("logout/");
-  }
-
-  async removeUser() {
-    return await this.delete("delete/");
-  }
-
-  async getUserInfo() {
+  async getMetadata(): Promise<UserMetadata> {
     return await this.get("");
   }
 
-  async changePassword(id: number, password: string) {
-    return await this.put<ChangePasswordData>("update/", {
-      id: id,
-      password: password,
-    });
+  async registerMetadata(metadata: UserMetadata): Promise<UserMetadata> {
+    return await this.post("register/", metadata);
+  }
+
+  async updateMetadata(metadata: UserMetadata): Promise<UserMetadata> {
+    return await this.put("register/", metadata);
   }
 }
 
-export default AxiosUser;
+class AxiosUserCommon extends AxiosBase<UserCommon> {
+  axiosUserMetadata: AxiosUserMetadata;
+
+  constructor() {
+    super();
+    this.host = this.host + "/user/";
+    this.axiosUserMetadata = new AxiosUserMetadata();
+  }
+
+  async login(data: LoginData): Promise<LoginData> {
+    return await this.post<LoginData>("login/", data);
+  }
+
+  async registerUser(user: UserCommon): Promise<UserCommon> {
+    return await this.post("register/", user, {
+      headers: {
+        "Content-type": "multipart/form-data",
+      },
+    });
+  }
+
+  async logout(): Promise<void> {
+    this.post("logout/");
+  }
+  async deleteUser(): Promise<boolean> {
+    return await this.delete("delete/");
+  }
+
+  async getUserInfo(): Promise<UserCommon> {
+    return await this.get("");
+  }
+
+  async changePassword(data: FieldUpdate): Promise<UserCommon> {
+    return await this.put<FieldUpdate>("update/", data);
+  }
+
+  async changeAvatar(data: FieldUpdate): Promise<UserCommon> {
+    return await this.put<FieldUpdate>("update/", data, {
+      headers: {
+        "Content-type": "multipart/form-data",
+      },
+    });
+  }
+
+  async getMetadata(): Promise<UserMetadata> {
+    return await this.axiosUserMetadata.getMetadata();
+  }
+
+  async registerMetadata(metadata: UserMetadata): Promise<UserMetadata> {
+    return await this.axiosUserMetadata.registerMetadata(metadata);
+  }
+  async updateMetadata(metadata: UserMetadata): Promise<UserMetadata> {
+    return await this.axiosUserMetadata.updateMetadata(metadata);
+  }
+}
+
+export default AxiosUserCommon;
