@@ -6,9 +6,10 @@ export default function SignButtons() {
       <MUI.Button
         href="/login"
         sx={{
+          sx: "14px",
           my: 2,
           color: "white",
-          display: "block",
+          underline: "none",
           fontFamily: "monospace",
         }}
       >
@@ -17,9 +18,10 @@ export default function SignButtons() {
       <MUI.Button
         href="/registeruser"
         sx={{
+          sx: "14px",
           my: 2,
           color: "white",
-          display: "block",
+          underline: "none",
           fontFamily: "monospace",
         }}
       >
