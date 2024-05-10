@@ -1,7 +1,7 @@
 import SuperAxios from "./super/SuperAxios";
-import User from "../models/User";
-import UserCommon from "../models/UserCommon";
-import UserMetadata from "../models/UserMetadata";
+import ModelUser from "../models/User";
+import ModelUserCommon from "../models/UserCommon";
+import ModelUserMetadata from "../models/UserMetadata";
 
 interface LoginData {
   email: string;
@@ -13,26 +13,30 @@ interface FieldUpdate {
   value: string;
 }
 
-class AxiosUserMetadata extends SuperAxios<UserCommon> {
+class AxiosUserMetadata extends SuperAxios<ModelUserCommon> {
   constructor() {
     super();
     this.host = this.host + "/user/metadata/";
   }
 
-  async getUserMetadata(): Promise<UserMetadata> {
+  async getUserMetadata(): Promise<ModelUserMetadata> {
     return await this.get("");
   }
 
-  async registerMetadata(metadata: UserMetadata): Promise<UserMetadata> {
+  async registerMetadata(
+    metadata: ModelUserMetadata
+  ): Promise<ModelUserMetadata> {
     return await this.post("register/", metadata);
   }
 
-  async updateMetadata(metadata: UserMetadata): Promise<UserMetadata> {
+  async updateMetadata(
+    metadata: ModelUserMetadata
+  ): Promise<ModelUserMetadata> {
     return await this.put("register/", metadata);
   }
 }
 
-class AxiosUser extends SuperAxios<UserCommon> {
+class AxiosUser extends SuperAxios<ModelUserCommon> {
   axiosUserMetadata: AxiosUserMetadata;
 
   constructor() {
@@ -45,7 +49,7 @@ class AxiosUser extends SuperAxios<UserCommon> {
     return await this.post<LoginData>("login/", data);
   }
 
-  async registerUser(user: UserCommon): Promise<UserCommon> {
+  async registerUser(user: ModelUserCommon): Promise<ModelUserCommon> {
     return await this.post("register/", user, {
       headers: {
         "Content-type": "multipart/form-data",
@@ -60,15 +64,15 @@ class AxiosUser extends SuperAxios<UserCommon> {
     return await this.delete("delete/");
   }
 
-  async getUserCommon(): Promise<UserCommon> {
+  async getUserCommon(): Promise<ModelUserCommon> {
     return await this.get("");
   }
 
-  async changePassword(data: FieldUpdate): Promise<UserCommon> {
+  async changePassword(data: FieldUpdate): Promise<ModelUserCommon> {
     return await this.put<FieldUpdate>("update/", data);
   }
 
-  async changeAvatar(data: FieldUpdate): Promise<UserCommon> {
+  async changeAvatar(data: FieldUpdate): Promise<ModelUserCommon> {
     return await this.put<FieldUpdate>("update/", data, {
       headers: {
         "Content-type": "multipart/form-data",
@@ -76,23 +80,27 @@ class AxiosUser extends SuperAxios<UserCommon> {
     });
   }
 
-  async getUserMetadata(): Promise<UserMetadata> {
+  async getUserMetadata(): Promise<ModelUserMetadata> {
     return await this.axiosUserMetadata.getUserMetadata();
   }
 
-  async registerMetadata(metadata: UserMetadata): Promise<UserMetadata> {
+  async registerMetadata(
+    metadata: ModelUserMetadata
+  ): Promise<ModelUserMetadata> {
     return await this.axiosUserMetadata.registerMetadata(metadata);
   }
 
-  async updateMetadata(metadata: UserMetadata): Promise<UserMetadata> {
+  async updateMetadata(
+    metadata: ModelUserMetadata
+  ): Promise<ModelUserMetadata> {
     return await this.axiosUserMetadata.updateMetadata(metadata);
   }
 
-  async getUser(): Promise<User> {
+  async getUser(): Promise<ModelUser> {
     const userCommon = this.getUserCommon();
     const userMetadata = this.getUserMetadata();
 
-    return new User(await userCommon, await userMetadata);
+    return new ModelUser(await userCommon, await userMetadata);
   }
 }
 

@@ -1,6 +1,6 @@
 import { validatedEmail, validatedName } from "../utils/Verification";
 
-interface UserFormData {
+interface FormDataUser {
   id?: number;
   last_login?: Date;
   is_superuser?: boolean;
@@ -15,7 +15,7 @@ interface UserFormData {
   user_permissions?: string[];
 }
 
-export default class UserCommon {
+export default class ModelUserCommon {
   private id?: number;
   private last_login?: Date;
   private is_superuser?: boolean;
@@ -28,7 +28,7 @@ export default class UserCommon {
   private avatar?: string;
   private user_permissions?: string[];
 
-  constructor(data: UserFormData) {
+  constructor(data: FormDataUser) {
     if (validatedEmail(data.email) === false) {
       throw new Error(`Email inválido: ${data.email}`);
     }

@@ -1,14 +1,14 @@
 import {
-  AgeChoiceMap,
-  CoatChoiceMap,
-  GenderChoiceMap,
-  SizeChoiceMap,
-  SpecieChoiceMap,
-} from "./choices/ChoicesMap";
+  MapAgeChoice,
+  MapCoatChoice,
+  MapGenderChoice,
+  MapSizeChoice,
+  MapSpecieChoice,
+} from "./map_choices/MapChoices";
 
 import { validatedName } from "../utils/Verification";
 
-interface AnimalFormData {
+interface FormDataAnimal {
   id?: number;
   donor?: number;
   name: string;
@@ -29,12 +29,12 @@ interface AnimalFormData {
   is_adopted?: boolean;
 }
 
-export default class Animal {
-  private ageMap: AgeChoiceMap = new AgeChoiceMap();
-  private coatMap: CoatChoiceMap = new CoatChoiceMap();
-  private genderMap: GenderChoiceMap = new GenderChoiceMap();
-  private sizeMap: SizeChoiceMap = new SizeChoiceMap();
-  private specieMap: SpecieChoiceMap = new SpecieChoiceMap();
+export default class ModelAnimal {
+  private ageMap: MapAgeChoice = new MapAgeChoice();
+  private coatMap: MapCoatChoice = new MapCoatChoice();
+  private genderMap: MapGenderChoice = new MapGenderChoice();
+  private sizeMap: MapSizeChoice = new MapSizeChoice();
+  private specieMap: MapSpecieChoice = new MapSpecieChoice();
 
   private id?: number;
   private donor?: number;
@@ -55,7 +55,7 @@ export default class Animal {
   private is_castrated?: boolean;
   private is_adopted?: boolean;
 
-  constructor(data: AnimalFormData) {
+  constructor(data: FormDataAnimal) {
     if (data.id !== undefined && data.id < 0) {
       throw new Error("Animal não pode ter o id negativo");
     }

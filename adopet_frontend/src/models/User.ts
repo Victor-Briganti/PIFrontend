@@ -1,20 +1,20 @@
-import UserCommon from "./UserCommon";
-import UserMetadata from "./UserMetadata";
+import ModelUserCommon from "./UserCommon";
+import ModelUserMetadata from "./UserMetadata";
 
-export default class User {
-  private userCommon: UserCommon;
-  private userMetadata: UserMetadata;
+export default class ModelUser {
+  private userCommon: ModelUserCommon;
+  private userMetadata: ModelUserMetadata;
 
-  constructor(userCommon: UserCommon, userMetadata: UserMetadata) {
+  constructor(userCommon: ModelUserCommon, userMetadata: ModelUserMetadata) {
     this.userCommon = userCommon;
     this.userMetadata = userMetadata;
   }
 
-  getUserCommon(): UserCommon {
+  getUserCommon(): ModelUserCommon {
     return this.userCommon;
   }
 
-  getUserMetadata(): UserMetadata {
+  getUserMetadata(): ModelUserMetadata {
     return this.userMetadata;
   }
 }

@@ -1,6 +1,6 @@
-import SuperChoiceMap from "./super/SuperChoiceMap";
+import MapChoicesSuper from "./super/MapChoicesSuper";
 
-export class AgeChoiceMap extends SuperChoiceMap {
+export class MapAgeChoice extends MapChoicesSuper {
   constructor() {
     super(
       new Map([
@@ -12,7 +12,7 @@ export class AgeChoiceMap extends SuperChoiceMap {
   }
 }
 
-export class CoatChoiceMap extends SuperChoiceMap {
+export class MapCoatChoice extends MapChoicesSuper {
   constructor() {
     super(
       new Map([
@@ -24,7 +24,7 @@ export class CoatChoiceMap extends SuperChoiceMap {
   }
 }
 
-export class GenderChoiceMap extends SuperChoiceMap {
+export class MapGenderChoice extends MapChoicesSuper {
   constructor() {
     super(
       new Map([
@@ -35,7 +35,7 @@ export class GenderChoiceMap extends SuperChoiceMap {
   }
 }
 
-export class SizeChoiceMap extends SuperChoiceMap {
+export class MapSizeChoice extends MapChoicesSuper {
   constructor() {
     super(
       new Map([
@@ -47,7 +47,7 @@ export class SizeChoiceMap extends SuperChoiceMap {
   }
 }
 
-export class SpecieChoiceMap extends SuperChoiceMap {
+export class MapSpecieChoice extends MapChoicesSuper {
   constructor() {
     super(
       new Map([
@@ -58,7 +58,7 @@ export class SpecieChoiceMap extends SuperChoiceMap {
   }
 }
 
-export class StateChoiceMap extends SuperChoiceMap {
+export class MapStateChoice extends MapChoicesSuper {
   constructor() {
     super(
       new Map([
@@ -94,7 +94,7 @@ export class StateChoiceMap extends SuperChoiceMap {
   }
 }
 
-export class StatusChoiceMap extends SuperChoiceMap {
+export class MapStatusChoice extends MapChoicesSuper {
   constructor() {
     super(
       new Map([

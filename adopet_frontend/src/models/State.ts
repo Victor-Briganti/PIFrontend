@@ -1,7 +1,7 @@
-import { StateChoiceMap } from "./choices/ChoicesMap";
+import { MapStateChoice } from "./map_choices/MapChoices";
 
-export default class State {
-  private statesMap: StateChoiceMap = new StateChoiceMap();
+export default class ModelState {
+  private statesMap: MapStateChoice = new MapStateChoice();
   private uf!: string;
 
   State(uf: string) {

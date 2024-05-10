@@ -1,15 +1,15 @@
-import Animal from "../models/Animal";
-import AnimalImage from "../models/AnimalImage";
+import ModelAnimal from "../models/Animal";
+import ModelAnimalImage from "../models/AnimalImage";
 import SuperAxios from "./super/SuperAxios";
 import Pagination from "../models/Pagination";
 
-class AxiosAnimalImage extends SuperAxios<AnimalImage> {
+class AxiosAnimalImage extends SuperAxios<ModelAnimalImage> {
   constructor() {
     super();
     this.host = this.host + "/animal/images/";
   }
 
-  async uploadImage(image: AnimalImage): Promise<AnimalImage> {
+  async uploadImage(image: ModelAnimalImage): Promise<ModelAnimalImage> {
     return await this.post("upload/", image, {
       headers: {
         "Content-type": "multipart/form-data",
@@ -25,7 +25,7 @@ class AxiosAnimalImage extends SuperAxios<AnimalImage> {
     return await this.delete("delete/" + id);
   }
 
-  async updateImage(image: AnimalImage): Promise<AnimalImage> {
+  async updateImage(image: ModelAnimalImage): Promise<ModelAnimalImage> {
     if (image.getId() === undefined || (image.getId() ?? -1) < 0) {
       throw new Error("Imagem de Animal com ID inválido: " + image.getId());
     }
@@ -37,12 +37,12 @@ class AxiosAnimalImage extends SuperAxios<AnimalImage> {
     });
   }
 
-  async filterBy(id: number): Promise<AnimalImage[]> {
+  async filterBy(id: number): Promise<ModelAnimalImage[]> {
     return await this.get("filterby/" + id);
   }
 }
 
-class AxiosAnimal extends SuperAxios<Animal> {
+class AxiosAnimal extends SuperAxios<ModelAnimal> {
   private axiosImage: AxiosAnimalImage;
 
   constructor() {
@@ -51,12 +51,12 @@ class AxiosAnimal extends SuperAxios<Animal> {
     this.axiosImage = new AxiosAnimalImage();
   }
 
-  async listAnimals(page: number = 0): Promise<Pagination<Animal>> {
+  async listAnimals(page: number = 0): Promise<Pagination<ModelAnimal>> {
     const response = await this.get(page > 0 ? "?page=${page}" : "");
-    return new Pagination<Animal>(response);
+    return new Pagination<ModelAnimal>(response);
   }
 
-  async getAnimalByID(id: number): Promise<Animal> {
+  async getAnimalByID(id: number): Promise<ModelAnimal> {
     if (id < 0) {
       throw new Error("Animal com ID inválido: " + id);
     }
@@ -64,7 +64,7 @@ class AxiosAnimal extends SuperAxios<Animal> {
     return await this.get(id.toString());
   }
 
-  async registerAnimal(animal: Animal): Promise<Animal> {
+  async registerAnimal(animal: ModelAnimal): Promise<ModelAnimal> {
     return await this.post("register/", animal);
   }
 
@@ -76,7 +76,7 @@ class AxiosAnimal extends SuperAxios<Animal> {
     return await this.delete("delete/" + id);
   }
 
-  async updateAnimal(animal: Animal): Promise<Animal> {
+  async updateAnimal(animal: ModelAnimal): Promise<ModelAnimal> {
     if (animal.getId() === undefined || (animal.getId() ?? -1) < 0) {
       throw new Error("Animal com ID inválido: " + animal.getId());
     }
@@ -84,7 +84,7 @@ class AxiosAnimal extends SuperAxios<Animal> {
     return await this.put("update/" + animal.getId(), animal);
   }
 
-  async getChoices(animal: Animal): Promise<Animal> {
+  async getChoices(animal: ModelAnimal): Promise<ModelAnimal> {
     if (animal.getId() === undefined || (animal.getId() ?? -1) < 0) {
       throw new Error("Animal com ID inválido: " + animal.getId());
     }
@@ -92,7 +92,7 @@ class AxiosAnimal extends SuperAxios<Animal> {
     return await this.put("update/" + animal.getId(), animal);
   }
 
-  async uploadImage(image: AnimalImage): Promise<AnimalImage> {
+  async uploadImage(image: ModelAnimalImage): Promise<ModelAnimalImage> {
     return this.axiosImage.updateImage(image);
   }
 
@@ -100,11 +100,11 @@ class AxiosAnimal extends SuperAxios<Animal> {
     return this.axiosImage.deleteImage(id);
   }
 
-  async updateImage(image: AnimalImage): Promise<AnimalImage> {
+  async updateImage(image: ModelAnimalImage): Promise<ModelAnimalImage> {
     return this.axiosImage.updateImage(image);
   }
 
-  async listImageByID(id: number): Promise<AnimalImage[]> {
+  async listImageByID(id: number): Promise<ModelAnimalImage[]> {
     return this.axiosImage.filterBy(id);
   }
 }

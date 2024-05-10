@@ -1,15 +1,15 @@
-interface AnimalImageFormData {
+interface FormDataAnimalImage {
   id?: number;
   animal: number;
   image: string;
 }
 
-export default class AnimalImage {
+export default class ModelAnimalImage {
   private id?: number;
   private animal: number;
   private image: string;
 
-  constructor(data: AnimalImageFormData) {
+  constructor(data: FormDataAnimalImage) {
     if (data.id !== undefined && data.id < 0) {
       throw new Error("AnimalImage não pode ter um ID negativo");
     }

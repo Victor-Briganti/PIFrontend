@@ -1,11 +1,11 @@
-import State from "./State";
+import ModelState from "./State";
 import { validatedName } from "../utils/Verification";
 
-export default class City {
+export default class ModelCity {
   private name!: string;
-  private state!: State;
+  private state!: ModelState;
 
-  City(name: string, state: State) {
+  constructor(name: string, state: ModelState) {
     if (validatedName(name, 50) === false) {
       throw new Error(`Cidade com nome inválido: ${name}`);
     }

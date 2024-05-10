@@ -1,6 +1,6 @@
-import { StatusChoiceMap } from "./choices/ChoicesMap";
+import { MapStatusChoice } from "./map_choices/MapChoices";
 
-interface AdoptionFormData {
+interface FormDataAdoption {
   donor: number;
   adopter: number;
   animal: number;
@@ -9,8 +9,8 @@ interface AdoptionFormData {
   comment?: string;
 }
 
-export default class Adoption {
-  private statusMap: StatusChoiceMap = new StatusChoiceMap();
+export default class ModelAdoption {
+  private statusMap: MapStatusChoice = new MapStatusChoice();
 
   private donor: number;
   private adopter: number;
@@ -19,7 +19,7 @@ export default class Adoption {
   private request_status?: string;
   private comment?: string;
 
-  constructor(data: AdoptionFormData) {
+  constructor(data: FormDataAdoption) {
     if (data.donor < 0) {
       throw new Error("Doador não pode ter o id negativo");
     }

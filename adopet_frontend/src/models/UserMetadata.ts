@@ -1,6 +1,6 @@
 import { validatedNumber, validatedCPF } from "../utils/Verification";
 
-interface UserMetadataFormData {
+interface FormDataUserMetadata {
   user: number;
   address: number;
   cpf: string;
@@ -9,7 +9,7 @@ interface UserMetadataFormData {
   is_active?: boolean;
 }
 
-export default class UserMetadata {
+export default class ModelUserMetadata {
   private user: number;
   private address: number;
   private cpf: string;
@@ -17,7 +17,7 @@ export default class UserMetadata {
   private phone: string;
   private is_active?: boolean;
 
-  constructor(data: UserMetadataFormData) {
+  constructor(data: FormDataUserMetadata) {
     if (data.user < 0) {
       throw new Error("Usuário não pode ser um id negativo");
     }

@@ -1,21 +1,21 @@
 import SuperAxios from "./super/SuperAxios";
-import City from "../models/City";
+import ModelCity from "../models/City";
 
-class AxiosCity extends SuperAxios<City> {
+class AxiosCity extends SuperAxios<ModelCity> {
   constructor() {
     super();
     this.host = this.host + "/address/city/";
   }
 
-  async getCityList(): Promise<City[]> {
+  async getCityList(): Promise<ModelCity[]> {
     return await this.get("");
   }
 
-  async getCityDetail(id: number): Promise<City> {
+  async getCityDetail(id: number): Promise<ModelCity> {
     return await this.get(`${id}`);
   }
 
-  async registerCity(city: City): Promise<City> {
+  async registerCity(city: ModelCity): Promise<ModelCity> {
     return await this.post("register/", city);
   }
 }

@@ -1,8 +1,8 @@
-import City from "./City";
+import ModelCity from "./City";
 import { validatedName, validatedNumber } from "../utils/Verification";
 
-interface AddressFormData {
-  city: City;
+interface FormDataAddress {
+  city: ModelCity;
   zipCode: string;
   district: string;
   street: string;
@@ -10,15 +10,15 @@ interface AddressFormData {
   houseNumber: string;
 }
 
-export default class Address {
-  private city!: City;
+export default class ModelAddress {
+  private city!: ModelCity;
   private zipCode!: string;
   private district!: string;
   private street!: string;
   private complement!: string;
   private houseNumber!: string;
 
-  Address(address: AddressFormData) {
+  constructor(address: FormDataAddress) {
     if (validatedNumber(address.zipCode) === false) {
       throw new Error(`CEP inválido: ${address.district}`);
     }
