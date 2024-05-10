@@ -1,4 +1,6 @@
-import Teste from "./pages/Teste";
+import Home from "./pages/Home";
+import Donation from "./pages/Donation";
+import About from "./pages/About";
 import Theme from "./components/styles/Theme";
 import "./App.css";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
@@ -9,7 +11,9 @@ function App() {
       <div className="App">
         <Router>
           <Routes>
-            <Route path="/" element={<Teste />}></Route>
+            <Route path="/" element={<Home />}></Route>
+            <Route path="/donation" element={<Donation />}></Route>
+            <Route path="/about" element={<About />}></Route>
           </Routes>
         </Router>
       </div>

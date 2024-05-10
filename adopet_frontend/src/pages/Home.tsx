@@ -1,16 +1,15 @@
 import * as MUI from "@mui/material";
-import Header from "./Header";
-import Footer from "./Footer";
-import Carousel from "react-material-ui-carousel";
-import Main from "./Teste";
-import Content from "./Content";
+import Main from "../components/container/Main";
+import Content from "../components/container/Content";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
+import Slider from "../components/Slider";
 
-// Define your banners here
 const banners = [
-  "public/banner1.webp",
-  "public/banner2.webp",
-  "public/banner3.webp",
-  "public/banner4.webp",
+  "src/assets/banner1.webp",
+  "src/assets/banner2.webp",
+  "src/assets/banner3.webp",
+  "src/assets/banner4.webp",
 ];
 
 export default function Home() {
@@ -18,33 +17,18 @@ export default function Home() {
     <Main bgcolor="secondary.light" color="primary.contrastText">
       <Header />
       <Content>
-        <Carousel
-          sx={{
-            width: "100%",
-            height: "100%",
-            objectFit: "cover",
-          }}
-        >
-          {banners.map((banner, index) => (
-            <MUI.Box
-              component="img"
-              sx={{
-                width: "100%",
-                height: "700px",
-                objectFit: "cover",
-              }}
-              src={banner}
-              alt={`Slide ${index}`}
-            />
-          ))}
-        </Carousel>
+        <Slider banners={banners} />
         <MUI.Typography variant="h4" gutterBottom textAlign="center">
           Por que adotar um animal de estimação?
         </MUI.Typography>
         <MUI.Typography variant="h5" paragraph textAlign="left">
           Dar um lar para quem precisa:
         </MUI.Typography>
-        <MUI.Typography variant="body1" paragraph textAlign="left">
+        <MUI.Typography
+          variant="h6"
+          paragraph
+          sx={{ textAlign: "justify", width: "100%" }}
+        >
           Ao adotar um animal, você abre espaço no seu coração e na sua casa
           para um serzinho que precisa muito de amor e carinho. Inúmeros cães e
           gatos vivem em situação de abandono, sem acesso a comida, abrigo e
@@ -54,7 +38,11 @@ export default function Home() {
         <MUI.Typography variant="h5" paragraph textAlign="left">
           Receber amor incondicional:
         </MUI.Typography>
-        <MUI.Typography variant="body1" paragraph textAlign="left">
+        <MUI.Typography
+          variant="h6"
+          paragraph
+          sx={{ textAlign: "justify", width: "100%" }}
+        >
           Os animais de estimação são seres extremamente afetuosos e leais. Ao
           adotar um, você ganhará um companheiro fiel para todas as horas, que
           te receberá sempre com entusiasmo e alegria. O amor que eles oferecem
@@ -64,7 +52,11 @@ export default function Home() {
         <MUI.Typography variant="h5" paragraph textAlign="left">
           Melhorar sua saúde física e mental:
         </MUI.Typography>
-        <MUI.Typography variant="body1" paragraph textAlign="left">
+        <MUI.Typography
+          variant="h6"
+          paragraph
+          sx={{ textAlign: "justify", width: "100%" }}
+        >
           Cuidar de um animal de estimação traz diversos benefícios para a
           saúde. Os passeios com o cachorro, por exemplo, te incentivam a se
           exercitar mais, combatendo o sedentarismo e melhorando o
@@ -75,7 +67,11 @@ export default function Home() {
         <MUI.Typography variant="h5" paragraph textAlign="left">
           Ensinar responsabilidade:
         </MUI.Typography>
-        <MUI.Typography variant="body1" paragraph textAlign="left">
+        <MUI.Typography
+          variant="h6"
+          paragraph
+          sx={{ textAlign: "justify", width: "100%" }}
+        >
           Adotar um animal é uma grande responsabilidade. É preciso cuidar da
           alimentação, higiene, saúde e bem-estar do seu pet. Essa experiência
           pode ser muito valiosa, principalmente para crianças, que aprendem a
@@ -85,7 +81,11 @@ export default function Home() {
         <MUI.Typography variant="h5" paragraph textAlign="left">
           Transformar a vida de um animal:
         </MUI.Typography>
-        <MUI.Typography variant="body1" paragraph textAlign="left">
+        <MUI.Typography
+          variant="h6"
+          paragraph
+          sx={{ textAlign: "justify", width: "100%" }}
+        >
           A adoção é um ato de amor que pode transformar a vida de um animal
           para sempre. Ao abrir seu lar e seu coração, você estará dando a ele a
           chance de ter uma vida feliz, saudável e cheia de amor.
@@ -94,13 +94,16 @@ export default function Home() {
           Adotar é mais do que ter um animal de estimação, é fazer a diferença
           no mundo.
         </MUI.Typography>
-        <MUI.Typography variant="body1" paragraph textAlign="left">
+        <MUI.Typography
+          variant="h6"
+          paragraph
+          sx={{ textAlign: "justify", width: "100%" }}
+        >
           Lembre-se: antes de adotar, pondere se você tem condições de oferecer
           ao animal tudo o que ele precisa. Adotar um animal é um compromisso de
           longo prazo, que exige tempo, amor e dedicação.
         </MUI.Typography>
       </Content>
-      {/* </MUI.Container> */}
       <Footer />
     </Main>
   );
