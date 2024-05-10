@@ -4,7 +4,7 @@ import Header from "./Header";
 import Footer from "./Footer";
 import { Link } from "react-router-dom"; // Importe o Link do React Router
 import Content from "./Content";
-import Main from "./Main";
+import Main from "./Teste";
 
 export default function Donation() {
   const theme = MUI.useTheme();

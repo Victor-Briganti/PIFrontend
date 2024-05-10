@@ -1,58 +1,57 @@
-import AxiosUser from "./api/AxiosUser";
-import { User } from "./models/User";
-import React, { useState } from "react";
+import * as React from "react";
 import * as MUI from "@mui/material";
-import MenuIcon from "@mui/icons-material/Menu";
-import { useNavigate } from "react-router-dom";
+import AxiosUser from "../api/AxiosUser";
+import AvatarUser from "./elements/AvatarUser";
+import SignButtons from "./elements/SignButtons";
+import NavBar from "./elements/NavBar";
+import ModelUserCommon from "../models/UserCommon";
+
+interface UserSectionProps {
+  user: ModelUserCommon | null;
+}
+
+const pages = ["Sobre Nós", "Doação", "Animais"];
+const pageLinks = ["/about", "/donation", "/animals"];
 
 const axiosUser = new AxiosUser();
 
-const pages = ["Sobre Nós", "Doação", "Animais"];
-const pageLink = ["/about", "/Donation", "/animals"];
-const settings = ["Perfil", "Sair"];
-const settingLink = ["/profile"];
+const UserSection = ({ user }: UserSectionProps) => {
+  return user ? <AvatarUser user={user} /> : <SignButtons />;
+};
+
+const LinkNavigations = () => {
+  return (
+    <React.Fragment>
+      {pages.map((page) => (
+        <MUI.MenuItem sx={{ padding: "0px" }} key={page}>
+          <MUI.Link
+            textAlign="center"
+            href={pageLinks[pages.indexOf(page)]}
+            width={"100%"}
+            sx={{ px: "14px" }}
+            underline="none"
+            color="white"
+            fontFamily="monospace"
+          >
+            {page}
+          </MUI.Link>
+        </MUI.MenuItem>
+      ))}
+    </React.Fragment>
+  );
+};
 
 export default function Header() {
-  const [user, setUser] = React.useState<User | null>(null);
-  const [open, setOpen] = useState(false);
-  const navigate = useNavigate();
+  const [user, setUser] = React.useState<ModelUserCommon | null>(null);
+  const isSmallScreen = MUI.useMediaQuery((theme: MUI.Theme) =>
+    theme.breakpoints.down("sm")
+  );
 
   React.useEffect(() => {
-    axiosUser.getUserInfo().then((data: User) => {
-      setUser(new User(data));
+    axiosUser.getUserCommon().then((data: ModelUserCommon) => {
+      setUser(data);
     });
   }, []);
-
-  const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
-    null
-  );
-  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
-    null
-  );
-
-  const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElNav(event.currentTarget);
-  };
-  const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
-    navigate("/profile");
-  };
-
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
-
-  const handleLogout = async () => {
-    try {
-      await axiosUser.logout();
-      window.location.reload();
-    } catch (error) {
-      console.error("Logout failed:", error);
-    }
-  };
-
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-  };
 
   return (
     <MUI.AppBar color="primary">
@@ -61,10 +60,9 @@ export default function Header() {
           <MUI.Button href="/">
             <MUI.Box pr={2}>
               <img
-                // Imagem da logo
-                src={"/public/logo.png"}
-                width={50}
-                height={50}
+                src={"src/assets/logo.png"}
+                width={40}
+                height={40}
                 loading="lazy"
               />
             </MUI.Box>
@@ -85,96 +83,12 @@ export default function Header() {
               Adopet
             </MUI.Typography>
           </MUI.Button>
-          <MUI.Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
-            <MUI.IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              color="inherit"
-            >
-              <MenuIcon />
-            </MUI.IconButton>
-            <MUI.Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "left",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "left",
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
-              sx={{
-                display: { xs: "block", md: "none" },
-              }}
-            >
-              {pages.map((page) => (
-                <MUI.MenuItem
-                  sx={{ padding: "0px" }}
-                  key={page}
-                  onClick={handleCloseNavMenu}
-                >
-                  <MUI.Link
-                    textAlign="center"
-                    href={pageLink[pages.indexOf(page)]}
-                    width={"100%"}
-                    sx={{ px: "14px" }}
-                    underline="none"
-                    color={"textPrimary"}
-                  >
-                    {page}
-                  </MUI.Link>
-                </MUI.MenuItem>
-              ))}
-            </MUI.Menu>
-          </MUI.Box>
-          <MUI.Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {pages.map((page) => (
-              <MUI.Button
-                key={page}
-                href={pageLink[pages.indexOf(page)]}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: "white", display: "block" }}
-              >
-                {page}
-              </MUI.Button>
-            ))}
-          </MUI.Box>
-          {user ? (
-            // está logado
-            <MUI.Box sx={{ flexGrow: 0 }}>
-              <MUI.Tooltip title="Configurações de Usuário">
-                <MUI.IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <MUI.Avatar
-                    alt={user.firstname}
-                    //   imagem do usuário
-                    src="/"
-                  />
-                </MUI.IconButton>
-              </MUI.Tooltip>
-            </MUI.Box>
+          {isSmallScreen ? (
+            <NavBar pages={pages} pageLinks={pageLinks} />
           ) : (
-            <MUI.Box display={"flex"} flexDirection={"row"}>
-              <MUI.Button
-                href="/login"
-                sx={{ my: 2, color: "white", display: "block" }}
-              >
-                Entrar
-              </MUI.Button>
-              <MUI.Button
-                href="/registeruser"
-                sx={{ my: 2, color: "white", display: "block" }}
-              >
-                Cadastre-se
-              </MUI.Button>
-            </MUI.Box>
+            <LinkNavigations />
           )}
+          <UserSection user={user} />
         </MUI.Toolbar>
       </MUI.Container>
     </MUI.AppBar>

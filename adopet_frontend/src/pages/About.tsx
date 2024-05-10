@@ -3,7 +3,7 @@ import * as MUI from "@mui/material";
 import Header from "./Header";
 import Footer from "./Footer";
 import { Link } from "react-router-dom"; // Importe o Link do React Router
-import Main from "./Main";
+import Main from "./Teste";
 import Content from "./Content";
 
 export default function About() {

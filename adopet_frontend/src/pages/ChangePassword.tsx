@@ -3,7 +3,7 @@ import * as MUI from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import AxiosUser from "./api/AxiosUser";
 import { User } from "./models/User";
-import Main from "./Main";
+import Main from "./Teste";
 import { useNavigate } from "react-router-dom";
 
 // Instância axios para acessar o usuário

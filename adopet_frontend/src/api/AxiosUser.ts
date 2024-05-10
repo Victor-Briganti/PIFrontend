@@ -60,6 +60,7 @@ class AxiosUser extends SuperAxios<ModelUserCommon> {
   async logout(): Promise<void> {
     this.post("logout/");
   }
+
   async deleteUser(): Promise<boolean> {
     return await this.delete("delete/");
   }

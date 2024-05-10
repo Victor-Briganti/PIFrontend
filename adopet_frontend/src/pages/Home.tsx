@@ -2,7 +2,7 @@ import * as MUI from "@mui/material";
 import Header from "./Header";
 import Footer from "./Footer";
 import Carousel from "react-material-ui-carousel";
-import Main from "./Main";
+import Main from "./Teste";
 import Content from "./Content";
 
 // Define your banners here

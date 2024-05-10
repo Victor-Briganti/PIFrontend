@@ -2,7 +2,7 @@ import * as React from "react";
 import * as MUI from "@mui/material";
 import AxiosUser from "./api/AxiosUser";
 import { User } from "./models/User";
-import Main from "./Main";
+import Main from "./Teste";
 import Header from "./Header";
 import Footer from "./Footer";
 import { useNavigate } from "react-router-dom";

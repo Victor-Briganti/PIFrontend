@@ -3,7 +3,7 @@ import * as MUI from "@mui/material";
 import AxiosAnimal from "./api/AxiosAnimal";
 import { Animal } from "./models/Animal";
 import { useNavigate } from "react-router-dom";
-import Header from "./Header";
+import Header from "./Headert2";
 import Footer from "./Footer";
 
 const axiosAnimal = new AxiosAnimal();

@@ -1,4 +1,9 @@
+import { ReactNode } from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+
+interface ThemeProps {
+  children: ReactNode;
+}
 
 const theme = createTheme({
   palette: {
@@ -15,6 +20,6 @@ const theme = createTheme({
   },
 });
 
-export default function Theme({ children }) {
+export default function Theme({ children }: ThemeProps) {
   return <ThemeProvider theme={theme}>{children}</ThemeProvider>;
 }
