@@ -25,6 +25,7 @@ interface FormAnimalProps {
   handleVaccinated: (event: React.ChangeEvent<Element>) => void;
   handleCastrated: (event: React.ChangeEvent<Element>) => void;
   handleSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
+  messageError: string;
 }
 
 export default function FormAnimal({
@@ -47,6 +48,7 @@ export default function FormAnimal({
   handleVaccinated,
   handleCastrated,
   handleSubmit,
+  messageError,
 }: FormAnimalProps) {
   const specieMap = new MapChoice.MapSpecieChoice();
   const genderMap = new MapChoice.MapGenderChoice();
@@ -84,6 +86,18 @@ export default function FormAnimal({
                 id="name"
                 label="Nome"
                 name="name"
+              />
+            </MUI.Grid>
+
+            <MUI.Grid item xs={12} sm={12}>
+              <MUI.TextField
+                required
+                fullWidth
+                id="weight"
+                label="Peso"
+                name="weight"
+                type="number"
+                inputProps={{ min: "0" }}
               />
             </MUI.Grid>
 
@@ -194,6 +208,13 @@ export default function FormAnimal({
                 Cadastrar
               </MUI.Button>
             </MUI.Grid>
+            {messageError && (
+              <MUI.Grid item xs={12} sm={12}>
+                <MUI.Alert variant="filled" severity="error">
+                  {messageError}
+                </MUI.Alert>
+              </MUI.Grid>
+            )}
           </MUI.Grid>
         </MUI.Box>
       </MUI.Box>

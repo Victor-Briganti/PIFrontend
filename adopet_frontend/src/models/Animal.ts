@@ -114,19 +114,21 @@ export default class ModelAnimal {
       this.is_adopted = false;
     }
 
-    const ageMapped = this.ageMap.getValue(data.age);
-    const genderMapped = this.genderMap.getValue(data.gender);
-    const sizeMapped = this.sizeMap.getValue(data.size);
-    const specieMapped = this.specieMap.getValue(data.specie);
+    const ageMapped = this.ageMap.getKey(data.age);
+    const genderMapped = this.genderMap.getKey(data.gender);
+    const sizeMapped = this.sizeMap.getKey(data.size);
+    const specieMapped = this.specieMap.getKey(data.specie);
 
     if (data.coat !== undefined) {
-      this.coat = this.coatMap.getValue(data?.coat);
+      this.coat = this.coatMap.getKey(data?.coat);
     }
 
     this.age = ageMapped;
     this.gender = genderMapped;
     this.size = sizeMapped;
     this.specie = specieMapped;
+    this.temperament = data.temperament;
+    this.description = data.description;
   }
 
   getId(): number | undefined {
