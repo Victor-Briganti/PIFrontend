@@ -16,6 +16,7 @@ export default function Slider({ banners }: SliderProps) {
     >
       {banners.map((banner, index) => (
         <MUI.Box
+          key={index}
           component="img"
           sx={{
             width: "100%",
