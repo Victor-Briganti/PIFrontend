@@ -2,15 +2,15 @@ import * as MUI from "@mui/material";
 import * as React from "react";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 
-interface LoginProps {
+interface FormLoginProps {
   handleSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
-  messageWarning: string;
+  messageError: string;
 }
 
 export default function FormLogin({
   handleSubmit,
-  messageWarning,
-}: LoginProps) {
+  messageError,
+}: FormLoginProps) {
   return (
     <React.Fragment>
       <MUI.CssBaseline />
@@ -62,9 +62,9 @@ export default function FormLogin({
           >
             Entrar
           </MUI.Button>
-          {messageWarning && (
+          {messageError && (
             <MUI.Alert variant="filled" severity="warning">
-              {messageWarning}
+              {messageError}
             </MUI.Alert>
           )}
         </MUI.Box>
