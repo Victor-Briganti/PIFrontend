@@ -7,20 +7,36 @@ import FormCheckBox from "../elements/FormCheckbox";
 import ErrorAlert from "../elements/ErrorAlert";
 
 interface FormAnimalProps {
+  name: string;
+  weight: number;
   age: string;
   coat: string;
   gender: string;
   size: string;
   specie: string;
+  description: string;
+  temperament: string;
   isHouseTrained: boolean;
   isSpecialNeeds: boolean;
   isVaccinated: boolean;
   isCastrated: boolean;
+  handleName: (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => void;
+  handleWeight: (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => void;
   handleAge: (event: MUI.SelectChangeEvent) => void;
   handleCoat: (event: MUI.SelectChangeEvent) => void;
   handleGender: (event: MUI.SelectChangeEvent) => void;
   handleSize: (event: MUI.SelectChangeEvent) => void;
   handleSpecie: (event: MUI.SelectChangeEvent) => void;
+  handleDescription: (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => void;
+  handleTemperament: (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => void;
   handleHouseTrained: (event: React.ChangeEvent<Element>) => void;
   handleSpecialNeeds: (event: React.ChangeEvent<Element>) => void;
   handleVaccinated: (event: React.ChangeEvent<Element>) => void;
@@ -30,20 +46,28 @@ interface FormAnimalProps {
 }
 
 export default function FormAnimal({
+  name,
+  weight,
   age,
   coat,
   gender,
   size,
   specie,
+  description,
+  temperament,
   isHouseTrained,
   isSpecialNeeds,
   isVaccinated,
   isCastrated,
+  handleName,
+  handleWeight,
   handleAge,
   handleCoat,
   handleGender,
   handleSize,
   handleSpecie,
+  handleDescription,
+  handleTemperament,
   handleHouseTrained,
   handleSpecialNeeds,
   handleVaccinated,
@@ -87,6 +111,8 @@ export default function FormAnimal({
                 id="name"
                 label="Nome"
                 name="name"
+                defaultValue={name}
+                onChange={handleName}
               />
             </MUI.Grid>
 
@@ -99,6 +125,8 @@ export default function FormAnimal({
                 name="weight"
                 type="number"
                 inputProps={{ min: "0" }}
+                defaultValue={weight}
+                onChange={handleWeight}
               />
             </MUI.Grid>
 
@@ -153,6 +181,8 @@ export default function FormAnimal({
                 id="temperament"
                 label="Temperament"
                 name="temperament"
+                defaultValue={temperament}
+                onChange={handleTemperament}
               />
             </MUI.Grid>
 
@@ -164,6 +194,8 @@ export default function FormAnimal({
                 name="description"
                 multiline
                 rows={5}
+                defaultValue={description}
+                onChange={handleDescription}
               />
             </MUI.Grid>
 

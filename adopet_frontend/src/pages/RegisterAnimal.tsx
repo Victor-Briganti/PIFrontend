@@ -9,17 +9,35 @@ import ModelAnimal from "../models/Animal";
 const axiosAnimal = new AxiosAnimal();
 
 export default function RegisterAnimal() {
-  const [messageError, setMessageError] = React.useState<string>("");
-
+  const [name, setName] = React.useState<string>("");
+  const [weight, setWeight] = React.useState<number>(-1);
   const [specie, setSpecie] = React.useState<string>("");
   const [gender, setGender] = React.useState<string>("");
   const [size, setSize] = React.useState<string>("");
   const [age, setAge] = React.useState<string>("");
   const [coat, setCoat] = React.useState<string>("");
+  const [description, setDescription] = React.useState<string>("");
+  const [temperament, setTemperament] = React.useState<string>("");
   const [isHouseTrained, setHouseTrained] = React.useState<boolean>(false);
   const [isSpecialNeeds, setSpecialNeeds] = React.useState<boolean>(false);
   const [isVaccinated, setVaccinated] = React.useState<boolean>(false);
   const [isCastrated, setCastrated] = React.useState<boolean>(false);
+  const [messageError, setMessageError] = React.useState<string>("");
+
+  const handleName = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => setName(event.target.value);
+
+  const handleWeight = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const weight = parseFloat(event.target.value);
+    if (isNaN(weight) || weight < 0) {
+      setMessageError("Valor do peso inválido");
+      return;
+    }
+    setWeight(weight);
+  };
 
   const handleSpecie = (event: MUI.SelectChangeEvent) =>
     setSpecie(event.target.value);
@@ -35,6 +53,14 @@ export default function RegisterAnimal() {
 
   const handleCoat = (event: MUI.SelectChangeEvent) =>
     setCoat(event.target.value);
+
+  const handleDescription = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => setDescription(event.target.value);
+
+  const handleTemperament = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => setTemperament(event.target.value);
 
   const handleHouseTrained = (event: React.ChangeEvent<Element>) => {
     const target = event.target as HTMLInputElement;
@@ -59,41 +85,22 @@ export default function RegisterAnimal() {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const formData = new FormData(event.currentTarget);
-    formData.append("size", size);
-    formData.append("gender", gender);
-    formData.append("specie", specie);
-    formData.append("age", age);
-    formData.append("coat", coat);
-    formData.append("is_house_trained", isHouseTrained.toString());
-    formData.append("is_special_needs", isSpecialNeeds.toString());
-    formData.append("is_vaccinated", isVaccinated.toString());
-    formData.append("is_castrated", isCastrated.toString());
-
-    let weight;
-    if (formData.get("weight") === undefined) {
-      weight = undefined;
-    } else {
-      weight = parseInt(formData.get("weight")?.toString() ?? "-1");
-    }
-
     try {
       const animal = new ModelAnimal({
-        name: formData.get("name")?.toString() ?? "",
-        age: formData.get("age")?.toString() ?? "",
-        size: formData.get("size")?.toString() ?? "",
-        gender: formData.get("gender")?.toString() ?? "",
-        specie: formData.get("specie")?.toString() ?? "",
-        coat: formData.get("coat")?.toString() ?? "",
+        name: name,
+        age: age,
+        size: size,
+        gender: gender,
+        specie: specie,
+        coat: coat,
         weight: weight,
-        description: formData.get("description")?.toString(),
-        temperament: formData.get("temperament")?.toString(),
-        is_house_trained: (formData.get("is_house_trained") ===
-          "true") as boolean,
-        is_special_needs: (formData.get("is_special_needs") ===
-          "true") as boolean,
-        is_vaccinated: (formData.get("is_vaccinated") === "true") as boolean,
-        is_adopted: (formData.get("is_adopted") === "true") as boolean,
+        description: description,
+        temperament: temperament,
+        is_house_trained: isHouseTrained,
+        is_special_needs: isSpecialNeeds,
+        is_vaccinated: isVaccinated,
+        is_adopted: false,
+        is_active: false,
       });
 
       await axiosAnimal.registerAnimal(animal).catch((error) => {
@@ -110,20 +117,28 @@ export default function RegisterAnimal() {
     <Main>
       <Content>
         <FormAnimal
+          name={name}
+          weight={weight}
           specie={specie}
           gender={gender}
           size={size}
           age={age}
           coat={coat}
+          description={description}
+          temperament={temperament}
           isHouseTrained={isHouseTrained}
           isSpecialNeeds={isSpecialNeeds}
           isVaccinated={isVaccinated}
           isCastrated={isCastrated}
+          handleName={handleName}
+          handleWeight={handleWeight}
           handleSpecie={handleSpecie}
           handleGender={handleGender}
           handleSize={handleSize}
           handleAge={handleAge}
           handleCoat={handleCoat}
+          handleDescription={handleDescription}
+          handleTemperament={handleTemperament}
           handleHouseTrained={handleHouseTrained}
           handleSpecialNeeds={handleSpecialNeeds}
           handleVaccinated={handleVaccinated}
