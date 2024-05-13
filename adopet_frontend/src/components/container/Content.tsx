@@ -1,6 +1,11 @@
+import * as React from "react";
 import * as MUI from "@mui/material";
 
-export default function Content({ children }) {
+interface ContentProps {
+  children: React.ReactNode;
+}
+
+export default function Content({ children }: ContentProps) {
   return (
     <MUI.Container
       className="content"

@@ -11,7 +11,7 @@ import FormLogin from "../components/forms/Login";
 const axiosUser = new AxiosUser();
 
 export default function Login() {
-  const [messageWarning, setMessageWarning] = React.useState<string>("");
+  const [messageError, setmessageError] = React.useState<string>("");
   const navigate = useNavigate();
 
   const useHandleSubmit = () => {
@@ -25,16 +25,16 @@ export default function Login() {
 
       if (email !== undefined && password !== undefined) {
         if (validatedEmail(email) === false) {
-          setMessageWarning("Email inválido");
+          setmessageError("Email inválido");
           return;
         }
 
         if (password === "" || password.length < 8) {
-          setMessageWarning("Senha inválida");
+          setmessageError("Senha inválida");
           return;
         }
 
-        setMessageWarning("");
+        setmessageError("");
         axiosUser
           .login({ email: email, password: password })
           .then((response) => {
@@ -42,10 +42,10 @@ export default function Login() {
             window.location.reload();
           })
           .catch((error) => {
-            setMessageWarning("Email ou senha inválidos");
+            setmessageError("Email ou senha inválidos");
           });
       } else {
-        setMessageWarning("Campos obrigatórios");
+        setmessageError("Campos obrigatórios");
         return;
       }
     };
@@ -66,10 +66,7 @@ export default function Login() {
           alignItems: "center",
         }}
       >
-        <FormLogin
-          handleSubmit={handleSubmit}
-          messageWarning={messageWarning}
-        />
+        <FormLogin handleSubmit={handleSubmit} messageError={messageError} />
         <MUI.Grid container justifyContent="center" alignItems="center">
           <MUI.Grid item>
             <MUI.Link href="http://localhost:5173/registeruser" variant="body2">

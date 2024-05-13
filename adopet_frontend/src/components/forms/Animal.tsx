@@ -4,6 +4,7 @@ import * as MapChoice from "../../models/map_choices/MapChoices";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import FormControlField from "../elements/FormControlField";
 import FormCheckBox from "../elements/FormCheckbox";
+import ErrorAlert from "../elements/ErrorAlert";
 
 interface FormAnimalProps {
   age: string;
@@ -208,13 +209,9 @@ export default function FormAnimal({
                 Cadastrar
               </MUI.Button>
             </MUI.Grid>
-            {messageError && (
-              <MUI.Grid item xs={12} sm={12}>
-                <MUI.Alert variant="filled" severity="error">
-                  {messageError}
-                </MUI.Alert>
-              </MUI.Grid>
-            )}
+            <MUI.Grid item xs={12} sm={12}>
+              <ErrorAlert messageError={messageError} />
+            </MUI.Grid>
           </MUI.Grid>
         </MUI.Box>
       </MUI.Box>
