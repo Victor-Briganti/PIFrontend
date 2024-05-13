@@ -9,10 +9,10 @@ export default class ModelState {
   }
 
   getUF(): string {
-    return this.statesMap.getValue(this.uf);
+    return this.statesMap.getValueByKey(this.uf);
   }
 
   setUF(uf: string): void {
-    this.uf = this.statesMap.getKey(uf);
+    this.uf = this.statesMap.getKeyByValue(uf);
   }
 }

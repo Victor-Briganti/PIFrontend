@@ -5,7 +5,7 @@ export default class MapBaseChoice {
     this.values = values;
   }
 
-  getValue(key: string): string {
+  getValueByKey(key: string): string {
     const retValue = this.values.get(key);
 
     if (retValue === undefined) {
@@ -15,7 +15,7 @@ export default class MapBaseChoice {
     return retValue;
   }
 
-  getKey(value: string): string {
+  getKeyByValue(value: string): string {
     for (const [keyPair, valuePair] of this.values.entries()) {
       if (value === valuePair) {
         return keyPair;

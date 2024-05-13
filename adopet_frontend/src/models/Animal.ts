@@ -114,13 +114,13 @@ export default class ModelAnimal {
       this.is_adopted = false;
     }
 
-    const ageMapped = this.ageMap.getKey(data.age);
-    const genderMapped = this.genderMap.getKey(data.gender);
-    const sizeMapped = this.sizeMap.getKey(data.size);
-    const specieMapped = this.specieMap.getKey(data.specie);
+    const ageMapped = this.ageMap.getKeyByValue(data.age);
+    const genderMapped = this.genderMap.getKeyByValue(data.gender);
+    const sizeMapped = this.sizeMap.getKeyByValue(data.size);
+    const specieMapped = this.specieMap.getKeyByValue(data.specie);
 
     if (data.coat !== undefined) {
-      this.coat = this.coatMap.getKey(data?.coat);
+      this.coat = this.coatMap.getKeyByValue(data?.coat);
     }
 
     this.age = ageMapped;
@@ -144,24 +144,48 @@ export default class ModelAnimal {
   }
 
   getAge(): string {
-    return this.ageMap.getKey(this.age);
+    return this.ageMap.getValueByKey(this.age);
   }
 
   getGender(): string {
-    return this.genderMap.getKey(this.gender);
+    return this.genderMap.getValueByKey(this.gender);
   }
 
   getSize(): string {
-    return this.sizeMap.getKey(this.size);
+    return this.sizeMap.getValueByKey(this.size);
   }
 
   getSpecie(): string {
-    return this.specieMap.getKey(this.specie);
+    return this.specieMap.getValueByKey(this.specie);
   }
 
   getCoat(): string | undefined {
     if (this.coat !== undefined) {
-      return this.coatMap.getKey(this.coat);
+      return this.coatMap.getValueByKey(this.coat);
+    } else {
+      return undefined;
+    }
+  }
+
+  getAgeKey(): string {
+    return this.age;
+  }
+
+  getGenderKey(): string {
+    return this.gender;
+  }
+
+  getSizeKey(): string {
+    return this.size;
+  }
+
+  getSpecieKey(): string {
+    return this.specie;
+  }
+
+  getCoatKey(): string | undefined {
+    if (this.coat !== undefined) {
+      return this.coat;
     } else {
       return undefined;
     }
@@ -231,28 +255,28 @@ export default class ModelAnimal {
     this.name = name;
   }
 
-  setage(age: string) {
-    const agemapped = this.ageMap.getValue(age);
+  setAge(age: string) {
+    const agemapped = this.ageMap.getKeyByValue(age);
     this.age = agemapped;
   }
 
   setGender(gender: string) {
-    const genderMapped = this.genderMap.getValue(gender);
+    const genderMapped = this.genderMap.getKeyByValue(gender);
     this.gender = genderMapped;
   }
 
   setSize(size: string) {
-    const sizeMapped = this.sizeMap.getValue(size);
+    const sizeMapped = this.sizeMap.getKeyByValue(size);
     this.size = sizeMapped;
   }
 
   setSpecie(specie: string) {
-    const specieMapped = this.specieMap.getValue(specie);
+    const specieMapped = this.specieMap.getKeyByValue(specie);
     this.specie = specieMapped;
   }
 
   setCoat(coat: string) {
-    const coatMapped = this.coatMap.getValue(coat);
+    const coatMapped = this.coatMap.getKeyByValue(coat);
     this.coat = coatMapped;
   }
 

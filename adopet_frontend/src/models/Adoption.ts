@@ -32,7 +32,7 @@ export default class ModelAdoption {
       throw new Error("Animal não pode ter o id negativo");
     }
 
-    this.request_status = this.statusMap.getValue(
+    this.request_status = this.statusMap.getValueByKey(
       data.request_status ?? "pending"
     );
     this.donor = data.donor;
@@ -95,7 +95,7 @@ export default class ModelAdoption {
   }
 
   setRequestStatus(request_status: string) {
-    this.request_status = this.statusMap.getValue(request_status);
+    this.request_status = this.statusMap.getValueByKey(request_status);
   }
 
   setComment(comment: string) {
