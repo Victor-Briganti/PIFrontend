@@ -1,9 +1,12 @@
 import * as React from "react";
 import Content from "../components/container/Content";
 import Main from "../components/container/Main";
+import AxiosUser from "../api/AxiosUser";
 import FormUserCommon from "../components/forms/UserCommon";
 import ModelUserCommon from "../models/UserCommon";
 import { validatedName, validatedEmail } from "../utils/Verification";
+
+const axiosUser = new AxiosUser();
 
 export default function UserRegister() {
   const [messageError, setMessageError] = React.useState<string>("");
@@ -67,7 +70,7 @@ export default function UserRegister() {
       is_staff: false,
     });
 
-    console.log(JSON.stringify(user));
+    axiosUser.registerUser(user);
   };
 
   return (

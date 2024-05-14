@@ -22,6 +22,7 @@ export default class ModelUserCommon {
   private email: string;
   private firstname: string;
   private lastname: string;
+  private password?: string;
   private is_active?: boolean;
   private is_staff?: boolean;
   private is_group?: string[];
@@ -45,8 +46,6 @@ export default class ModelUserCommon {
       this.id = data.id;
     }
 
-    this.last_login = data.last_login;
-
     if (data.is_active !== undefined) {
       this.is_active = data.is_active;
     } else {
@@ -65,9 +64,18 @@ export default class ModelUserCommon {
       this.is_staff = true;
     }
 
+    if (
+      data.password !== undefined &&
+      (data.password === "" || data.password?.length < 8)
+    ) {
+      throw new Error("Senha inválida");
+    }
+
+    this.last_login = data.last_login;
     this.email = data.email;
     this.firstname = data.firstname;
     this.lastname = data.lastname;
+    this.password = data.password;
     this.is_group = data.is_group;
     this.avatar = data.avatar;
     this.user_permissions = data.user_permissions;
