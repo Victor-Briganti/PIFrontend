@@ -4,11 +4,15 @@ import FormAnimal from "../components/forms/Animal";
 import ModelAnimal from "../models/Animal";
 
 interface RegisterAnimalProps {
+  messageError: string;
+  setMessageError: React.Dispatch<React.SetStateAction<string>>;
   animalRef: React.MutableRefObject<ModelAnimal | null>;
   handleRegisterStep: (animal: ModelAnimal) => void;
 }
 
 export default function RegisterAnimal({
+  messageError,
+  setMessageError,
   animalRef,
   handleRegisterStep,
 }: RegisterAnimalProps) {
@@ -25,7 +29,6 @@ export default function RegisterAnimal({
   const [isSpecialNeeds, setSpecialNeeds] = React.useState<boolean>(false);
   const [isVaccinated, setVaccinated] = React.useState<boolean>(false);
   const [isCastrated, setCastrated] = React.useState<boolean>(false);
-  const [messageError, setMessageError] = React.useState<string>("");
 
   React.useEffect(() => {
     if (animalRef && animalRef.current) {

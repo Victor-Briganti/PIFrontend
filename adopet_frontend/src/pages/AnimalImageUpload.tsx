@@ -10,15 +10,18 @@ import ModelAnimalImage from "../models/AnimalImage";
 import ImageUploadPreview from "../components/elements/ImageUploadPreview";
 
 interface AnimalImageUploadProps {
-  handleUploadStep: () => void;
+  messageError: string;
+  setMessageError: React.Dispatch<React.SetStateAction<string>>;
+  handleUploadStep: (images: ModelAnimalImage[]) => void;
 }
 
 export default function AnimalImageUpload({
+  messageError,
+  setMessageError,
   handleUploadStep,
 }: AnimalImageUploadProps) {
   const [dragOver, setDragOver] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
-  const [messageError, setMessageError] = React.useState<string>("");
   const [animalImages, setAnimalImages] = React.useState<ModelAnimalImage[]>(
     []
   );
@@ -26,29 +29,59 @@ export default function AnimalImageUpload({
 
   const handleFileChange = (files: FileList) => {
     setLoading(true);
+    const previews = [];
     const promises = [];
+    const images = [];
 
     for (let i = 0; i < files.length; i++) {
       const file = files[i];
+      previews.push(URL.createObjectURL(file));
+      images.push(file);
 
       promises.push(
-        new Promise<string>((resolve, _reject) => {
-          // Simplesmente resolve a promessa com o arquivo como URL
-          resolve(URL.createObjectURL(file));
+        new Promise<string>((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onload = async (event) => {
+            if (event.target) {
+              const result = event.target.result as string;
+              const image = new Image();
+              image.src = result;
+              image.onload = async () => {
+                const canvas = document.createElement("canvas");
+                const ctx = canvas.getContext("2d");
+                if (ctx) {
+                  canvas.width = image.width;
+                  canvas.height = image.height;
+                  ctx.drawImage(image, 0, 0, image.width, image.height);
+                  const dataUrl = canvas.toDataURL("image/jpeg");
+                  resolve(dataUrl);
+                }
+              };
+            }
+          };
+          reader.readAsDataURL(file);
         })
       );
     }
 
     Promise.all(promises)
-      .then((results) => {
+      .then((results: string[]) => {
         setLoading(false);
-        // Adiciona os resultados (URLs dos arquivos) ao estado das pré-visualizações das imagens
-        setImagePreviews((prevPreviews) => [...prevPreviews, ...results]);
+        setImagePreviews((prevPreviews: string[]) => [
+          ...(prevPreviews as string[]),
+          ...(results as string[]),
+        ]);
       })
       .catch((error) => {
         setLoading(false);
-        setMessageError("Erro ao ler a imagem: " + error);
+        console.error("Error ao ler a imagem:", error);
       });
+
+    // Adiciona imagens que serão enviadas
+    const newImages = images.map((file) => {
+      return new ModelAnimalImage({ animal: 0, image: file });
+    });
+    setAnimalImages((prevImages) => [...prevImages, ...newImages]);
   };
 
   const handleRemoveImage = (index: number) => {
@@ -96,7 +129,7 @@ export default function AnimalImageUpload({
   );
 
   const handleSubmit = () => {
-    console.log("Enviado");
+    handleUploadStep(animalImages);
   };
 
   return (
@@ -121,13 +154,6 @@ export default function AnimalImageUpload({
             onClick={handleSubmit}
           >
             Enviar
-          </MUI.Button>
-          <MUI.Button
-            variant="contained"
-            color="primary"
-            onClick={handleUploadStep}
-          >
-            Voltar
           </MUI.Button>
           <ImageUploadPreview
             imagePreviews={imagePreviews}

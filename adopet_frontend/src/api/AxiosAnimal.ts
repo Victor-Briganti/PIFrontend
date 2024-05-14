@@ -93,7 +93,7 @@ class AxiosAnimal extends SuperAxios<ModelAnimal> {
   }
 
   async uploadImage(image: ModelAnimalImage): Promise<ModelAnimalImage> {
-    return this.axiosImage.updateImage(image);
+    return this.axiosImage.uploadImage(image);
   }
 
   async deleteImage(id: number) {

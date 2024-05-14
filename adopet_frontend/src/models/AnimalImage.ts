@@ -1,13 +1,13 @@
 interface FormDataAnimalImage {
   id?: number;
   animal: number;
-  image: string;
+  image: File;
 }
 
 export default class ModelAnimalImage {
   private id?: number;
   private animal: number;
-  private image: string;
+  private image: File;
 
   constructor(data: FormDataAnimalImage) {
     if (data.id !== undefined && data.id < 0) {
@@ -16,10 +16,6 @@ export default class ModelAnimalImage {
 
     if (data.animal < 0) {
       throw new Error("Animal não pode ter um ID negativo");
-    }
-
-    if (data.image === "") {
-      throw new Error("Imagem não pode ser vazia");
     }
 
     this.id = data.id;
@@ -35,7 +31,7 @@ export default class ModelAnimalImage {
     return this.animal;
   }
 
-  getImage(): string {
+  getImage(): File {
     return this.image;
   }
 
@@ -54,11 +50,7 @@ export default class ModelAnimalImage {
     this.animal = animal;
   }
 
-  setImage(image: string) {
-    if (image !== "") {
-      throw new Error("Image não pode ser vazia");
-    }
-
+  setImage(image: File) {
     this.image = image;
   }
 }
