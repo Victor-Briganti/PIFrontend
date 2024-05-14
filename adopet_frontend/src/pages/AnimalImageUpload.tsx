@@ -9,7 +9,13 @@ import CircularLoading from "../components/elements/CircularLoading";
 import ModelAnimalImage from "../models/AnimalImage";
 import ImageUploadPreview from "../components/elements/ImageUploadPreview";
 
-export default function AnimalImageUpload() {
+interface AnimalImageUploadProps {
+  handleUploadStep: () => void;
+}
+
+export default function AnimalImageUpload({
+  handleUploadStep,
+}: AnimalImageUploadProps) {
   const [dragOver, setDragOver] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
   const [messageError, setMessageError] = React.useState<string>("");
@@ -115,6 +121,13 @@ export default function AnimalImageUpload() {
             onClick={handleSubmit}
           >
             Enviar
+          </MUI.Button>
+          <MUI.Button
+            variant="contained"
+            color="primary"
+            onClick={handleUploadStep}
+          >
+            Voltar
           </MUI.Button>
           <ImageUploadPreview
             imagePreviews={imagePreviews}

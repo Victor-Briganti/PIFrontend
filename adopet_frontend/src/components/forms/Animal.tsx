@@ -8,7 +8,7 @@ import ErrorAlert from "../elements/ErrorAlert";
 
 interface FormAnimalProps {
   name: string;
-  weight: number;
+  weight: number | undefined;
   age: string;
   coat: string;
   gender: string;
@@ -111,7 +111,7 @@ export default function FormAnimal({
                 id="name"
                 label="Nome"
                 name="name"
-                defaultValue={name}
+                value={name}
                 onChange={handleName}
               />
             </MUI.Grid>
@@ -124,8 +124,8 @@ export default function FormAnimal({
                 label="Peso"
                 name="weight"
                 type="number"
+                value={weight ?? ""}
                 inputProps={{ min: "0" }}
-                defaultValue={weight}
                 onChange={handleWeight}
               />
             </MUI.Grid>
@@ -158,8 +158,8 @@ export default function FormAnimal({
             />
 
             <FormControlField
-              id={"Pelage"}
-              label={"Pelage"}
+              id={"Pelagem"}
+              label={"Pelagem"}
               name={"coat"}
               value={coat}
               handleValue={handleCoat}
@@ -179,9 +179,9 @@ export default function FormAnimal({
               <MUI.TextField
                 fullWidth
                 id="temperament"
-                label="Temperament"
+                label="Temperamento"
                 name="temperament"
-                defaultValue={temperament}
+                value={temperament}
                 onChange={handleTemperament}
               />
             </MUI.Grid>
@@ -194,7 +194,7 @@ export default function FormAnimal({
                 name="description"
                 multiline
                 rows={5}
-                defaultValue={description}
+                value={description}
                 onChange={handleDescription}
               />
             </MUI.Grid>
