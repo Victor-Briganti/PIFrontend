@@ -1,10 +1,10 @@
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import * as MUI from "@mui/material";
 import * as React from "react";
 import * as MapChoice from "../../models/map_choices/MapChoices";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import FormControlField from "../elements/FormControlField";
-import FormCheckBox from "../elements/FormCheckbox";
 import ErrorAlert from "../elements/ErrorAlert";
+import FormCheckBox from "../elements/FormCheckbox";
+import FormControlField from "../elements/FormControlField";
 
 interface FormAnimalProps {
   name: string;

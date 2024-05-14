@@ -1,10 +1,10 @@
 import * as React from "react";
+import AxiosUser from "../api/AxiosUser";
 import Content from "../components/container/Content";
 import Main from "../components/container/Main";
-import AxiosUser from "../api/AxiosUser";
 import FormUserCommon from "../components/forms/UserCommon";
 import ModelUserCommon from "../models/UserCommon";
-import { validatedName, validatedEmail } from "../utils/Verification";
+import { validatedEmail, validatedName } from "../utils/Verification";
 
 const axiosUser = new AxiosUser();
 

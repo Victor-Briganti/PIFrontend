@@ -1,12 +1,13 @@
-import * as React from "react";
 import * as MUI from "@mui/material";
-import Main from "../components/container/Main";
+import * as React from "react";
 import Content from "../components/container/Content";
+import Main from "../components/container/Main";
 import FormAddress from "../components/forms/Address";
 import { validatedName, validatedNumber } from "../utils/Verification";
 
 export default function AddressRegister() {
   const [messageError, setMessageError] = React.useState<string>("");
+  const [uf, setUf] = React.useState<string>("");
   const [cep, setCep] = React.useState<string>("");
   const [city, setCity] = React.useState<string>("");
   const [district, setDistrict] = React.useState<string>("");
@@ -26,6 +27,13 @@ export default function AddressRegister() {
       setCep(cep);
     },
     [setCep, setMessageError]
+  );
+
+  const handleUf = React.useCallback(
+    (event: MUI.SelectChangeEvent) => {
+      setUf(event.target.value);
+    },
+    [setUf]
   );
 
   const handleCity = React.useCallback(
@@ -79,12 +87,14 @@ export default function AddressRegister() {
     <Main>
       <Content>
         <FormAddress
+          uf={uf}
           cep={cep}
           city={city}
           district={district}
           street={street}
           complement={complement}
           houseNumber={houseNumber}
+          handleUf={handleUf}
           handleCep={handleCep}
           handleCity={handleCity}
           handleDistrict={handleDistrict}

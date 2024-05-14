@@ -1,13 +1,17 @@
-import * as React from "react";
 import * as MUI from "@mui/material";
+import * as React from "react";
+import { MapStateChoice } from "../../models/map_choices/MapChoices";
+import FormControlField from "../elements/FormControlField";
 
 interface FromAddressProps {
+  uf: string;
   cep: string;
   city: string;
   district: string;
   street: string;
   complement: string;
   houseNumber: string;
+  handleUf: (event: MUI.SelectChangeEvent) => void;
   handleCep: (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => void;
@@ -29,12 +33,14 @@ interface FromAddressProps {
 }
 
 export default function FormAddress({
+  uf,
   cep,
   city,
   district,
   street,
   complement,
   houseNumber,
+  handleUf,
   handleCep,
   handleCity,
   handleDistrict,
@@ -42,6 +48,8 @@ export default function FormAddress({
   handleComplement,
   handleHouseNumber,
 }: FromAddressProps) {
+  const stateMap = new MapStateChoice();
+
   return (
     <React.Fragment>
       <MUI.Grid item xs={12} sm={12}>
@@ -55,7 +63,14 @@ export default function FormAddress({
           onChange={handleCep}
         />
 
-        <MUI.TextField required fullWidth id="uf" label="UF" name="uf" />
+        <FormControlField
+          id="uf"
+          label="Estado"
+          name="uf"
+          value={uf}
+          handleValue={handleUf}
+          map={stateMap}
+        />
 
         <MUI.TextField
           required
