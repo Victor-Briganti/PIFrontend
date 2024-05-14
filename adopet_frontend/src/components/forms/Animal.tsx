@@ -94,9 +94,11 @@ export default function FormAnimal({
         <MUI.Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
           <LockOutlinedIcon />
         </MUI.Avatar>
+
         <MUI.Typography component="h1" variant="h5">
           Registro de Animais
         </MUI.Typography>
+
         <MUI.Box
           component="form"
           noValidate
@@ -241,6 +243,7 @@ export default function FormAnimal({
                 Cadastrar
               </MUI.Button>
             </MUI.Grid>
+
             <MUI.Grid item xs={12} sm={12}>
               <ErrorAlert messageError={messageError} />
             </MUI.Grid>

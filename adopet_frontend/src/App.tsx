@@ -3,10 +3,10 @@ import Donation from "./pages/Donation";
 import About from "./pages/About";
 import Login from "./pages/Login";
 import AnimalRegister from "./pages/AnimalRegister";
+import UserRegister from "./pages/UserRegister";
 import Theme from "./components/styles/Theme";
 import "./App.css";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import AnimalImageUpload from "./pages/AnimalImageUpload";
 
 function App() {
   return (
@@ -19,7 +19,7 @@ function App() {
             <Route path="/about" element={<About />}></Route>
             <Route path="/login" element={<Login />}></Route>
             <Route path="/animalregister" element={<AnimalRegister />}></Route>
-            <Route path="/uploadanimal" element={<AnimalImageUpload />}></Route>
+            <Route path="/userregister" element={<UserRegister />}></Route>
           </Routes>
         </Router>
       </div>

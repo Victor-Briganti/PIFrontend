@@ -1,6 +1,6 @@
 import * as React from "react";
 import * as MUI from "@mui/material";
-import FormAnimal from "../components/forms/Animal";
+import FormAnimal from "./forms/Animal";
 import ModelAnimal from "../models/Animal";
 
 interface RegisterAnimalProps {

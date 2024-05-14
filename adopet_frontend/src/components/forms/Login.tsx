@@ -26,9 +26,11 @@ export default function FormLogin({
         <MUI.Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
           <LockOutlinedIcon />
         </MUI.Avatar>
+
         <MUI.Typography component="h1" variant="h5">
           Login
         </MUI.Typography>
+
         <MUI.Box
           component="form"
           onSubmit={handleSubmit}
@@ -45,6 +47,7 @@ export default function FormLogin({
             autoComplete="email"
             autoFocus
           />
+
           <MUI.TextField
             margin="normal"
             required
@@ -55,6 +58,7 @@ export default function FormLogin({
             id="password"
             autoComplete="current-password"
           />
+
           <MUI.Button
             type="submit"
             fullWidth
@@ -63,6 +67,7 @@ export default function FormLogin({
           >
             Entrar
           </MUI.Button>
+
           <ErrorAlert messageError={messageError} />
         </MUI.Box>
       </MUI.Box>

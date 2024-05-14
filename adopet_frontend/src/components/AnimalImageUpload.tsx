@@ -1,13 +1,13 @@
 import * as React from "react";
 import * as MUI from "@mui/material";
-import Main from "../components/container/Main";
-import Content from "../components/container/Content";
-import DragBox from "../components/container/DragBox";
-import ErrorAlert from "../components/elements/ErrorAlert";
-import UploadImageCard from "../components/elements/UploadImageCard";
-import CircularLoading from "../components/elements/CircularLoading";
+import Main from "./container/Main";
+import Content from "./container/Content";
+import DragBox from "./container/DragBox";
+import ErrorAlert from "./elements/ErrorAlert";
+import UploadImageCard from "./elements/UploadImageCard";
+import CircularLoading from "./elements/CircularLoading";
 import ModelAnimalImage from "../models/AnimalImage";
-import ImageUploadPreview from "../components/elements/ImageUploadPreview";
+import ImageUploadPreview from "./elements/ImageUploadPreview";
 
 interface AnimalImageUploadProps {
   messageError: string;
@@ -74,7 +74,7 @@ export default function AnimalImageUpload({
       })
       .catch((error) => {
         setLoading(false);
-        console.error("Error ao ler a imagem:", error);
+        setMessageError("Error ao ler a imagem:", error);
       });
 
     // Adiciona imagens que serão enviadas

@@ -1,6 +1,6 @@
 import * as React from "react";
-import RegisterAnimal from "./RegisterAnimal";
-import AnimalImageUpload from "./AnimalImageUpload";
+import RegisterAnimal from "../components/RegisterAnimal";
+import AnimalImageUpload from "../components/AnimalImageUpload";
 import Main from "../components/container/Main";
 import Content from "../components/container/Content";
 import ModelAnimal from "../models/Animal";
