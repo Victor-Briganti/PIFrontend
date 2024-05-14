@@ -1,17 +1,21 @@
 interface FormDataAnimalImage {
   id?: number;
   animal: number;
-  image: File;
+  image: File | string;
 }
 
 export default class ModelAnimalImage {
   private id?: number;
   private animal: number;
-  private image: File;
+  private image: File | string;
 
   constructor(data: FormDataAnimalImage) {
     if (data.id !== undefined && data.id < 0) {
       throw new Error("AnimalImage não pode ter um ID negativo");
+    }
+
+    if (typeof data.image === "string" && data.image === "") {
+      throw new Error("Imagem não pode ser vazia");
     }
 
     if (data.animal < 0) {
@@ -31,7 +35,7 @@ export default class ModelAnimalImage {
     return this.animal;
   }
 
-  getImage(): File {
+  getImage(): File | string {
     return this.image;
   }
 
@@ -50,7 +54,11 @@ export default class ModelAnimalImage {
     this.animal = animal;
   }
 
-  setImage(image: File) {
+  setImage(image: File | string) {
+    if (typeof image === "string" && image === "") {
+      throw new Error("Imagem não pode ser vazia");
+    }
+
     this.image = image;
   }
 }
