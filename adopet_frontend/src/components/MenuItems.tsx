@@ -8,6 +8,7 @@ interface MenuItemsProps {
   handleValue: (event: MUI.SelectChangeEvent) => void;
   name: string;
   label: string;
+  readOnly: boolean;
 }
 
 export default function MenuItems({
@@ -16,6 +17,7 @@ export default function MenuItems({
   handleValue,
   name,
   label,
+  readOnly = false,
 }: MenuItemsProps) {
   return (
     <React.Fragment>
@@ -25,6 +27,10 @@ export default function MenuItems({
         value={value}
         label={label}
         onChange={handleValue}
+        variant={readOnly ? "filled" : "outlined"}
+        inputProps={{
+          readOnly: readOnly,
+        }}
       >
         {map.getArray().map((choice: [string, string]) => (
           <MUI.MenuItem key={choice[0]} value={choice[1]}>

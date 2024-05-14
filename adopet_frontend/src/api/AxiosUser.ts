@@ -1,7 +1,7 @@
-import SuperAxios from "./super/SuperAxios";
 import ModelUser from "../models/User";
 import ModelUserCommon from "../models/UserCommon";
 import ModelUserMetadata from "../models/UserMetadata";
+import SuperAxios from "./super/SuperAxios";
 
 interface LoginData {
   email: string;

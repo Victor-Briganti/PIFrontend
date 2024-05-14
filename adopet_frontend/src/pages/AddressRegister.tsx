@@ -4,6 +4,10 @@ import Content from "../components/container/Content";
 import Main from "../components/container/Main";
 import FormAddress from "../components/forms/Address";
 import { validatedName, validatedNumber } from "../utils/Verification";
+import AxiosViaCep from "../api/thirdparty/AxiosViaCep";
+import { MapStateChoice } from "../models/map_choices/MapChoices";
+
+const axiosCep = new AxiosViaCep();
 
 export default function AddressRegister() {
   const [messageError, setMessageError] = React.useState<string>("");
@@ -14,19 +18,50 @@ export default function AddressRegister() {
   const [street, setStreet] = React.useState<string>("");
   const [complement, setComplement] = React.useState<string>("");
   const [houseNumber, setHouseNumber] = React.useState<string>("");
+  const [readOnly, setReadOnly] = React.useState<boolean>(false);
 
   const handleCep = React.useCallback(
-    (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    async (
+      event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    ) => {
+      const stateMap = new MapStateChoice();
       const cep = event.target.value;
 
-      if ((validatedNumber(cep) === false && cep !== "") || cep.length > 8) {
+      if (validatedNumber(cep) === false && cep !== "") {
         setMessageError("CEP inválido");
         return;
       }
 
-      setCep(cep);
+      setReadOnly(false);
+
+      if (cep.length <= 8) {
+        setCep(cep);
+      }
+
+      if (cep.length === 8) {
+        try {
+          const response = await axiosCep.get(cep);
+          setCity(response.localidade);
+          setDistrict(response.bairro);
+          setStreet(response.logradouro);
+          setComplement(response.complemento);
+          setUf(stateMap.getValueByKey(response.uf));
+          setReadOnly(true);
+        } catch (error) {
+          console.error("Error fetching CEP:", error);
+        }
+      }
     },
-    [setCep, setMessageError]
+    [
+      setCep,
+      setCity,
+      setDistrict,
+      setStreet,
+      setComplement,
+      setUf,
+      setReadOnly,
+      setMessageError,
+    ]
   );
 
   const handleUf = React.useCallback(
@@ -87,6 +122,7 @@ export default function AddressRegister() {
     <Main>
       <Content>
         <FormAddress
+          readOnly={readOnly}
           uf={uf}
           cep={cep}
           city={city}

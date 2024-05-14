@@ -4,6 +4,7 @@ import { MapStateChoice } from "../../models/map_choices/MapChoices";
 import FormControlField from "../elements/FormControlField";
 
 interface FromAddressProps {
+  readOnly: boolean;
   uf: string;
   cep: string;
   city: string;
@@ -33,6 +34,7 @@ interface FromAddressProps {
 }
 
 export default function FormAddress({
+  readOnly,
   uf,
   cep,
   city,
@@ -70,6 +72,7 @@ export default function FormAddress({
           value={uf}
           handleValue={handleUf}
           map={stateMap}
+          readOnly={readOnly}
         />
 
         <MUI.TextField
@@ -80,6 +83,10 @@ export default function FormAddress({
           name="city"
           value={city}
           onChange={handleCity}
+          variant={readOnly ? "filled" : "outlined"}
+          InputProps={{
+            readOnly: readOnly,
+          }}
         />
 
         <MUI.TextField
@@ -90,6 +97,10 @@ export default function FormAddress({
           name="district"
           value={district}
           onChange={handleDistrict}
+          variant={readOnly ? "filled" : "outlined"}
+          InputProps={{
+            readOnly: readOnly,
+          }}
         />
 
         <MUI.TextField
@@ -100,6 +111,10 @@ export default function FormAddress({
           name="street"
           value={street}
           onChange={handleStreet}
+          variant={readOnly ? "filled" : "outlined"}
+          InputProps={{
+            readOnly: readOnly,
+          }}
         />
 
         <MUI.TextField
@@ -110,6 +125,10 @@ export default function FormAddress({
           name="complement"
           value={complement}
           onChange={handleComplement}
+          variant={readOnly ? "filled" : "outlined"}
+          InputProps={{
+            readOnly: readOnly,
+          }}
         />
 
         <MUI.TextField
