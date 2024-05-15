@@ -1,11 +1,11 @@
 import * as MUI from "@mui/material";
 import * as React from "react";
+import AxiosViaCep from "../api/thirdparty/AxiosViaCep";
 import Content from "../components/container/Content";
 import Main from "../components/container/Main";
 import FormAddress from "../components/forms/Address";
-import { validatedName, validatedNumber } from "../utils/Verification";
-import AxiosViaCep from "../api/thirdparty/AxiosViaCep";
 import { MapStateChoice } from "../models/map_choices/MapChoices";
+import { validatedName, validatedNumber } from "../utils/Verification";
 
 const axiosCep = new AxiosViaCep();
 
