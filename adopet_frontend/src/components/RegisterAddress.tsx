@@ -1,16 +1,28 @@
 import * as MUI from "@mui/material";
 import * as React from "react";
 import AxiosViaCep from "../api/thirdparty/AxiosViaCep";
-import Content from "./container/Content";
-import Main from "./container/Main";
-import FormAddress from "./forms/FormAddress";
+import AxiosAddress from "../api/AxiosAddress";
+import ModelAddress from "../models/Address";
+import ModelCity from "../models/City";
+import ModelState from "../models/State";
 import { MapStateChoice } from "../models/map_choices/MapChoices";
 import { validatedName, validatedNumber } from "../utils/Verification";
+import FormAddress from "./forms/FormAddress";
+
+interface RegisterAddressProps {
+  messageError: string;
+  setMessageError: React.Dispatch<React.SetStateAction<string>>;
+  handleRegisterStep: (address: number | undefined) => void;
+}
 
 const axiosCep = new AxiosViaCep();
+const axiosAddress = new AxiosAddress();
 
-export default function AddressRegister() {
-  const [messageError, setMessageError] = React.useState<string>("");
+export default function RegisterAddress({
+  messageError,
+  setMessageError,
+  handleRegisterStep,
+}: RegisterAddressProps) {
   const [uf, setUf] = React.useState<string>("");
   const [cep, setCep] = React.useState<string>("");
   const [city, setCity] = React.useState<string>("");
@@ -48,7 +60,7 @@ export default function AddressRegister() {
           setUf(stateMap.getValueByKey(response.uf));
           setReadOnly(true);
         } catch (error) {
-          console.error("Error fetching CEP:", error);
+          setMessageError("Não foi possível encontrar este CEP");
         }
       }
     },
@@ -118,27 +130,43 @@ export default function AddressRegister() {
     [setHouseNumber]
   );
 
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    const newState = new ModelState(uf);
+    const newCity = new ModelCity(city, newState);
+    const newAddress = new ModelAddress({
+      city: newCity,
+      zip_code: cep,
+      district: district,
+      street: street,
+      complement: complement,
+      house_number: houseNumber,
+    });
+
+    const response = await axiosAddress.registerAddress(newAddress);
+    handleRegisterStep(response.id);
+  };
+
   return (
-    <Main>
-      <Content>
-        <FormAddress
-          readOnly={readOnly}
-          uf={uf}
-          cep={cep}
-          city={city}
-          district={district}
-          street={street}
-          complement={complement}
-          houseNumber={houseNumber}
-          handleUf={handleUf}
-          handleCep={handleCep}
-          handleCity={handleCity}
-          handleDistrict={handleDistrict}
-          handleStreet={handleStreet}
-          handleComplement={handleComplement}
-          handleHouseNumber={handleHouseNumber}
-        />
-      </Content>
-    </Main>
+    <FormAddress
+      readOnly={readOnly}
+      messageError={messageError}
+      uf={uf}
+      cep={cep}
+      city={city}
+      district={district}
+      street={street}
+      complement={complement}
+      houseNumber={houseNumber}
+      handleUf={handleUf}
+      handleCep={handleCep}
+      handleCity={handleCity}
+      handleDistrict={handleDistrict}
+      handleStreet={handleStreet}
+      handleComplement={handleComplement}
+      handleHouseNumber={handleHouseNumber}
+      handleSubmit={handleSubmit}
+    />
   );
 }
