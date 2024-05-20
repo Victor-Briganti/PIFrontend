@@ -4,7 +4,7 @@ export default class ModelState {
   private statesMap: MapStateChoice = new MapStateChoice();
   private uf!: string;
 
-  State(uf: string) {
+  constructor(uf: string) {
     this.setUF(uf);
   }
 

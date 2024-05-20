@@ -4,12 +4,10 @@ import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import "./App.css";
 import Theme from "./components/styles/Theme";
 import About from "./pages/About";
-import AddressRegister from "./pages/AddressRegister";
 import AnimalRegister from "./pages/AnimalRegister";
 import Donation from "./pages/Donation";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
-import RegisterUserMetadata from "./pages/RegisterUserMetadata";
 import UserRegister from "./pages/UserRegister";
 
 function App() {
@@ -24,18 +22,10 @@ function App() {
               <Route path="/about" element={<About />}></Route>
               <Route path="/login" element={<Login />}></Route>
               <Route
-                path="/usermeta"
-                element={<RegisterUserMetadata />}
-              ></Route>
-              <Route
                 path="/animalregister"
                 element={<AnimalRegister />}
               ></Route>
               <Route path="/userregister" element={<UserRegister />}></Route>
-              <Route
-                path="/addressregister"
-                element={<AddressRegister />}
-              ></Route>
             </Routes>
           </Router>
         </div>

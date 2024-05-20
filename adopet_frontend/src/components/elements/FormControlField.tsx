@@ -10,7 +10,7 @@ interface FormFieldProps {
   value: string;
   handleValue: (event: MUI.SelectChangeEvent) => void;
   map: MapBaseChoice;
-  readOnly: boolean;
+  readOnly?: boolean;
 }
 
 export default function FormControlField({

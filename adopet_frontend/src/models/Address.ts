@@ -2,6 +2,7 @@ import ModelCity from "./City";
 import { validatedName, validatedNumber } from "../utils/Verification";
 
 interface FormDataAddress {
+  id?: number;
   city: ModelCity;
   zipCode: string;
   district: string;
@@ -11,14 +12,19 @@ interface FormDataAddress {
 }
 
 export default class ModelAddress {
+  private id?: number;
   private city!: ModelCity;
-  private zipCode!: string;
+  private zip_code!: string;
   private district!: string;
   private street!: string;
   private complement!: string;
-  private houseNumber!: string;
+  private house_number!: string;
 
   constructor(address: FormDataAddress) {
+    if (address.id !== undefined && address.id < 0) {
+      throw new Error("ID não pode ser negativo");
+    }
+
     if (validatedNumber(address.zipCode) === false) {
       throw new Error(`CEP inválido: ${address.district}`);
     }
@@ -43,12 +49,17 @@ export default class ModelAddress {
       throw new Error(`Número da casa tem limite de 10 caracteres`);
     }
 
+    this.id = address.id;
     this.city = address.city;
-    this.zipCode = address.zipCode;
+    this.zip_code = address.zipCode;
     this.district = address.district;
     this.street = address.street;
     this.complement = address.complement;
-    this.houseNumber = address.houseNumber;
+    this.house_number = address.houseNumber;
+  }
+
+  getId(): number | undefined {
+    return this?.id;
   }
 
   getUF(): string {
@@ -60,7 +71,7 @@ export default class ModelAddress {
   }
 
   getZipCode(): string {
-    return this.zipCode;
+    return this.zip_code;
   }
 
   getDistrict(): string {
@@ -76,7 +87,11 @@ export default class ModelAddress {
   }
 
   getHouseNumber(): string {
-    return this.houseNumber;
+    return this.house_number;
+  }
+
+  setId(id: number) {
+    this.id = id;
   }
 
   setUF(uf: string) {
@@ -92,7 +107,7 @@ export default class ModelAddress {
       throw new Error(`CEP inválido: ${zipCode}`);
     }
 
-    this.zipCode = zipCode;
+    this.zip_code = zipCode;
   }
 
   setDistrict(district: string) {
@@ -128,6 +143,6 @@ export default class ModelAddress {
       throw new Error(`Número da casa tem limite de 10 caracteres`);
     }
 
-    this.houseNumber;
+    this.house_number;
   }
 }

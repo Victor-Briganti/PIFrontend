@@ -17,4 +17,12 @@ export default class ModelUser {
   getUserMetadata(): ModelUserMetadata {
     return this.userMetadata;
   }
+
+  setUserCommon(user: ModelUserCommon) {
+    this.userCommon = user;
+  }
+
+  setUserMetadata(user: ModelUserMetadata) {
+    this.userMetadata = user;
+  }
 }
