@@ -141,6 +141,7 @@ export default function AnimalImageUpload({
         <MUI.Typography component="h1" variant="h5">
           Upload de Imagens do Placeholder
         </MUI.Typography>
+
         <MUI.Box sx={{ mt: 3 }}>
           <DragBox
             dragOver={dragOver}
@@ -150,7 +151,9 @@ export default function AnimalImageUpload({
           >
             <UploadImageCard handleChange={handleChange} />
           </DragBox>
+
           <CircularLoading loading={loading} />
+
           <MUI.Button
             variant="contained"
             color="primary"
@@ -158,10 +161,12 @@ export default function AnimalImageUpload({
           >
             Enviar
           </MUI.Button>
+
           <ImageUploadPreview
             imagePreviews={imagePreviews}
             handleRemoveImage={handleRemoveImage}
           />
+
           <ErrorAlert messageError={messageError} />
         </MUI.Box>
       </Content>

@@ -1,12 +1,12 @@
 import * as React from "react";
-import RegisterAnimal from "../components/RegisterAnimal";
+import { useNavigate } from "react-router-dom";
+import AxiosAnimal from "../api/AxiosAnimal";
 import AnimalImageUpload from "../components/AnimalImageUpload";
-import Main from "../components/container/Main";
+import RegisterAnimal from "../components/RegisterAnimal";
 import Content from "../components/container/Content";
+import Main from "../components/container/Main";
 import ModelAnimal from "../models/Animal";
 import ModelAnimalImage from "../models/AnimalImage";
-import AxiosAnimal from "../api/AxiosAnimal";
-import { useNavigate } from "react-router-dom";
 
 const axiosAnimal = new AxiosAnimal();
 

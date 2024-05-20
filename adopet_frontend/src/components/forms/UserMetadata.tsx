@@ -1,21 +1,19 @@
-import dayjs from "dayjs";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import * as MUI from "@mui/material";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import dayjs from "dayjs";
 import * as React from "react";
 import ErrorAlert from "../elements/ErrorAlert";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 
 interface FormUserMetadataProps {
   messageError: string;
   cpf: string;
-  birthdate: Date | null;
+  birthdate: Date | undefined;
   phone: string;
   handleCpf: (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => void;
-  handleBirthdate: (
-    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => void;
+  handleBirthdate: (date: Date | undefined) => void;
   handlePhone: (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => void;
@@ -85,8 +83,8 @@ export default function FormUserMetadata({
               <DatePicker
                 label={"Data de Aniversário"}
                 views={["day", "month", "year"]}
-                // value={birthdate}
-                // onChange={handleBirthdate}
+                value={birthdate ? dayjs(birthdate) : null}
+                onChange={(date) => handleBirthdate(date?.toDate())}
               />
             </MUI.Grid>
 
