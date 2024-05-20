@@ -2,7 +2,7 @@ import * as React from "react";
 import AxiosUser from "../api/AxiosUser";
 import Content from "../components/container/Content";
 import Main from "../components/container/Main";
-import FormUserCommon from "../components/forms/UserCommon";
+import FormUserCommon from "../components/forms/FormUserCommon";
 import ModelUserCommon from "../models/UserCommon";
 import { validatedEmail, validatedName } from "../utils/Verification";
 

@@ -8,17 +8,17 @@ import CircularLoading from "./elements/CircularLoading";
 import ErrorAlert from "./elements/ErrorAlert";
 import ImageUploadPreview from "./elements/ImageUploadPreview";
 
-interface AnimalImageUploadProps {
+interface UploadAnimalImageProps {
   messageError: string;
   setMessageError: React.Dispatch<React.SetStateAction<string>>;
   handleUploadStep: (images: ModelAnimalImage[]) => void;
 }
 
-export default function AnimalImageUpload({
+export default function UploadAnimalImage({
   messageError,
   setMessageError,
   handleUploadStep,
-}: AnimalImageUploadProps) {
+}: UploadAnimalImageProps) {
   const [dragOver, setDragOver] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
   const [animalImages, setAnimalImages] = React.useState<ModelAnimalImage[]>(

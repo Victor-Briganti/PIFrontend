@@ -5,7 +5,7 @@ import AxiosUser from "../api/AxiosUser";
 import Main from "../components/container/Main";
 import { useNavigate } from "react-router-dom";
 import { validatedEmail } from "../utils/Verification";
-import FormLogin from "../components/forms/Login";
+import FormLogin from "../components/forms/FormLogin";
 
 // Instância axios para acessar o usuário
 const axiosUser = new AxiosUser();
