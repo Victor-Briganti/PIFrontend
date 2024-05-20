@@ -1,15 +1,22 @@
 import * as React from "react";
 import AxiosUser from "../api/AxiosUser";
-import Content from "./container/Content";
-import Main from "./container/Main";
-import FormUserCommon from "./forms/FormUserCommon";
 import ModelUserCommon from "../models/UserCommon";
 import { validatedEmail, validatedName } from "../utils/Verification";
+import FormUserCommon from "./forms/FormUserCommon";
+
+interface RegisterUserCommonProps {
+  messageError: string;
+  setMessageError: React.Dispatch<React.SetStateAction<string>>;
+  handleRegisterStep: (user: ModelUserCommon) => void;
+}
 
 const axiosUser = new AxiosUser();
 
-export default function UserRegister() {
-  const [messageError, setMessageError] = React.useState<string>("");
+export default function RegisterUserCommon({
+  messageError,
+  setMessageError,
+  handleRegisterStep,
+}: RegisterUserCommonProps) {
   const [firstname, setFirstname] = React.useState<string>("");
   const [lastname, setLastname] = React.useState<string>("");
   const [email, setEmail] = React.useState<string>("");
@@ -26,7 +33,7 @@ export default function UserRegister() {
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => setEmail(event.target.value);
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     const formData = new FormData(event.currentTarget);
@@ -57,9 +64,10 @@ export default function UserRegister() {
     }
 
     if (confirmPassword !== password) {
-      setMessageError("Senha não coincidem");
+      setMessageError("Senhas não coincidem");
       return;
     }
+    setMessageError("");
 
     const user = new ModelUserCommon({
       email: email,
@@ -70,23 +78,24 @@ export default function UserRegister() {
       is_staff: false,
     });
 
-    axiosUser.registerUser(user);
+    try {
+      const response = await axiosUser.registerUser(user);
+      handleRegisterStep(response);
+    } catch (error) {
+      setMessageError("Não foi possível cadastrar o usuário");
+    }
   };
 
   return (
-    <Main>
-      <Content>
-        <FormUserCommon
-          messageError={messageError}
-          firstname={firstname}
-          lastname={lastname}
-          email={email}
-          handleFirstname={handleFirstname}
-          handleLastname={handleLastname}
-          handleEmail={handleEmail}
-          handleSubmit={handleSubmit}
-        />
-      </Content>
-    </Main>
+    <FormUserCommon
+      messageError={messageError}
+      firstname={firstname}
+      lastname={lastname}
+      email={email}
+      handleFirstname={handleFirstname}
+      handleLastname={handleLastname}
+      handleEmail={handleEmail}
+      handleSubmit={handleSubmit}
+    />
   );
 }

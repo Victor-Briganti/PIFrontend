@@ -1,91 +1,53 @@
 import * as React from "react";
-import AxiosUser from "../api/AxiosUser";
-import Content from "../components/container/Content";
 import Main from "../components/container/Main";
-import FormUserCommon from "../components/forms/FormUserCommon";
+import Content from "../components/container/Content";
+import RegisterUserCommon from "../components/RegisterUserCommon";
 import ModelUserCommon from "../models/UserCommon";
-import { validatedEmail, validatedName } from "../utils/Verification";
 
-const axiosUser = new AxiosUser();
+enum RegisterStep {
+  common,
+  address,
+  metadata,
+}
 
 export default function UserRegister() {
   const [messageError, setMessageError] = React.useState<string>("");
-  const [firstname, setFirstname] = React.useState<string>("");
-  const [lastname, setLastname] = React.useState<string>("");
-  const [email, setEmail] = React.useState<string>("");
+  const [step, setStep] = React.useState<RegisterStep>(RegisterStep.common);
+  const userCommonRef = React.useRef<ModelUserCommon | undefined>(undefined);
 
-  const handleFirstname = (
-    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => setFirstname(event.target.value);
-
-  const handleLastname = (
-    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => setLastname(event.target.value);
-
-  const handleEmail = (
-    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => setEmail(event.target.value);
-
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
-    const formData = new FormData(event.currentTarget);
-    const email = formData.get("email")?.toString() ?? "";
-    const firstname = formData.get("firstname")?.toString() ?? "";
-    const lastname = formData.get("lastname")?.toString() ?? "";
-    const password = formData.get("password")?.toString() ?? "";
-    const confirmPassword = formData.get("confirmPassword")?.toString() ?? "";
-
-    if (validatedName(firstname, 100) === false) {
-      setMessageError("Primeiro nome inválido");
-      return;
-    }
-
-    if (validatedName(lastname, 100) === false) {
-      setMessageError("Último nome inválido");
-      return;
-    }
-
-    if (validatedEmail(email) === false) {
-      setMessageError("Email inválido");
-      return;
-    }
-
-    if (password === "" || password.length < 8) {
-      setMessageError("Senha inválida");
-      return;
-    }
-
-    if (confirmPassword !== password) {
-      setMessageError("Senha não coincidem");
-      return;
-    }
-
-    const user = new ModelUserCommon({
-      email: email,
-      firstname: firstname,
-      lastname: lastname,
-      password: password,
-      is_superuser: false,
-      is_staff: false,
-    });
-
-    axiosUser.registerUser(user);
+  const handleUserCommonStep = (user: ModelUserCommon) => {
+    userCommonRef.current = user;
+    setStep(RegisterStep.metadata);
   };
+
+  // const handleAddressStep = (address: ModelAddress | undefined) => {
+  //   if (address !== undefined && address.getId() !== undefined) {
+  //     addressRef.current = address.getId();
+  //     setStep(RegisterStep.metadata);
+  //     return;
+  //   }
+
+  //   setMessageError("Não foi possível cadastrar endereço 2");
+  // };
 
   return (
     <Main>
       <Content>
-        <FormUserCommon
-          messageError={messageError}
-          firstname={firstname}
-          lastname={lastname}
-          email={email}
-          handleFirstname={handleFirstname}
-          handleLastname={handleLastname}
-          handleEmail={handleEmail}
-          handleSubmit={handleSubmit}
-        />
+        {step === RegisterStep.common && (
+          <RegisterUserCommon
+            messageError={messageError}
+            setMessageError={setMessageError}
+            handleRegisterStep={handleUserCommonStep}
+          />
+        )}
+        {/* {step === RegisterStep.address && (
+          <RegisterAddress
+            messageError={messageError}
+            setMessageError={setMessageError}
+            handleRegisterStep={handleAddressStep}
+          />
+        )} */}
+        {step === RegisterStep.metadata && <h1>Testado</h1>}
       </Content>
     </Main>
   );

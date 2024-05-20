@@ -4,11 +4,11 @@ import { validatedName, validatedNumber } from "../utils/Verification";
 interface FormDataAddress {
   id?: number;
   city: ModelCity;
-  zipCode: string;
+  zip_code: string;
   district: string;
   street: string;
   complement: string;
-  houseNumber: string;
+  house_number: string;
 }
 
 export default class ModelAddress {
@@ -25,8 +25,8 @@ export default class ModelAddress {
       throw new Error("ID não pode ser negativo");
     }
 
-    if (validatedNumber(address.zipCode) === false) {
-      throw new Error(`CEP inválido: ${address.district}`);
+    if (validatedNumber(address.zip_code) === false) {
+      throw new Error(`CEP inválido: ${address.zip_code}`);
     }
 
     if (validatedName(address.district, 100) === false) {
@@ -41,21 +41,21 @@ export default class ModelAddress {
       throw new Error(`Complemento tem um limite de 100 caracteres`);
     }
 
-    if (address.houseNumber === "") {
+    if (address.house_number === "") {
       throw new Error(`Número da casa não pode ser vazio`);
     }
 
-    if (address.houseNumber.length > 10) {
+    if (address.house_number.length > 10) {
       throw new Error(`Número da casa tem limite de 10 caracteres`);
     }
 
     this.id = address.id;
     this.city = address.city;
-    this.zip_code = address.zipCode;
+    this.zip_code = address.zip_code;
     this.district = address.district;
     this.street = address.street;
     this.complement = address.complement;
-    this.house_number = address.houseNumber;
+    this.house_number = address.house_number;
   }
 
   getId(): number | undefined {
