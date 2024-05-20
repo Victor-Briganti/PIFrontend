@@ -1,20 +1,21 @@
 import * as React from "react";
 import * as MUI from "@mui/material";
+import UploadImageCard from "../elements/UploadImageCard";
 
 interface DragBoxProps {
-  children: React.ReactNode;
   dragOver: boolean;
   handleDragOver: React.DragEventHandler<HTMLDivElement>;
   handleDragLeave: React.DragEventHandler<HTMLDivElement>;
   handleDrop: React.DragEventHandler<HTMLDivElement>;
+  handleChange: React.ChangeEventHandler<HTMLInputElement>;
 }
 
 export default function DragBox({
-  children,
   dragOver,
   handleDragOver,
   handleDragLeave,
   handleDrop,
+  handleChange,
 }: DragBoxProps) {
   return (
     <React.Fragment>
@@ -32,7 +33,7 @@ export default function DragBox({
           position: "relative",
         }}
       >
-        {children}
+        <UploadImageCard handleChange={handleChange} />
       </MUI.Paper>
     </React.Fragment>
   );

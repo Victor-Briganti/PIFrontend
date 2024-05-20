@@ -1,16 +1,16 @@
-import Home from "./pages/Home";
-import Donation from "./pages/Donation";
-import About from "./pages/About";
-import Login from "./pages/Login";
-import AnimalRegister from "./pages/AnimalRegister";
-import UserRegister from "./pages/UserRegister";
-import AddressRegister from "./pages/AddressRegister";
-import RegisterUserMetadata from "./pages/RegisterUserMetadata";
-import Theme from "./components/styles/Theme";
-import "./App.css";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import "./App.css";
+import Theme from "./components/styles/Theme";
+import About from "./pages/About";
+import AddressRegister from "./pages/AddressRegister";
+import AnimalRegister from "./pages/AnimalRegister";
+import Donation from "./pages/Donation";
+import Home from "./pages/Home";
+import Login from "./pages/Login";
+import RegisterUserMetadata from "./pages/RegisterUserMetadata";
+import UserRegister from "./pages/UserRegister";
 
 function App() {
   return (
