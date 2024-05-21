@@ -13,7 +13,7 @@ export default class ModelUserMetadata {
   private user: number;
   private address: number;
   private cpf: string;
-  private birth_date: Date;
+  private birth_date: string;
   private phone: string;
   private is_active?: boolean;
 
@@ -26,15 +26,13 @@ export default class ModelUserMetadata {
       throw new Error("Endereço não pode ser um id negativo");
     }
 
-    if (validatedCPF(data.cpf)) {
+    if (validatedCPF(data.cpf) === false) {
       throw new Error(`CPF inválido: ${data.cpf}`);
     }
 
-    if (validatedNumber(data.phone)) {
+    if (validatedNumber(data.phone) === false) {
       throw new Error(`Telefone inválido: ${data.phone}`);
     }
-
-    this.birth_date = data.birth_date;
 
     if (data.is_active !== undefined) {
       this.is_active = data.is_active;
@@ -45,8 +43,15 @@ export default class ModelUserMetadata {
     this.user = data.user;
     this.address = data.address;
     this.cpf = data.cpf;
-    this.birth_date = data.birth_date;
+    this.birth_date = this.getFormattedBirthDate(data.birth_date);
     this.phone = data.phone;
+  }
+
+  private getFormattedBirthDate(birth_date: Date): string {
+    const year = birth_date.getFullYear();
+    const month = String(birth_date.getMonth() + 1).padStart(2, "0");
+    const day = String(birth_date.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
   }
 
   getUser(): number {
@@ -61,7 +66,7 @@ export default class ModelUserMetadata {
     return this.cpf;
   }
 
-  getbirthDate(): Date {
+  getbirthDate(): string {
     return this.birth_date;
   }
 
@@ -73,6 +78,14 @@ export default class ModelUserMetadata {
     return this.is_active;
   }
 
+  setUser(user: number) {
+    if (user < 0) {
+      throw new Error("Usuário não poder ser um id negativo");
+    }
+
+    this.user = user;
+  }
+
   setAddress(address: number) {
     if (address < 0) {
       throw new Error("Endereço não poder ser um id negativo");
@@ -82,7 +95,7 @@ export default class ModelUserMetadata {
   }
 
   setCpf(cpf: string) {
-    if (validatedCPF(cpf)) {
+    if (validatedCPF(cpf) === false) {
       throw new Error(`CPF inválido: ${cpf}`);
     }
 
@@ -90,11 +103,11 @@ export default class ModelUserMetadata {
   }
 
   setbirthDate(birth_date: Date) {
-    this.birth_date = birth_date;
+    this.birth_date = this.getFormattedBirthDate(birth_date);
   }
 
   setPhone(phone: string) {
-    if (validatedNumber(phone)) {
+    if (validatedNumber(phone) === false) {
       throw new Error(`Telefone inválido: ${phone}`);
     }
 

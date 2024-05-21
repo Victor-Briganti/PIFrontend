@@ -1,11 +1,25 @@
 import * as React from "react";
-import Content from "./container/Content";
-import Main from "./container/Main";
-import FormUserMetadata from "./forms/FormUserMetadata";
+import AxiosUser from "../api/AxiosUser";
+import ModelUserMetadata from "../models/UserMetadata";
 import { validatedCPF, validatedNumber } from "../utils/Verification";
+import FormUserMetadata from "./forms/FormUserMetadata";
 
-export default function RegisterUserMetadata() {
-  const [messageError, setMessageError] = React.useState<string>("");
+interface RegisterUserMetadataProps {
+  user: number | undefined;
+  address: number | undefined;
+  messageError: string;
+  setMessageError: React.Dispatch<React.SetStateAction<string>>;
+  handleRegisterStep: () => void;
+}
+const axiosUser = new AxiosUser();
+
+export default function RegisterUserMetadata({
+  user,
+  address,
+  messageError,
+  setMessageError,
+  handleRegisterStep,
+}: RegisterUserMetadataProps) {
   const [cpf, setCpf] = React.useState<string>("");
   const [birthdate, setBirthdate] = React.useState<Date | undefined>(undefined);
   const [phone, setPhone] = React.useState<string>("");
@@ -53,27 +67,39 @@ export default function RegisterUserMetadata() {
     [setPhone, setMessageError]
   );
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log(cpf);
-    console.log(phone);
-    console.log(birthdate);
+
+    if (
+      user !== undefined &&
+      address !== undefined &&
+      birthdate !== undefined
+    ) {
+      const userMetadata = new ModelUserMetadata({
+        user: user,
+        address: address,
+        cpf: cpf,
+        birth_date: birthdate,
+        phone: phone,
+      });
+      await axiosUser.registerMetadata(userMetadata);
+      handleRegisterStep();
+      return;
+    }
+
+    setMessageError("Usuário não pode ser cadastrado");
   };
 
   return (
-    <Main>
-      <Content>
-        <FormUserMetadata
-          messageError={messageError}
-          cpf={cpf}
-          birthdate={birthdate}
-          phone={phone}
-          handleCpf={handleCpf}
-          handleBirthdate={handleBirthdate}
-          handlePhone={handlePhone}
-          handleSubmit={handleSubmit}
-        />
-      </Content>
-    </Main>
+    <FormUserMetadata
+      messageError={messageError}
+      cpf={cpf}
+      birthdate={birthdate}
+      phone={phone}
+      handleCpf={handleCpf}
+      handleBirthdate={handleBirthdate}
+      handlePhone={handlePhone}
+      handleSubmit={handleSubmit}
+    />
   );
 }

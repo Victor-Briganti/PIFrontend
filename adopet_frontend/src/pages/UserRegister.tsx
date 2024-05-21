@@ -1,9 +1,10 @@
 import * as React from "react";
-import Main from "../components/container/Main";
-import Content from "../components/container/Content";
-import RegisterUserCommon from "../components/RegisterUserCommon";
-import ModelUserCommon from "../models/UserCommon";
 import RegisterAddress from "../components/RegisterAddress";
+import RegisterUserCommon from "../components/RegisterUserCommon";
+import Content from "../components/container/Content";
+import Main from "../components/container/Main";
+import { useNavigate } from "react-router-dom";
+import RegisterUserMetadata from "../components/RegisterUserMetadata";
 
 enum RegisterStep {
   common,
@@ -14,10 +15,11 @@ enum RegisterStep {
 export default function UserRegister() {
   const [messageError, setMessageError] = React.useState<string>("");
   const [step, setStep] = React.useState<RegisterStep>(RegisterStep.common);
-  const userCommonRef = React.useRef<ModelUserCommon | undefined>(undefined);
+  const userCommonRef = React.useRef<number | undefined>(undefined);
   const addressRef = React.useRef<number | undefined>(undefined);
+  const navigate = useNavigate();
 
-  const handleUserCommonStep = (user: ModelUserCommon) => {
+  const handleUserCommonStep = (user: number | undefined) => {
     userCommonRef.current = user;
     setStep(RegisterStep.address);
   };
@@ -29,8 +31,10 @@ export default function UserRegister() {
       return;
     }
 
-    setMessageError("Não foi possível cadastrar endereço 2");
+    setMessageError("Não foi possível cadastrar endereço");
   };
+
+  const handleUserMetadataStep = () => navigate("/");
 
   return (
     <Main>
@@ -49,7 +53,15 @@ export default function UserRegister() {
             handleRegisterStep={handleAddressStep}
           />
         )}
-        {step === RegisterStep.metadata && <h1>Teste</h1>}
+        {step === RegisterStep.metadata && (
+          <RegisterUserMetadata
+            user={userCommonRef.current}
+            address={addressRef.current}
+            messageError={messageError}
+            setMessageError={setMessageError}
+            handleRegisterStep={handleUserMetadataStep}
+          />
+        )}
       </Content>
     </Main>
   );

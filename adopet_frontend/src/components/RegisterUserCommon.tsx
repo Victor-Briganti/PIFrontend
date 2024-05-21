@@ -7,7 +7,7 @@ import FormUserCommon from "./forms/FormUserCommon";
 interface RegisterUserCommonProps {
   messageError: string;
   setMessageError: React.Dispatch<React.SetStateAction<string>>;
-  handleRegisterStep: (user: ModelUserCommon) => void;
+  handleRegisterStep: (user: number | undefined) => void;
 }
 
 const axiosUser = new AxiosUser();
@@ -80,7 +80,7 @@ export default function RegisterUserCommon({
 
     try {
       const response = await axiosUser.registerUser(user);
-      handleRegisterStep(response);
+      handleRegisterStep(response.id);
     } catch (error) {
       setMessageError("Não foi possível cadastrar o usuário");
     }
