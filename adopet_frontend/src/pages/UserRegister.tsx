@@ -46,6 +46,7 @@ export default function UserRegister() {
             handleRegisterStep={handleUserCommonStep}
           />
         )}
+
         {step === RegisterStep.address && (
           <RegisterAddress
             messageError={messageError}
@@ -53,6 +54,7 @@ export default function UserRegister() {
             handleRegisterStep={handleAddressStep}
           />
         )}
+
         {step === RegisterStep.metadata && (
           <RegisterUserMetadata
             user={userCommonRef.current}

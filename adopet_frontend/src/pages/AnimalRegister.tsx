@@ -56,6 +56,7 @@ export default function AnimalRegister() {
             handleRegisterStep={handleRegisterStep}
           />
         )}
+
         {!registerStep && (
           <AnimalImageUpload
             messageError={messageError}

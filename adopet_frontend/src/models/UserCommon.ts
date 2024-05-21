@@ -11,7 +11,7 @@ interface FormDataUser {
   is_active?: boolean;
   is_staff?: boolean;
   is_group?: string[];
-  avatar?: string;
+  avatar?: File | string;
   user_permissions?: string[];
 }
 
@@ -26,7 +26,7 @@ export default class ModelUserCommon {
   private is_active?: boolean;
   private is_staff?: boolean;
   private is_group?: string[];
-  private avatar?: string;
+  private avatar?: File | string;
   private user_permissions?: string[];
 
   constructor(data: FormDataUser) {
@@ -121,7 +121,7 @@ export default class ModelUserCommon {
     return this.lastname;
   }
 
-  getAvatar(): string | undefined {
+  getAvatar(): File | string | undefined {
     return this?.avatar;
   }
 
@@ -141,7 +141,7 @@ export default class ModelUserCommon {
     this.is_active = is_active;
   }
 
-  setAvatar(avatar: string) {
+  setAvatar(avatar: File | string) {
     this.avatar = avatar;
   }
 

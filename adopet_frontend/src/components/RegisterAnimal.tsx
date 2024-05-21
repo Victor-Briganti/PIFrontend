@@ -45,7 +45,7 @@ export default function RegisterAnimal({
       setCastrated(animal.getIsCastrated() ?? false);
       setSpecialNeeds(animal.getIsSpecialNeeds() ?? false);
       setVaccinated(animal.getIsVaccinated() ?? false);
-      setCoat(animal.getCoat());
+      setCoat(animal.getCoat() ?? "");
     }
   }, [animalRef]);
 

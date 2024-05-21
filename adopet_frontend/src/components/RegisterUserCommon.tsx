@@ -17,9 +17,71 @@ export default function RegisterUserCommon({
   setMessageError,
   handleRegisterStep,
 }: RegisterUserCommonProps) {
+  const [dragOver, setDragOver] = React.useState(false);
+  const [loading, setLoading] = React.useState(false);
+  const [imagePreviews, setImagePreview] = React.useState<string[]>([]);
   const [firstname, setFirstname] = React.useState<string>("");
   const [lastname, setLastname] = React.useState<string>("");
   const [email, setEmail] = React.useState<string>("");
+  const [avatar, setAvatar] = React.useState<File | undefined>();
+
+  const handleFileChange = React.useCallback(
+    (file: File) => {
+      setLoading(true);
+
+      const reader = new FileReader();
+      reader.onload = async () => {
+        if (reader.result && typeof reader.result === "string") {
+          setImagePreview([reader.result]);
+          setAvatar(file);
+          setLoading(false);
+        }
+      };
+      reader.readAsDataURL(file);
+    },
+    [setAvatar]
+  );
+
+  const handleDragOver = React.useCallback(
+    (event: React.DragEvent<HTMLDivElement>) => {
+      event.preventDefault();
+      setDragOver(true);
+    },
+    [setDragOver]
+  );
+
+  const handleDragLeave = React.useCallback(
+    (event: React.DragEvent<HTMLDivElement>) => {
+      event.preventDefault();
+      setDragOver(false);
+    },
+    [setDragOver]
+  );
+
+  const handleDrop = React.useCallback(
+    (event: React.DragEvent<HTMLDivElement>) => {
+      event.preventDefault();
+      setDragOver(false);
+      const files = event.dataTransfer.files;
+      handleFileChange(files[0]);
+    },
+    [handleFileChange]
+  );
+
+  const handleChange = React.useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      const files = event.target.files;
+      if (files !== null) {
+        handleFileChange(files[0]);
+      }
+    },
+    [handleFileChange]
+  );
+
+  const handleRemoveImage = (_index: number) => {
+    setImagePreview([]);
+    setAvatar(undefined);
+  };
 
   const handleFirstname = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -75,6 +137,7 @@ export default function RegisterUserCommon({
       lastname: lastname,
       password: password,
       is_superuser: false,
+      avatar: avatar,
       is_staff: false,
     });
 
@@ -89,9 +152,17 @@ export default function RegisterUserCommon({
   return (
     <FormUserCommon
       messageError={messageError}
+      dragOver={dragOver}
+      loading={loading}
+      imagePreviews={imagePreviews}
       firstname={firstname}
       lastname={lastname}
       email={email}
+      handleChange={handleChange}
+      handleDragLeave={handleDragLeave}
+      handleDragOver={handleDragOver}
+      handleDrop={handleDrop}
+      handleRemoveImage={handleRemoveImage}
       handleFirstname={handleFirstname}
       handleLastname={handleLastname}
       handleEmail={handleEmail}

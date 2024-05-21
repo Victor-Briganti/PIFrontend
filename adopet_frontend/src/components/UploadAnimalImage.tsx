@@ -2,8 +2,6 @@ import * as MUI from "@mui/material";
 import * as React from "react";
 import ModelAnimalImage from "../models/AnimalImage";
 import DragBox from "./section/DragBox";
-import Content from "./container/Content";
-import Main from "./container/Main";
 import CircularLoading from "./elements/CircularLoading";
 import ErrorAlert from "./elements/ErrorAlert";
 import ImageUploadPreview from "./elements/ImageUploadPreview";
@@ -150,39 +148,33 @@ export default function UploadAnimalImage({
   };
 
   return (
-    <Main>
-      <Content>
-        <MUI.Typography component="h1" variant="h5">
-          Upload de Imagens do Placeholder
-        </MUI.Typography>
+    <React.Fragment>
+      <MUI.Typography component="h1" variant="h5">
+        Upload de Imagens do Placeholder
+      </MUI.Typography>
 
-        <MUI.Box sx={{ mt: 3 }}>
-          <DragBox
-            dragOver={dragOver}
-            handleDragOver={handleDragOver}
-            handleDragLeave={handleDragLeave}
-            handleDrop={handleDrop}
-            handleChange={handleChange}
-          />
+      <MUI.Box sx={{ mt: 3 }}>
+        <DragBox
+          dragOver={dragOver}
+          handleDragOver={handleDragOver}
+          handleDragLeave={handleDragLeave}
+          handleDrop={handleDrop}
+          handleChange={handleChange}
+        />
 
-          <CircularLoading loading={loading} />
+        <CircularLoading loading={loading} />
 
-          <MUI.Button
-            variant="contained"
-            color="primary"
-            onClick={handleSubmit}
-          >
-            Enviar
-          </MUI.Button>
+        <MUI.Button variant="contained" color="primary" onClick={handleSubmit}>
+          Enviar
+        </MUI.Button>
 
-          <ImageUploadPreview
-            imagePreviews={imagePreviews}
-            handleRemoveImage={handleRemoveImage}
-          />
+        <ImageUploadPreview
+          imagePreviews={imagePreviews}
+          handleRemoveImage={handleRemoveImage}
+        />
 
-          <ErrorAlert messageError={messageError} />
-        </MUI.Box>
-      </Content>
-    </Main>
+        <ErrorAlert messageError={messageError} />
+      </MUI.Box>
+    </React.Fragment>
   );
 }

@@ -2,12 +2,23 @@ import * as MUI from "@mui/material";
 import * as React from "react";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import ErrorAlert from "../elements/ErrorAlert";
+import DragBox from "../section/DragBox";
+import CircularLoading from "../elements/CircularLoading";
+import ImageUploadPreview from "../elements/ImageUploadPreview";
 
 interface FormUserCommonProps {
   messageError: string;
+  dragOver: boolean;
+  loading: boolean;
+  imagePreviews: string[];
   firstname: string;
   lastname: string;
   email: string;
+  handleDragOver: (event: React.DragEvent<HTMLDivElement>) => void;
+  handleDragLeave: (event: React.DragEvent<HTMLDivElement>) => void;
+  handleDrop: (event: React.DragEvent<HTMLDivElement>) => void;
+  handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  handleRemoveImage: (index: number) => void;
   handleFirstname: (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => void;
@@ -22,9 +33,17 @@ interface FormUserCommonProps {
 
 export default function FormUserCommon({
   messageError,
+  dragOver,
+  loading,
+  imagePreviews,
   firstname,
   lastname,
   email,
+  handleDragOver,
+  handleDragLeave,
+  handleDrop,
+  handleChange,
+  handleRemoveImage,
   handleFirstname,
   handleLastname,
   handleEmail,
@@ -113,6 +132,21 @@ export default function FormUserCommon({
                 type="password"
               />
             </MUI.Grid>
+
+            <DragBox
+              dragOver={dragOver}
+              handleDragOver={handleDragOver}
+              handleDragLeave={handleDragLeave}
+              handleDrop={handleDrop}
+              handleChange={handleChange}
+            />
+
+            <CircularLoading loading={loading} />
+
+            <ImageUploadPreview
+              imagePreviews={imagePreviews}
+              handleRemoveImage={handleRemoveImage}
+            />
 
             <MUI.Grid item xs={12} sm={12}>
               <MUI.Button
