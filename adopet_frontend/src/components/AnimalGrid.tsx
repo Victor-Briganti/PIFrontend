@@ -1,10 +1,10 @@
-import * as React from "react";
 import * as MUI from "@mui/material";
+import * as React from "react";
+import { useNavigate } from "react-router-dom";
+import Footer from "./Footer";
+import Header from "./Headert2";
 import AxiosAnimal from "./api/AxiosAnimal";
 import { Animal } from "./models/Animal";
-import { useNavigate } from "react-router-dom";
-import Header from "./Headert2";
-import Footer from "./Footer";
 
 const axiosAnimal = new AxiosAnimal();
 
