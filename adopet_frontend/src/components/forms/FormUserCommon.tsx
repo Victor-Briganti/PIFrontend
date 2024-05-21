@@ -133,13 +133,15 @@ export default function FormUserCommon({
               />
             </MUI.Grid>
 
-            <DragBox
-              dragOver={dragOver}
-              handleDragOver={handleDragOver}
-              handleDragLeave={handleDragLeave}
-              handleDrop={handleDrop}
-              handleChange={handleChange}
-            />
+            {!(imagePreviews.length > 0) && (
+              <DragBox
+                dragOver={dragOver}
+                handleDragOver={handleDragOver}
+                handleDragLeave={handleDragLeave}
+                handleDrop={handleDrop}
+                handleChange={handleChange}
+              />
+            )}
 
             <CircularLoading loading={loading} />
 
