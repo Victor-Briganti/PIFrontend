@@ -1,5 +1,10 @@
 import * as React from "react";
 import { useLocation } from "react-router-dom";
+import DescriptionAnimal from "../components/DescriptionAnimal";
+import Footer from "../components/Footer";
+import Header from "../components/Header";
+import Content from "../components/container/Content";
+import Main from "../components/container/Main";
 import InterfaceAnimal from "../models/Animal";
 
 export default function AnimalProfile() {
@@ -18,5 +23,13 @@ export default function AnimalProfile() {
     return <h1>Animal não pode ser carregado</h1>;
   }
 
-  return <h1>Animal</h1>;
+  return (
+    <Main>
+      <Header />
+      <Content>
+        <DescriptionAnimal animal={animal} />
+      </Content>
+      <Footer />
+    </Main>
+  );
 }

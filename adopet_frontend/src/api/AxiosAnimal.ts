@@ -110,7 +110,7 @@ class AxiosAnimal extends SuperAxios<InterfaceAnimal> {
     return this.axiosImage.updateImage(image);
   }
 
-  async listImageByID(id: number): Promise<InterfaceAnimalImage[]> {
+  async listImageById(id: number): Promise<InterfaceAnimalImage[]> {
     return this.axiosImage.filterBy(id);
   }
 }

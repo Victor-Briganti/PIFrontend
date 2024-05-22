@@ -20,7 +20,7 @@ export default function CardAnimal({ animal }: CardAnimalProps) {
 
     if (animalId !== undefined) {
       axiosAnimal
-        .listImageByID(animalId)
+        .listImageById(animalId)
         .then((response) => {
           const image = response[0].image;
           if (typeof image === "string") {
