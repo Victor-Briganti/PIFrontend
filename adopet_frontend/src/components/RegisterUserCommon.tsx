@@ -1,6 +1,6 @@
 import * as React from "react";
 import AxiosUser from "../api/AxiosUser";
-import ModelUserCommon from "../models/UserCommon";
+import InterfaceUserCommon from "../models/UserCommon";
 import { validatedEmail, validatedName } from "../utils/Verification";
 import FormUserCommon from "./forms/FormUserCommon";
 
@@ -131,7 +131,7 @@ export default function RegisterUserCommon({
     }
     setMessageError("");
 
-    const user = new ModelUserCommon({
+    const user = {
       email: email,
       firstname: firstname,
       lastname: lastname,
@@ -139,7 +139,7 @@ export default function RegisterUserCommon({
       is_superuser: false,
       avatar: avatar,
       is_staff: false,
-    });
+    } as InterfaceUserCommon;
 
     try {
       const response = await axiosUser.registerUser(user);

@@ -1,18 +1,19 @@
 import * as MUI from "@mui/material";
-import ModelUserCommon from "../../models/UserCommon";
+import InterfaceUserCommon from "../../models/UserCommon";
 
 interface UserAvatarProps {
-  user: ModelUserCommon;
+  user: InterfaceUserCommon;
 }
 
 export default function UserAvatar({ user }: UserAvatarProps) {
   return (
     <MUI.Box sx={{ flexGrow: 0 }}>
       <MUI.Tooltip title="Configurações de Usuário">
-        <MUI.Avatar
-          alt={user.getFirstname?.()}
-          src={user.getAvatar?.() ?? "/"}
-        />
+        {typeof user.avatar === "string" || user.avatar === undefined ? (
+          <MUI.Avatar alt={user.firstname} src={user.avatar ?? "/"} />
+        ) : (
+          <MUI.Avatar alt="Usuário não encontrado" src="/" />
+        )}
       </MUI.Tooltip>
     </MUI.Box>
   );

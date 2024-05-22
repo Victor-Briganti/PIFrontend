@@ -1,6 +1,6 @@
 import * as React from "react";
 import AxiosUser from "../api/AxiosUser";
-import ModelUserMetadata from "../models/UserMetadata";
+import InterfaceUserMetadata from "../models/UserMetadata";
 import { validatedCPF, validatedNumber } from "../utils/Verification";
 import FormUserMetadata from "./forms/FormUserMetadata";
 
@@ -75,13 +75,13 @@ export default function RegisterUserMetadata({
       address !== undefined &&
       birthdate !== undefined
     ) {
-      const userMetadata = new ModelUserMetadata({
+      const userMetadata = {
         user: user,
         address: address,
         cpf: cpf,
         birth_date: birthdate,
         phone: phone,
-      });
+      } as InterfaceUserMetadata;
       await axiosUser.registerMetadata(userMetadata);
       handleRegisterStep();
       return;
