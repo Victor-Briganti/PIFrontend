@@ -11,6 +11,7 @@ import Donation from "./pages/Donation";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import UserRegister from "./pages/UserRegister";
+import UserProfile from "./pages/UserProfile";
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
                 element={<AnimalRegister />}
               ></Route>
               <Route path="/userregister" element={<UserRegister />}></Route>
+              <Route path="/userprofile" element={<UserProfile />}></Route>
             </Routes>
           </Router>
         </div>
