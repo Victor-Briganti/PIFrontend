@@ -6,7 +6,7 @@ import Footer from "../components/Footer";
 
 export default function Donation() {
   return (
-    <Main>
+    <Main bgcolor="secondary.light" color="primary.contrastText">
       <Header />
       <Content>
         <MUI.Typography variant="h4" gutterBottom textAlign="center">

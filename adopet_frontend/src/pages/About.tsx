@@ -9,7 +9,7 @@ export default function About() {
   const theme = MUI.useTheme();
 
   return (
-    <Main>
+    <Main bgcolor="secondary.light" color="primary.contrastText">
       <Header />
       <MUI.CssBaseline />
       <Content>

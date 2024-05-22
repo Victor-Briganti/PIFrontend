@@ -6,7 +6,7 @@ import Main from "../components/container/Main";
 
 export default function AnimalList() {
   return (
-    <Main>
+    <Main bgcolor="secondary.light" color="primary.contrastText">
       <Header />
       <Content>
         <GridAnimal />
