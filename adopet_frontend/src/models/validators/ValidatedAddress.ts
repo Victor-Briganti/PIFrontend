@@ -1,6 +1,6 @@
 import InterfaceAddress from "../Address";
 import { MapStateChoice } from "../map_choices/MapChoices";
-import { validatedName, validatedNumber } from "../../utils/Verification";
+import { validatedString, validatedNumber } from "../../utils/Verification";
 
 const mapState = new MapStateChoice();
 
@@ -13,7 +13,7 @@ export default function validatedAddress(
     throw new Error("ID não pode ser negativo");
   }
 
-  if (validatedName(address.city.name, 50) === false) {
+  if (validatedString(address.city.name, 50) === false) {
     throw new Error(`Cidade com nome inválido: ${address.city.name}`);
   }
 
@@ -21,7 +21,7 @@ export default function validatedAddress(
     throw new Error(`CEP inválido: ${address.zip_code}`);
   }
 
-  if (validatedName(address.street, 100) === false) {
+  if (validatedString(address.street, 100) === false) {
     throw new Error(`Logradouro com nome inválido: ${address.city.name}`);
   }
 

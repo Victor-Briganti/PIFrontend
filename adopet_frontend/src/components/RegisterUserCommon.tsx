@@ -1,7 +1,7 @@
 import * as React from "react";
 import AxiosUser from "../api/AxiosUser";
 import InterfaceUserCommon from "../models/UserCommon";
-import { validatedEmail, validatedName } from "../utils/Verification";
+import { validatedEmail, validatedString } from "../utils/Verification";
 import FormUserCommon from "./forms/FormUserCommon";
 
 interface RegisterUserCommonProps {
@@ -105,12 +105,12 @@ export default function RegisterUserCommon({
     const password = formData.get("password")?.toString() ?? "";
     const confirmPassword = formData.get("confirmPassword")?.toString() ?? "";
 
-    if (validatedName(firstname, 100) === false) {
+    if (validatedString(firstname, 100) === false) {
       setMessageError("Primeiro nome inválido");
       return;
     }
 
-    if (validatedName(lastname, 100) === false) {
+    if (validatedString(lastname, 100) === false) {
       setMessageError("Último nome inválido");
       return;
     }

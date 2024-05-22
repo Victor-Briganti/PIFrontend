@@ -2,6 +2,10 @@ import InterfaceUser from "../models/User";
 import InterfaceUserCommon from "../models/UserCommon";
 import InterfaceUserMetadata from "../models/UserMetadata";
 import SuperAxios from "./super/SuperAxios";
+import {
+  validatedUserCommon,
+  validatedUserMetadata,
+} from "../models/validators/ValidatedUser";
 
 interface LoginData {
   email: string;
@@ -26,13 +30,15 @@ class AxiosUserMetadata extends SuperAxios<InterfaceUserCommon> {
   async registerMetadata(
     metadata: InterfaceUserMetadata
   ): Promise<InterfaceUserMetadata> {
-    return await this.post("register/", metadata);
+    const validatedMetadata = validatedUserMetadata(metadata);
+    return await this.post("register/", validatedMetadata);
   }
 
   async updateMetadata(
     metadata: InterfaceUserMetadata
   ): Promise<InterfaceUserMetadata> {
-    return await this.put("register/", metadata);
+    const validatedMetadata = validatedUserMetadata(metadata);
+    return await this.put("register/", validatedMetadata);
   }
 }
 
@@ -50,7 +56,8 @@ class AxiosUser extends SuperAxios<InterfaceUserCommon> {
   }
 
   async registerUser(user: InterfaceUserCommon): Promise<InterfaceUserCommon> {
-    return await this.post("register/", user, {
+    const validatedCommon = validatedUserCommon(user);
+    return await this.post("register/", validatedCommon, {
       headers: {
         "Content-type": "multipart/form-data",
       },

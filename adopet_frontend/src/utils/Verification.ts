@@ -1,4 +1,4 @@
-export function validatedName(value: string, size: number): boolean {
+export function validatedString(value: string, size: number): boolean {
   const numberRegex = /[0-9]/;
   if (numberRegex.test(value) || value === "" || value.length > size) {
     return false;
@@ -67,8 +67,8 @@ export function validatedCPF(value: string): boolean {
     "77777777777",
     "88888888888",
     "99999999999",
-  ]
- 
+  ];
+
   if (!/[0-9]{11}/.test(value) && !invalidCPF.includes(value)) {
     return false;
   }

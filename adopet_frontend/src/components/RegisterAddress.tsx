@@ -6,7 +6,7 @@ import InterfaceAddress from "../models/Address";
 import InterfaceCity from "../models/City";
 import InterfaceState from "../models/State";
 import { MapStateChoice } from "../models/map_choices/MapChoices";
-import { validatedName, validatedNumber } from "../utils/Verification";
+import { validatedString, validatedNumber } from "../utils/Verification";
 import FormAddress from "./forms/FormAddress";
 
 interface RegisterAddressProps {
@@ -86,7 +86,7 @@ export default function RegisterAddress({
   const handleCity = React.useCallback(
     (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
       const city = event.target.value;
-      if (validatedName(city, 100) === false && city !== "") {
+      if (validatedString(city, 100) === false && city !== "") {
         setMessageError("Cidade inválida");
         return;
       }
@@ -99,7 +99,7 @@ export default function RegisterAddress({
   const handleDistrict = React.useCallback(
     (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
       const district = event.target.value;
-      if (validatedName(district, 100) === false && district !== "") {
+      if (validatedString(district, 100) === false && district !== "") {
         setMessageError("Cidade inválida");
         return;
       }

@@ -6,7 +6,7 @@ import {
   MapSpecieChoice,
 } from "./map_choices/MapChoices";
 
-import { validatedName } from "../utils/Verification";
+import { validatedString } from "../utils/Verification";
 
 interface FormDataAnimal {
   id?: number;
@@ -64,7 +64,7 @@ export default class ModelAnimal {
       throw new Error("Doador não pode ter o id negativo");
     }
 
-    if (validatedName(data.name, 100) === false) {
+    if (validatedString(data.name, 100) === false) {
       throw new Error(`Nome inválido: ${data.name}`);
     }
 
@@ -248,7 +248,7 @@ export default class ModelAnimal {
   }
 
   setName(name: string) {
-    if (validatedName(name, 100) === false) {
+    if (validatedString(name, 100) === false) {
       throw new Error(`Nome inválido: ${name}`);
     }
 
