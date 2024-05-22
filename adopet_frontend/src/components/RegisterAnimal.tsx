@@ -1,13 +1,13 @@
 import * as React from "react";
 import * as MUI from "@mui/material";
 import FormAnimal from "./forms/FormAnimal";
-import ModelAnimal from "../models/Animal";
+import InterfaceAnimal from "../models/Animal";
 
 interface RegisterAnimalProps {
   messageError: string;
   setMessageError: React.Dispatch<React.SetStateAction<string>>;
-  animalRef: React.MutableRefObject<ModelAnimal | null>;
-  handleRegisterStep: (animal: ModelAnimal) => void;
+  animalRef: React.MutableRefObject<InterfaceAnimal | null>;
+  handleRegisterStep: (animal: InterfaceAnimal) => void;
 }
 
 export default function RegisterAnimal({
@@ -33,19 +33,19 @@ export default function RegisterAnimal({
   React.useEffect(() => {
     if (animalRef && animalRef.current) {
       const animal = animalRef.current;
-      setName(animal.getName());
-      setWeight(animal.getWeight());
-      setSpecie(animal.getSpecie());
-      setGender(animal.getGender());
-      setSize(animal.getSize());
-      setAge(animal.getAge());
-      setDescription(animal.getDescription() ?? "");
-      setTemperament(animal.getTemperament() ?? "");
-      setHouseTrained(animal.getIsHouseTrained() ?? false);
-      setCastrated(animal.getIsCastrated() ?? false);
-      setSpecialNeeds(animal.getIsSpecialNeeds() ?? false);
-      setVaccinated(animal.getIsVaccinated() ?? false);
-      setCoat(animal.getCoat() ?? "");
+      setName(animal.name);
+      setWeight(animal.weight);
+      setSpecie(animal.specie);
+      setGender(animal.gender);
+      setSize(animal.size);
+      setAge(animal.age);
+      setDescription(animal.description ?? "");
+      setTemperament(animal.temperament ?? "");
+      setHouseTrained(animal.is_house_trained ?? false);
+      setCastrated(animal.is_castrated ?? false);
+      setSpecialNeeds(animal.is_special_needs ?? false);
+      setVaccinated(animal.is_vaccinated ?? false);
+      setCoat(animal.coat ?? "");
     }
   }, [animalRef]);
 
@@ -111,7 +111,7 @@ export default function RegisterAnimal({
     event.preventDefault();
 
     try {
-      const newAnimal = new ModelAnimal({
+      const newAnimal = {
         name: name,
         age: age,
         size: size,
@@ -127,7 +127,7 @@ export default function RegisterAnimal({
         is_castrated: isCastrated,
         is_adopted: false,
         is_active: false,
-      });
+      } as InterfaceAnimal;
 
       handleRegisterStep(newAnimal);
     } catch (error) {

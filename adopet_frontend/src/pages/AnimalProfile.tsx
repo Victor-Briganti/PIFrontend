@@ -1,9 +1,9 @@
 import * as React from "react";
 import { useLocation } from "react-router-dom";
-import ModelAnimal from "../models/Animal";
+import InterfaceAnimal from "../models/Animal";
 
 export default function AnimalProfile() {
-  const [animal, setAnimal] = React.useState<ModelAnimal | undefined>(
+  const [animal, setAnimal] = React.useState<InterfaceAnimal | undefined>(
     undefined
   );
   const location = useLocation();

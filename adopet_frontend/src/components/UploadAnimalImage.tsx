@@ -1,6 +1,6 @@
 import * as MUI from "@mui/material";
 import * as React from "react";
-import ModelAnimalImage from "../models/AnimalImage";
+import InterfaceAnimalImage from "../models/AnimalImage";
 import DragBox from "./section/DragBox";
 import CircularLoading from "./elements/CircularLoading";
 import ErrorAlert from "./elements/ErrorAlert";
@@ -9,7 +9,7 @@ import ImageUploadPreview from "./elements/ImageUploadPreview";
 interface UploadAnimalImageProps {
   messageError: string;
   setMessageError: React.Dispatch<React.SetStateAction<string>>;
-  handleUploadStep: (images: ModelAnimalImage[]) => void;
+  handleUploadStep: (images: InterfaceAnimalImage[]) => void;
 }
 
 export default function UploadAnimalImage({
@@ -19,9 +19,9 @@ export default function UploadAnimalImage({
 }: UploadAnimalImageProps) {
   const [dragOver, setDragOver] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
-  const [animalImages, setAnimalImages] = React.useState<ModelAnimalImage[]>(
-    []
-  );
+  const [animalImages, setAnimalImages] = React.useState<
+    InterfaceAnimalImage[]
+  >([]);
   const [imagePreviews, setImagePreviews] = React.useState<string[]>([]);
 
   const handleFileChange = React.useCallback(
@@ -42,7 +42,7 @@ export default function UploadAnimalImage({
 
         // Cria uma promessa para carregar e converter a imagem para base64
         promises.push(
-          new Promise<string>((resolve, reject) => {
+          new Promise<string>((resolve, _reject) => {
             // Cria um novo leitor de arquivos
             const reader = new FileReader();
             reader.onload = async (event) => {
@@ -92,7 +92,7 @@ export default function UploadAnimalImage({
 
       // Adiciona imagens que serão enviadas
       const newImages = images.map((file) => {
-        return new ModelAnimalImage({ animal: 0, image: file });
+        return { animal: 0, image: file } as InterfaceAnimalImage;
       });
       setAnimalImages((prevImages) => [...prevImages, ...newImages]);
     },

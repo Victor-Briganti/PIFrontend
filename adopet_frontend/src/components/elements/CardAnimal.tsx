@@ -1,11 +1,11 @@
 import * as MUI from "@mui/material";
 import * as React from "react";
-import ModelAnimal from "../../models/Animal";
+import InterfaceAnimal from "../../models/Animal";
 import { useNavigate } from "react-router-dom";
 import AxiosAnimal from "../../api/AxiosAnimal";
 
 interface CardAnimalProps {
-  animal: ModelAnimal;
+  animal: InterfaceAnimal;
 }
 
 const axiosAnimal = new AxiosAnimal();

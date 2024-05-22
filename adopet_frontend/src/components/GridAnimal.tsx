@@ -1,6 +1,6 @@
 import * as MUI from "@mui/material";
 import * as React from "react";
-import ModelAnimal from "../models/Animal";
+import InterfaceAnimal from "../models/Animal";
 import AxiosAnimal from "../api/AxiosAnimal";
 import CardAnimal from "./elements/CardAnimal";
 import Pagination from "./elements/Pagination";
@@ -50,7 +50,7 @@ export default function GridAnimal() {
   return (
     <React.Fragment>
       <MUI.Grid container spacing={3}>
-        {animals.map((animal: ModelAnimal) => (
+        {animals.map((animal: InterfaceAnimal) => (
           <MUI.Grid item key={animal.id} xs={4}>
             <CardAnimal animal={animal} />
           </MUI.Grid>
