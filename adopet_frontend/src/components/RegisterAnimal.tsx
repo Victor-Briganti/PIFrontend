@@ -126,7 +126,7 @@ export default function RegisterAnimal({
         is_vaccinated: isVaccinated,
         is_castrated: isCastrated,
         is_adopted: false,
-        is_active: false,
+        is_active: true,
       } as InterfaceAnimal;
 
       handleRegisterStep(newAnimal);

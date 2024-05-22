@@ -1,6 +1,10 @@
 import InterfaceAnimal from "../models/Animal";
 import InterfaceAnimalImage from "../models/AnimalImage";
 import SuperAxios from "./super/SuperAxios";
+import {
+  validatedAnimal,
+  validatedAnimalImage,
+} from "../models/validators/ValidatedAnimal";
 
 class AxiosAnimalImage extends SuperAxios<InterfaceAnimalImage> {
   constructor() {
@@ -11,7 +15,8 @@ class AxiosAnimalImage extends SuperAxios<InterfaceAnimalImage> {
   async uploadImage(
     image: InterfaceAnimalImage
   ): Promise<InterfaceAnimalImage> {
-    return await this.post("upload/", image, {
+    const validAnimalImage = validatedAnimalImage(image);
+    return await this.post("upload/", validAnimalImage, {
       headers: {
         "Content-type": "multipart/form-data",
       },
@@ -20,7 +25,7 @@ class AxiosAnimalImage extends SuperAxios<InterfaceAnimalImage> {
 
   async deleteImage(id: number) {
     if (id < 0) {
-      throw new Error("Imagem de Animal com ID inválido: " + id);
+      throw new Error("Imagem de Animal com id inválido: " + id);
     }
 
     return await this.delete("delete/" + id);
@@ -29,11 +34,12 @@ class AxiosAnimalImage extends SuperAxios<InterfaceAnimalImage> {
   async updateImage(
     image: InterfaceAnimalImage
   ): Promise<InterfaceAnimalImage> {
-    if (image.id === undefined || (image.id ?? -1) < 0) {
-      throw new Error("Imagem de Animal com ID inválido: " + image.id);
+    if (image.id === undefined) {
+      throw new Error("Imagem de animal com id inválido");
     }
 
-    return await this.put("update/" + image.id, image, {
+    const validAnimalImage = validatedAnimalImage(image);
+    return await this.put("update/" + validAnimalImage.id, validAnimalImage, {
       headers: {
         "Content-type": "multipart/form-data",
       },
@@ -60,30 +66,32 @@ class AxiosAnimal extends SuperAxios<InterfaceAnimal> {
 
   async getAnimalByID(id: number): Promise<InterfaceAnimal> {
     if (id < 0) {
-      throw new Error("Animal com ID inválido: " + id);
+      throw new Error("Animal com id inválido: " + id);
     }
 
     return await this.get(id.toString());
   }
 
   async registerAnimal(animal: InterfaceAnimal): Promise<InterfaceAnimal> {
-    return await this.post("register/", animal);
+    const validAnimal = validatedAnimal(animal);
+    return await this.post("register/", validAnimal);
   }
 
   async deleteAnimal(id: number) {
     if (id < 0) {
-      throw new Error("Animal com ID inválido: " + id);
+      throw new Error("Animal com id inválido: " + id);
     }
 
     return await this.delete("delete/" + id);
   }
 
   async updateAnimal(animal: InterfaceAnimal): Promise<InterfaceAnimal> {
-    if (animal.id === undefined || (animal.id ?? -1) < 0) {
-      throw new Error("Animal com ID inválido: " + animal.id);
+    if (animal.id === undefined) {
+      throw new Error("Animal com id inválido");
     }
 
-    return await this.put("update/" + animal.id, animal);
+    const validAnimal = validatedAnimal(animal);
+    return await this.put("update/" + validAnimal.id, validAnimal);
   }
 
   async uploadImage(
