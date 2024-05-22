@@ -1,10 +1,10 @@
 import * as MUI from "@mui/material";
 import * as React from "react";
-import AxiosViaCep from "../api/thirdparty/AxiosViaCep";
 import AxiosAddress from "../api/AxiosAddress";
-import ModelAddress from "../models/Address";
-import ModelCity from "../models/City";
-import ModelState from "../models/State";
+import AxiosViaCep from "../api/thirdparty/AxiosViaCep";
+import InterfaceAddress from "../models/Address";
+import InterfaceCity from "../models/City";
+import InterfaceState from "../models/State";
 import { MapStateChoice } from "../models/map_choices/MapChoices";
 import { validatedName, validatedNumber } from "../utils/Verification";
 import FormAddress from "./forms/FormAddress";
@@ -133,16 +133,16 @@ export default function RegisterAddress({
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const newState = new ModelState(uf);
-    const newCity = new ModelCity(city, newState);
-    const newAddress = new ModelAddress({
+    const newState = { uf: uf } as InterfaceState;
+    const newCity = { name: city, state: newState } as InterfaceCity;
+    const newAddress = {
       city: newCity,
       zip_code: cep,
       district: district,
       street: street,
       complement: complement,
       house_number: houseNumber,
-    });
+    } as InterfaceAddress;
 
     const response = await axiosAddress.registerAddress(newAddress);
     handleRegisterStep(response.id);

@@ -1,23 +1,23 @@
 import SuperAxios from "./super/SuperAxios";
-import ModelAddress from "../models/Address";
+import InterfaceAddress from "../models/Address";
+import validatedAddress from "../models/validators/ValidatedAddress";
 
-class AxiosAddress extends SuperAxios<ModelAddress> {
+export default class AxiosAddress extends SuperAxios<InterfaceAddress> {
   constructor() {
     super();
     this.host = this.host + "/address/";
   }
 
-  async getAddressList(): Promise<ModelAddress[]> {
+  async getAddressList(): Promise<InterfaceAddress[]> {
     return await this.get("");
   }
 
-  async getAddressDetail(id: number): Promise<ModelAddress> {
+  async getAddressDetail(id: number): Promise<InterfaceAddress> {
     return await this.get(`${id}`);
   }
 
-  async registerAddress(address: ModelAddress): Promise<ModelAddress> {
-    return await this.post("register/", address);
+  async registerAddress(address: InterfaceAddress): Promise<InterfaceAddress> {
+    const requestAddress = validatedAddress(address);
+    return await this.post("register/", requestAddress);
   }
 }
-
-export default AxiosAddress;
