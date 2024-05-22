@@ -51,9 +51,8 @@ class AxiosAnimal extends SuperAxios<ModelAnimal> {
     this.axiosImage = new AxiosAnimalImage();
   }
 
-  async listAnimals(page: number = 0): Promise<Pagination<ModelAnimal>> {
-    const response = await this.get(page > 0 ? `?page=${page}` : "");
-    return new Pagination<ModelAnimal>(response);
+  async listAnimals(page: number = 0) {
+    return await this.get(page > 0 ? `?page=${page}` : "");
   }
 
   async getAnimalByID(id: number): Promise<ModelAnimal> {
