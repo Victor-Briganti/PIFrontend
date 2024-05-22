@@ -1,5 +1,5 @@
 import axios from "axios";
-import ModelCep from "../../models/Cep";
+import InterfaceViaCep from "../../models/ViaCep";
 
 export default class AxiosViaCep {
   private host: string;
@@ -7,12 +7,12 @@ export default class AxiosViaCep {
     this.host = "http://viacep.com.br/ws/";
   }
 
-  public async get(cep: string): Promise<ModelCep> {
+  public async get(cep: string): Promise<InterfaceViaCep> {
     try {
       const response = await axios.get(this.host + cep + "/json/", {
         withCredentials: false,
       });
-      return new ModelCep(response.data);
+      return response.data;
     } catch (error) {
       throw new Error(error);
     }

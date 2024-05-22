@@ -15,7 +15,7 @@ interface RegisterAddressProps {
   handleRegisterStep: (address: number | undefined) => void;
 }
 
-const axiosCep = new AxiosViaCep();
+const axiosViaCep = new AxiosViaCep();
 const axiosAddress = new AxiosAddress();
 
 export default function RegisterAddress({
@@ -52,7 +52,7 @@ export default function RegisterAddress({
 
       if (cep.length === 8) {
         try {
-          const response = await axiosCep.get(cep);
+          const response = await axiosViaCep.get(cep);
           setCity(response.localidade);
           setDistrict(response.bairro);
           setStreet(response.logradouro);
