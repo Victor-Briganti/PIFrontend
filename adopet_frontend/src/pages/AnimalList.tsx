@@ -1,4 +1,4 @@
-import GridAnimal from "../components/AnimalGrid";
+import GridAnimal from "../components/GridAnimal";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import Content from "../components/container/Content";
