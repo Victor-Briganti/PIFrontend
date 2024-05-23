@@ -1,12 +1,11 @@
 import * as React from "react";
-import Main from "../components/container/Main";
-import Content from "../components/container/Content";
-import InterfaceUser from "../models/User";
-import AxiosUser from "../api/AxiosUser";
-import CardUser from "../components/elements/CardUser";
 import { useNavigate } from "react-router-dom";
-import Header from "../components/Header";
+import AxiosUser from "../api/AxiosUser";
 import Footer from "../components/Footer";
+import Header from "../components/Header";
+import Main from "../components/container/Main";
+import CardUser from "../components/elements/CardUser";
+import InterfaceUser from "../models/User";
 
 const axiosUser = new AxiosUser();
 

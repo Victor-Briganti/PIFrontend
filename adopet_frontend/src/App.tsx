@@ -12,6 +12,7 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import UserRegister from "./pages/UserRegister";
 import UserProfile from "./pages/UserProfile";
+import ChangePassword from "./pages/ChangePassword";
 
 function App() {
   return (
@@ -32,6 +33,10 @@ function App() {
               ></Route>
               <Route path="/userregister" element={<UserRegister />}></Route>
               <Route path="/userprofile" element={<UserProfile />}></Route>
+              <Route
+                path="/changepassword"
+                element={<ChangePassword />}
+              ></Route>
             </Routes>
           </Router>
         </div>

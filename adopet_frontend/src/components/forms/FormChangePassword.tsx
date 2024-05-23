@@ -2,16 +2,35 @@ import * as MUI from "@mui/material";
 import * as React from "react";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import ErrorAlert from "../elements/ErrorAlert";
+import Modal from "../elements/Modal";
 
-interface FormLoginProps {
+interface FormChangePasswordProps {
+  password: string;
+  confirmPassword: string;
+  openModal: boolean;
+  handleConfirmModal: () => void;
+  handleCloseModal: () => void;
+  handlePassword: (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => void;
+  handleConfirmPassword: (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => void;
   handleSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
   messageError: string;
 }
 
-export default function FormLogin({
+export default function FormChangePassword({
+  password,
+  confirmPassword,
+  openModal,
+  handleConfirmModal,
+  handleCloseModal,
+  handlePassword,
+  handleConfirmPassword,
   handleSubmit,
   messageError,
-}: FormLoginProps) {
+}: FormChangePasswordProps) {
   return (
     <React.Fragment>
       <MUI.Box
@@ -27,7 +46,7 @@ export default function FormLogin({
         </MUI.Avatar>
 
         <MUI.Typography component="h1" variant="h5">
-          Login
+          Alterar Senha
         </MUI.Typography>
 
         <MUI.Box
@@ -40,22 +59,27 @@ export default function FormLogin({
             margin="normal"
             required
             fullWidth
-            id="email"
-            label="Endereço de Email"
-            name="email"
-            autoComplete="email"
+            id="password"
+            label="Senha"
+            name="password"
+            autoComplete="password"
+            value={password}
+            onChange={handlePassword}
             autoFocus
+            type="password"
           />
 
           <MUI.TextField
             margin="normal"
             required
             fullWidth
-            name="password"
-            label="Senha"
+            name="confirmPassword"
+            label="Confirmar Senha"
             type="password"
-            id="password"
+            id="confirmPassword"
             autoComplete="current-password"
+            value={confirmPassword}
+            onChange={handleConfirmPassword}
           />
 
           <MUI.Button
@@ -68,6 +92,11 @@ export default function FormLogin({
           </MUI.Button>
 
           <ErrorAlert messageError={messageError} />
+          <Modal
+            openModal={openModal}
+            handleConfirmModal={handleConfirmModal}
+            handleCloseModal={handleCloseModal}
+          />
         </MUI.Box>
       </MUI.Box>
     </React.Fragment>
