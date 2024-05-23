@@ -1,6 +1,6 @@
 import * as React from "react";
 import AxiosUser from "../api/AxiosUser";
-import InterfaceUserCommon from "../models/UserCommon";
+import InterfaceUserCommon from "../interfaces/InterfaceUserCommon";
 import { validatedEmail, validatedString } from "../utils/Verification";
 import FormUserCommon from "./forms/FormUserCommon";
 

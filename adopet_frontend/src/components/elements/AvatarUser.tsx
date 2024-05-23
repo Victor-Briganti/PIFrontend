@@ -1,5 +1,5 @@
 import * as MUI from "@mui/material";
-import InterfaceUserCommon from "../../models/UserCommon";
+import InterfaceUserCommon from "../../interfaces/InterfaceUserCommon";
 import { useNavigate } from "react-router-dom";
 
 interface UserAvatarProps {

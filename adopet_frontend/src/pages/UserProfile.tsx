@@ -5,7 +5,7 @@ import Footer from "../components/Footer";
 import Header from "../components/Header";
 import Main from "../components/container/Main";
 import CardUser from "../components/elements/CardUser";
-import InterfaceUser from "../models/User";
+import InterfaceUser from "../interfaces/InterfaceUser";
 
 const axiosUser = new AxiosUser();
 
