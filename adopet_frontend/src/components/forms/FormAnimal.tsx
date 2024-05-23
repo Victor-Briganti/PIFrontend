@@ -125,7 +125,6 @@ export default function FormAnimal({
                 id="weight"
                 label="Peso"
                 name="weight"
-                type="number"
                 value={weight ?? ""}
                 inputProps={{ min: "0" }}
                 onChange={handleWeight}

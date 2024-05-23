@@ -13,7 +13,9 @@ const genderMap = new MapGenderChoice();
 const sizeMap = new MapSizeChoice();
 const specieMap = new MapSpecieChoice();
 
-export function validatedAnimal(animal: InterfaceAnimal): InterfaceAnimal {
+export function validatedRegisterAnimal(
+  animal: InterfaceAnimal
+): InterfaceAnimal {
   if (animal.id !== undefined && animal.id < 0) {
     throw new Error("Animal não pode ter o id negativo");
   }
@@ -49,6 +51,49 @@ export function validatedAnimal(animal: InterfaceAnimal): InterfaceAnimal {
 
   if (animal.coat !== undefined) {
     animal.coat = coatMap.getKeyByValue(animal.coat);
+  }
+
+  return animal;
+}
+
+export function validatedUpdateAnimal(
+  animal: InterfaceAnimal
+): InterfaceAnimal {
+  if (animal.id !== undefined && animal.id < 0) {
+    throw new Error("Animal não pode ter o id negativo");
+  }
+
+  if (animal.donor !== undefined && animal.donor < 0) {
+    throw new Error("Doador não pode ter o id negativo");
+  }
+
+  if (animal.weight !== undefined && animal.weight < 0) {
+    throw new Error("Peso não pode ser negativo");
+  }
+
+  if (animal.is_house_trained === undefined) {
+    animal.is_house_trained = false;
+  }
+
+  if (animal.is_special_needs === undefined) {
+    animal.is_special_needs = false;
+  }
+
+  if (animal.is_active === undefined) {
+    animal.is_active = true;
+  }
+
+  if (animal.is_adopted === undefined) {
+    animal.is_adopted = false;
+  }
+
+  ageMap.getValueByKey(animal.age);
+  sizeMap.getValueByKey(animal.size);
+  genderMap.getValueByKey(animal.gender);
+  specieMap.getValueByKey(animal.specie);
+
+  if (animal.coat !== undefined) {
+    animal.coat = coatMap.getValueByKey(animal.coat);
   }
 
   return animal;

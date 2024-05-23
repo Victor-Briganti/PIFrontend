@@ -22,25 +22,25 @@ export default function AnimalRegister() {
   };
 
   const handleUploadStep = async (animalImages: InterfaceAnimalImage[]) => {
+    let hasImages = false;
     if (animalRef && animalRef.current) {
       const animal = animalRef.current;
 
-      const response = await axiosAnimal
-        .registerAnimal(animal)
-        .catch((error) => {
-          setMessageError(
-            "Erro ao carregar ao salvar o animal. Tente novamente."
-          );
-        });
-
-      if (response && response.id) {
+      if (animal && animal.id) {
         for (let i = 0; i < animalImages.length; i++) {
           const image = animalImages[i];
-          image.animal = response.id;
+          image.animal = animal.id;
           axiosAnimal.uploadImage(image).catch((error) => {
             setMessageError("Erro ao enviar imagem");
           });
+          hasImages = true;
         }
+
+        if (hasImages !== false) {
+          animal.is_active = true;
+          axiosAnimal.updateAnimal(animal);
+        }
+
         navigate("/");
       }
     }

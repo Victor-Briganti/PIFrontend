@@ -43,11 +43,9 @@ export default function UserProfile() {
   }
 
   return (
-    <Main>
+    <Main bgcolor="secondary.light" color="primary.contrastText">
       <Header />
-      <Content>
-        <CardUser userCommon={user.userCommon} handleLogout={handleLogout} />
-      </Content>
+      <CardUser userCommon={user.userCommon} handleLogout={handleLogout} />
       <Footer />
     </Main>
   );

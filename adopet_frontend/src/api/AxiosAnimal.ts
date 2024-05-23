@@ -2,7 +2,8 @@ import InterfaceAnimal from "../models/Animal";
 import InterfaceAnimalImage from "../models/AnimalImage";
 import SuperAxios from "./super/SuperAxios";
 import {
-  validatedAnimal,
+  validatedRegisterAnimal,
+  validatedUpdateAnimal,
   validatedAnimalImage,
 } from "../models/validators/ValidatedAnimal";
 
@@ -73,7 +74,7 @@ class AxiosAnimal extends SuperAxios<InterfaceAnimal> {
   }
 
   async registerAnimal(animal: InterfaceAnimal): Promise<InterfaceAnimal> {
-    const validAnimal = validatedAnimal(animal);
+    const validAnimal = validatedRegisterAnimal(animal);
     return await this.post("register/", validAnimal);
   }
 
@@ -90,7 +91,7 @@ class AxiosAnimal extends SuperAxios<InterfaceAnimal> {
       throw new Error("Animal com id inválido");
     }
 
-    const validAnimal = validatedAnimal(animal);
+    const validAnimal = validatedUpdateAnimal(animal);
     return await this.put("update/" + validAnimal.id, validAnimal);
   }
 

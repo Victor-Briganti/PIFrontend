@@ -2,6 +2,7 @@ import * as React from "react";
 import * as MUI from "@mui/material";
 import FormAnimal from "./forms/FormAnimal";
 import InterfaceAnimal from "../models/Animal";
+import AxiosAnimal from "../api/AxiosAnimal";
 
 interface RegisterAnimalProps {
   messageError: string;
@@ -9,6 +10,8 @@ interface RegisterAnimalProps {
   animalRef: React.MutableRefObject<InterfaceAnimal | null>;
   handleRegisterStep: (animal: InterfaceAnimal) => void;
 }
+
+const axiosAnimal = new AxiosAnimal();
 
 export default function RegisterAnimal({
   messageError,
@@ -56,11 +59,18 @@ export default function RegisterAnimal({
   const handleWeight = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
+    if (event.target.value === "") {
+      setWeight(undefined);
+      return;
+    }
+
     const weight = parseFloat(event.target.value);
     if (isNaN(weight) || weight < 0) {
       setMessageError("Valor do peso inválido");
       return;
     }
+
+    setMessageError("");
     setWeight(weight);
   };
 
@@ -110,26 +120,28 @@ export default function RegisterAnimal({
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    try {
-      const newAnimal = {
-        name: name,
-        age: age,
-        size: size,
-        gender: gender,
-        specie: specie,
-        coat: coat,
-        weight: weight,
-        description: description,
-        temperament: temperament,
-        is_house_trained: isHouseTrained,
-        is_special_needs: isSpecialNeeds,
-        is_vaccinated: isVaccinated,
-        is_castrated: isCastrated,
-        is_adopted: false,
-        is_active: true,
-      } as InterfaceAnimal;
+    const animal = {
+      name: name,
+      age: age,
+      size: size,
+      gender: gender,
+      specie: specie,
+      coat: coat,
+      weight: weight,
+      description: description,
+      temperament: temperament,
+      is_house_trained: isHouseTrained,
+      is_special_needs: isSpecialNeeds,
+      is_vaccinated: isVaccinated,
+      is_castrated: isCastrated,
+      is_adopted: false,
+      is_active: false,
+    } as InterfaceAnimal;
 
-      handleRegisterStep(newAnimal);
+    try {
+      const response = await axiosAnimal.registerAnimal(animal);
+      setMessageError("");
+      handleRegisterStep(response);
     } catch (error) {
       setMessageError(error.message);
     }

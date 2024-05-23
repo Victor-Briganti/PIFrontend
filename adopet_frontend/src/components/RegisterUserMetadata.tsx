@@ -82,9 +82,15 @@ export default function RegisterUserMetadata({
         birth_date: birthdate,
         phone: phone,
       } as InterfaceUserMetadata;
-      await axiosUser.registerMetadata(userMetadata);
-      handleRegisterStep();
-      return;
+      try {
+        await axiosUser.registerMetadata(userMetadata);
+        setMessageError("");
+        handleRegisterStep();
+        return;
+      } catch (error) {
+        setMessageError(error.message);
+        return;
+      }
     }
 
     setMessageError("Usuário não pode ser cadastrado");
