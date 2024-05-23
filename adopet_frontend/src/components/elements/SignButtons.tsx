@@ -16,7 +16,7 @@ export default function SignButtons() {
         Entre
       </MUI.Button>
       <MUI.Button
-        href="/registeruser"
+        href="/userregister"
         sx={{
           sx: "14px",
           my: 2,

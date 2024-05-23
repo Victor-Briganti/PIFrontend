@@ -4,12 +4,16 @@ import Content from "../components/container/Content";
 import InterfaceUser from "../models/User";
 import AxiosUser from "../api/AxiosUser";
 import CardUser from "../components/elements/CardUser";
+import { useNavigate } from "react-router-dom";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
 
 const axiosUser = new AxiosUser();
 
 export default function UserProfile() {
   const [user, setUser] = React.useState<InterfaceUser | undefined>(undefined);
   const [messageError, setMessageError] = React.useState<string>("");
+  const navigate = useNavigate();
 
   React.useEffect(() => {
     axiosUser
@@ -19,6 +23,11 @@ export default function UserProfile() {
         setMessageError("Usuário não pode ser carregado");
       });
   }, []);
+
+  const handleLogout = () => {
+    axiosUser.logout();
+    navigate("/");
+  };
 
   if (
     (user === undefined || user?.userCommon === undefined) &&
@@ -35,12 +44,11 @@ export default function UserProfile() {
 
   return (
     <Main>
+      <Header />
       <Content>
-        <CardUser
-          userCommon={user.userCommon}
-          userMetadata={user.userMetadata}
-        />
+        <CardUser userCommon={user.userCommon} handleLogout={handleLogout} />
       </Content>
+      <Footer />
     </Main>
   );
 }

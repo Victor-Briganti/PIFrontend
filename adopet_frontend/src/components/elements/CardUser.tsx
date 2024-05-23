@@ -1,13 +1,12 @@
 import * as MUI from "@mui/material";
 import InterfaceUserCommon from "../../models/UserCommon";
-import InterfaceUserMetadata from "../../models/UserMetadata";
 
 interface CardUserProps {
   userCommon: InterfaceUserCommon;
-  userMetadata: InterfaceUserMetadata | undefined;
+  handleLogout: () => void;
 }
 
-export default function CardUser({ userCommon, userMetadata }: CardUserProps) {
+export default function CardUser({ userCommon, handleLogout }: CardUserProps) {
   return (
     <MUI.Box flexGrow={1} sx={{ paddingBottom: 10, paddingTop: 20 }}>
       <MUI.Card sx={{ minWidth: 600 }}>
@@ -32,6 +31,14 @@ export default function CardUser({ userCommon, userMetadata }: CardUserProps) {
               {`Email: ${userCommon.email}`}
             </MUI.Box>
           </MUI.Typography>
+          <MUI.Button
+            fullWidth
+            variant="contained"
+            sx={{ mb: 2 }}
+            onClick={handleLogout}
+          >
+            Sair
+          </MUI.Button>
         </MUI.CardContent>
       </MUI.Card>
     </MUI.Box>
