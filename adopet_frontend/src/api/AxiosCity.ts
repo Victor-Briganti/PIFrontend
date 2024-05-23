@@ -1,5 +1,5 @@
 import SuperAxios from "./super/SuperAxios";
-import ModelCity from "../models/City";
+import ModelCity from "../interfaces/InterfaceCity";
 
 class AxiosCity extends SuperAxios<ModelCity> {
   constructor() {
