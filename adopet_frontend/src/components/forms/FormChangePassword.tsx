@@ -93,6 +93,8 @@ export default function FormChangePassword({
 
           <ErrorAlert messageError={messageError} />
           <Modal
+            title="Deseja alterar sua senha?"
+            dialog="Essa ação não pode ser desfeita."
             openModal={openModal}
             handleConfirmModal={handleConfirmModal}
             handleCloseModal={handleCloseModal}

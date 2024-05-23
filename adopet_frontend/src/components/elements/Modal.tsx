@@ -1,12 +1,16 @@
 import * as MUI from "@mui/material";
 
 interface ModalProps {
+  title: string;
+  dialog: string;
   openModal: boolean;
   handleConfirmModal: () => void;
   handleCloseModal: () => void;
 }
 
 export default function Modal({
+  title,
+  dialog,
   openModal,
   handleConfirmModal,
   handleCloseModal,
@@ -18,12 +22,10 @@ export default function Modal({
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
     >
-      <MUI.DialogTitle id="alert-dialog-title">
-        {"Deseja alterar sua senha?"}
-      </MUI.DialogTitle>
+      <MUI.DialogTitle id="alert-dialog-title">{title}</MUI.DialogTitle>
       <MUI.DialogContent>
         <MUI.DialogContentText id="alert-dialog-description">
-          Essa ação não pode ser desfeita.
+          {dialog}
         </MUI.DialogContentText>
       </MUI.DialogContent>
       <MUI.DialogActions>
