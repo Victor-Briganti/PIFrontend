@@ -4,7 +4,7 @@ import AxiosAddress from "../api/AxiosAddress";
 import AxiosViaCep from "../api/thirdparty/AxiosViaCep";
 import InterfaceAddress from "../interfaces/InterfaceAddress";
 import InterfaceCity from "../interfaces/InterfaceCity";
-import InterfaceState from "../models/State";
+import InterfaceState from "../interfaces/InterfaceState";
 import { MapStateChoice } from "../models/map_choices/MapChoices";
 import { validatedString, validatedNumber } from "../utils/Verification";
 import FormAddress from "./forms/FormAddress";

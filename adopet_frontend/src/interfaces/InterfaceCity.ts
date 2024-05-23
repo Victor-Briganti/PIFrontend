@@ -1,4 +1,4 @@
-import InterfaceState from "../models/State";
+import InterfaceState from "./InterfaceState";
 
 export default interface InterfaceCity {
   name: string;
