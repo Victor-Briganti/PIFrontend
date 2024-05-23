@@ -2,7 +2,7 @@ import * as MUI from "@mui/material";
 import * as React from "react";
 import AxiosAddress from "../api/AxiosAddress";
 import AxiosViaCep from "../api/thirdparty/AxiosViaCep";
-import InterfaceAddress from "../models/Address";
+import InterfaceAddress from "../interfaces/InterfaceAddress";
 import InterfaceCity from "../models/City";
 import InterfaceState from "../models/State";
 import { MapStateChoice } from "../models/map_choices/MapChoices";

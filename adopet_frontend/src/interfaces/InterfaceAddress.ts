@@ -1,4 +1,4 @@
-import InterfaceCity from "./City";
+import InterfaceCity from "../models/City";
 
 export default interface InterfaceAddress {
   id: number;
