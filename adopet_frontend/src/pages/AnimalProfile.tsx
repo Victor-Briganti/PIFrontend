@@ -5,7 +5,7 @@ import Footer from "../components/Footer";
 import Header from "../components/Header";
 import Content from "../components/container/Content";
 import Main from "../components/container/Main";
-import InterfaceAnimal from "../models/Animal";
+import InterfaceAnimal from "../interfaces/InterfaceAnimal";
 
 export default function AnimalProfile() {
   const [animal, setAnimal] = React.useState<InterfaceAnimal | undefined>(

@@ -1,6 +1,6 @@
 import * as MUI from "@mui/material";
 import * as React from "react";
-import InterfaceAnimal from "../models/Animal";
+import InterfaceAnimal from "../interfaces/InterfaceAnimal";
 import AxiosAnimal from "../api/AxiosAnimal";
 import CardAnimal from "./elements/CardAnimal";
 import Pagination from "./elements/Pagination";

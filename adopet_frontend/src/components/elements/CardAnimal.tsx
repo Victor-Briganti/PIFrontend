@@ -1,6 +1,6 @@
 import * as MUI from "@mui/material";
 import * as React from "react";
-import InterfaceAnimal from "../../models/Animal";
+import InterfaceAnimal from "../../interfaces/InterfaceAnimal";
 import { useNavigate } from "react-router-dom";
 import AxiosAnimal from "../../api/AxiosAnimal";
 

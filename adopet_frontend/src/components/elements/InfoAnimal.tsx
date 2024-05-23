@@ -1,5 +1,5 @@
 import * as MUI from "@mui/material";
-import InterfaceAnimal from "../../models/Animal";
+import InterfaceAnimal from "../../interfaces/InterfaceAnimal";
 
 interface InfoAnimalProps {
   animal: InterfaceAnimal;

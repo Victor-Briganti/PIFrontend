@@ -5,7 +5,7 @@ import RegisterAnimal from "../components/RegisterAnimal";
 import AnimalImageUpload from "../components/UploadAnimalImage";
 import Content from "../components/container/Content";
 import Main from "../components/container/Main";
-import InterfaceAnimal from "../models/Animal";
+import InterfaceAnimal from "../interfaces/InterfaceAnimal";
 import InterfaceAnimalImage from "../models/AnimalImage";
 
 const axiosAnimal = new AxiosAnimal();

@@ -1,5 +1,5 @@
 import * as React from "react";
-import InterfaceAnimal from "../models/Animal";
+import InterfaceAnimal from "../interfaces/InterfaceAnimal";
 import InterfaceAnimalImage from "../models/AnimalImage";
 import AxiosAnimal from "../api/AxiosAnimal";
 import Slider from "./Slider";

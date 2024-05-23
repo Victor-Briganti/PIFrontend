@@ -1,4 +1,4 @@
-import InterfaceAnimal from "../Animal";
+import InterfaceAnimal from "../../interfaces/InterfaceAnimal";
 import InterfaceAnimalImage from "../AnimalImage";
 import {
   MapAgeChoice,

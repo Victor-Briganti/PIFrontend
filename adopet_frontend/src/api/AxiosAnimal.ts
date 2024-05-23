@@ -1,4 +1,4 @@
-import InterfaceAnimal from "../models/Animal";
+import InterfaceAnimal from "../interfaces/InterfaceAnimal";
 import InterfaceAnimalImage from "../models/AnimalImage";
 import SuperAxios from "./super/SuperAxios";
 import {
