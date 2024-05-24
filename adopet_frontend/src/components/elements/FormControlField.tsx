@@ -1,6 +1,6 @@
 import * as React from "react";
 import * as MUI from "@mui/material";
-import MapBaseChoice from "../../models/map_choices/super/MapChoicesSuper";
+import AbstractChoiceMap from "../../models/map_choices/interfaces/AbstractChoiceMap";
 import MenuItems from "../MenuItems";
 
 interface FormFieldProps {
@@ -9,7 +9,7 @@ interface FormFieldProps {
   name: string;
   value: string;
   handleValue: (event: MUI.SelectChangeEvent) => void;
-  map: MapBaseChoice;
+  map: AbstractChoiceMap;
   readOnly?: boolean;
 }
 

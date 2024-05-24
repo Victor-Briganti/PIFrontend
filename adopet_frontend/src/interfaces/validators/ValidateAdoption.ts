@@ -1,7 +1,7 @@
 import InterfaceAdoption from "../../interfaces/InterfaceAdoption";
-import { MapStatusChoice } from "../../models/map_choices/MapChoices";
+import AdoptionStatusChoiceMap from "../../models/map_choices/AdoptionStatusChoiceMap";
 
-const statusMap = new MapStatusChoice();
+const statusMap = new AdoptionStatusChoiceMap();
 
 export function validatedRegisterAdoption(
   adoption: InterfaceAdoption

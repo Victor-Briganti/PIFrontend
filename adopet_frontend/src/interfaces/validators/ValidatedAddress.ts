@@ -1,12 +1,11 @@
 import InterfaceAddress from "../../interfaces/InterfaceAddress";
-import { MapStateChoice } from "../../models/map_choices/MapChoices";
+import StateChoiceMap from "../../models/map_choices/StateChoiceMap";
 import { validatedString, validatedNumber } from "../../utils/Verification";
-
-const mapState = new MapStateChoice();
 
 export default function validatedAddress(
   address: InterfaceAddress
 ): InterfaceAddress {
+  const mapState = new StateChoiceMap();
   address.city.state.uf = mapState.getKeyByValue(address.city.state.uf);
 
   if (address.id !== undefined && address.id < 0) {

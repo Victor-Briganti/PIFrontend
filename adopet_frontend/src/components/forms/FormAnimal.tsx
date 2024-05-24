@@ -1,7 +1,11 @@
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import * as MUI from "@mui/material";
 import * as React from "react";
-import * as MapChoice from "../../models/map_choices/MapChoices";
+import AgeChoiceMap from "../../models/map_choices/AgeChoiceMap";
+import CoatChoiceMap from "../../models/map_choices/CoatChoiceMap";
+import GenderChoiceMap from "../../models/map_choices/GenderChoiceMap";
+import SizeChoiceMap from "../../models/map_choices/SizeChoiceMap";
+import SpecieChoiceMap from "../../models/map_choices/SpecieChoiceMap";
 import ErrorAlert from "../elements/ErrorAlert";
 import FormCheckBox from "../elements/FormCheckbox";
 import FormControlField from "../elements/FormControlField";
@@ -75,11 +79,11 @@ export default function FormAnimal({
   handleSubmit,
   messageError,
 }: FormAnimalProps) {
-  const specieMap = new MapChoice.MapSpecieChoice();
-  const genderMap = new MapChoice.MapGenderChoice();
-  const sizeMap = new MapChoice.MapSizeChoice();
-  const ageMap = new MapChoice.MapAgeChoice();
-  const coatMap = new MapChoice.MapCoatChoice();
+  const specieMap = new SpecieChoiceMap();
+  const genderMap = new GenderChoiceMap();
+  const sizeMap = new SizeChoiceMap();
+  const ageMap = new AgeChoiceMap();
+  const coatMap = new CoatChoiceMap();
 
   return (
     <React.Fragment>

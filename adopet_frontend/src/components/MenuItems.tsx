@@ -1,9 +1,9 @@
 import * as React from "react";
 import * as MUI from "@mui/material";
-import MapBaseChoice from "../models/map_choices/super/MapChoicesSuper";
+import AbstractChoiceMap from "../models/map_choices/interfaces/AbstractChoiceMap";
 
 interface MenuItemsProps {
-  map: MapBaseChoice;
+  map: AbstractChoiceMap;
   value: string;
   handleValue: (event: MUI.SelectChangeEvent) => void;
   name: string;

@@ -5,7 +5,7 @@ import AxiosViaCep from "../api/thirdparty/AxiosViaCep";
 import InterfaceAddress from "../interfaces/InterfaceAddress";
 import InterfaceCity from "../interfaces/InterfaceCity";
 import InterfaceState from "../interfaces/InterfaceState";
-import { MapStateChoice } from "../models/map_choices/MapChoices";
+import StateChoiceMap from "../models/map_choices/StateChoiceMap";
 import { validatedString, validatedNumber } from "../utils/Verification";
 import FormAddress from "./forms/FormAddress";
 
@@ -36,7 +36,7 @@ export default function RegisterAddress({
     async (
       event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
     ) => {
-      const stateMap = new MapStateChoice();
+      const stateMap = new StateChoiceMap();
       const cep = event.target.value;
 
       if (validatedNumber(cep) === false && cep !== "") {

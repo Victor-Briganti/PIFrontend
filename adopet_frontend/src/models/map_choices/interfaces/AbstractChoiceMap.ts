@@ -1,4 +1,4 @@
-export default class MapBaseChoice {
+export default class AbstractChoiceMap {
   private values: Map<string, string>;
 
   constructor(values: Map<string, string>) {

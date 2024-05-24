@@ -1,6 +1,6 @@
 import * as MUI from "@mui/material";
 import * as React from "react";
-import { MapStateChoice } from "../../models/map_choices/MapChoices";
+import StateChoiceMap from "../../models/map_choices/StateChoiceMap";
 import FormControlField from "../elements/FormControlField";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import ErrorAlert from "../elements/ErrorAlert";
@@ -56,7 +56,7 @@ export default function FormAddress({
   handleHouseNumber,
   handleSubmit,
 }: FromAddressProps) {
-  const stateMap = new MapStateChoice();
+  const stateMap = new StateChoiceMap();
 
   return (
     <React.Fragment>

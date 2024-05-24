@@ -1,17 +1,16 @@
 import InterfaceAnimal from "../../interfaces/InterfaceAnimal";
 import { InterfaceAnimalImageFile } from "../../interfaces/InterfaceAnimalImage";
-import {
-  MapAgeChoice,
-  MapCoatChoice,
-  MapGenderChoice,
-  MapSizeChoice,
-  MapSpecieChoice,
-} from "../../models/map_choices/MapChoices";
-const ageMap = new MapAgeChoice();
-const coatMap = new MapCoatChoice();
-const genderMap = new MapGenderChoice();
-const sizeMap = new MapSizeChoice();
-const specieMap = new MapSpecieChoice();
+import AgeChoiceMap from "../../models/map_choices/AgeChoiceMap";
+import CoatChoiceMap from "../../models/map_choices/CoatChoiceMap";
+import GenderChoiceMap from "../../models/map_choices/GenderChoiceMap";
+import SizeChoiceMap from "../../models/map_choices/SizeChoiceMap";
+import SpecieChoiceMap from "../../models/map_choices/SpecieChoiceMap";
+
+const ageMap = new AgeChoiceMap();
+const coatMap = new CoatChoiceMap();
+const genderMap = new GenderChoiceMap();
+const sizeMap = new SizeChoiceMap();
+const specieMap = new SpecieChoiceMap();
 
 export function validatedRegisterAnimal(
   animal: InterfaceAnimal
