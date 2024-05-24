@@ -1,5 +1,8 @@
 import InterfaceAnimal from "../interfaces/InterfaceAnimal";
-import InterfaceAnimalImage from "../models/AnimalImage";
+import {
+  InterfaceAnimalImageFile,
+  InterfaceAnimalImageLink,
+} from "../interfaces/InterfaceAnimalImage";
 import SuperAxios from "./super/SuperAxios";
 import {
   validatedRegisterAnimal,
@@ -7,15 +10,17 @@ import {
   validatedAnimalImage,
 } from "../models/validators/ValidatedAnimal";
 
-class AxiosAnimalImage extends SuperAxios<InterfaceAnimalImage> {
+class AxiosAnimalImage extends SuperAxios<
+  InterfaceAnimalImageFile | InterfaceAnimalImageLink
+> {
   constructor() {
     super();
     this.host = this.host + "/animal/images/";
   }
 
   async uploadImage(
-    image: InterfaceAnimalImage
-  ): Promise<InterfaceAnimalImage> {
+    image: InterfaceAnimalImageFile
+  ): Promise<InterfaceAnimalImageLink> {
     const validAnimalImage = validatedAnimalImage(image);
     return await this.post("upload/", validAnimalImage, {
       headers: {
@@ -33,8 +38,8 @@ class AxiosAnimalImage extends SuperAxios<InterfaceAnimalImage> {
   }
 
   async updateImage(
-    image: InterfaceAnimalImage
-  ): Promise<InterfaceAnimalImage> {
+    image: InterfaceAnimalImageFile
+  ): Promise<InterfaceAnimalImageLink> {
     if (image.id === undefined) {
       throw new Error("Imagem de animal com id inválido");
     }
@@ -47,7 +52,7 @@ class AxiosAnimalImage extends SuperAxios<InterfaceAnimalImage> {
     });
   }
 
-  async filterBy(id: number): Promise<InterfaceAnimalImage[]> {
+  async filterBy(id: number): Promise<InterfaceAnimalImageLink[]> {
     return await this.get("filterby/" + id);
   }
 }
@@ -96,8 +101,8 @@ class AxiosAnimal extends SuperAxios<InterfaceAnimal> {
   }
 
   async uploadImage(
-    image: InterfaceAnimalImage
-  ): Promise<InterfaceAnimalImage> {
+    image: InterfaceAnimalImageFile
+  ): Promise<InterfaceAnimalImageLink> {
     return this.axiosImage.uploadImage(image);
   }
 
@@ -106,12 +111,12 @@ class AxiosAnimal extends SuperAxios<InterfaceAnimal> {
   }
 
   async updateImage(
-    image: InterfaceAnimalImage
-  ): Promise<InterfaceAnimalImage> {
+    image: InterfaceAnimalImageFile
+  ): Promise<InterfaceAnimalImageLink> {
     return this.axiosImage.updateImage(image);
   }
 
-  async listImageById(id: number): Promise<InterfaceAnimalImage[]> {
+  async listImageById(id: number): Promise<InterfaceAnimalImageLink[]> {
     return this.axiosImage.filterBy(id);
   }
 }

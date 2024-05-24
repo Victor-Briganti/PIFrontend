@@ -1,6 +1,6 @@
 import * as React from "react";
 import InterfaceAnimal from "../interfaces/InterfaceAnimal";
-import InterfaceAnimalImage from "../models/AnimalImage";
+import { InterfaceAnimalImageLink } from "../interfaces/InterfaceAnimalImage";
 import AxiosAnimal from "../api/AxiosAnimal";
 import Slider from "./Slider";
 import InfoAnimal from "./elements/InfoAnimal";
@@ -20,14 +20,12 @@ export default function DescriptionAnimal({ animal }: DescriptionAnimalProps) {
         .listImageById(animal.id)
         .then((response) => {
           const animalImageResponse = response.map(
-            (item) => item as InterfaceAnimalImage
+            (item) => item as InterfaceAnimalImageLink
           );
 
           const validImageUrls: string[] = [];
           for (let i = 0; i < animalImageResponse.length; i++) {
-            if (typeof animalImageResponse[i].image === "string") {
-              validImageUrls.push(animalImageResponse[i].image);
-            }
+            validImageUrls.push(animalImageResponse[i].image);
           }
 
           setImagesAnimal(validImageUrls);

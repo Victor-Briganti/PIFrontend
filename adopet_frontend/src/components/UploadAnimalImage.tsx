@@ -1,6 +1,6 @@
 import * as MUI from "@mui/material";
 import * as React from "react";
-import InterfaceAnimalImage from "../models/AnimalImage";
+import { InterfaceAnimalImageFile } from "../interfaces/InterfaceAnimalImage";
 import DragBox from "./section/DragBox";
 import CircularLoading from "./elements/CircularLoading";
 import ErrorAlert from "./elements/ErrorAlert";
@@ -9,7 +9,7 @@ import ImageUploadPreview from "./elements/ImageUploadPreview";
 interface UploadAnimalImageProps {
   messageError: string;
   setMessageError: React.Dispatch<React.SetStateAction<string>>;
-  handleUploadStep: (images: InterfaceAnimalImage[]) => void;
+  handleUploadStep: (images: InterfaceAnimalImageFile[]) => void;
 }
 
 export default function UploadAnimalImage({
@@ -20,7 +20,7 @@ export default function UploadAnimalImage({
   const [dragOver, setDragOver] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
   const [animalImages, setAnimalImages] = React.useState<
-    InterfaceAnimalImage[]
+    InterfaceAnimalImageFile[]
   >([]);
   const [imagePreviews, setImagePreviews] = React.useState<string[]>([]);
 
@@ -42,7 +42,7 @@ export default function UploadAnimalImage({
 
         // Cria uma promessa para carregar e converter a imagem para base64
         promises.push(
-          new Promise<string>((resolve, _reject) => {
+          new Promise<string>((resolve) => {
             // Cria um novo leitor de arquivos
             const reader = new FileReader();
             reader.onload = async (event) => {
@@ -92,7 +92,7 @@ export default function UploadAnimalImage({
 
       // Adiciona imagens que serão enviadas
       const newImages = images.map((file) => {
-        return { animal: 0, image: file } as InterfaceAnimalImage;
+        return { animal: 0, image: file } as InterfaceAnimalImageFile;
       });
       setAnimalImages((prevImages) => [...prevImages, ...newImages]);
     },

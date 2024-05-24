@@ -6,7 +6,7 @@ import AnimalImageUpload from "../components/UploadAnimalImage";
 import Content from "../components/container/Content";
 import Main from "../components/container/Main";
 import InterfaceAnimal from "../interfaces/InterfaceAnimal";
-import InterfaceAnimalImage from "../models/AnimalImage";
+import { InterfaceAnimalImageFile } from "../interfaces/InterfaceAnimalImage";
 
 const axiosAnimal = new AxiosAnimal();
 
@@ -21,7 +21,7 @@ export default function AnimalRegister() {
     setRegisterStep(false);
   };
 
-  const handleUploadStep = async (animalImages: InterfaceAnimalImage[]) => {
+  const handleUploadStep = async (animalImages: InterfaceAnimalImageFile[]) => {
     let hasImages = false;
     if (animalRef && animalRef.current) {
       const animal = animalRef.current;
@@ -30,14 +30,16 @@ export default function AnimalRegister() {
         for (let i = 0; i < animalImages.length; i++) {
           const image = animalImages[i];
           image.animal = animal.id;
+          console.log("Aqui");
           axiosAnimal.uploadImage(image).catch((error) => {
             setMessageError("Erro ao enviar imagem");
+            return;
           });
           hasImages = true;
         }
 
-        if (hasImages !== false) {
-          animal.is_active = true;
+        if (hasImages === false) {
+          animal.is_active = false;
           axiosAnimal.updateAnimal(animal);
         }
 

@@ -1,5 +1,5 @@
 import InterfaceAnimal from "../../interfaces/InterfaceAnimal";
-import InterfaceAnimalImage from "../AnimalImage";
+import { InterfaceAnimalImageFile } from "../../interfaces/InterfaceAnimalImage";
 import {
   MapAgeChoice,
   MapCoatChoice,
@@ -100,14 +100,10 @@ export function validatedUpdateAnimal(
 }
 
 export function validatedAnimalImage(
-  animalImage: InterfaceAnimalImage
-): InterfaceAnimalImage {
+  animalImage: InterfaceAnimalImageFile
+): InterfaceAnimalImageFile {
   if (animalImage.id !== undefined && animalImage.id < 0) {
     throw new Error("Imagem de animal não pode ter um id negativo");
-  }
-
-  if (typeof animalImage.image === "string" && animalImage.image === "") {
-    throw new Error("Imagem deve ser uma string não vazia");
   }
 
   if (animalImage.animal < 0) {
