@@ -1,4 +1,4 @@
-import InterfaceAddress from "../../interfaces/InterfaceAddress";
+import InterfaceAddress from "../address/InterfaceAddress";
 import StateChoiceMap from "../../models/map_choices/StateChoiceMap";
 import { validatedString, validatedNumber } from "../../utils/Verification";
 

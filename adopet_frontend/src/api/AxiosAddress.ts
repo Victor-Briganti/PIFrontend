@@ -1,5 +1,5 @@
 import SuperAxios from "./super/SuperAxios";
-import InterfaceAddress from "../interfaces/InterfaceAddress";
+import InterfaceAddress from "../interfaces/address/InterfaceAddress";
 import validatedAddress from "../interfaces/validators/ValidatedAddress";
 
 export default class AxiosAddress extends SuperAxios<InterfaceAddress> {

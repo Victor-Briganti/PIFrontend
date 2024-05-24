@@ -1,4 +1,4 @@
-import InterfaceAdoption from "../../interfaces/InterfaceAdoption";
+import InterfaceAdoption from "../adoption/InterfaceAdoption";
 import AdoptionStatusChoiceMap from "../../models/map_choices/AdoptionStatusChoiceMap";
 
 const statusMap = new AdoptionStatusChoiceMap();

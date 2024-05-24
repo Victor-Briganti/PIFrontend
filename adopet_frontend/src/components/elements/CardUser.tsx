@@ -1,6 +1,6 @@
 import * as MUI from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import InterfaceUserCommon from "../../interfaces/InterfaceUserCommon";
+import InterfaceUserCommon from "../../interfaces/user/InterfaceUserCommon";
 
 interface CardUserProps {
   userCommon: InterfaceUserCommon;

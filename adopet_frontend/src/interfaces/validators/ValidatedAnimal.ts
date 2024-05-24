@@ -1,5 +1,5 @@
-import InterfaceAnimal from "../../interfaces/InterfaceAnimal";
-import { InterfaceAnimalImageFile } from "../../interfaces/InterfaceAnimalImage";
+import InterfaceAnimal from "../animal/InterfaceAnimal";
+import { InterfaceAnimalImageFile } from "../animal/InterfaceAnimalImage";
 import AgeChoiceMap from "../../models/map_choices/AgeChoiceMap";
 import CoatChoiceMap from "../../models/map_choices/CoatChoiceMap";
 import GenderChoiceMap from "../../models/map_choices/GenderChoiceMap";

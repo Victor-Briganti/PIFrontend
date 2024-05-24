@@ -1,6 +1,6 @@
 import * as React from "react";
-import InterfaceAnimal from "../interfaces/InterfaceAnimal";
-import { InterfaceAnimalImageLink } from "../interfaces/InterfaceAnimalImage";
+import InterfaceAnimal from "../interfaces/animal/InterfaceAnimal";
+import { InterfaceAnimalImageLink } from "../interfaces/animal/InterfaceAnimalImage";
 import AxiosAnimal from "../api/AxiosAnimal";
 import Slider from "./Slider";
 import InfoAnimal from "./elements/InfoAnimal";

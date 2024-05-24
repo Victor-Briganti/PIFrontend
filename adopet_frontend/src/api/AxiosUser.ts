@@ -1,6 +1,6 @@
-import InterfaceUser from "../interfaces/InterfaceUser";
-import InterfaceUserCommon from "../interfaces/InterfaceUserCommon";
-import InterfaceUserMetadata from "../interfaces/InterfaceUserMetadata";
+import InterfaceUser from "../interfaces/user/InterfaceUser";
+import InterfaceUserCommon from "../interfaces/user/InterfaceUserCommon";
+import InterfaceUserMetadata from "../interfaces/user/InterfaceUserMetadata";
 import SuperAxios from "./super/SuperAxios";
 import {
   validatedUserCommon,

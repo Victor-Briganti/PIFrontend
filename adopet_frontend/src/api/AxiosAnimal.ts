@@ -1,8 +1,8 @@
-import InterfaceAnimal from "../interfaces/InterfaceAnimal";
+import InterfaceAnimal from "../interfaces/animal/InterfaceAnimal";
 import {
   InterfaceAnimalImageFile,
   InterfaceAnimalImageLink,
-} from "../interfaces/InterfaceAnimalImage";
+} from "../interfaces/animal/InterfaceAnimalImage";
 import SuperAxios from "./super/SuperAxios";
 import {
   validatedRegisterAnimal,

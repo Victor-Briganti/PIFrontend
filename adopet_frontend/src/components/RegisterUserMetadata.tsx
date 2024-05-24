@@ -1,6 +1,6 @@
 import * as React from "react";
 import AxiosUser from "../api/AxiosUser";
-import InterfaceUserMetadata from "../interfaces/InterfaceUserMetadata";
+import InterfaceUserMetadata from "../interfaces/user/InterfaceUserMetadata";
 import { validatedCPF, validatedNumber } from "../utils/Verification";
 import FormUserMetadata from "./forms/FormUserMetadata";
 
