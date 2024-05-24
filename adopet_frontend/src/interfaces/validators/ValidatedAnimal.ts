@@ -6,7 +6,7 @@ import {
   MapGenderChoice,
   MapSizeChoice,
   MapSpecieChoice,
-} from "../map_choices/MapChoices";
+} from "../../models/map_choices/MapChoices";
 const ageMap = new MapAgeChoice();
 const coatMap = new MapCoatChoice();
 const genderMap = new MapGenderChoice();

@@ -8,7 +8,7 @@ import {
   validatedRegisterAnimal,
   validatedUpdateAnimal,
   validatedAnimalImage,
-} from "../models/validators/ValidatedAnimal";
+} from "../interfaces/validators/ValidatedAnimal";
 
 class AxiosAnimalImage extends SuperAxios<
   InterfaceAnimalImageFile | InterfaceAnimalImageLink

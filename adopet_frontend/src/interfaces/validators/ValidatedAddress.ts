@@ -1,5 +1,5 @@
 import InterfaceAddress from "../../interfaces/InterfaceAddress";
-import { MapStateChoice } from "../map_choices/MapChoices";
+import { MapStateChoice } from "../../models/map_choices/MapChoices";
 import { validatedString, validatedNumber } from "../../utils/Verification";
 
 const mapState = new MapStateChoice();

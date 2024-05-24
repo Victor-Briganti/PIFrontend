@@ -5,7 +5,7 @@ import SuperAxios from "./super/SuperAxios";
 import {
   validatedUserCommon,
   validatedUserMetadata,
-} from "../models/validators/ValidatedUser";
+} from "../interfaces/validators/ValidatedUser";
 
 interface LoginData {
   email: string;

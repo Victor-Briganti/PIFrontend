@@ -1,5 +1,5 @@
 import InterfaceAdoption from "../../interfaces/InterfaceAdoption";
-import { MapStatusChoice } from "../map_choices/MapChoices";
+import { MapStatusChoice } from "../../models/map_choices/MapChoices";
 
 const statusMap = new MapStatusChoice();
 
