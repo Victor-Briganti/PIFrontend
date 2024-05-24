@@ -1,5 +1,5 @@
 import axios from "axios";
-import InterfaceViaCep from "../../interfaces/thirdparty/InterfaceViaCep";
+import InterfaceViaCep from "../../models/interfaces/thirdparty/InterfaceViaCep";
 
 export default class AxiosViaCep {
   private host: string;

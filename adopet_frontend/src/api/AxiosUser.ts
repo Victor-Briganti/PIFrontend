@@ -1,6 +1,6 @@
-import InterfaceUser from "../interfaces/user/InterfaceUser";
-import InterfaceUserCommon from "../interfaces/user/InterfaceUserCommon";
-import InterfaceUserMetadata from "../interfaces/user/InterfaceUserMetadata";
+import InterfaceUser from "../models/interfaces/user/InterfaceUser";
+import InterfaceUserCommon from "../models/interfaces/user/InterfaceUserCommon";
+import InterfaceUserMetadata from "../models/interfaces/user/InterfaceUserMetadata";
 import {
   validatedUserCommon,
   validatedUserMetadata,

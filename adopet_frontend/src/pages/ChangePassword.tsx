@@ -4,7 +4,7 @@ import AxiosUser from "../api/AxiosUser";
 import Content from "../components/container/Content";
 import Main from "../components/container/Main";
 import FormChangePassword from "../components/forms/FormChangePassword";
-import InterfaceUserCommon from "../interfaces/user/InterfaceUserCommon";
+import InterfaceUserCommon from "../models/interfaces/user/InterfaceUserCommon";
 
 export default function ChangePassword() {
   const [messageError, setMessageError] = React.useState<string>("");

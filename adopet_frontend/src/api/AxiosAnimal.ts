@@ -1,8 +1,8 @@
-import InterfaceAnimal from "../interfaces/animal/InterfaceAnimal";
+import InterfaceAnimal from "../models/interfaces/animal/InterfaceAnimal";
 import {
   InterfaceAnimalImageFile,
   InterfaceAnimalImageLink,
-} from "../interfaces/animal/InterfaceAnimalImage";
+} from "../models/interfaces/animal/InterfaceAnimalImage";
 import {
   validatedAnimalImage,
   validatedRegisterAnimal,

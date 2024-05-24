@@ -1,7 +1,7 @@
 import * as React from "react";
 import AvatarUser from "../elements/AvatarUser";
 import SignButtons from "../elements/SignButtons";
-import InterfaceUserCommon from "../../interfaces/user/InterfaceUserCommon";
+import InterfaceUserCommon from "../../models/interfaces/user/InterfaceUserCommon";
 import AxiosUser from "../../api/AxiosUser";
 
 const axiosUser = new AxiosUser();
