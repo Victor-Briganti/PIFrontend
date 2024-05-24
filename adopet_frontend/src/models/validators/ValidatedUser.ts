@@ -4,8 +4,8 @@ import {
   validatedCPF,
   validatedNumber,
 } from "../../utils/Verification";
-import InterfaceUserCommon from "../user/InterfaceUserCommon";
-import InterfaceUserMetadata from "../user/InterfaceUserMetadata";
+import InterfaceUserCommon from "../../interfaces/user/InterfaceUserCommon";
+import InterfaceUserMetadata from "../../interfaces/user/InterfaceUserMetadata";
 
 export function getFormattedBirthDate(birth_date: Date): string {
   const year = birth_date.getFullYear();

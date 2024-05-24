@@ -1,11 +1,11 @@
 import InterfaceUser from "../interfaces/user/InterfaceUser";
 import InterfaceUserCommon from "../interfaces/user/InterfaceUserCommon";
 import InterfaceUserMetadata from "../interfaces/user/InterfaceUserMetadata";
-import SuperAxios from "./super/SuperAxios";
 import {
   validatedUserCommon,
   validatedUserMetadata,
-} from "../interfaces/validators/ValidatedUser";
+} from "../models/validators/ValidatedUser";
+import SuperAxios from "./super/SuperAxios";
 
 interface LoginData {
   email: string;

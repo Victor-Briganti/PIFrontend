@@ -3,12 +3,12 @@ import {
   InterfaceAnimalImageFile,
   InterfaceAnimalImageLink,
 } from "../interfaces/animal/InterfaceAnimalImage";
-import SuperAxios from "./super/SuperAxios";
 import {
+  validatedAnimalImage,
   validatedRegisterAnimal,
   validatedUpdateAnimal,
-  validatedAnimalImage,
-} from "../interfaces/validators/ValidatedAnimal";
+} from "../models/validators/ValidatedAnimal";
+import SuperAxios from "./super/SuperAxios";
 
 class AxiosAnimalImage extends SuperAxios<
   InterfaceAnimalImageFile | InterfaceAnimalImageLink
