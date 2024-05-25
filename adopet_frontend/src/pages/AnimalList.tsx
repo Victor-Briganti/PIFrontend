@@ -1,7 +1,7 @@
 import GridAnimal from "../components/GridAnimal";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
-import Content from "../components/container/Content";
+import Content from "../components/sections/Content";
 import Main from "../components/container/Main";
 
 export default function AnimalList() {

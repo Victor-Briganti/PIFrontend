@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import AxiosAnimal from "../api/AxiosAnimal";
 import RegisterAnimal from "../components/RegisterAnimal";
 import AnimalImageUpload from "../components/UploadAnimalImage";
-import Content from "../components/container/Content";
+import Content from "../components/sections/Content";
 import Main from "../components/container/Main";
 import InterfaceAnimal from "../models/interfaces/animal/InterfaceAnimal";
 import { InterfaceAnimalImageFile } from "../models/interfaces/animal/InterfaceAnimalImage";

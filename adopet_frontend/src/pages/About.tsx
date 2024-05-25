@@ -1,7 +1,7 @@
 import * as MUI from "@mui/material";
 import { Link } from "react-router-dom";
 import Main from "../components/container/Main";
-import Content from "../components/container/Content";
+import Content from "../components/sections/Content";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 
