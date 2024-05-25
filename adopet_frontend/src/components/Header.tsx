@@ -1,6 +1,6 @@
 import * as MUI from "@mui/material";
-import UserSection from "./section/UserSection";
-import LinkSection from "./section/LinkSection";
+import UserSection from "./sections/UserSection";
+import LinkSection from "./sections/LinkSection";
 
 const pages = ["Sobre Nós", "Doação", "Animais"];
 const pageLinks = ["/about", "/donation", "/animals"];

@@ -2,7 +2,7 @@ import * as MUI from "@mui/material";
 import * as React from "react";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import ErrorAlert from "../elements/ErrorAlert";
-import DragBox from "../section/DragBox";
+import DragBox from "../sections/DragBox";
 import CircularLoading from "../elements/CircularLoading";
 import ImageUploadPreview from "../elements/ImageUploadPreview";
 

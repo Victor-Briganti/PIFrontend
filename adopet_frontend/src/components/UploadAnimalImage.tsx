@@ -1,7 +1,7 @@
 import * as MUI from "@mui/material";
 import * as React from "react";
 import { InterfaceAnimalImageFile } from "../models/interfaces/animal/InterfaceAnimalImage";
-import DragBox from "./section/DragBox";
+import DragBox from "./sections/DragBox";
 import CircularLoading from "./elements/CircularLoading";
 import ErrorAlert from "./elements/ErrorAlert";
 import ImageUploadPreview from "./elements/ImageUploadPreview";
