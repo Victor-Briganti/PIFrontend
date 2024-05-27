@@ -7,8 +7,8 @@ import GenderChoiceMap from "../../models/map_choices/GenderChoiceMap";
 import SizeChoiceMap from "../../models/map_choices/SizeChoiceMap";
 import SpecieChoiceMap from "../../models/map_choices/SpecieChoiceMap";
 import ErrorAlert from "../elements/ErrorAlert";
-import FormCheckBox from "../elements/FormCheckbox";
-import FormControlField from "../elements/FormControlField";
+import FormCheckBox from "../elements/form_control/FormCheckbox";
+import FormControlField from "../elements/form_control/FormControlField";
 
 interface FormAnimalProps {
   name: string;

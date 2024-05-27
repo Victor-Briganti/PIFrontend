@@ -1,7 +1,7 @@
 import * as React from "react";
 import * as MUI from "@mui/material";
-import AbstractChoiceMap from "../../models/map_choices/interfaces/AbstractChoiceMap";
-import MenuItems from "../MenuItems";
+import AbstractChoiceMap from "../../../models/map_choices/interfaces/AbstractChoiceMap";
+import MenuItems from "../../MenuItems";
 
 interface FormFieldProps {
   id: string;

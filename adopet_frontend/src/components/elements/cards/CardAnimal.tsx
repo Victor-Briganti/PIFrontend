@@ -1,8 +1,8 @@
 import * as MUI from "@mui/material";
 import * as React from "react";
-import InterfaceAnimal from "../../models/interfaces/animal/InterfaceAnimal";
+import InterfaceAnimal from "../../../models/interfaces/animal/InterfaceAnimal";
 import { useNavigate } from "react-router-dom";
-import AxiosAnimal from "../../api/AxiosAnimal";
+import AxiosAnimal from "../../../api/AxiosAnimal";
 
 interface CardAnimalProps {
   animal: InterfaceAnimal;

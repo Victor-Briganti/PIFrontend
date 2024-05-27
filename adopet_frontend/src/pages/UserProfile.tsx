@@ -2,7 +2,7 @@ import * as React from "react";
 import { useNavigate } from "react-router-dom";
 import AxiosUser from "../api/AxiosUser";
 import PageDynamicLayout from "../components/layouts/PageDynamicLayout";
-import CardUser from "../components/elements/CardUser";
+import CardUser from "../components/elements/cards/CardUser";
 import InterfaceUser from "../models/interfaces/user/InterfaceUser";
 
 const axiosUser = new AxiosUser();

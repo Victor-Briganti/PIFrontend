@@ -2,9 +2,9 @@ import * as MUI from "@mui/material";
 import * as React from "react";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import ErrorAlert from "../elements/ErrorAlert";
-import DragBox from "../sections/DragBox";
+import DragBox from "../modules/DragBox";
 import CircularLoading from "../elements/CircularLoading";
-import ImageUploadPreview from "../elements/ImageUploadPreview";
+import ImageUploadPreview from "../elements/form_control/ImageUploadPreview";
 
 interface FormUserCommonProps {
   messageError: string;

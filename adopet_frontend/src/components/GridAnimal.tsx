@@ -2,8 +2,8 @@ import * as MUI from "@mui/material";
 import * as React from "react";
 import InterfaceAnimal from "../models/interfaces/animal/InterfaceAnimal";
 import AxiosAnimal from "../api/AxiosAnimal";
-import CardAnimal from "./elements/CardAnimal";
-import Pagination from "./elements/Pagination";
+import CardAnimal from "./elements/cards/CardAnimal";
+import PageNumber from "./elements/PageNumber";
 
 const axiosAnimal = new AxiosAnimal();
 
@@ -55,7 +55,7 @@ export default function GridAnimal() {
             <CardAnimal animal={animal} />
           </MUI.Grid>
         ))}
-        <Pagination
+        <PageNumber
           page={page}
           totalPages={totalPages}
           handlePageChange={handlePageChange}

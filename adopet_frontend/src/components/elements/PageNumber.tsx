@@ -1,17 +1,17 @@
 import * as MUI from "@mui/material";
 import * as React from "react";
 
-interface PaginationProps {
+interface PageNumberProps {
   page: number;
   totalPages: number;
   handlePageChange: (event: React.ChangeEvent<unknown>, value: number) => void;
 }
 
-export default function Pagination({
+export default function PageNumber({
   page,
   totalPages,
   handlePageChange,
-}: PaginationProps) {
+}: PageNumberProps) {
   return (
     <React.Fragment>
       {totalPages && (

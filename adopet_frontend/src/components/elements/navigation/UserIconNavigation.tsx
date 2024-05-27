@@ -2,7 +2,7 @@ import * as MUI from "@mui/material";
 import * as React from "react";
 import AxiosUser from "../../../api/AxiosUser";
 import InterfaceUserCommon from "../../../models/interfaces/user/InterfaceUserCommon";
-import UserAvatar from "../UserAvatar";
+import UserAvatar from "../avatars/UserAvatar";
 
 const axiosUser = new AxiosUser();
 

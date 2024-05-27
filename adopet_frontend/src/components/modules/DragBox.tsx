@@ -1,6 +1,6 @@
 import * as React from "react";
 import * as MUI from "@mui/material";
-import UploadImageCard from "../elements/UploadImageCard";
+import UploadImageCard from "../elements/form_control/UploadImageCard";
 
 interface DragBoxProps {
   dragOver: boolean;
