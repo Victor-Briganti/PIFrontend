@@ -1,3 +1,4 @@
+import * as React from "react";
 import Footer from "../modules/Footer";
 import Header from "../modules/Header";
 import Main from "../elements/containers/Main";
@@ -7,17 +8,23 @@ interface PageDynamicLayoutProps {
   children: React.ReactNode;
   bgcolor?: string;
   color?: string;
+  content?: boolean;
 }
 
 export default function PageDynamicLayout({
   children,
   bgcolor,
   color,
+  content = true,
 }: PageDynamicLayoutProps) {
   return (
     <Main bgcolor={bgcolor} color={color}>
       <Header />
-      <Content>{children}</Content>
+      {content ? (
+        <Content>{children}</Content>
+      ) : (
+        <React.Fragment>{children} </React.Fragment>
+      )}
       <Footer />
     </Main>
   );

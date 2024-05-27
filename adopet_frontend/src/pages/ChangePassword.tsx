@@ -1,9 +1,8 @@
 import * as React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import AxiosUser from "../api/AxiosUser";
-import Content from "../components/elements/containers/Content";
-import Main from "../components/container/Main";
 import FormChangePassword from "../components/forms/FormChangePassword";
+import FormLayout from "../components/layouts/FormLayout";
 import InterfaceUserCommon from "../models/interfaces/user/InterfaceUserCommon";
 
 export default function ChangePassword() {
@@ -107,20 +106,18 @@ export default function ChangePassword() {
   }
 
   return (
-    <Main>
-      <Content>
-        <FormChangePassword
-          password={password}
-          confirmPassword={confirmPassword}
-          openModal={openModal}
-          handleConfirmModal={handleConfirmModal}
-          handleCloseModal={handleCloseModal}
-          handlePassword={handlePassword}
-          handleConfirmPassword={handleConfirmPassword}
-          handleSubmit={handleSubmit}
-          messageError={messageError}
-        />
-      </Content>
-    </Main>
+    <FormLayout>
+      <FormChangePassword
+        password={password}
+        confirmPassword={confirmPassword}
+        openModal={openModal}
+        handleConfirmModal={handleConfirmModal}
+        handleCloseModal={handleCloseModal}
+        handlePassword={handlePassword}
+        handleConfirmPassword={handleConfirmPassword}
+        handleSubmit={handleSubmit}
+        messageError={messageError}
+      />
+    </FormLayout>
   );
 }

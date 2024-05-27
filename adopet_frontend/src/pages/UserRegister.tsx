@@ -1,8 +1,7 @@
 import * as React from "react";
 import RegisterAddress from "../components/RegisterAddress";
 import RegisterUserCommon from "../components/RegisterUserCommon";
-import Content from "../components/elements/containers/Content";
-import Main from "../components/container/Main";
+import FormLayout from "../components/layouts/FormLayout";
 import { useNavigate } from "react-router-dom";
 import RegisterUserMetadata from "../components/RegisterUserMetadata";
 
@@ -37,34 +36,32 @@ export default function UserRegister() {
   const handleUserMetadataStep = () => navigate("/");
 
   return (
-    <Main>
-      <Content>
-        {step === RegisterStep.common && (
-          <RegisterUserCommon
-            messageError={messageError}
-            setMessageError={setMessageError}
-            handleRegisterStep={handleUserCommonStep}
-          />
-        )}
+    <FormLayout>
+      {step === RegisterStep.common && (
+        <RegisterUserCommon
+          messageError={messageError}
+          setMessageError={setMessageError}
+          handleRegisterStep={handleUserCommonStep}
+        />
+      )}
 
-        {step === RegisterStep.address && (
-          <RegisterAddress
-            messageError={messageError}
-            setMessageError={setMessageError}
-            handleRegisterStep={handleAddressStep}
-          />
-        )}
+      {step === RegisterStep.address && (
+        <RegisterAddress
+          messageError={messageError}
+          setMessageError={setMessageError}
+          handleRegisterStep={handleAddressStep}
+        />
+      )}
 
-        {step === RegisterStep.metadata && (
-          <RegisterUserMetadata
-            user={userCommonRef.current}
-            address={addressRef.current}
-            messageError={messageError}
-            setMessageError={setMessageError}
-            handleRegisterStep={handleUserMetadataStep}
-          />
-        )}
-      </Content>
-    </Main>
+      {step === RegisterStep.metadata && (
+        <RegisterUserMetadata
+          user={userCommonRef.current}
+          address={addressRef.current}
+          messageError={messageError}
+          setMessageError={setMessageError}
+          handleRegisterStep={handleUserMetadataStep}
+        />
+      )}
+    </FormLayout>
   );
 }

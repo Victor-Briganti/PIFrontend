@@ -1,9 +1,7 @@
 import * as React from "react";
 import { useNavigate } from "react-router-dom";
 import AxiosUser from "../api/AxiosUser";
-import Footer from "../components/Footer";
-import Header from "../components/Header";
-import Main from "../components/container/Main";
+import PageDynamicLayout from "../components/layouts/PageDynamicLayout";
 import CardUser from "../components/elements/CardUser";
 import InterfaceUser from "../models/interfaces/user/InterfaceUser";
 
@@ -42,10 +40,12 @@ export default function UserProfile() {
   }
 
   return (
-    <Main bgcolor="secondary.light" color="primary.contrastText">
-      <Header />
+    <PageDynamicLayout
+      bgcolor="secondary.light"
+      color="primary.contrastText"
+      content={false}
+    >
       <CardUser userCommon={user.userCommon} handleLogout={handleLogout} />
-      <Footer />
-    </Main>
+    </PageDynamicLayout>
   );
 }

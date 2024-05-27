@@ -3,8 +3,7 @@ import { useNavigate } from "react-router-dom";
 import AxiosAnimal from "../api/AxiosAnimal";
 import RegisterAnimal from "../components/RegisterAnimal";
 import AnimalImageUpload from "../components/UploadAnimalImage";
-import Content from "../components/elements/containers/Content";
-import Main from "../components/container/Main";
+import FormLayout from "../components/layouts/FormLayout";
 import InterfaceAnimal from "../models/interfaces/animal/InterfaceAnimal";
 import { InterfaceAnimalImageFile } from "../models/interfaces/animal/InterfaceAnimalImage";
 
@@ -50,25 +49,23 @@ export default function AnimalRegister() {
   };
 
   return (
-    <Main>
-      <Content>
-        {registerStep && (
-          <RegisterAnimal
-            messageError={messageError}
-            setMessageError={setMessageError}
-            animalRef={animalRef}
-            handleRegisterStep={handleRegisterStep}
-          />
-        )}
+    <FormLayout>
+      {registerStep && (
+        <RegisterAnimal
+          messageError={messageError}
+          setMessageError={setMessageError}
+          animalRef={animalRef}
+          handleRegisterStep={handleRegisterStep}
+        />
+      )}
 
-        {!registerStep && (
-          <AnimalImageUpload
-            messageError={messageError}
-            setMessageError={setMessageError}
-            handleUploadStep={handleUploadStep}
-          />
-        )}
-      </Content>
-    </Main>
+      {!registerStep && (
+        <AnimalImageUpload
+          messageError={messageError}
+          setMessageError={setMessageError}
+          handleUploadStep={handleUploadStep}
+        />
+      )}
+    </FormLayout>
   );
 }

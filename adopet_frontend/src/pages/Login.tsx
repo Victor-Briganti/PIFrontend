@@ -2,9 +2,9 @@ import * as React from "react";
 import * as MUI from "@mui/material";
 import CopyRight from "../components/CopyRight";
 import AxiosUser from "../api/AxiosUser";
-import Main from "../components/container/Main";
 import { useNavigate } from "react-router-dom";
 import { validatedEmail } from "../utils/Verification";
+import FormLayout from "../components/layouts/FormLayout";
 import FormLogin from "../components/forms/FormLogin";
 
 // Instância axios para acessar o usuário
@@ -56,7 +56,7 @@ export default function Login() {
   const handleSubmit = useHandleSubmit();
 
   return (
-    <Main>
+    <FormLayout>
       <MUI.CssBaseline />
       <MUI.Box
         sx={{
@@ -76,6 +76,6 @@ export default function Login() {
         </MUI.Grid>
       </MUI.Box>
       <CopyRight sx={{ mt: 8, mb: 4 }} />
-    </Main>
+    </FormLayout>
   );
 }
