@@ -1,6 +1,6 @@
 import * as MUI from "@mui/material";
 import MenuNavigation from "../elements/navigation/MenuNavigation";
-import LinkBarNavigation from "../elements/navigation/LinkBarNavigation";
+import LinkBarNavigation from "../elements/navigation/MenuLinkBarNav";
 import UserIconNavigation from "../elements/navigation/UserIconNavigation";
 
 const pages = ["Sobre Nós", "Doação", "Animais"];

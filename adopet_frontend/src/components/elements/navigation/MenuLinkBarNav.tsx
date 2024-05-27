@@ -1,15 +1,15 @@
 import * as React from "react";
 import * as MUI from "@mui/material";
 
-interface LinkNavigationBarProps {
+interface MenuLinkBarNavProps {
   pages: string[];
   pageLinks: string[];
 }
 
-export default function LinkBarNavigation({
+export default function MenuLinkBarNav({
   pages,
   pageLinks,
-}: LinkNavigationBarProps) {
+}: MenuLinkBarNavProps) {
   return (
     <React.Fragment>
       {pages.map((page) => (
