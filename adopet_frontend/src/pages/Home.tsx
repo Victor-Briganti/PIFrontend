@@ -1,5 +1,5 @@
 import * as MUI from "@mui/material";
-import Static from "../components/layouts/Static";
+import PageStaticLayout from "../components/layouts/PageStaticLayout";
 import Slider from "../components/Slider";
 
 const banners = [
@@ -11,7 +11,7 @@ const banners = [
 
 export default function Home() {
   return (
-    <Static>
+    <PageStaticLayout>
       <Slider banners={banners} />
       <MUI.Typography variant="h4" gutterBottom textAlign="center">
         Por que adotar um animal de estimação?
@@ -97,6 +97,6 @@ export default function Home() {
         animal tudo o que ele precisa. Adotar um animal é um compromisso de
         longo prazo, que exige tempo, amor e dedicação.
       </MUI.Typography>
-    </Static>
+    </PageStaticLayout>
   );
 }

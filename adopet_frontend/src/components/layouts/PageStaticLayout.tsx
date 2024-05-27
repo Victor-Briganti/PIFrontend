@@ -3,11 +3,11 @@ import Header from "../modules/Header";
 import MainStatic from "../elements/containers/MainStatic";
 import Content from "../elements/containers/Content";
 
-interface StaticProps {
+interface PageStaticLayoutProps {
   children: React.ReactNode;
 }
 
-export default function Static({ children }: StaticProps) {
+export default function PageStaticLayout({ children }: PageStaticLayoutProps) {
   return (
     <MainStatic>
       <Header />

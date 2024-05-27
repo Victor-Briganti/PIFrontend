@@ -1,9 +1,4 @@
 import * as MUI from "@mui/material";
-import UserSection from "./sections/UserSection";
-import LinkSection from "./sections/LinkSection";
-
-const pages = ["Sobre Nós", "Doação", "Animais"];
-const pageLinks = ["/about", "/donation", "/animals"];
 
 export default function Header() {
   return (
@@ -36,10 +31,7 @@ export default function Header() {
               Adopet
             </MUI.Typography>
           </MUI.Button>
-          <LinkSection pageLinks={pageLinks} pages={pages} />
-          <MUI.Box sx={{ marginLeft: "auto", paddingLeft: 2 }}>
-            <UserSection />
-          </MUI.Box>
+          <MUI.Box sx={{ marginLeft: "auto", paddingLeft: 2 }}></MUI.Box>
         </MUI.Toolbar>
       </MUI.Container>
     </MUI.AppBar>
