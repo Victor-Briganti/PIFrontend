@@ -1,6 +1,6 @@
 import * as MUI from "@mui/material";
 import PageStaticLayout from "../components/layouts/PageStaticLayout";
-import Slider from "../components/Slider";
+import Slider from "../components/elements/Slider";
 
 const banners = [
   "src/assets/banner1.webp",

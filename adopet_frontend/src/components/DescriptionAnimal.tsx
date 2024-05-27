@@ -2,7 +2,7 @@ import * as React from "react";
 import InterfaceAnimal from "../models/interfaces/animal/InterfaceAnimal";
 import { InterfaceAnimalImageLink } from "../models/interfaces/animal/InterfaceAnimalImage";
 import AxiosAnimal from "../api/AxiosAnimal";
-import Slider from "./Slider";
+import Slider from "./elements/Slider";
 import InfoAnimal from "./elements/InfoAnimal";
 
 interface DescriptionAnimalProps {
