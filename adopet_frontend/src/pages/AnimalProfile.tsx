@@ -1,10 +1,7 @@
 import * as React from "react";
 import { useLocation } from "react-router-dom";
 import DescriptionAnimal from "../components/DescriptionAnimal";
-import Footer from "../components/Footer";
-import Header from "../components/Header";
-import Content from "../components/elements/containers/Content";
-import Main from "../components/container/Main";
+import PageDynamicLayout from "../components/layouts/PageDynamicLayout";
 import InterfaceAnimal from "../models/interfaces/animal/InterfaceAnimal";
 
 export default function AnimalProfile() {
@@ -24,12 +21,8 @@ export default function AnimalProfile() {
   }
 
   return (
-    <Main>
-      <Header />
-      <Content>
-        <DescriptionAnimal animal={animal} />
-      </Content>
-      <Footer />
-    </Main>
+    <PageDynamicLayout bgcolor="secondary.light" color="primary.contrastText">
+      <DescriptionAnimal animal={animal} />
+    </PageDynamicLayout>
   );
 }
