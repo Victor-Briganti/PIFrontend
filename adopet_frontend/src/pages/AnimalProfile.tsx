@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom";
 import DescriptionAnimal from "../components/DescriptionAnimal";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
-import Content from "../components/elements/container/Content";
+import Content from "../components/elements/containers/Content";
 import Main from "../components/container/Main";
 import InterfaceAnimal from "../models/interfaces/animal/InterfaceAnimal";
 

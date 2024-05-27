@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import AxiosUser from "../api/AxiosUser";
-import Content from "../components/elements/container/Content";
+import Content from "../components/elements/containers/Content";
 import Main from "../components/container/Main";
 import FormChangePassword from "../components/forms/FormChangePassword";
 import InterfaceUserCommon from "../models/interfaces/user/InterfaceUserCommon";

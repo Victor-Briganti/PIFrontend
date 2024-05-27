@@ -1,6 +1,16 @@
 import * as MUI from "@mui/material";
+import MenuNavigation from "../elements/MenuNavigation";
+import LinkBarNavigation from "../elements/LinkBarNavigation";
+import UserIconNavigation from "../elements/sections/UserIconNavigation";
+
+const pages = ["Sobre Nós", "Doação", "Animais"];
+const pageLinks = ["/about", "/donation", "/animals"];
 
 export default function Header() {
+  const isSmallScreen = MUI.useMediaQuery((theme: MUI.Theme) =>
+    theme.breakpoints.down("sm")
+  );
+
   return (
     <MUI.AppBar color="primary">
       <MUI.Container maxWidth="xl">
@@ -31,6 +41,14 @@ export default function Header() {
               Adopet
             </MUI.Typography>
           </MUI.Button>
+          {isSmallScreen ? (
+            <MenuNavigation pages={pages} pageLinks={pageLinks} />
+          ) : (
+            <LinkBarNavigation pages={pages} pageLinks={pageLinks} />
+          )}
+          <MUI.Box sx={{ marginLeft: "auto", paddingLeft: 2 }}>
+            <UserIconNavigation />
+          </MUI.Box>
         </MUI.Toolbar>
       </MUI.Container>
     </MUI.AppBar>

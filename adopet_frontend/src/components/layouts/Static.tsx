@@ -1,7 +1,7 @@
 import Footer from "../modules/Footer";
 import Header from "../modules/Header";
-import MainStatic from "../elements/container/MainStatic";
-import Content from "../elements/container/Content";
+import MainStatic from "../elements/containers/MainStatic";
+import Content from "../elements/containers/Content";
 
 interface StaticProps {
   children: React.ReactNode;

@@ -1,5 +1,5 @@
 import * as React from "react";
-import AvatarUser from "../elements/AvatarUser";
+import AvatarUser from "../elements/UserAvatar";
 import SignButtons from "../elements/SignButtons";
 import InterfaceUserCommon from "../../models/interfaces/user/InterfaceUserCommon";
 import AxiosUser from "../../api/AxiosUser";

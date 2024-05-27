@@ -1,6 +1,6 @@
 import * as MUI from "@mui/material";
 import * as React from "react";
-import NavBar from "../elements/NavBar";
+import NavBar from "../elements/MenuNavigation";
 import LinkBarNavigation from "../elements/LinkBarNavigation";
 
 interface LinkNavigationProps {

@@ -2,15 +2,15 @@ import * as React from "react";
 import * as MUI from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 
-interface NavigationMenuProps {
+interface MenuNavigationProps {
   pages: string[];
   pageLinks: string[];
 }
 
-export default function NavigationMenu({
+export default function MenuNavigation({
   pages,
   pageLinks,
-}: NavigationMenuProps) {
+}: MenuNavigationProps) {
   const [anchorNav, setAnchorNav] = React.useState<null | HTMLElement>(null);
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {

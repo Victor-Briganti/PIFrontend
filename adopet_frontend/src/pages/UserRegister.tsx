@@ -1,7 +1,7 @@
 import * as React from "react";
 import RegisterAddress from "../components/RegisterAddress";
 import RegisterUserCommon from "../components/RegisterUserCommon";
-import Content from "../components/elements/container/Content";
+import Content from "../components/elements/containers/Content";
 import Main from "../components/container/Main";
 import { useNavigate } from "react-router-dom";
 import RegisterUserMetadata from "../components/RegisterUserMetadata";
