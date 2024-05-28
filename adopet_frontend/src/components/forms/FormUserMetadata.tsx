@@ -1,5 +1,6 @@
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import * as MUI from "@mui/material";
+import * as Router from "react-router-dom";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import dayjs from "dayjs";
 import * as React from "react";
@@ -105,7 +106,7 @@ export default function FormUserMetadata({
           </MUI.Grid>
 
           <MUI.Grid item xs={12} sm={12}>
-            <MUI.Link href="http://localhost:5173/login" variant="body2">
+            <MUI.Link component={Router.Link} to="/user/login" variant="body2">
               Já possui uma conta? Entrar
             </MUI.Link>
           </MUI.Grid>

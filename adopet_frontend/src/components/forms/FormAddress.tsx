@@ -1,9 +1,10 @@
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import * as MUI from "@mui/material";
 import * as React from "react";
+import * as Router from "react-router-dom";
 import StateChoiceMap from "../../models/map_choices/StateChoiceMap";
-import FormControlField from "../elements/form_control/FormControlField";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import ErrorAlert from "../elements/ErrorAlert";
+import FormControlField from "../elements/form_control/FormControlField";
 
 interface FromAddressProps {
   readOnly: boolean;
@@ -197,7 +198,11 @@ export default function FormAddress({
             </MUI.Grid>
 
             <MUI.Grid item xs={12} sm={12}>
-              <MUI.Link href="http://localhost:5173/login" variant="body2">
+              <MUI.Link
+                component={Router.Link}
+                to="/user/login"
+                variant="body2"
+              >
                 Já possui uma conta? Entrar
               </MUI.Link>
             </MUI.Grid>

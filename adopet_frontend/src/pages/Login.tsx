@@ -1,5 +1,6 @@
 import * as React from "react";
 import * as MUI from "@mui/material";
+import * as Router from "react-router-dom";
 import CopyRight from "../components/CopyRight";
 import AxiosUser from "../api/AxiosUser";
 import { useNavigate } from "react-router-dom";
@@ -69,7 +70,11 @@ export default function Login() {
         <FormLogin handleSubmit={handleSubmit} messageError={messageError} />
         <MUI.Grid container justifyContent="center" alignItems="center">
           <MUI.Grid item>
-            <MUI.Link href="http://localhost:5173/registeruser" variant="body2">
+            <MUI.Link
+              component={Router.Link}
+              to={"/user/register"}
+              variant="body2"
+            >
               {"Não possui uma conta? Cadastre-se"}
             </MUI.Link>
           </MUI.Grid>

@@ -1,5 +1,6 @@
 import * as MUI from "@mui/material";
 import * as React from "react";
+import * as Router from "react-router-dom";
 import AxiosUser from "../../../api/AxiosUser";
 import InterfaceUserCommon from "../../../models/interfaces/user/InterfaceUserCommon";
 import UserAvatar from "../avatars/UserAvatar";
@@ -23,7 +24,8 @@ export default function UserIconNavigation() {
     <React.Fragment>
       <MUI.Box display={"flex"} flexDirection={"row"}>
         <MUI.Button
-          href="/login"
+          component={Router.Link}
+          to="/user/login"
           sx={{
             sx: "14px",
             my: 2,
@@ -35,7 +37,8 @@ export default function UserIconNavigation() {
           Entre
         </MUI.Button>
         <MUI.Button
-          href="/userregister"
+          component={Router.Link}
+          to="/user/register"
           sx={{
             sx: "14px",
             my: 2,
