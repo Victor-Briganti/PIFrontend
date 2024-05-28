@@ -1,4 +1,5 @@
 import * as MUI from "@mui/material";
+import * as Router from "react-router-dom";
 import MenuNavigation from "../elements/navigation/MenuNavigation";
 import LinkBarNavigation from "../elements/navigation/MenuLinkBarNav";
 import UserIconNavigation from "../elements/navigation/UserIconNavigation";
@@ -15,7 +16,7 @@ export default function Header() {
     <MUI.AppBar color="primary">
       <MUI.Container maxWidth="xl">
         <MUI.Toolbar disableGutters>
-          <MUI.Button href="/">
+          <MUI.Button component={Router.Link} to={"/"}>
             <MUI.Box pr={2}>
               <img
                 src={"src/assets/logo.png"}

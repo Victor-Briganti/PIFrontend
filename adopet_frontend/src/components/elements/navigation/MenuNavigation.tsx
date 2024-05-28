@@ -1,5 +1,6 @@
 import * as React from "react";
 import * as MUI from "@mui/material";
+import * as Router from "react-router-dom";
 import MenuIcon from "@mui/icons-material/Menu";
 
 interface MenuNavigationProps {
@@ -59,11 +60,12 @@ export default function MenuNavigation({
           >
             <MUI.Link
               textAlign="center"
-              href={pageLinks[pages.indexOf(page)]}
               width={"100%"}
               sx={{ px: "14px" }}
               underline="none"
               color={"textPrimary"}
+              component={Router.Link}
+              to={pageLinks[pages.indexOf(page)]}
             >
               {page}
             </MUI.Link>
