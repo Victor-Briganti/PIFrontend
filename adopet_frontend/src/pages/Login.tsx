@@ -7,7 +7,6 @@ import FormLogin from "../components/forms/FormLogin";
 import FormLayout from "../components/layouts/FormLayout";
 import UserContext from "../hooks/UserContext";
 import { validatedEmail } from "../utils/Verification";
-import InterfaceUserCommon from "../models/interfaces/user/InterfaceUserCommon";
 
 // Instância axios para acessar o usuário
 const axiosUser = new AxiosUser();
@@ -42,7 +41,7 @@ export default function Login() {
           .login({ email: email, password: password })
           .then((response) => {
             console.log("Aqui");
-            user.setContext(response as InterfaceUserCommon);
+            user.setContext(response);
             navigate("/");
           })
           .catch((error) => {

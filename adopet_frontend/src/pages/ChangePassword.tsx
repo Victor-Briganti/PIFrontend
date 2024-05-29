@@ -1,8 +1,9 @@
 import * as React from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import * as Router from "react-router-dom";
 import AxiosUser from "../api/AxiosUser";
 import FormChangePassword from "../components/forms/FormChangePassword";
 import FormLayout from "../components/layouts/FormLayout";
+import UserContext from "../hooks/UserContext";
 import InterfaceUserCommon from "../models/interfaces/user/InterfaceUserCommon";
 
 export default function ChangePassword() {
@@ -13,9 +14,10 @@ export default function ChangePassword() {
   >(undefined);
   const [password, setPassword] = React.useState<string>("");
   const [confirmPassword, setConfirmPassword] = React.useState<string>("");
+  const user = React.useContext(UserContext);
   const axiosUser = new AxiosUser();
-  const navigate = useNavigate();
-  const location = useLocation();
+  const navigate = Router.useNavigate();
+  const location = Router.useLocation();
 
   React.useEffect(() => {
     if (location.state && location.state.user) {
@@ -82,6 +84,7 @@ export default function ChangePassword() {
     if (currentUser !== undefined && currentUser.id !== undefined) {
       try {
         axiosUser.changePassword({ id: currentUser.id, value: password });
+        user.setContext(null);
         navigate("/login");
       } catch (error) {
         setOpenModal(false);

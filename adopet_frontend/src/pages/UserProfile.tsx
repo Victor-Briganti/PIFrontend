@@ -1,42 +1,46 @@
 import * as React from "react";
-import { useNavigate } from "react-router-dom";
+import * as Router from "react-router-dom";
 import AxiosUser from "../api/AxiosUser";
 import PageDynamicLayout from "../components/layouts/PageDynamicLayout";
 import CardUser from "../components/elements/cards/CardUser";
 import InterfaceUser from "../models/interfaces/user/InterfaceUser";
-
-const axiosUser = new AxiosUser();
+import UserContext from "../hooks/UserContext";
 
 export default function UserProfile() {
-  const [user, setUser] = React.useState<InterfaceUser | undefined>(undefined);
+  const user = React.useContext(UserContext);
   const [messageError, setMessageError] = React.useState<string>("");
-  const navigate = useNavigate();
+  const axiosUser = React.useMemo(() => new AxiosUser(), []);
+  const navigate = Router.useNavigate();
 
   React.useEffect(() => {
-    axiosUser
-      .getUser()
-      .then((response: InterfaceUser) => setUser(response))
-      .catch((error) => {
-        setMessageError("Usuário não pode ser carregado");
-      });
-  }, []);
+    if (user.context === null) {
+      axiosUser
+        .getUser()
+        .then((response: InterfaceUser) => user.setContext(response.userCommon))
+        .catch((error) => {
+          setMessageError("Usuário não pode ser carregado");
+        });
+    }
+  }, [user, axiosUser]);
 
   const handleLogout = () => {
     axiosUser.logout();
+    user.setContext(null);
     navigate("/");
   };
 
-  if (
-    (user === undefined || user?.userCommon === undefined) &&
-    messageError !== ""
-  ) {
+  if (user.context === null && messageError !== "") {
     return (
       <div>
         <h1>{messageError}</h1>
       </div>
     );
-  } else if (!user) {
-    return <div>Carregando...</div>;
+  } else if (user.context === null) {
+    return (
+      <div>
+        <h1>Carregando...</h1>
+      </div>
+    );
   }
 
   return (
@@ -45,7 +49,7 @@ export default function UserProfile() {
       color="primary.contrastText"
       content={false}
     >
-      <CardUser userCommon={user.userCommon} handleLogout={handleLogout} />
+      <CardUser userCommon={user.context} handleLogout={handleLogout} />
     </PageDynamicLayout>
   );
 }

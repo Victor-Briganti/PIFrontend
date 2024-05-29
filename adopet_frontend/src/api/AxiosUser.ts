@@ -51,7 +51,7 @@ class AxiosUser extends SuperAxios<InterfaceUserCommon> {
     this.axiosUserMetadata = new AxiosUserMetadata();
   }
 
-  async login(data: LoginData): Promise<LoginData> {
+  async login(data: LoginData): Promise<InterfaceUserCommon> {
     return await this.post<LoginData>("login/", data);
   }
 
