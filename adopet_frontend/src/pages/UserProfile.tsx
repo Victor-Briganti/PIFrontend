@@ -23,11 +23,11 @@ export default function UserProfile() {
     }
   }, [user, axiosUser]);
 
-  const handleLogout = () => {
+  const handleLogout = React.useCallback(() => {
     axiosUser.logout();
     user.setContext(null);
     navigate("/");
-  };
+  }, [axiosUser, user, navigate]);
 
   if (user.context === null && messageError !== "") {
     return (

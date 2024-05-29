@@ -51,100 +51,149 @@ export default function RegisterAnimal({
     }
   }, [animalRef]);
 
-  const handleName = (
-    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => setName(event.target.value);
+  const handleName = React.useCallback(
+    (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+      setName(event.target.value),
+    [setName]
+  );
 
-  const handleWeight = (
-    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    if (event.target.value === "") {
-      setWeight(undefined);
-      return;
-    }
+  const handleWeight = React.useCallback(
+    (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+      if (event.target.value === "") {
+        setWeight(undefined);
+        return;
+      }
 
-    const weight = parseFloat(event.target.value);
-    if (isNaN(weight) || weight < 0) {
-      setMessageError("Valor do peso inválido");
-      return;
-    }
+      const weight = parseFloat(event.target.value);
+      if (isNaN(weight) || weight < 0) {
+        setMessageError("Valor do peso inválido");
+        return;
+      }
 
-    setMessageError("");
-    setWeight(weight);
-  };
-
-  const handleSpecie = (event: MUI.SelectChangeEvent) =>
-    setSpecie(event.target.value);
-
-  const handleGender = (event: MUI.SelectChangeEvent) =>
-    setGender(event.target.value);
-
-  const handleSize = (event: MUI.SelectChangeEvent) =>
-    setSize(event.target.value);
-
-  const handleAge = (event: MUI.SelectChangeEvent) =>
-    setAge(event.target.value);
-
-  const handleCoat = (event: MUI.SelectChangeEvent) =>
-    setCoat(event.target.value);
-
-  const handleDescription = (
-    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => setDescription(event.target.value);
-
-  const handleTemperament = (
-    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => setTemperament(event.target.value);
-
-  const handleHouseTrained = (event: React.ChangeEvent<Element>) => {
-    const target = event.target as HTMLInputElement;
-    setHouseTrained(target.checked);
-  };
-
-  const handleSpecialNeeds = (event: React.ChangeEvent<Element>) => {
-    const target = event.target as HTMLInputElement;
-    setSpecialNeeds(target.checked);
-  };
-
-  const handleVaccinated = (event: React.ChangeEvent<Element>) => {
-    const target = event.target as HTMLInputElement;
-    setVaccinated(target.checked);
-  };
-
-  const handleCastrated = (event: React.ChangeEvent<Element>) => {
-    const target = event.target as HTMLInputElement;
-    setCastrated(target.checked);
-  };
-
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
-    const animal = {
-      name: name,
-      age: age,
-      size: size,
-      gender: gender,
-      specie: specie,
-      coat: coat,
-      weight: weight,
-      description: description,
-      temperament: temperament,
-      is_house_trained: isHouseTrained,
-      is_special_needs: isSpecialNeeds,
-      is_vaccinated: isVaccinated,
-      is_castrated: isCastrated,
-      is_adopted: false,
-      is_active: true,
-    } as InterfaceAnimal;
-
-    try {
-      const response = await axiosAnimal.registerAnimal(animal);
       setMessageError("");
-      handleRegisterStep(response);
-    } catch (error) {
-      setMessageError(error.message);
-    }
-  };
+      setWeight(weight);
+    },
+    [setWeight, setMessageError]
+  );
+
+  const handleSpecie = React.useCallback(
+    (event: MUI.SelectChangeEvent) => setSpecie(event.target.value),
+    [setSpecie]
+  );
+
+  const handleGender = React.useCallback(
+    (event: MUI.SelectChangeEvent) => setGender(event.target.value),
+    [setGender]
+  );
+
+  const handleSize = React.useCallback(
+    (event: MUI.SelectChangeEvent) => setSize(event.target.value),
+    [setSize]
+  );
+
+  const handleAge = React.useCallback(
+    (event: MUI.SelectChangeEvent) => setAge(event.target.value),
+    [setAge]
+  );
+
+  const handleCoat = React.useCallback(
+    (event: MUI.SelectChangeEvent) => setCoat(event.target.value),
+    [setCoat]
+  );
+
+  const handleDescription = React.useCallback(
+    (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+      setDescription(event.target.value),
+    [setDescription]
+  );
+
+  const handleTemperament = React.useCallback(
+    (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+      setTemperament(event.target.value),
+    [setTemperament]
+  );
+
+  const handleHouseTrained = React.useCallback(
+    (event: React.ChangeEvent<Element>) => {
+      const target = event.target as HTMLInputElement;
+      setHouseTrained(target.checked);
+    },
+    [setHouseTrained]
+  );
+
+  const handleSpecialNeeds = React.useCallback(
+    (event: React.ChangeEvent<Element>) => {
+      const target = event.target as HTMLInputElement;
+      setSpecialNeeds(target.checked);
+    },
+    [setSpecialNeeds]
+  );
+
+  const handleVaccinated = React.useCallback(
+    (event: React.ChangeEvent<Element>) => {
+      const target = event.target as HTMLInputElement;
+      setVaccinated(target.checked);
+    },
+    [setVaccinated]
+  );
+
+  const handleCastrated = React.useCallback(
+    (event: React.ChangeEvent<Element>) => {
+      const target = event.target as HTMLInputElement;
+      setCastrated(target.checked);
+    },
+    [setCastrated]
+  );
+
+  const handleSubmit = React.useCallback(
+    async (event: React.FormEvent<HTMLFormElement>) => {
+      event.preventDefault();
+
+      const animal = {
+        name: name,
+        age: age,
+        size: size,
+        gender: gender,
+        specie: specie,
+        coat: coat,
+        weight: weight,
+        description: description,
+        temperament: temperament,
+        is_house_trained: isHouseTrained,
+        is_special_needs: isSpecialNeeds,
+        is_vaccinated: isVaccinated,
+        is_castrated: isCastrated,
+        is_adopted: false,
+        is_active: true,
+      } as InterfaceAnimal;
+
+      try {
+        const response = await axiosAnimal.registerAnimal(animal);
+        setMessageError("");
+        handleRegisterStep(response);
+      } catch (error) {
+        setMessageError(error.message);
+      }
+    },
+    [
+      name,
+      age,
+      size,
+      gender,
+      specie,
+      coat,
+      weight,
+      description,
+      temperament,
+      isHouseTrained,
+      isSpecialNeeds,
+      isVaccinated,
+      isCastrated,
+      axiosAnimal,
+      handleRegisterStep,
+      setMessageError,
+    ]
+  );
 
   return (
     <FormAnimal

@@ -39,13 +39,13 @@ export default function CardAnimal({ animal }: CardAnimalProps) {
     }
   }, [animal, axiosAnimal]);
 
-  const handleClick = () => {
+  const handleClick = React.useCallback(() => {
     try {
       navigate(`/animal/${animal.id}`);
     } catch (error) {
       console.log("error");
     }
-  };
+  }, [animal, navigate]);
 
   if (imageUrl === "") {
     return;

@@ -18,12 +18,12 @@ export default function UserRegister() {
   const addressRef = React.useRef<number | undefined>(undefined);
   const navigate = useNavigate();
 
-  const handleUserCommonStep = (user: number | undefined) => {
+  const handleUserCommonStep = React.useCallback((user: number | undefined) => {
     userCommonRef.current = user;
     setStep(RegisterStep.address);
-  };
+  }, []);
 
-  const handleAddressStep = (address: number | undefined) => {
+  const handleAddressStep = React.useCallback((address: number | undefined) => {
     if (address !== undefined) {
       addressRef.current = address;
       setStep(RegisterStep.metadata);
@@ -31,9 +31,12 @@ export default function UserRegister() {
     }
 
     setMessageError("Não foi possível cadastrar endereço");
-  };
+  }, []);
 
-  const handleUserMetadataStep = () => navigate("/");
+  const handleUserMetadataStep = React.useCallback(
+    () => navigate("/"),
+    [navigate]
+  );
 
   return (
     <FormLayout>

@@ -11,22 +11,6 @@ export default function GridAnimal() {
   const [totalPages, setTotalPages] = React.useState<number>(1);
   const axiosAnimal = React.useMemo(() => new AxiosAnimal(), []);
 
-  const handlePageChange = (
-    event: React.ChangeEvent<unknown>,
-    value: number
-  ) => {
-    event.preventDefault();
-    axiosAnimal
-      .listAnimals(value)
-      .then((response) => {
-        setAnimals(response.results);
-        setPage(value);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  };
-
   React.useEffect(() => {
     axiosAnimal
       .listAnimals()
@@ -38,6 +22,22 @@ export default function GridAnimal() {
         console.error(error);
       });
   }, [axiosAnimal]);
+
+  const handlePageChange = React.useCallback(
+    (event: React.ChangeEvent<unknown>, value: number) => {
+      event.preventDefault();
+      axiosAnimal
+        .listAnimals(value)
+        .then((response) => {
+          setAnimals(response.results);
+          setPage(value);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    },
+    [axiosAnimal]
+  );
 
   if (!animals) {
     return (

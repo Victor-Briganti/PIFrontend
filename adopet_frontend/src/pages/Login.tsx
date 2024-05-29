@@ -14,8 +14,8 @@ export default function Login() {
   const navigate = Router.useNavigate();
   const axiosUser = React.useMemo(() => new AxiosUser(), []);
 
-  const useHandleSubmit = () => {
-    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = React.useCallback(() => {
+    const loginSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
       // Intercepta a submissão do formulário pelo navegador
       event.preventDefault();
 
@@ -49,10 +49,8 @@ export default function Login() {
       }
     };
 
-    return handleSubmit;
-  };
-
-  const handleSubmit = useHandleSubmit();
+    return loginSubmit;
+  }, [axiosUser, user, navigate]);
 
   return (
     <FormLayout>

@@ -15,7 +15,6 @@ export default function ChangePassword() {
   const [password, setPassword] = React.useState<string>("");
   const [confirmPassword, setConfirmPassword] = React.useState<string>("");
   const user = React.useContext(UserContext);
-  const axiosUser = new AxiosUser();
   const navigate = Router.useNavigate();
   const location = Router.useLocation();
 
@@ -25,62 +24,69 @@ export default function ChangePassword() {
     }
   }, [location]);
 
-  const handlePassword = (
-    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    if (openModal === false) {
-      setMessageError("");
-      setPassword(event.target.value);
-    }
-  };
+  const handlePassword = React.useCallback(
+    (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+      if (openModal === false) {
+        setMessageError("");
+        setPassword(event.target.value);
+      }
+    },
+    [openModal]
+  );
 
-  const handleConfirmPassword = (
-    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    if (openModal === false) {
-      const value = event.target.value;
+  const handleConfirmPassword = React.useCallback(
+    (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+      if (openModal === false) {
+        const value = event.target.value;
 
-      if (value !== undefined) {
-        if (
-          value.length > password.length ||
-          (value.length === password.length && value !== password)
-        ) {
-          setMessageError("Senhas não coincidem");
-          setConfirmPassword(value);
-          return;
+        if (value !== undefined) {
+          if (
+            value.length > password.length ||
+            (value.length === password.length && value !== password)
+          ) {
+            setMessageError("Senhas não coincidem");
+            setConfirmPassword(value);
+            return;
+          }
         }
+
+        setMessageError("");
+        setConfirmPassword(value);
+      }
+    },
+    [openModal, password]
+  );
+
+  const handleSubmit = React.useCallback(
+    (event: React.FormEvent<HTMLFormElement>) => {
+      event.preventDefault();
+
+      setMessageError("");
+
+      if (password === "" || confirmPassword === "") {
+        setMessageError("Senha não pode ser vazia");
+        return;
       }
 
-      setMessageError("");
-      setConfirmPassword(value);
-    }
-  };
+      if (password !== confirmPassword) {
+        setMessageError("Senhas não coincidem");
+        return;
+      }
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+      if (currentUser !== undefined && currentUser.id !== undefined) {
+        setOpenModal(true);
+        return;
+      }
 
-    setMessageError("");
-
-    if (password === "" || confirmPassword === "") {
-      setMessageError("Senha não pode ser vazia");
+      setMessageError("Usuário não encontrado");
       return;
-    }
+    },
+    [currentUser, password, confirmPassword]
+  );
 
-    if (password !== confirmPassword) {
-      setMessageError("Senhas não coincidem");
-      return;
-    }
+  const handleConfirmModal = React.useCallback(() => {
+    const axiosUser = new AxiosUser();
 
-    if (currentUser !== undefined && currentUser.id !== undefined) {
-      setOpenModal(true);
-      return;
-    }
-
-    setMessageError("Usuário não encontrado");
-    return;
-  };
-
-  const handleConfirmModal = () => {
     if (currentUser !== undefined && currentUser.id !== undefined) {
       try {
         axiosUser.changePassword({ id: currentUser.id, value: password });
@@ -95,14 +101,13 @@ export default function ChangePassword() {
 
     setOpenModal(false);
     setMessageError("Usuário não encontrado");
-    return;
-  };
+  }, [currentUser, password, user, navigate]);
 
-  const handleCloseModal = () => {
+  const handleCloseModal = React.useCallback(() => {
     setPassword("");
     setConfirmPassword("");
     setOpenModal(false);
-  };
+  }, []);
 
   if (currentUser === undefined) {
     return <h1>Faça login para acessar.</h1>;

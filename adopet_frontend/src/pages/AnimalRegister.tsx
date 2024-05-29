@@ -11,41 +11,46 @@ export default function AnimalRegister() {
   const [messageError, setMessageError] = React.useState<string>("");
   const [registerStep, setRegisterStep] = React.useState<boolean>(true);
   const animalRef = React.useRef<InterfaceAnimal | null>(null);
-  const axiosAnimal = React.useMemo(() => new AxiosAnimal(), []);
   const navigate = Router.useNavigate();
 
-  const handleRegisterStep = (newAnimal: InterfaceAnimal) => {
+  const handleRegisterStep = React.useCallback((newAnimal: InterfaceAnimal) => {
     animalRef.current = newAnimal;
     setRegisterStep(false);
-  };
+  }, []);
 
-  const handleUploadStep = async (animalImages: InterfaceAnimalImageFile[]) => {
-    let hasImages = false;
-    if (animalRef && animalRef.current) {
-      const animal = animalRef.current;
+  const handleUploadStep = React.useCallback(
+    async (animalImages: InterfaceAnimalImageFile[]) => {
+      const axiosAnimal = new AxiosAnimal();
+      let hasImages = false;
 
-      if (animal && animal.id) {
-        for (let i = 0; i < animalImages.length; i++) {
-          const image = animalImages[i];
-          image.animal = animal.id;
-          console.log("Aqui");
-          axiosAnimal.uploadImage(image).catch((error) => {
-            setMessageError("Erro ao enviar imagem");
-            return;
-          });
-          hasImages = true;
+      if (animalRef && animalRef.current) {
+        const animal = animalRef.current;
+
+        if (animal && animal.id) {
+          for (let i = 0; i < animalImages.length; i++) {
+            const image = animalImages[i];
+            image.animal = animal.id;
+            console.log("Aqui");
+            axiosAnimal.uploadImage(image).catch((error) => {
+              setMessageError("Erro ao enviar imagem");
+              return;
+            });
+            hasImages = true;
+          }
+
+          if (hasImages === false) {
+            animal.is_active = false;
+            axiosAnimal.updateAnimal(animal);
+          }
+
+          navigate("/");
+          return;
         }
-
-        if (hasImages === false) {
-          animal.is_active = false;
-          axiosAnimal.updateAnimal(animal);
-        }
-
-        navigate("/");
       }
-    }
-    setMessageError("Animal inexistente");
-  };
+      setMessageError("Animal inexistente");
+    },
+    [animalRef, navigate]
+  );
 
   return (
     <FormLayout>

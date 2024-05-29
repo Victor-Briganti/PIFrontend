@@ -82,71 +82,80 @@ export default function RegisterUserCommon({
     setAvatar(undefined);
   };
 
-  const handleFirstname = (
-    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => setFirstname(event.target.value);
+  const handleFirstname = React.useCallback(
+    (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+      setFirstname(event.target.value),
+    [setFirstname]
+  );
 
-  const handleLastname = (
-    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => setLastname(event.target.value);
+  const handleLastname = React.useCallback(
+    (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+      setLastname(event.target.value),
+    [setLastname]
+  );
 
-  const handleEmail = (
-    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => setEmail(event.target.value);
+  const handleEmail = React.useCallback(
+    (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+      setEmail(event.target.value),
+    [setEmail]
+  );
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  const handleSubmit = React.useCallback(
+    async (event: React.FormEvent<HTMLFormElement>) => {
+      event.preventDefault();
 
-    const formData = new FormData(event.currentTarget);
-    const email = formData.get("email")?.toString() ?? "";
-    const firstname = formData.get("firstname")?.toString() ?? "";
-    const lastname = formData.get("lastname")?.toString() ?? "";
-    const password = formData.get("password")?.toString() ?? "";
-    const confirmPassword = formData.get("confirmPassword")?.toString() ?? "";
+      const formData = new FormData(event.currentTarget);
+      const email = formData.get("email")?.toString() ?? "";
+      const firstname = formData.get("firstname")?.toString() ?? "";
+      const lastname = formData.get("lastname")?.toString() ?? "";
+      const password = formData.get("password")?.toString() ?? "";
+      const confirmPassword = formData.get("confirmPassword")?.toString() ?? "";
 
-    if (validatedString(firstname, 100) === false) {
-      setMessageError("Primeiro nome inválido");
-      return;
-    }
+      if (validatedString(firstname, 100) === false) {
+        setMessageError("Primeiro nome inválido");
+        return;
+      }
 
-    if (validatedString(lastname, 100) === false) {
-      setMessageError("Último nome inválido");
-      return;
-    }
+      if (validatedString(lastname, 100) === false) {
+        setMessageError("Último nome inválido");
+        return;
+      }
 
-    if (validatedEmail(email) === false) {
-      setMessageError("Email inválido");
-      return;
-    }
+      if (validatedEmail(email) === false) {
+        setMessageError("Email inválido");
+        return;
+      }
 
-    if (password === "" || password.length < 8) {
-      setMessageError("Senha inválida");
-      return;
-    }
+      if (password === "" || password.length < 8) {
+        setMessageError("Senha inválida");
+        return;
+      }
 
-    if (confirmPassword !== password) {
-      setMessageError("Senhas não coincidem");
-      return;
-    }
-    setMessageError("");
+      if (confirmPassword !== password) {
+        setMessageError("Senhas não coincidem");
+        return;
+      }
+      setMessageError("");
 
-    const user = {
-      email: email,
-      firstname: firstname,
-      lastname: lastname,
-      password: password,
-      is_superuser: false,
-      avatar: avatar,
-      is_staff: false,
-    } as InterfaceUserCommon;
+      const user = {
+        email: email,
+        firstname: firstname,
+        lastname: lastname,
+        password: password,
+        is_superuser: false,
+        avatar: avatar,
+        is_staff: false,
+      } as InterfaceUserCommon;
 
-    try {
-      const response = await axiosUser.registerUser(user);
-      handleRegisterStep(response.id);
-    } catch (error) {
-      setMessageError("Não foi possível cadastrar o usuário");
-    }
-  };
+      try {
+        const response = await axiosUser.registerUser(user);
+        handleRegisterStep(response.id);
+      } catch (error) {
+        setMessageError("Não foi possível cadastrar o usuário");
+      }
+    },
+    [setMessageError, handleRegisterStep, axiosUser, avatar]
+  );
 
   return (
     <FormUserCommon

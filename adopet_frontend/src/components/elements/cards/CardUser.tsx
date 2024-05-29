@@ -1,4 +1,5 @@
 import * as MUI from "@mui/material";
+import * as React from "react";
 import { useNavigate } from "react-router-dom";
 import InterfaceUserCommon from "../../../models/interfaces/user/InterfaceUserCommon";
 
@@ -10,15 +11,15 @@ interface CardUserProps {
 export default function CardUser({ userCommon, handleLogout }: CardUserProps) {
   const navigate = useNavigate();
 
-  const handleRegisterAnimal = () => {
+  const handleRegisterAnimal = React.useCallback(() => {
     navigate("/animalregister");
-  };
+  }, [navigate]);
 
-  const handleChangePassword = () => {
+  const handleChangePassword = React.useCallback(() => {
     navigate("/changepassword", {
       state: { user: userCommon },
     });
-  };
+  }, [navigate, userCommon]);
 
   return (
     <MUI.Box flexGrow={1} sx={{ paddingBottom: 10, paddingTop: 20 }}>
