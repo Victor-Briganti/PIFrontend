@@ -1,19 +1,21 @@
-import * as React from "react";
 import * as MUI from "@mui/material";
+import * as React from "react";
 import * as Router from "react-router-dom";
-import CopyRight from "../components/CopyRight";
 import AxiosUser from "../api/AxiosUser";
-import { useNavigate } from "react-router-dom";
-import { validatedEmail } from "../utils/Verification";
-import FormLayout from "../components/layouts/FormLayout";
+import CopyRight from "../components/CopyRight";
 import FormLogin from "../components/forms/FormLogin";
+import FormLayout from "../components/layouts/FormLayout";
+import UserContext from "../hooks/UserContext";
+import { validatedEmail } from "../utils/Verification";
+import InterfaceUserCommon from "../models/interfaces/user/InterfaceUserCommon";
 
 // Instância axios para acessar o usuário
 const axiosUser = new AxiosUser();
 
 export default function Login() {
   const [messageError, setmessageError] = React.useState<string>("");
-  const navigate = useNavigate();
+  const user = React.useContext(UserContext);
+  const navigate = Router.useNavigate();
 
   const useHandleSubmit = () => {
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -39,11 +41,13 @@ export default function Login() {
         axiosUser
           .login({ email: email, password: password })
           .then((response) => {
+            console.log("Aqui");
+            user.setContext(response as InterfaceUserCommon);
             navigate("/");
-            window.location.reload();
           })
           .catch((error) => {
             setmessageError("Email ou senha inválidos");
+            return;
           });
       } else {
         setmessageError("Campos obrigatórios");

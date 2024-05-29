@@ -1,25 +1,25 @@
 import * as MUI from "@mui/material";
 import * as React from "react";
 import * as Router from "react-router-dom";
+import UserAvatar from "../avatars/UserAvatar";
+import UserContext from "../../../hooks/UserContext";
 import AxiosUser from "../../../api/AxiosUser";
 import InterfaceUserCommon from "../../../models/interfaces/user/InterfaceUserCommon";
-import UserAvatar from "../avatars/UserAvatar";
-
-const axiosUser = new AxiosUser();
 
 export default function UserIconNavigation() {
-  const [user, setUser] = React.useState<InterfaceUserCommon | undefined>(
-    undefined
-  );
+  const axiosUser = new AxiosUser();
+  const user = React.useContext(UserContext);
 
   React.useEffect(() => {
-    axiosUser.getUserCommon().then((data: InterfaceUserCommon) => {
-      setUser(data);
-    });
-  }, []);
+    if (user.context === null) {
+      axiosUser.getUserCommon().then((data: InterfaceUserCommon) => {
+        user.setContext(data);
+      });
+    }
+  });
 
-  return user ? (
-    <UserAvatar user={user} />
+  return user.context ? (
+    <UserAvatar user={user.context} />
   ) : (
     <React.Fragment>
       <MUI.Box display={"flex"} flexDirection={"row"}>
