@@ -15,9 +15,6 @@ interface RegisterAddressProps {
   handleRegisterStep: (address: number | undefined) => void;
 }
 
-const axiosViaCep = new AxiosViaCep();
-const axiosAddress = new AxiosAddress();
-
 export default function RegisterAddress({
   messageError,
   setMessageError,
@@ -31,6 +28,8 @@ export default function RegisterAddress({
   const [complement, setComplement] = React.useState<string>("");
   const [houseNumber, setHouseNumber] = React.useState<string>("");
   const [readOnly, setReadOnly] = React.useState<boolean>(false);
+  const axiosViaCep = React.useMemo(() => new AxiosViaCep(), []);
+  const axiosAddress = React.useMemo(() => new AxiosAddress(), []);
 
   const handleCep = React.useCallback(
     async (
@@ -73,6 +72,7 @@ export default function RegisterAddress({
       setUf,
       setReadOnly,
       setMessageError,
+      axiosViaCep,
     ]
   );
 

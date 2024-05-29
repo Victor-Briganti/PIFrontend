@@ -10,8 +10,6 @@ interface RegisterUserCommonProps {
   handleRegisterStep: (user: number | undefined) => void;
 }
 
-const axiosUser = new AxiosUser();
-
 export default function RegisterUserCommon({
   messageError,
   setMessageError,
@@ -24,6 +22,7 @@ export default function RegisterUserCommon({
   const [lastname, setLastname] = React.useState<string>("");
   const [email, setEmail] = React.useState<string>("");
   const [avatar, setAvatar] = React.useState<File | undefined>();
+  const axiosUser = React.useMemo(() => new AxiosUser(), []);
 
   const handleFileChange = React.useCallback(
     (file: File) => {

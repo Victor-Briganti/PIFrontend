@@ -9,12 +9,12 @@ interface DescriptionAnimalProps {
   animal: InterfaceAnimal;
 }
 
-const axiosAnimal = new AxiosAnimal();
-
 export default function DescriptionAnimal({ animal }: DescriptionAnimalProps) {
   const [imageAnimals, setImagesAnimal] = React.useState<string[]>([]);
 
   React.useEffect(() => {
+    const axiosAnimal = new AxiosAnimal();
+
     if (animal.id !== undefined) {
       axiosAnimal
         .listImageById(animal.id)

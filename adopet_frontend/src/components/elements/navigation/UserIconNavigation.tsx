@@ -7,7 +7,7 @@ import AxiosUser from "../../../api/AxiosUser";
 import InterfaceUserCommon from "../../../models/interfaces/user/InterfaceUserCommon";
 
 export default function UserIconNavigation() {
-  const axiosUser = new AxiosUser();
+  const axiosUser = React.useMemo(() => new AxiosUser(), []);
   const user = React.useContext(UserContext);
 
   React.useEffect(() => {

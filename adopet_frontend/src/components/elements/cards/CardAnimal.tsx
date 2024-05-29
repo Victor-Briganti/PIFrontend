@@ -1,19 +1,18 @@
 import * as MUI from "@mui/material";
 import * as React from "react";
+import * as Router from "react-router-dom";
 import InterfaceAnimal from "../../../models/interfaces/animal/InterfaceAnimal";
-import { useNavigate } from "react-router-dom";
 import AxiosAnimal from "../../../api/AxiosAnimal";
 
 interface CardAnimalProps {
   animal: InterfaceAnimal;
 }
 
-const axiosAnimal = new AxiosAnimal();
-
 export default function CardAnimal({ animal }: CardAnimalProps) {
   const [imageUrl, setImageUrl] = React.useState<string>("");
   const [description, setDescription] = React.useState<string>("");
-  const navigate = useNavigate();
+  const axiosAnimal = React.useMemo(() => new AxiosAnimal(), []);
+  const navigate = Router.useNavigate();
 
   React.useEffect(() => {
     const animalId = animal.id;
@@ -38,7 +37,7 @@ export default function CardAnimal({ animal }: CardAnimalProps) {
     if (animalDesc !== undefined) {
       setDescription(animalDesc);
     }
-  }, [animal]);
+  }, [animal, axiosAnimal]);
 
   const handleClick = () => {
     try {

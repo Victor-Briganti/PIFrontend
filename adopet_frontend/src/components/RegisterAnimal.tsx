@@ -11,8 +11,6 @@ interface RegisterAnimalProps {
   handleRegisterStep: (animal: InterfaceAnimal) => void;
 }
 
-const axiosAnimal = new AxiosAnimal();
-
 export default function RegisterAnimal({
   messageError,
   setMessageError,
@@ -32,6 +30,7 @@ export default function RegisterAnimal({
   const [isSpecialNeeds, setSpecialNeeds] = React.useState<boolean>(false);
   const [isVaccinated, setVaccinated] = React.useState<boolean>(false);
   const [isCastrated, setCastrated] = React.useState<boolean>(false);
+  const axiosAnimal = React.useMemo(() => new AxiosAnimal(), []);
 
   React.useEffect(() => {
     if (animalRef && animalRef.current) {

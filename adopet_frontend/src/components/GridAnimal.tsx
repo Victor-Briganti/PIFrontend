@@ -5,17 +5,17 @@ import AxiosAnimal from "../api/AxiosAnimal";
 import CardAnimal from "./elements/cards/CardAnimal";
 import PageNumber from "./elements/PageNumber";
 
-const axiosAnimal = new AxiosAnimal();
-
 export default function GridAnimal() {
   const [animals, setAnimals] = React.useState([]);
   const [page, setPage] = React.useState<number>(1);
   const [totalPages, setTotalPages] = React.useState<number>(1);
+  const axiosAnimal = React.useMemo(() => new AxiosAnimal(), []);
 
   const handlePageChange = (
     event: React.ChangeEvent<unknown>,
     value: number
   ) => {
+    event.preventDefault();
     axiosAnimal
       .listAnimals(value)
       .then((response) => {
@@ -37,7 +37,7 @@ export default function GridAnimal() {
       .catch((error) => {
         console.error(error);
       });
-  }, []);
+  }, [axiosAnimal]);
 
   if (!animals) {
     return (

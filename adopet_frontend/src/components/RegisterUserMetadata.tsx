@@ -11,7 +11,6 @@ interface RegisterUserMetadataProps {
   setMessageError: React.Dispatch<React.SetStateAction<string>>;
   handleRegisterStep: () => void;
 }
-const axiosUser = new AxiosUser();
 
 export default function RegisterUserMetadata({
   user,
@@ -23,6 +22,7 @@ export default function RegisterUserMetadata({
   const [cpf, setCpf] = React.useState<string>("");
   const [birthdate, setBirthdate] = React.useState<Date | undefined>(undefined);
   const [phone, setPhone] = React.useState<string>("");
+  const axiosUser = React.useMemo(() => new AxiosUser(), []);
 
   const handleCpf = React.useCallback(
     (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {

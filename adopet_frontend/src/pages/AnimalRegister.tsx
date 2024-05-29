@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useNavigate } from "react-router-dom";
+import * as Router from "react-router-dom";
 import AxiosAnimal from "../api/AxiosAnimal";
 import RegisterAnimal from "../components/RegisterAnimal";
 import AnimalImageUpload from "../components/UploadAnimalImage";
@@ -7,13 +7,12 @@ import FormLayout from "../components/layouts/FormLayout";
 import InterfaceAnimal from "../models/interfaces/animal/InterfaceAnimal";
 import { InterfaceAnimalImageFile } from "../models/interfaces/animal/InterfaceAnimalImage";
 
-const axiosAnimal = new AxiosAnimal();
-
 export default function AnimalRegister() {
   const [messageError, setMessageError] = React.useState<string>("");
   const [registerStep, setRegisterStep] = React.useState<boolean>(true);
   const animalRef = React.useRef<InterfaceAnimal | null>(null);
-  const navigate = useNavigate();
+  const axiosAnimal = React.useMemo(() => new AxiosAnimal(), []);
+  const navigate = Router.useNavigate();
 
   const handleRegisterStep = (newAnimal: InterfaceAnimal) => {
     animalRef.current = newAnimal;

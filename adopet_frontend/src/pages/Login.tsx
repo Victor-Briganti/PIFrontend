@@ -8,13 +8,11 @@ import FormLayout from "../components/layouts/FormLayout";
 import UserContext from "../hooks/UserContext";
 import { validatedEmail } from "../utils/Verification";
 
-// Instância axios para acessar o usuário
-const axiosUser = new AxiosUser();
-
 export default function Login() {
   const [messageError, setmessageError] = React.useState<string>("");
   const user = React.useContext(UserContext);
   const navigate = Router.useNavigate();
+  const axiosUser = React.useMemo(() => new AxiosUser(), []);
 
   const useHandleSubmit = () => {
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
