@@ -1,11 +1,21 @@
 import * as MUI from "@mui/material";
+import * as React from "react";
 import InterfaceAnimal from "../../models/interfaces/animal/InterfaceAnimal";
+import UserContext from "../../hooks/UserContext";
 
 interface InfoAnimalProps {
   animal: InterfaceAnimal;
 }
 
 export default function InfoAnimal({ animal }: InfoAnimalProps) {
+  const user = React.useContext(UserContext);
+
+  React.useEffect(() => {
+    if (user.context !== null) console.log(`User: ${user.context.id}`);
+
+    console.log(`Animal: ${animal.donor}`);
+  }, [user, animal]);
+
   return (
     <MUI.Box>
       <MUI.Typography variant="h4">{animal.name}</MUI.Typography>
@@ -15,21 +25,30 @@ export default function InfoAnimal({ animal }: InfoAnimalProps) {
 
           <MUI.Box component={"ul"} textAlign={"start"} sx={{ pl: 16 }}>
             <MUI.Typography>Idade: {animal.age}</MUI.Typography>
+
             <MUI.Typography>Espécie: {animal.specie}</MUI.Typography>
+
             <MUI.Typography>Genêro: {animal.gender}</MUI.Typography>
+
             <MUI.Typography>Tamanho: {animal.size}</MUI.Typography>
+
             <MUI.Typography>Pelagem: {animal.coat}</MUI.Typography>
+
             <MUI.Typography>Peso: {animal.weight?.toString()}</MUI.Typography>
+
             <MUI.Typography>
               Treinado: {animal.is_house_trained ? "Sim" : "Não"}
             </MUI.Typography>
+
             <MUI.Typography>
               Precisa de cuidados Especiais:{" "}
               {animal.is_special_needs ? "Sim" : "Não"}
             </MUI.Typography>
+
             <MUI.Typography>
               Castrado: {animal.is_castrated ? "Sim" : "Não"}
             </MUI.Typography>
+
             <MUI.Typography>
               Vacinado: {animal.is_vaccinated ? "Sim" : "Não"}
             </MUI.Typography>
@@ -45,6 +64,40 @@ export default function InfoAnimal({ animal }: InfoAnimalProps) {
             <MUI.Box textAlign={"center"}>
               <MUI.Typography>{animal.description}</MUI.Typography>
             </MUI.Box>
+          )}
+        </MUI.Grid>
+        <MUI.Grid item xs={6}>
+          {user.context !== null && user.context.id === animal.donor ? (
+            <React.Fragment>
+              <MUI.Button
+                variant="contained"
+                color="primary"
+                onClick={() => {
+                  console.log("Editar");
+                }}
+              >
+                Editar
+              </MUI.Button>
+              <MUI.Button
+                variant="contained"
+                color="error"
+                onClick={() => {
+                  console.log("Excluir");
+                }}
+              >
+                Excluir
+              </MUI.Button>
+            </React.Fragment>
+          ) : (
+            <MUI.Button
+              color="primary"
+              variant="contained"
+              onClick={() => {
+                console.log("Achei");
+              }}
+            >
+              Adotar
+            </MUI.Button>
           )}
         </MUI.Grid>
       </MUI.Grid>

@@ -9,7 +9,7 @@ import UserContext from "../hooks/UserContext";
 import { validatedEmail } from "../utils/Verification";
 
 export default function Login() {
-  const [messageError, setmessageError] = React.useState<string>("");
+  const [messageError, setMessageError] = React.useState<string>("");
   const user = React.useContext(UserContext);
   const navigate = Router.useNavigate();
   const axiosUser = React.useMemo(() => new AxiosUser(), []);
@@ -25,29 +25,26 @@ export default function Login() {
 
       if (email !== undefined && password !== undefined) {
         if (validatedEmail(email) === false) {
-          setmessageError("Email inválido");
+          setMessageError("Email inválido");
           return;
         }
 
         if (password === "" || password.length < 8) {
-          setmessageError("Senha inválida");
+          setMessageError("Senha inválida");
           return;
         }
 
-        setmessageError("");
-        axiosUser
-          .login({ email: email, password: password })
-          .then((response) => {
-            console.log("Aqui");
-            user.setContext(response);
-            navigate("/");
-          })
-          .catch((error) => {
-            setmessageError("Email ou senha inválidos");
-            return;
-          });
+        setMessageError("");
+        try {
+          await axiosUser.login({ email: email, password: password });
+          const response = await axiosUser.getUser();
+          user.setContext(response.userCommon);
+          navigate("/");
+        } catch (error) {
+          setMessageError("Email ou senha inválidos");
+        }
       } else {
-        setmessageError("Campos obrigatórios");
+        setMessageError("Campos obrigatórios");
         return;
       }
     };

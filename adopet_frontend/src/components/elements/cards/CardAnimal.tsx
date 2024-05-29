@@ -41,9 +41,7 @@ export default function CardAnimal({ animal }: CardAnimalProps) {
 
   const handleClick = () => {
     try {
-      navigate("/animalprofile", {
-        state: { animal: animal },
-      });
+      navigate(`/animal/${animal.id}`);
     } catch (error) {
       console.log("error");
     }
