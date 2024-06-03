@@ -44,7 +44,11 @@ export function validatedUpdateAdoption(
     throw new Error("Status de adoção não pode ser indefinido");
   }
 
-  adoption.request_status = statusMap.getValueByKey(adoption.request_status);
+  const status = statusMap.getValueByKey(adoption.request_status);
+  if (status === undefined) {
+    throw new Error("Status não pode ser definido");
+  }
 
+  adoption.request_status = status;
   return adoption;
 }

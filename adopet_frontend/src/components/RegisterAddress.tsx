@@ -52,11 +52,17 @@ export default function RegisterAddress({
       if (cep.length === 8) {
         try {
           const response = await axiosViaCep.get(cep);
+          const uf = stateMap.getValueByKey(response.uf);
+          if (uf === undefined) {
+            setMessageError("Estado não pode ser definido");
+            return;
+          }
+
           setCity(response.localidade);
           setDistrict(response.bairro);
           setStreet(response.logradouro);
           setComplement(response.complemento);
-          setUf(stateMap.getValueByKey(response.uf));
+          setUf(uf);
           setReadOnly(true);
         } catch (error) {
           setMessageError("Não foi possível encontrar este CEP");

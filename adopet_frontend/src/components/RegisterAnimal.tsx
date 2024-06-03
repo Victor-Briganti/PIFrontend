@@ -7,14 +7,14 @@ import AxiosAnimal from "../api/AxiosAnimal";
 interface RegisterAnimalProps {
   messageError: string;
   setMessageError: React.Dispatch<React.SetStateAction<string>>;
-  animalRef: React.MutableRefObject<InterfaceAnimal | null>;
+  animal: InterfaceAnimal;
   handleRegisterStep: (animal: InterfaceAnimal) => void;
 }
 
 export default function RegisterAnimal({
   messageError,
   setMessageError,
-  animalRef,
+  animal,
   handleRegisterStep,
 }: RegisterAnimalProps) {
   const [name, setName] = React.useState<string>("");
@@ -33,8 +33,7 @@ export default function RegisterAnimal({
   const axiosAnimal = React.useMemo(() => new AxiosAnimal(), []);
 
   React.useEffect(() => {
-    if (animalRef && animalRef.current) {
-      const animal = animalRef.current;
+    if (animal) {
       setName(animal.name);
       setWeight(animal.weight);
       setSpecie(animal.specie);
@@ -49,7 +48,7 @@ export default function RegisterAnimal({
       setVaccinated(animal.is_vaccinated ?? false);
       setCoat(animal.coat ?? "");
     }
-  }, [animalRef]);
+  }, [animal]);
 
   const handleName = React.useCallback(
     (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>

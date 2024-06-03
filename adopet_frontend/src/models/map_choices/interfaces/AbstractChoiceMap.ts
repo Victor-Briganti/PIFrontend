@@ -5,24 +5,18 @@ export default class AbstractChoiceMap {
     this.values = values;
   }
 
-  getValueByKey(key: string): string {
-    const retValue = this.values.get(key);
-
-    if (retValue === undefined) {
-      throw new Error("Valor não encontrada");
-    }
-
-    return retValue;
+  getValueByKey(key: string): string | undefined {
+    return this.values.get(key);
   }
 
-  getKeyByValue(value: string): string {
+  getKeyByValue(value: string): string | undefined {
     for (const [keyPair, valuePair] of this.values.entries()) {
       if (value === valuePair) {
         return keyPair;
       }
     }
 
-    throw new Error("Valor não encontrado");
+    return undefined;
   }
 
   getArray(): [string, string][] {

@@ -1,8 +1,8 @@
 import * as React from "react";
+import * as Router from "react-router-dom";
 import RegisterAddress from "../components/RegisterAddress";
 import RegisterUserCommon from "../components/RegisterUserCommon";
 import FormLayout from "../components/layouts/FormLayout";
-import { useNavigate } from "react-router-dom";
 import RegisterUserMetadata from "../components/RegisterUserMetadata";
 
 enum RegisterStep {
@@ -14,18 +14,18 @@ enum RegisterStep {
 export default function UserRegister() {
   const [messageError, setMessageError] = React.useState<string>("");
   const [step, setStep] = React.useState<RegisterStep>(RegisterStep.common);
-  const userCommonRef = React.useRef<number | undefined>(undefined);
-  const addressRef = React.useRef<number | undefined>(undefined);
-  const navigate = useNavigate();
+  const [userId, setUserId] = React.useState<number>();
+  const [addressId, setAddressId] = React.useState<number>();
+  const navigate = Router.useNavigate();
 
   const handleUserCommonStep = React.useCallback((user: number | undefined) => {
-    userCommonRef.current = user;
+    setUserId(user);
     setStep(RegisterStep.address);
   }, []);
 
   const handleAddressStep = React.useCallback((address: number | undefined) => {
     if (address !== undefined) {
-      addressRef.current = address;
+      setAddressId(address);
       setStep(RegisterStep.metadata);
       return;
     }
@@ -58,8 +58,8 @@ export default function UserRegister() {
 
       {step === RegisterStep.metadata && (
         <RegisterUserMetadata
-          user={userCommonRef.current}
-          address={addressRef.current}
+          user={userId}
+          address={addressId}
           messageError={messageError}
           setMessageError={setMessageError}
           handleRegisterStep={handleUserMetadataStep}

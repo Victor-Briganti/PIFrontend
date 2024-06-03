@@ -43,13 +43,37 @@ export function validatedRegisterAnimal(
     animal.is_adopted = false;
   }
 
-  animal.age = ageMap.getKeyByValue(animal.age);
-  animal.size = sizeMap.getKeyByValue(animal.size);
-  animal.gender = genderMap.getKeyByValue(animal.gender);
-  animal.specie = specieMap.getKeyByValue(animal.specie);
+  const age = ageMap.getKeyByValue(animal.age);
+  if (age === undefined) {
+    throw new Error("Idade não pode ser definida");
+  }
+  animal.age = age;
+
+  const size = sizeMap.getKeyByValue(animal.size);
+  if (size === undefined) {
+    throw new Error("Tamanho não pode ser definido");
+  }
+  animal.size = size;
+
+  const gender = genderMap.getKeyByValue(animal.gender);
+  if (gender === undefined) {
+    throw new Error("Genêro não pode ser definido");
+  }
+  animal.gender = gender;
+
+  const specie = specieMap.getKeyByValue(animal.specie);
+  if (specie === undefined) {
+    throw new Error("Espécie não pode ser definido");
+  }
+  animal.specie = specie;
 
   if (animal.coat !== undefined) {
-    animal.coat = coatMap.getKeyByValue(animal.coat);
+    const coat = coatMap.getKeyByValue(animal.coat);
+    if (coat === undefined) {
+      throw new Error("Pelagem não pode ser definido");
+    }
+
+    animal.coat = coat;
   }
 
   return animal;
@@ -86,12 +110,32 @@ export function validatedUpdateAnimal(
     animal.is_adopted = false;
   }
 
-  ageMap.getValueByKey(animal.age);
-  sizeMap.getValueByKey(animal.size);
-  genderMap.getValueByKey(animal.gender);
-  specieMap.getValueByKey(animal.specie);
+  const age = ageMap.getValueByKey(animal.age);
+  if (age === undefined) {
+    throw new Error("Idade não pode ser definido");
+  }
+
+  const size = sizeMap.getValueByKey(animal.size);
+  if (size === undefined) {
+    throw new Error("Tamanho não pode ser definido");
+  }
+
+  const gender = genderMap.getValueByKey(animal.gender);
+  if (gender === undefined) {
+    throw new Error("Genêro não pode ser definido");
+  }
+
+  const specie = specieMap.getValueByKey(animal.specie);
+  if (specie === undefined) {
+    throw new Error("Espécie não pode ser definido");
+  }
 
   if (animal.coat !== undefined) {
+    const coat = coatMap.getValueByKey(animal.coat);
+    if (coat === undefined) {
+      throw new Error("Pelagem não pode ser definido");
+    }
+
     animal.coat = coatMap.getValueByKey(animal.coat);
   }
 

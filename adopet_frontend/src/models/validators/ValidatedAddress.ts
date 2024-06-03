@@ -6,7 +6,13 @@ export default function validatedAddress(
   address: InterfaceAddress
 ): InterfaceAddress {
   const mapState = new StateChoiceMap();
-  address.city.state.uf = mapState.getKeyByValue(address.city.state.uf);
+
+  const uf = mapState.getKeyByValue(address.city.state.uf);
+  if (uf === undefined) {
+    throw new Error("Estado não pode ser definido");
+  }
+
+  address.city.state.uf = uf;
 
   if (address.id !== undefined && address.id < 0) {
     throw new Error("ID não pode ser negativo");
