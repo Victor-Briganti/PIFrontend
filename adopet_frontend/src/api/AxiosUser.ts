@@ -113,7 +113,14 @@ class AxiosUser extends SuperAxios<InterfaceUserCommon> {
 
   async getUser(): Promise<InterfaceUser> {
     const userCommon = await this.getUserCommon();
-    const userMetadata = await this.getUserMetadata();
+    let userMetadata;
+    await this.getUserMetadata()
+      .then((response) => {
+        userMetadata = response as InterfaceUserMetadata;
+      })
+      .catch((error) => {
+        userMetadata = undefined;
+      });
 
     return {
       userCommon: userCommon,

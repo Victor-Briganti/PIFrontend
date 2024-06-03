@@ -3,5 +3,5 @@ import InterfaceUserMetadata from "./InterfaceUserMetadata";
 
 export default interface InterfaceUser {
   userCommon: InterfaceUserCommon;
-  userMetadata: InterfaceUserMetadata;
+  userMetadata?: InterfaceUserMetadata;
 }

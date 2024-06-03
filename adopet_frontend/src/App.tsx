@@ -5,10 +5,10 @@ import "./App.css";
 import Theme from "./components/styles/Theme";
 import MainRouter from "./routers/MainRouter";
 import UserContext from "./hooks/UserContext";
-import InterfaceUser from "./models/interfaces/user/InterfaceUser";
+import InterfaceUserCommon from "./models/interfaces/user/InterfaceUserCommon";
 
 export default function App() {
-  const [user, setUser] = React.useState<InterfaceUser | null>(null);
+  const [user, setUser] = React.useState<InterfaceUserCommon | null>(null);
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>

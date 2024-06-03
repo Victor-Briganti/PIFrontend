@@ -6,15 +6,16 @@ import AnimalImageUpload from "../components/UploadAnimalImage";
 import FormLayout from "../components/layouts/FormLayout";
 import InterfaceAnimal from "../models/interfaces/animal/InterfaceAnimal";
 import { InterfaceAnimalImageFile } from "../models/interfaces/animal/InterfaceAnimalImage";
+import ErrorLayout from "../components/layouts/ErrorLayout";
 
 export default function AnimalRegister() {
   const [messageError, setMessageError] = React.useState<string>("");
   const [registerStep, setRegisterStep] = React.useState<boolean>(true);
-  const animalRef = React.useRef<InterfaceAnimal | null>(null);
+  const [animal, setAnimal] = React.useState<InterfaceAnimal>();
   const navigate = Router.useNavigate();
 
   const handleRegisterStep = React.useCallback((newAnimal: InterfaceAnimal) => {
-    animalRef.current = newAnimal;
+    setAnimal(newAnimal);
     setRegisterStep(false);
   }, []);
 
@@ -23,9 +24,7 @@ export default function AnimalRegister() {
       const axiosAnimal = new AxiosAnimal();
       let hasImages = false;
 
-      if (animalRef && animalRef.current) {
-        const animal = animalRef.current;
-
+      if (animal) {
         if (animal && animal.id) {
           for (let i = 0; i < animalImages.length; i++) {
             const image = animalImages[i];
@@ -49,8 +48,16 @@ export default function AnimalRegister() {
       }
       setMessageError("Animal inexistente");
     },
-    [animalRef, navigate]
+    [animal, navigate]
   );
+
+  if (animal === undefined) {
+    return (
+      <ErrorLayout>
+        <h1>Animal não pode ser carregado</h1>
+      </ErrorLayout>
+    );
+  }
 
   return (
     <FormLayout>
@@ -58,7 +65,7 @@ export default function AnimalRegister() {
         <RegisterAnimal
           messageError={messageError}
           setMessageError={setMessageError}
-          animalRef={animalRef}
+          animal={animal}
           handleRegisterStep={handleRegisterStep}
         />
       )}
