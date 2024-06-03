@@ -12,6 +12,11 @@ interface LoginData {
   password: string;
 }
 
+interface PasswordFieldUpdate {
+  id: number;
+  password: string;
+}
+
 interface FieldUpdate {
   id: number;
   value: string;
@@ -76,8 +81,10 @@ class AxiosUser extends SuperAxios<InterfaceUserCommon> {
     return await this.get("");
   }
 
-  async changePassword(data: FieldUpdate): Promise<InterfaceUserCommon> {
-    return await this.put<FieldUpdate>("update/", data);
+  async changePassword(
+    data: PasswordFieldUpdate
+  ): Promise<InterfaceUserCommon> {
+    return await this.put<PasswordFieldUpdate>("update/", data);
   }
 
   async changeAvatar(data: FieldUpdate): Promise<InterfaceUserCommon> {

@@ -4,25 +4,14 @@ import AxiosUser from "../api/AxiosUser";
 import FormChangePassword from "../components/forms/FormChangePassword";
 import FormLayout from "../components/layouts/FormLayout";
 import UserContext from "../hooks/UserContext";
-import InterfaceUserCommon from "../models/interfaces/user/InterfaceUserCommon";
 
 export default function ChangePassword() {
   const [messageError, setMessageError] = React.useState<string>("");
   const [openModal, setOpenModal] = React.useState<boolean>(false);
-  const [currentUser, setCurrentUser] = React.useState<
-    InterfaceUserCommon | undefined
-  >(undefined);
   const [password, setPassword] = React.useState<string>("");
   const [confirmPassword, setConfirmPassword] = React.useState<string>("");
   const user = React.useContext(UserContext);
   const navigate = Router.useNavigate();
-  const location = Router.useLocation();
-
-  React.useEffect(() => {
-    if (location.state && location.state.user) {
-      setCurrentUser(location.state.user);
-    }
-  }, [location]);
 
   const handlePassword = React.useCallback(
     (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -73,7 +62,7 @@ export default function ChangePassword() {
         return;
       }
 
-      if (currentUser !== undefined && currentUser.id !== undefined) {
+      if (user.context !== null && user.context.id !== undefined) {
         setOpenModal(true);
         return;
       }
@@ -81,17 +70,17 @@ export default function ChangePassword() {
       setMessageError("Usuário não encontrado");
       return;
     },
-    [currentUser, password, confirmPassword]
+    [user, password, confirmPassword]
   );
 
   const handleConfirmModal = React.useCallback(() => {
     const axiosUser = new AxiosUser();
 
-    if (currentUser !== undefined && currentUser.id !== undefined) {
+    if (user.context !== null && user.context.id !== undefined) {
       try {
-        axiosUser.changePassword({ id: currentUser.id, value: password });
+        axiosUser.changePassword({ id: user.context.id, password: password });
         user.setContext(null);
-        navigate("/login");
+        navigate("/user/login");
       } catch (error) {
         setOpenModal(false);
         setMessageError(error.message);
@@ -101,7 +90,7 @@ export default function ChangePassword() {
 
     setOpenModal(false);
     setMessageError("Usuário não encontrado");
-  }, [currentUser, password, user, navigate]);
+  }, [user, password, navigate]);
 
   const handleCloseModal = React.useCallback(() => {
     setPassword("");
@@ -109,7 +98,7 @@ export default function ChangePassword() {
     setOpenModal(false);
   }, []);
 
-  if (currentUser === undefined) {
+  if (user.context === null) {
     return <h1>Faça login para acessar.</h1>;
   }
 

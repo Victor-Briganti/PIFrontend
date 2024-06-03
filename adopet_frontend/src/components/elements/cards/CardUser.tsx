@@ -12,11 +12,11 @@ export default function CardUser({ userCommon, handleLogout }: CardUserProps) {
   const navigate = useNavigate();
 
   const handleRegisterAnimal = React.useCallback(() => {
-    navigate("/animalregister");
+    navigate("/animal/register");
   }, [navigate]);
 
   const handleChangePassword = React.useCallback(() => {
-    navigate("/changepassword", {
+    navigate("/user/changepassword", {
       state: { user: userCommon },
     });
   }, [navigate, userCommon]);

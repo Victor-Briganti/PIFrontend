@@ -48,6 +48,7 @@ abstract class SuperAxios<T> {
   ) {
     try {
       const response = await axios.put(this.host + url, data, config);
+      console.log(response.data);
       return response.data;
     } catch (error) {
       if (axios.isAxiosError(error)) {
