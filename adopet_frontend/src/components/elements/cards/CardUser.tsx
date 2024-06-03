@@ -21,6 +21,10 @@ export default function CardUser({ userCommon, handleLogout }: CardUserProps) {
     });
   }, [navigate, userCommon]);
 
+  const handleAnimalList = React.useCallback(() => {
+    navigate("/animals/donor");
+  }, [navigate]);
+
   return (
     <MUI.Box flexGrow={1} sx={{ paddingBottom: 10, paddingTop: 20 }}>
       <MUI.Card sx={{ minWidth: 600 }}>
@@ -41,16 +45,25 @@ export default function CardUser({ userCommon, handleLogout }: CardUserProps) {
             <MUI.Box display="flex" justifyContent="center" alignItems="center">
               {`Bem vindo ${userCommon.firstname} ${userCommon.lastname}`}
             </MUI.Box>
+
             <MUI.Box display="flex" justifyContent="center" alignItems="center">
               {`Email: ${userCommon.email}`}
             </MUI.Box>
+
             <MUI.Box display="flex" justifyContent="center" alignItems="center">
               <MUI.Link onClick={handleRegisterAnimal}>
                 Registrar Animal
               </MUI.Link>
             </MUI.Box>
+
             <MUI.Box display="flex" justifyContent="center" alignItems="center">
               <MUI.Link onClick={handleChangePassword}>Alterar Senha</MUI.Link>
+            </MUI.Box>
+
+            <MUI.Box display="flex" justifyContent="center" alignItems="center">
+              <MUI.Link onClick={handleAnimalList}>
+                Liste Animais Registrados
+              </MUI.Link>
             </MUI.Box>
           </MUI.Typography>
           <MUI.Button
