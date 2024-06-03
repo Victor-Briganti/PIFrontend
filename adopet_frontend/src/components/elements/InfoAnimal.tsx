@@ -1,20 +1,45 @@
 import * as MUI from "@mui/material";
 import * as React from "react";
-import InterfaceAnimal from "../../models/interfaces/animal/InterfaceAnimal";
+import * as Router from "react-router-dom";
+import AxiosAnimal from "../../api/AxiosAnimal";
 import UserContext from "../../hooks/UserContext";
+import InterfaceAnimal from "../../models/interfaces/animal/InterfaceAnimal";
+import Modal from "../elements/Modal";
 
 interface InfoAnimalProps {
   animal: InterfaceAnimal;
 }
 
 export default function InfoAnimal({ animal }: InfoAnimalProps) {
+  const [openModal, setOpenModal] = React.useState<boolean>(false);
   const user = React.useContext(UserContext);
+  const navigate = Router.useNavigate();
 
   React.useEffect(() => {
     if (user.context !== null) console.log(`User: ${user.context.id}`);
 
     console.log(`Animal: ${animal.donor}`);
   }, [user, animal]);
+
+  const handleExclusion = React.useCallback(() => {
+    setOpenModal(true);
+  }, []);
+
+  const handleConfirmModal = React.useCallback(() => {
+    const axiosAnimal = new AxiosAnimal();
+
+    if (animal.id !== undefined) {
+      axiosAnimal.deleteAnimal(animal.id).then((response) => {
+        navigate("/animals/donor");
+      });
+    }
+
+    setOpenModal(false);
+  }, [navigate, animal]);
+
+  const handleCloseModal = React.useCallback(() => {
+    setOpenModal(false);
+  }, []);
 
   return (
     <MUI.Box>
@@ -81,9 +106,7 @@ export default function InfoAnimal({ animal }: InfoAnimalProps) {
               <MUI.Button
                 variant="contained"
                 color="error"
-                onClick={() => {
-                  console.log("Excluir");
-                }}
+                onClick={handleExclusion}
               >
                 Excluir
               </MUI.Button>
@@ -93,13 +116,20 @@ export default function InfoAnimal({ animal }: InfoAnimalProps) {
               color="primary"
               variant="contained"
               onClick={() => {
-                console.log("Achei");
+                console.log("Adotei");
               }}
             >
               Adotar
             </MUI.Button>
           )}
         </MUI.Grid>
+        <Modal
+          title={`Deseja excluir ${animal.name}?`}
+          dialog="Essa ação não pode ser desfeita."
+          openModal={openModal}
+          handleConfirmModal={handleConfirmModal}
+          handleCloseModal={handleCloseModal}
+        />
       </MUI.Grid>
     </MUI.Box>
   );
