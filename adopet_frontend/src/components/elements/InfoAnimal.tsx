@@ -5,6 +5,8 @@ import AxiosAnimal from "../../api/AxiosAnimal";
 import UserContext from "../../hooks/UserContext";
 import InterfaceAnimal from "../../models/interfaces/animal/InterfaceAnimal";
 import Modal from "../elements/Modal";
+import AxiosAdoption from "../../api/AxiosAdoption";
+import InterfaceAdoption from "../../models/interfaces/adoption/InterfaceAdoption";
 
 interface InfoAnimalProps {
   animal: InterfaceAnimal;
@@ -12,18 +14,45 @@ interface InfoAnimalProps {
 
 export default function InfoAnimal({ animal }: InfoAnimalProps) {
   const [openModal, setOpenModal] = React.useState<boolean>(false);
+  const [activeAdoptionButton, setActiveAdoptionButton] =
+    React.useState<boolean>(true);
+  const axiosAdoption = new AxiosAdoption();
   const user = React.useContext(UserContext);
   const navigate = Router.useNavigate();
 
   React.useEffect(() => {
-    if (user.context !== null) console.log(`User: ${user.context.id}`);
+    if (
+      user.context === null ||
+      animal.id === undefined ||
+      user.context.id === undefined
+    )
+      return;
 
-    console.log(`Animal: ${animal.donor}`);
-  }, [user, animal]);
+    axiosAdoption.getAdoptionDetailByAnimalId(animal.id).then((response) => {
+      if (
+        user.context !== null &&
+        response.adopter === user.context.id &&
+        response.request_status === "pending"
+      )
+        setActiveAdoptionButton(false);
+    });
+  }, [user, animal, axiosAdoption]);
 
   const handleExclusion = React.useCallback(() => {
     setOpenModal(true);
   }, []);
+
+  const handleAdoption = React.useCallback(() => {
+    const adoption = {
+      donor: animal.donor,
+      adopter: user.context?.id,
+      animal: animal.id,
+      request_date: new Date(),
+      request_status: "pending",
+    } as InterfaceAdoption;
+
+    axiosAdoption.registerAdoption(adoption);
+  }, [animal, user]);
 
   const handleConfirmModal = React.useCallback(() => {
     const axiosAnimal = new AxiosAnimal();
@@ -103,15 +132,15 @@ export default function InfoAnimal({ animal }: InfoAnimalProps) {
               </MUI.Button>
             </React.Fragment>
           ) : (
-            <MUI.Button
-              color="primary"
-              variant="contained"
-              onClick={() => {
-                console.log("Adotar");
-              }}
-            >
-              Adotar
-            </MUI.Button>
+            activeAdoptionButton && (
+              <MUI.Button
+                color="primary"
+                variant="contained"
+                onClick={handleAdoption}
+              >
+                Adotar
+              </MUI.Button>
+            )
           )}
         </MUI.Grid>
         <Modal
