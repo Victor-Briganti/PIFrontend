@@ -96,15 +96,6 @@ export default function InfoAnimal({ animal }: InfoAnimalProps) {
             <React.Fragment>
               <MUI.Button
                 variant="contained"
-                color="primary"
-                onClick={() => {
-                  console.log("Editar");
-                }}
-              >
-                Editar
-              </MUI.Button>
-              <MUI.Button
-                variant="contained"
                 color="error"
                 onClick={handleExclusion}
               >
@@ -116,7 +107,7 @@ export default function InfoAnimal({ animal }: InfoAnimalProps) {
               color="primary"
               variant="contained"
               onClick={() => {
-                console.log("Adotei");
+                console.log("Adotar");
               }}
             >
               Adotar

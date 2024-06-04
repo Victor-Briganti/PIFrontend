@@ -27,7 +27,7 @@ export default function GridDonorAnimal() {
     (event: React.ChangeEvent<unknown>, value: number) => {
       event.preventDefault();
       axiosAnimal
-        .listAnimals(value)
+        .listAnimalsByDonor(value)
         .then((response) => {
           setAnimals(response.results);
           setPage(value);
