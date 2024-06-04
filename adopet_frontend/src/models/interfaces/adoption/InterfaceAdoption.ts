@@ -1,4 +1,5 @@
 export default interface InterfaceAdoption {
+  id?: number;
   donor: number;
   adopter: number;
   animal: number;

@@ -6,6 +6,7 @@ import UserContext from "../../hooks/UserContext";
 import InterfaceAnimal from "../../models/interfaces/animal/InterfaceAnimal";
 import Modal from "../elements/Modal";
 import AxiosAdoption from "../../api/AxiosAdoption";
+import AxiosDonor from "../../api/AxiosDonor";
 import InterfaceAdoption from "../../models/interfaces/adoption/InterfaceAdoption";
 import { SuccessMessage, ErrorMessage } from "./Message";
 
@@ -19,11 +20,12 @@ export default function InfoAnimal({ animal }: InfoAnimalProps) {
   const [errorMessage, setErrorMessage] = React.useState<string>("");
   const [activeAdoptionButton, setActiveAdoptionButton] =
     React.useState<boolean>(true);
-  const axiosAdoption = new AxiosAdoption();
   const user = React.useContext(UserContext);
   const navigate = Router.useNavigate();
 
   React.useEffect(() => {
+    const axiosAdoption = new AxiosAdoption();
+
     if (
       user.context === null ||
       animal.id === undefined ||
@@ -39,13 +41,15 @@ export default function InfoAnimal({ animal }: InfoAnimalProps) {
       )
         setActiveAdoptionButton(false);
     });
-  }, [user, animal, axiosAdoption]);
+  }, [user, animal]);
 
   const handleExclusion = React.useCallback(() => {
     setOpenModal(true);
   }, []);
 
   const handleAdoption = React.useCallback(() => {
+    const axiosAdoption = new AxiosAdoption();
+
     if (user.context === null) {
       navigate("/user/register");
     }
@@ -81,7 +85,8 @@ export default function InfoAnimal({ animal }: InfoAnimalProps) {
       .catch((error) => {
         setErrorMessage("Não foi possível adotar este animal");
       });
-  }, [animal, user, axiosAdoption]);
+    setActiveAdoptionButton(false);
+  }, [user, animal, navigate]);
 
   const handleConfirmModal = React.useCallback(() => {
     const axiosAnimal = new AxiosAnimal();

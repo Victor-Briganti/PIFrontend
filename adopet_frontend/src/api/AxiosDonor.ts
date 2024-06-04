@@ -1,11 +1,11 @@
 import SuperAxios from "./super/SuperAxios";
 import InterfaceAdoption from "../models/interfaces/adoption/InterfaceAdoption";
-import { validatedRegisterAdoption } from "../models/validators/ValidateAdoption";
+import { validatedUpdateAdoption } from "../models/validators/ValidateAdoption";
 
-export default class AxiosAdoption extends SuperAxios<InterfaceAdoption> {
+export default class AxiosDonor extends SuperAxios<InterfaceAdoption> {
   constructor() {
     super();
-    this.host = this.host + "/adoption/";
+    this.host = this.host + "/donor/";
   }
 
   async getAdoptionList(): Promise<InterfaceAdoption[]> {
@@ -20,10 +20,14 @@ export default class AxiosAdoption extends SuperAxios<InterfaceAdoption> {
     return await this.get(`animal/${id}`);
   }
 
-  async registerAdoption(
+  async deleteAdoption(id: number): Promise<InterfaceAdoption> {
+    return await this.get(`delete/${id}`);
+  }
+
+  async updateAdoption(
     adoption: InterfaceAdoption
   ): Promise<InterfaceAdoption> {
-    const requestAdoption = validatedRegisterAdoption(adoption);
-    return await this.post("register/", requestAdoption);
+    const requestAdoption = validatedUpdateAdoption(adoption);
+    return await this.post(`update/${requestAdoption.id}`, requestAdoption);
   }
 }

@@ -6,6 +6,10 @@ const statusMap = new AdoptionStatusChoiceMap();
 export function validatedRegisterAdoption(
   adoption: InterfaceAdoption
 ): InterfaceAdoption {
+  if (adoption.id !== undefined) {
+    throw new Error("Adoção para registro não pode ter um id");
+  }
+
   if (adoption.donor < 0) {
     throw new Error("Doador não pode ter o id negativo");
   }
@@ -28,6 +32,14 @@ export function validatedRegisterAdoption(
 export function validatedUpdateAdoption(
   adoption: InterfaceAdoption
 ): InterfaceAdoption {
+  if (adoption.id === undefined) {
+    throw new Error("Id da doação está indefinido");
+  }
+
+  if (adoption.id < 0) {
+    throw new Error("Id da doação não pode ser negativo");
+  }
+
   if (adoption.donor < 0) {
     throw new Error("Doador não pode ter o id negativo");
   }
