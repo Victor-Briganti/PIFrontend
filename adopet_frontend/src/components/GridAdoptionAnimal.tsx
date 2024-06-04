@@ -1,6 +1,6 @@
 import * as MUI from "@mui/material";
 import * as React from "react";
-import AxiosAnimal from "../api/AxiosAnimal";
+import AxiosDonor from "../api/AxiosDonor";
 import InterfaceAnimal from "../models/interfaces/animal/InterfaceAnimal";
 import PageNumber from "./elements/PageNumber";
 import CardAnimal from "./elements/cards/CardAnimal";
@@ -9,11 +9,11 @@ export default function GridDonorAnimal() {
   const [animals, setAnimals] = React.useState([]);
   const [page, setPage] = React.useState<number>(1);
   const [totalPages, setTotalPages] = React.useState<number>(1);
-  const axiosAnimal = React.useMemo(() => new AxiosAnimal(), []);
+  const axiosDonor = React.useMemo(() => new AxiosDonor(), []);
 
   React.useEffect(() => {
-    axiosAnimal
-      .listAnimalsByDonor()
+    axiosDonor
+      .getAdoptionAnimalList()
       .then((response) => {
         setAnimals(response.results);
         setTotalPages(Math.ceil(response.count / 9));
@@ -21,13 +21,13 @@ export default function GridDonorAnimal() {
       .catch((error) => {
         console.error(error);
       });
-  }, [axiosAnimal]);
+  }, [axiosDonor]);
 
   const handlePageChange = React.useCallback(
     (event: React.ChangeEvent<unknown>, value: number) => {
       event.preventDefault();
-      axiosAnimal
-        .listAnimalsByDonor(value)
+      axiosDonor
+        .getAdoptionAnimalList(value)
         .then((response) => {
           setAnimals(response.results);
           setPage(value);
@@ -36,7 +36,7 @@ export default function GridDonorAnimal() {
           console.error(error);
         });
     },
-    [axiosAnimal]
+    [axiosDonor]
   );
 
   if (!animals) {

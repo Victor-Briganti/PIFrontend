@@ -7,7 +7,7 @@ import AxiosAnimal from "../api/AxiosAnimal";
 interface RegisterAnimalProps {
   messageError: string;
   setMessageError: React.Dispatch<React.SetStateAction<string>>;
-  animal: InterfaceAnimal;
+  animal: InterfaceAnimal | undefined;
   handleRegisterStep: (animal: InterfaceAnimal) => void;
 }
 

@@ -6,7 +6,6 @@ import AnimalImageUpload from "../components/UploadAnimalImage";
 import FormLayout from "../components/layouts/FormLayout";
 import InterfaceAnimal from "../models/interfaces/animal/InterfaceAnimal";
 import { InterfaceAnimalImageFile } from "../models/interfaces/animal/InterfaceAnimalImage";
-import ErrorLayout from "../components/layouts/ErrorLayout";
 
 export default function AnimalRegister() {
   const [messageError, setMessageError] = React.useState<string>("");
@@ -50,14 +49,6 @@ export default function AnimalRegister() {
     },
     [animal, navigate]
   );
-
-  if (animal === undefined) {
-    return (
-      <ErrorLayout>
-        <h1>Animal não pode ser carregado</h1>
-      </ErrorLayout>
-    );
-  }
 
   return (
     <FormLayout>

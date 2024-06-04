@@ -70,7 +70,7 @@ class AxiosAnimal extends SuperAxios<InterfaceAnimal> {
     return await this.get(page > 0 ? `?page=${page}` : "");
   }
 
-  async listAnimalsByDonor(page: number = 0) {
+  async listAnimalsByDonor(page: number = 0): Promise<InterfaceAnimal[]> {
     return await this.get(page > 0 ? `donor/?page=${page}` : "donor/");
   }
 
