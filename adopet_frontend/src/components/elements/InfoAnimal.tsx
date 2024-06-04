@@ -7,6 +7,7 @@ import InterfaceAnimal from "../../models/interfaces/animal/InterfaceAnimal";
 import Modal from "../elements/Modal";
 import AxiosAdoption from "../../api/AxiosAdoption";
 import InterfaceAdoption from "../../models/interfaces/adoption/InterfaceAdoption";
+import { SuccessMessage, ErrorMessage } from "./Message";
 
 interface InfoAnimalProps {
   animal: InterfaceAnimal;
@@ -14,6 +15,8 @@ interface InfoAnimalProps {
 
 export default function InfoAnimal({ animal }: InfoAnimalProps) {
   const [openModal, setOpenModal] = React.useState<boolean>(false);
+  const [successMessage, setSuccessMessage] = React.useState<string>("");
+  const [errorMessage, setErrorMessage] = React.useState<string>("");
   const [activeAdoptionButton, setActiveAdoptionButton] =
     React.useState<boolean>(true);
   const axiosAdoption = new AxiosAdoption();
@@ -43,6 +46,25 @@ export default function InfoAnimal({ animal }: InfoAnimalProps) {
   }, []);
 
   const handleAdoption = React.useCallback(() => {
+    if (user.context === null) {
+      navigate("/user/register");
+    }
+
+    if (user.context !== null && user.context.id === undefined) {
+      setErrorMessage("Usuário não encontrado");
+      return;
+    }
+
+    if (animal.donor === undefined) {
+      setErrorMessage("Doador não encontrado");
+      return;
+    }
+
+    if (animal.id === undefined) {
+      setErrorMessage("Animal não encontrado");
+      return;
+    }
+
     const adoption = {
       donor: animal.donor,
       adopter: user.context?.id,
@@ -51,8 +73,15 @@ export default function InfoAnimal({ animal }: InfoAnimalProps) {
       request_status: "pending",
     } as InterfaceAdoption;
 
-    axiosAdoption.registerAdoption(adoption);
-  }, [animal, user]);
+    axiosAdoption
+      .registerAdoption(adoption)
+      .then((response) => {
+        setSuccessMessage("Requisição enviada");
+      })
+      .catch((error) => {
+        setErrorMessage("Não foi possível adotar este animal");
+      });
+  }, [animal, user, axiosAdoption]);
 
   const handleConfirmModal = React.useCallback(() => {
     const axiosAnimal = new AxiosAnimal();
@@ -143,6 +172,12 @@ export default function InfoAnimal({ animal }: InfoAnimalProps) {
             )
           )}
         </MUI.Grid>
+        {successMessage && !errorMessage && (
+          <SuccessMessage message={successMessage} />
+        )}
+        {errorMessage && !successMessage && (
+          <ErrorMessage message={errorMessage} />
+        )}
         <Modal
           title={`Deseja excluir ${animal.name}?`}
           dialog="Essa ação não pode ser desfeita."
