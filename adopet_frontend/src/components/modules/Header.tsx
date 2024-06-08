@@ -1,13 +1,14 @@
 import * as MUI from "@mui/material";
 import * as Router from "react-router-dom";
 import MenuNavigation from "../elements/navigation/MenuNavigation";
-import LinkBarNavigation from "../elements/navigation/MenuLinkBarNav";
 import UserIconNavigation from "../elements/navigation/UserIconNavigation";
-
-const pages = ["Sobre Nós", "Doação", "Animais"];
-const pageLinks = ["/about", "/donation", "/animals"];
+import LinkItem from "../elements/navigation/LinkItem";
 
 export default function Header() {
+  const pages = ["Sobre Nós", "Doação", "Animais"];
+  const pageLinks = ["/about", "/donation", "/animals"];
+
+
   const isSmallScreen = MUI.useMediaQuery((theme: MUI.Theme) =>
     theme.breakpoints.down("sm")
   );
@@ -25,6 +26,7 @@ export default function Header() {
                 loading="lazy"
               />
             </MUI.Box>
+
             <MUI.Typography
               variant="h6"
               noWrap
@@ -41,12 +43,22 @@ export default function Header() {
             >
               Adopet
             </MUI.Typography>
+
           </MUI.Button>
+
           {isSmallScreen ? (
             <MenuNavigation pages={pages} pageLinks={pageLinks} />
           ) : (
-            <LinkBarNavigation pages={pages} pageLinks={pageLinks} />
+            <LinkItem pages={pages} pageLinks={pageLinks}
+              textAlign="center"
+              width={"100%"}
+              sx={{ px: "14px" }}
+              underline="none"
+              color="white"
+              fontFamily="monospace"
+            />
           )}
+
           <MUI.Box sx={{ marginLeft: "auto", paddingLeft: 2 }}>
             <UserIconNavigation />
           </MUI.Box>

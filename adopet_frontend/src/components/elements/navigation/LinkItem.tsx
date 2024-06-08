@@ -2,28 +2,24 @@ import * as React from "react";
 import * as MUI from "@mui/material";
 import * as Router from "react-router-dom";
 
-interface MenuLinkBarNavProps {
+interface LinkItemProps extends React.ComponentPropsWithoutRef<typeof MUI.Link> {
   pages: string[];
   pageLinks: string[];
 }
 
-export default function MenuLinkBarNav({
+export default function LinkItem({
   pages,
   pageLinks,
-}: MenuLinkBarNavProps) {
+  ...props
+}: LinkItemProps) {
   return (
     <React.Fragment>
       {pages.map((page) => (
         <MUI.MenuItem sx={{ padding: "0px" }} key={page}>
           <MUI.Link
-            textAlign="center"
-            width={"100%"}
-            sx={{ px: "14px" }}
-            underline="none"
-            color="white"
-            fontFamily="monospace"
             component={Router.Link}
             to={pageLinks[pages.indexOf(page)]}
+            {...props}
           >
             {page}
           </MUI.Link>

@@ -29,10 +29,7 @@ export default function Donation() {
 
       <MUI.Box
         sx={{
-          display: "flex",
-          justifyContent: "center",
           width: "100%",
-          padding: 2,
         }}
       >
         <img src="src/assets/qr.png" alt="QR Code" />

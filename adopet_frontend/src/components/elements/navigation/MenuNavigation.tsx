@@ -1,7 +1,7 @@
 import * as React from "react";
 import * as MUI from "@mui/material";
-import * as Router from "react-router-dom";
 import MenuIcon from "@mui/icons-material/Menu";
+import LinkItem from "./LinkItem";
 
 interface MenuNavigationProps {
   pages: string[];
@@ -34,6 +34,7 @@ export default function MenuNavigation({
       >
         <MenuIcon />
       </MUI.IconButton>
+
       <MUI.Menu
         id="menu-appbar"
         anchorEl={anchorNav}
@@ -52,25 +53,14 @@ export default function MenuNavigation({
           display: { xs: "block", md: "none" },
         }}
       >
-        {pages.map((page) => (
-          <MUI.MenuItem
-            sx={{ padding: "0px" }}
-            key={page}
-            onClick={handleCloseNavMenu}
-          >
-            <MUI.Link
-              textAlign="center"
-              width={"100%"}
-              sx={{ px: "14px" }}
-              underline="none"
-              color={"textPrimary"}
-              component={Router.Link}
-              to={pageLinks[pages.indexOf(page)]}
-            >
-              {page}
-            </MUI.Link>
-          </MUI.MenuItem>
-        ))}
+        <LinkItem pages={pages} pageLinks={pageLinks}
+          textAlign="center"
+          width={"100%"}
+          sx={{ px: "14px" }}
+          underline="none"
+          color="black"
+          fontFamily="monospace"
+        />
       </MUI.Menu>
     </MUI.Box>
   );
