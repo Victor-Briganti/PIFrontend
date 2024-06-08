@@ -1,10 +1,10 @@
 import * as React from "react";
 import * as Router from "react-router-dom";
 import AxiosUser from "../api/AxiosUser";
-import PageDynamicLayout from "../components/layouts/PageDynamicLayout";
 import CardUser from "../components/elements/cards/CardUser";
 import InterfaceUser from "../models/interfaces/user/InterfaceUser";
 import UserContext from "../hooks/UserContext";
+import UserProfileLayout from "../components/layouts/UserProfileLayout";
 
 export default function UserProfile() {
   const user = React.useContext(UserContext);
@@ -44,12 +44,11 @@ export default function UserProfile() {
   }
 
   return (
-    <PageDynamicLayout
+    <UserProfileLayout
       bgcolor="secondary.light"
       color="primary.contrastText"
-      content={false}
     >
       <CardUser userCommon={user.context} handleLogout={handleLogout} />
-    </PageDynamicLayout>
+    </UserProfileLayout>
   );
 }

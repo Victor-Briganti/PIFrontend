@@ -1,5 +1,5 @@
 import * as MUI from "@mui/material";
-import PageStaticLayout from "../components/layouts/PageStaticLayout";
+import PageLayout from "../components/layouts/PageLayout";
 import Slider from "../components/elements/Slider";
 
 const banners = [
@@ -11,7 +11,7 @@ const banners = [
 
 export default function Home() {
   return (
-    <PageStaticLayout>
+    <PageLayout>
       <Slider banners={banners} />
 
       <MUI.Typography variant="h4" gutterBottom textAlign="center">
@@ -110,6 +110,6 @@ export default function Home() {
         animal tudo o que ele precisa. Adotar um animal é um compromisso de
         longo prazo, que exige tempo, amor e dedicação.
       </MUI.Typography>
-    </PageStaticLayout>
+    </PageLayout>
   );
 }

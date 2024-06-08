@@ -2,7 +2,7 @@ import * as React from "react";
 import * as Router from "react-router-dom";
 import AxiosAnimal from "../api/AxiosAnimal";
 import DescriptionAnimal from "../components/DescriptionAnimal";
-import PageDynamicLayout from "../components/layouts/PageDynamicLayout";
+import PageLayout from "../components/layouts/PageLayout";
 import InterfaceAnimal from "../models/interfaces/animal/InterfaceAnimal";
 
 export default function AnimalProfile() {
@@ -60,8 +60,8 @@ export default function AnimalProfile() {
   }
 
   return (
-    <PageDynamicLayout bgcolor="secondary.light" color="primary.contrastText">
+    <PageLayout bgcolor="secondary.light" color="primary.contrastText">
       {animal && <DescriptionAnimal animal={animal} />}
-    </PageDynamicLayout>
+    </PageLayout>
   );
 }

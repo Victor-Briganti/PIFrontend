@@ -6,6 +6,7 @@ import CopyRight from "../components/CopyRight";
 import FormLogin from "../components/forms/FormLogin";
 import FormLayout from "../components/layouts/FormLayout";
 import UserContext from "../hooks/UserContext";
+import TopArrowBack from "../components/elements/navigation/TopArrowBack";
 import { validatedEmail } from "../utils/Verification";
 
 export default function Login() {
@@ -16,7 +17,6 @@ export default function Login() {
 
   const useHandleSubmit = React.useCallback(() => {
     const loginSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-      // Intercepta a submissão do formulário pelo navegador
       event.preventDefault();
 
       const data = new FormData(event.currentTarget);
@@ -55,30 +55,32 @@ export default function Login() {
   const handleSubmit = useHandleSubmit();
 
   return (
-    <FormLayout>
-      <MUI.CssBaseline />
-      <MUI.Box
-        sx={{
-          marginTop: 8,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-        }}
-      >
-        <FormLogin handleSubmit={handleSubmit} messageError={messageError} />
-        <MUI.Grid container justifyContent="center" alignItems="center">
-          <MUI.Grid item>
-            <MUI.Link
-              component={Router.Link}
-              to={"/user/register"}
-              variant="body2"
-            >
-              {"Não possui uma conta? Cadastre-se"}
-            </MUI.Link>
+    <React.Fragment>
+      < TopArrowBack />
+      <FormLayout>
+        <MUI.Box
+          sx={{
+            marginTop: 8,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <FormLogin handleSubmit={handleSubmit} messageError={messageError} />
+          <MUI.Grid container justifyContent="center" alignItems="center">
+            <MUI.Grid item>
+              <MUI.Link
+                component={Router.Link}
+                to={"/user/register"}
+                variant="body2"
+              >
+                {"Não possui uma conta? Cadastre-se"}
+              </MUI.Link>
+            </MUI.Grid>
           </MUI.Grid>
-        </MUI.Grid>
-      </MUI.Box>
-      <CopyRight sx={{ mt: 8, mb: 4 }} />
-    </FormLayout>
+        </MUI.Box>
+        <CopyRight sx={{ mt: 8, mb: 4 }} />
+      </FormLayout>
+    </React.Fragment >
   );
 }

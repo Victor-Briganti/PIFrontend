@@ -1,10 +1,10 @@
 import GridDonorAnimal from "../components/GridDonorAnimal";
-import PageDynamicLayout from "../components/layouts/PageDynamicLayout";
+import PageLayout from "../components/layouts/PageLayout";
 
 export default function AnimalDonorList() {
   return (
-    <PageDynamicLayout bgcolor="secondary.light" color="primary.contrastText">
+    <PageLayout bgcolor="secondary.light" color="primary.contrastText">
       <GridDonorAnimal />
-    </PageDynamicLayout>
+    </PageLayout>
   );
 }

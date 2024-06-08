@@ -1,9 +1,9 @@
 import * as MUI from "@mui/material";
-import PageStaticLayout from "../components/layouts/PageStaticLayout";
+import PageLayout from "../components/layouts/PageLayout";
 
 export default function Donation() {
   return (
-    <PageStaticLayout>
+    <PageLayout>
       <MUI.Typography variant="h4" gutterBottom textAlign="center">
         Quero Ajudar
       </MUI.Typography>
@@ -34,6 +34,6 @@ export default function Donation() {
       >
         <img src="src/assets/qr.png" alt="QR Code" />
       </MUI.Box>
-    </PageStaticLayout>
+    </PageLayout>
   );
 }

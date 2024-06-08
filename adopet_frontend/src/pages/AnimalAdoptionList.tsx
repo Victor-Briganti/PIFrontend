@@ -1,10 +1,10 @@
 import GridAdoptionAnimal from "../components/GridAdoptionAnimal";
-import PageDynamicLayout from "../components/layouts/PageDynamicLayout";
+import PageLayout from "../components/layouts/PageLayout";
 
 export default function AnimalAdoptionList() {
   return (
-    <PageDynamicLayout bgcolor="secondary.light" color="primary.contrastText">
+    <PageLayout bgcolor="secondary.light" color="primary.contrastText">
       <GridAdoptionAnimal />
-    </PageDynamicLayout>
+    </PageLayout>
   );
 }

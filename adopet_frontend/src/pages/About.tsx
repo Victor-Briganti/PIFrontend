@@ -1,12 +1,12 @@
 import * as MUI from "@mui/material";
 import { Link } from "react-router-dom";
-import PageStaticLayout from "../components/layouts/PageStaticLayout";
+import PageLayout from "../components/layouts/PageLayout";
 
 export default function About() {
   const theme = MUI.useTheme();
 
   return (
-    <PageStaticLayout>
+    <PageLayout>
       <MUI.Typography variant="h4" gutterBottom textAlign="left">
         Sobre o Adopet
       </MUI.Typography>
@@ -86,6 +86,6 @@ export default function About() {
         nossas dicas sobre adoção para garantir que está preparado para receber
         um novo membro na família!
       </MUI.Typography>
-    </PageStaticLayout>
+    </PageLayout>
   );
 }
