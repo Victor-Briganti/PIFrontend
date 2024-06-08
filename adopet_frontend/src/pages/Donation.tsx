@@ -7,6 +7,7 @@ export default function Donation() {
       <MUI.Typography variant="h4" gutterBottom textAlign="center">
         Quero Ajudar
       </MUI.Typography>
+
       <MUI.Typography
         variant="h6"
         paragraph
@@ -18,14 +19,24 @@ export default function Donation() {
         início, temos sido os arquitetos de histórias transformadoras, unindo
         corações humanos e patinhas peludas em um elo de amor eterno.
       </MUI.Typography>
+
       <br />
       <br />
+
       <MUI.Typography variant="h4" gutterBottom textAlign="left">
         Doe agora! acesse o QR Code abaixo e faça sua doação.
       </MUI.Typography>
-      <MUI.Typography variant="body1" textAlign="center">
+
+      <MUI.Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          width: "100%",
+          padding: 2,
+        }}
+      >
         <img src="src/assets/qr.png" alt="QR Code" />
-      </MUI.Typography>
+      </MUI.Box>
     </PageStaticLayout>
   );
 }

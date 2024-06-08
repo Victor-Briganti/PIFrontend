@@ -13,12 +13,15 @@ export default function Home() {
   return (
     <PageStaticLayout>
       <Slider banners={banners} />
+
       <MUI.Typography variant="h4" gutterBottom textAlign="center">
         Por que adotar um animal de estimação?
       </MUI.Typography>
+
       <MUI.Typography variant="h5" paragraph textAlign="left">
         Dar um lar para quem precisa:
       </MUI.Typography>
+
       <MUI.Typography
         variant="h6"
         paragraph
@@ -30,9 +33,11 @@ export default function Home() {
         veterinários. Adotar significa oferecer a eles uma segunda chance de
         vida, um lar seguro e feliz.
       </MUI.Typography>
+
       <MUI.Typography variant="h5" paragraph textAlign="left">
         Receber amor incondicional:
       </MUI.Typography>
+
       <MUI.Typography
         variant="h6"
         paragraph
@@ -44,9 +49,11 @@ export default function Home() {
         puro e incondicional, capaz de trazer mais felicidade e significado para
         a sua vida.
       </MUI.Typography>
+
       <MUI.Typography variant="h5" paragraph textAlign="left">
         Melhorar sua saúde física e mental:
       </MUI.Typography>
+
       <MUI.Typography
         variant="h6"
         paragraph
@@ -58,9 +65,11 @@ export default function Home() {
         Além disso, a companhia de um animal pode reduzir o estresse, a
         ansiedade e a sensação de solidão, proporcionando mais bem-estar mental.
       </MUI.Typography>
+
       <MUI.Typography variant="h5" paragraph textAlign="left">
         Ensinar responsabilidade:
       </MUI.Typography>
+
       <MUI.Typography
         variant="h6"
         paragraph
@@ -72,9 +81,11 @@ export default function Home() {
         cuidar de outro ser vivo e desenvolvem valores como a compaixão e o
         respeito.
       </MUI.Typography>
+
       <MUI.Typography variant="h5" paragraph textAlign="left">
         Transformar a vida de um animal:
       </MUI.Typography>
+
       <MUI.Typography
         variant="h6"
         paragraph
@@ -84,10 +95,12 @@ export default function Home() {
         sempre. Ao abrir seu lar e seu coração, você estará dando a ele a chance
         de ter uma vida feliz, saudável e cheia de amor.
       </MUI.Typography>
+
       <MUI.Typography variant="h5" paragraph textAlign="left">
         Adotar é mais do que ter um animal de estimação, é fazer a diferença no
         mundo.
       </MUI.Typography>
+
       <MUI.Typography
         variant="h6"
         paragraph
