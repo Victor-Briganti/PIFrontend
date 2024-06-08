@@ -3,7 +3,7 @@ import * as React from "react";
 import AxiosAnimal from "../api/AxiosAnimal";
 import InterfaceAnimal from "../models/interfaces/animal/InterfaceAnimal";
 import PageNumber from "./elements/PageNumber";
-import CardAnimal from "./elements/cards/CardAnimal";
+import CardDonorAnimal from "./elements/cards/CardDonorAnimal";
 
 export default function GridDonorAnimal() {
   const [animals, setAnimals] = React.useState([]);
@@ -57,7 +57,7 @@ export default function GridDonorAnimal() {
         <MUI.Grid container spacing={3}>
           {animals.map((animal: InterfaceAnimal) => (
             <MUI.Grid item key={animal.id} xs={4}>
-              <CardAnimal animal={animal} />
+              <CardDonorAnimal animal={animal} />
             </MUI.Grid>
           ))}
           <PageNumber

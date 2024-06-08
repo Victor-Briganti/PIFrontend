@@ -1,0 +1,75 @@
+import * as MUI from "@mui/material";
+import * as React from "react";
+import * as Router from "react-router-dom";
+import InterfaceAnimal from "../../../models/interfaces/animal/InterfaceAnimal";
+import AxiosAnimal from "../../../api/AxiosAnimal";
+
+interface CardDonorAnimalProps {
+  animal: InterfaceAnimal;
+}
+
+export default function CardDonorAnimal({ animal }: CardDonorAnimalProps) {
+  const [imageUrl, setImageUrl] = React.useState<string>("");
+  const [description, setDescription] = React.useState<string>("");
+  const axiosAnimal = React.useMemo(() => new AxiosAnimal(), []);
+  const navigate = Router.useNavigate();
+
+  React.useEffect(() => {
+    const animalId = animal.id;
+
+    if (animalId !== undefined) {
+      axiosAnimal
+        .listImageById(animalId)
+        .then((response) => {
+          const image = response[0].image;
+          if (typeof image === "string") {
+            setImageUrl(image);
+          } else {
+            throw new Error("Imagem deve ser um link");
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+
+    const animalDesc = animal.description;
+    if (animalDesc !== undefined) {
+      setDescription(animalDesc);
+    }
+  }, [animal, axiosAnimal]);
+
+  const handleClick = React.useCallback(() => {
+    try {
+      navigate(`/animal/donor/${animal.id}`);
+    } catch (error) {
+      console.log("error");
+    }
+  }, [animal, navigate]);
+
+  if (imageUrl === "") {
+    return;
+  }
+
+  return (
+    <MUI.Card sx={{ maxWidth: 345 }} onClick={handleClick}>
+      <MUI.CardActionArea>
+        <MUI.CardMedia component="img" height="250px" image={imageUrl} />
+        <MUI.CardContent>
+          <MUI.Typography gutterBottom variant="h5" component="div">
+            {animal.name}
+          </MUI.Typography>
+          {description && description.length > 90 ? (
+            <MUI.Typography variant="body2" color="text.secondary">
+              {description.slice(0, 90)}..
+            </MUI.Typography>
+          ) : (
+            <MUI.Typography variant="body2" color="text.secondary">
+              {description}
+            </MUI.Typography>
+          )}
+        </MUI.CardContent>
+      </MUI.CardActionArea>
+    </MUI.Card>
+  );
+}

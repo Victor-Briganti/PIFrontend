@@ -13,6 +13,22 @@ export default class AxiosDonor extends SuperAxios<InterfaceAdoption> {
     return await this.get("");
   }
 
+  async getRequestList(): Promise<InterfaceAdoption[]> {
+    return await this.get("requests/");
+  }
+
+  async getRequestDetailById(id: number): Promise<InterfaceAdoption> {
+    return await this.get(`request/${id}`);
+  }
+
+  async acceptRequest(id: number): Promise<InterfaceAdoption> {
+    return await this.post(`request/accept/${id}`);
+  }
+
+  async rejectRequest(id: number): Promise<InterfaceAdoption> {
+    return await this.post(`request/reject/${id}`);
+  }
+
   async getAdoptionAnimalList(page: number = 0): Promise<InterfaceAnimal[]> {
     return await this.get(
       page > 0 ? `animal/list/?page=${page}` : "animal/list/"
@@ -23,7 +39,7 @@ export default class AxiosDonor extends SuperAxios<InterfaceAdoption> {
     return await this.get(`${id}`);
   }
 
-  async getAdoptionDetailByAnimalId(id: number): Promise<InterfaceAdoption> {
+  async getAdoptionDetailByAnimalId(id: number): Promise<InterfaceAdoption[]> {
     return await this.get(`animal/${id}`);
   }
 

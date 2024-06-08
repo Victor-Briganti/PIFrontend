@@ -3,6 +3,7 @@ import AnimalList from "../pages/AnimalList";
 import AnimalProfile from "../pages/AnimalProfile";
 import AnimalRegister from "../pages/AnimalRegister";
 import AnimalAdoptionList from "../pages/AnimalAdoptionList";
+import AnimalDonorProfile from "../pages/AnimalDonorProfile";
 
 const animalRoutes = [
   {
@@ -20,6 +21,10 @@ const animalRoutes = [
   {
     path: "/animal/:animalId",
     element: <AnimalProfile />,
+  },
+  {
+    path: "/animal/donor/:animalId",
+    element: <AnimalDonorProfile />,
   },
   {
     path: "/animal/register",

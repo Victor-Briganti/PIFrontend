@@ -6,7 +6,6 @@ import UserContext from "../../hooks/UserContext";
 import InterfaceAnimal from "../../models/interfaces/animal/InterfaceAnimal";
 import Modal from "../elements/Modal";
 import AxiosAdoption from "../../api/AxiosAdoption";
-import AxiosDonor from "../../api/AxiosDonor";
 import InterfaceAdoption from "../../models/interfaces/adoption/InterfaceAdoption";
 import { SuccessMessage, ErrorMessage } from "./Message";
 
