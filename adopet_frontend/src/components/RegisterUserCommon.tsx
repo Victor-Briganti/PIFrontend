@@ -77,7 +77,7 @@ export default function RegisterUserCommon({
     [handleFileChange]
   );
 
-  const handleRemoveImage = (_index: number) => {
+  const handleRemoveImage = () => {
     setImagePreview([]);
     setAvatar(undefined);
   };

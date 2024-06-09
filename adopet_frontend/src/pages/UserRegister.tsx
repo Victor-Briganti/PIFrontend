@@ -2,8 +2,9 @@ import * as React from "react";
 import * as Router from "react-router-dom";
 import RegisterAddress from "../components/RegisterAddress";
 import RegisterUserCommon from "../components/RegisterUserCommon";
-import FormLayout from "../components/layouts/FormLayout";
 import RegisterUserMetadata from "../components/RegisterUserMetadata";
+import TopArrowBack from "../components/elements/navigation/TopArrowBack";
+import FormLayout from "../components/layouts/FormLayout";
 
 enum RegisterStep {
   common,
@@ -41,11 +42,14 @@ export default function UserRegister() {
   return (
     <FormLayout>
       {step === RegisterStep.common && (
-        <RegisterUserCommon
-          messageError={messageError}
-          setMessageError={setMessageError}
-          handleRegisterStep={handleUserCommonStep}
-        />
+        <React.Fragment>
+          <TopArrowBack />
+          <RegisterUserCommon
+            messageError={messageError}
+            setMessageError={setMessageError}
+            handleRegisterStep={handleUserCommonStep}
+          />
+        </React.Fragment>
       )}
 
       {step === RegisterStep.address && (

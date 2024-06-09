@@ -134,22 +134,27 @@ export default function FormUserCommon({
               />
             </MUI.Grid>
 
-            {!(imagePreviews.length > 0) && (
-              <DragBox
-                dragOver={dragOver}
-                handleDragOver={handleDragOver}
-                handleDragLeave={handleDragLeave}
-                handleDrop={handleDrop}
-                handleChange={handleChange}
+            <MUI.Grid item xs={12} sm={12}>
+              {!(imagePreviews.length > 0) && (
+                <DragBox
+                  dragOver={dragOver}
+                  handleDragOver={handleDragOver}
+                  handleDragLeave={handleDragLeave}
+                  handleDrop={handleDrop}
+                  handleChange={handleChange}
+                />
+              )}
+            </MUI.Grid>
+
+            <MUI.Grid item xs={12} sm={12}>
+              <CircularLoading loading={loading} />
+
+              <ImageUploadPreview
+                imagePreviews={imagePreviews}
+                handleRemoveImage={handleRemoveImage}
               />
-            )}
+            </MUI.Grid>
 
-            <CircularLoading loading={loading} />
-
-            <ImageUploadPreview
-              imagePreviews={imagePreviews}
-              handleRemoveImage={handleRemoveImage}
-            />
 
             <MUI.Grid item xs={12} sm={12}>
               <MUI.Button

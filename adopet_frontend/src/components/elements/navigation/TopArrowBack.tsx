@@ -1,6 +1,6 @@
-import * as MUI from "@mui/material"
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import * as MUI from "@mui/material";
 import * as Router from "react-router-dom";
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 export default function TopArrowBack() {
   const navigate = Router.useNavigate();
@@ -8,20 +8,20 @@ export default function TopArrowBack() {
   return (
     <MUI.Box
       sx={{
-        marginTop: 0, // Adjust this value as needed
+        marginTop: 0,
         display: "flex",
         flexDirection: "column",
-        alignItems: "flex-start", // Align items to the start (left)
-        position: "fixed", // Position fixed so it stays on top
-        top: 20, // Align to the top of the screen
+        alignItems: "flex-start",
+        position: "fixed",
+        top: 20,
         left: 10,
-        width: "100%", // Full width
-        bgcolor: "background.paper", // Same color as content background
-        zIndex: 1, // Ensure it's above the content
+        width: "100%",
+        bgcolor: "background.paper",
+        zIndex: 1,
       }}
     >
       <MUI.IconButton
-        sx={{ ml: 1 }} // Add margin to the left
+        sx={{ ml: 1 }}
         edge="start"
         color="inherit"
         aria-label="return"
@@ -30,6 +30,5 @@ export default function TopArrowBack() {
         <ArrowBackIcon />
       </MUI.IconButton>
     </MUI.Box>
-  )
-
+  );
 }

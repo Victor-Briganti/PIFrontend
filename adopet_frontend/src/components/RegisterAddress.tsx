@@ -6,7 +6,7 @@ import InterfaceAddress from "../models/interfaces/address/InterfaceAddress";
 import InterfaceCity from "../models/interfaces/address/InterfaceCity";
 import InterfaceState from "../models/interfaces/address/InterfaceState";
 import StateChoiceMap from "../models/map_choices/StateChoiceMap";
-import { validatedString, validatedNumber } from "../utils/Verification";
+import { validatedString } from "../utils/Verification";
 import FormAddress from "./forms/FormAddress";
 
 interface RegisterAddressProps {
@@ -35,23 +35,25 @@ export default function RegisterAddress({
     async (
       event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
     ) => {
-      const stateMap = new StateChoiceMap();
-      const cep = event.target.value;
+      setMessageError("");
 
-      if (validatedNumber(cep) === false && cep !== "") {
-        setMessageError("CEP inválido");
-        return;
+      const stateMap = new StateChoiceMap();
+      // Remove tudo que não for númerico
+      let data = event.target.value.replace(/\D/g, "");
+      if (data.length > 8) {
+        data = data.substring(0, 8);
       }
 
+      if (data.length >= 6) {
+        data = data.substring(0, 5) + "-" + data.substring(5, 8);
+      }
+
+      setCep(data);
       setReadOnly(false);
 
-      if (cep.length <= 8) {
-        setCep(cep);
-      }
-
-      if (cep.length === 8) {
+      if (data.length === 9) {
         try {
-          const response = await axiosViaCep.get(cep);
+          const response = await axiosViaCep.get(data.replace(/\D/g, ""));
           const uf = stateMap.getValueByKey(response.uf);
           if (uf === undefined) {
             setMessageError("Estado não pode ser definido");
@@ -143,7 +145,7 @@ export default function RegisterAddress({
     const newCity = { name: city, state: newState } as InterfaceCity;
     const newAddress = {
       city: newCity,
-      zip_code: cep,
+      zip_code: cep.replace(/\D/g, ""),
       district: district,
       street: street,
       complement: complement,

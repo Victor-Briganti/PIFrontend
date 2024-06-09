@@ -26,22 +26,38 @@ export default function RegisterUserMetadata({
 
   const handleCpf = React.useCallback(
     (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-      const data = event.target.value;
+      setMessageError("");
 
-      if (data.length < 12) setMessageError("");
-
-      if (data.length === 11 && validatedCPF(data) === false) {
-        setCpf(data);
-        setMessageError("CPF inválido");
-        return;
+      // Remove tudo que não for númerico
+      let data = event.target.value.replace(/\D/g, "");
+      if (data.length > 11) {
+        data = data.substring(0, 11);
       }
 
-      if (validatedNumber(data) === false && data !== "") {
-        setMessageError("CPF aceita somente números");
-        return;
+      // Formata o CPF
+      switch (data.length) {
+        case 0:
+          setCpf("");
+          break;
+        case 1:
+        case 2:
+        case 3:
+          setCpf(data);
+          break;
+        case 4:
+        case 5:
+        case 6:
+          setCpf(data.replace(/(\d{3})/, "$1."));
+          break;
+        case 7:
+        case 8:
+        case 9:
+          setCpf(data.replace(/(\d{3})(\d{3})/, "$1.$2."));
+          break;
+        default:
+          setCpf(data.replace(/(\d{3})(\d{3})(\d{3})/, "$1.$2.$3-"));
+          break;
       }
-
-      if (data.length <= 11) setCpf(data);
     },
     [setCpf, setMessageError]
   );
@@ -55,20 +71,52 @@ export default function RegisterUserMetadata({
 
   const handlePhone = React.useCallback(
     (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-      const data = event.target.value;
-      if (validatedNumber(data) === false && data !== "") {
-        setMessageError("Telefone aceita somente números");
-        return;
+      setMessageError("");
+
+      // Remove tudo que não for númerico
+      let data = event.target.value.replace(/\D/g, "");
+      if (data.length > 11) {
+        data = data.substring(0, 11);
       }
 
-      setPhone(data);
-      setMessageError("");
+      // Formata o número do telefone
+      switch (data.length) {
+        case 0:
+          setPhone("");
+          break;
+        case 1:
+          setPhone(data.replace(/(\d{1})/, "($1"));
+          break;
+        case 2:
+        case 3:
+        case 4:
+        case 5:
+        case 6:
+        case 7:
+          setPhone(data.replace(/(\d{2})/, "($1)"));
+          break;
+        default:
+          setPhone(data.replace(/(\d{2})(\d{5})/, "($1)$2-"));
+          break;
+      }
     },
     [setPhone, setMessageError]
   );
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    const formattedCPF = cpf.replace(/\D/g, "");
+    if (!validatedCPF(formattedCPF)) {
+      setMessageError("CPF inválido");
+      return;
+    }
+
+    const formattedPhone = phone.replace(/\D/g, "");
+    if (!validatedNumber(formattedPhone)) {
+      setMessageError("Telefone inválido");
+      return;
+    }
 
     if (
       user !== undefined &&
