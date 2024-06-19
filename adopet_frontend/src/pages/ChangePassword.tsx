@@ -4,6 +4,7 @@ import AxiosUser from "../api/AxiosUser";
 import FormChangePassword from "../components/forms/FormChangePassword";
 import FormLayout from "../components/layouts/FormLayout";
 import UserContext from "../hooks/UserContext";
+import TopArrowBack from "../components/elements/navigation/TopArrowBack";
 
 export default function ChangePassword() {
   const [messageError, setMessageError] = React.useState<string>("");
@@ -104,6 +105,7 @@ export default function ChangePassword() {
 
   return (
     <FormLayout>
+      <TopArrowBack />
       <FormChangePassword
         password={password}
         confirmPassword={confirmPassword}

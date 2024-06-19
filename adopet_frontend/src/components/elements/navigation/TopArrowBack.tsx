@@ -16,7 +16,7 @@ export default function TopArrowBack() {
         top: 20,
         left: 10,
         width: "100%",
-        bgcolor: "background.paper",
+        bgcolor: "transparent",
         zIndex: 1,
       }}
     >

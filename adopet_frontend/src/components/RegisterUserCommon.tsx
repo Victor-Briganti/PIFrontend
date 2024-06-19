@@ -3,6 +3,7 @@ import AxiosUser from "../api/AxiosUser";
 import InterfaceUserCommon from "../models/interfaces/user/InterfaceUserCommon";
 import { validatedEmail, validatedString } from "../utils/Verification";
 import FormUserCommon from "./forms/FormUserCommon";
+import TopArrowBack from "./elements/navigation/TopArrowBack";
 
 interface RegisterUserCommonProps {
   messageError: string;
@@ -158,23 +159,26 @@ export default function RegisterUserCommon({
   );
 
   return (
-    <FormUserCommon
-      messageError={messageError}
-      dragOver={dragOver}
-      loading={loading}
-      imagePreviews={imagePreviews}
-      firstname={firstname}
-      lastname={lastname}
-      email={email}
-      handleChange={handleChange}
-      handleDragLeave={handleDragLeave}
-      handleDragOver={handleDragOver}
-      handleDrop={handleDrop}
-      handleRemoveImage={handleRemoveImage}
-      handleFirstname={handleFirstname}
-      handleLastname={handleLastname}
-      handleEmail={handleEmail}
-      handleSubmit={handleSubmit}
-    />
+    <React.Fragment>
+      <TopArrowBack />
+      <FormUserCommon
+        messageError={messageError}
+        dragOver={dragOver}
+        loading={loading}
+        imagePreviews={imagePreviews}
+        firstname={firstname}
+        lastname={lastname}
+        email={email}
+        handleChange={handleChange}
+        handleDragLeave={handleDragLeave}
+        handleDragOver={handleDragOver}
+        handleDrop={handleDrop}
+        handleRemoveImage={handleRemoveImage}
+        handleFirstname={handleFirstname}
+        handleLastname={handleLastname}
+        handleEmail={handleEmail}
+        handleSubmit={handleSubmit}
+      />
+    </React.Fragment>
   );
 }

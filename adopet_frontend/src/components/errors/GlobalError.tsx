@@ -14,7 +14,7 @@ export default function GlobalError() {
           height: "100vh",
         }}
       >
-        <h1>Houve algum problema.</h1>
+        <h1>Houve algum erro.</h1>
         <MUI.Box sx={{ mt: 2 }}>
           <MUI.Link
             component={Router.Link}

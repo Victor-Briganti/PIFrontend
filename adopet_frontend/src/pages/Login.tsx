@@ -56,7 +56,7 @@ export default function Login() {
 
   return (
     <React.Fragment>
-      < TopArrowBack />
+      <TopArrowBack />
       <FormLayout>
         <MUI.Box
           sx={{
@@ -81,6 +81,6 @@ export default function Login() {
         </MUI.Box>
         <CopyRight sx={{ mt: 8, mb: 4 }} />
       </FormLayout>
-    </React.Fragment >
+    </React.Fragment>
   );
 }

@@ -3,6 +3,7 @@ import * as MUI from "@mui/material";
 import FormAnimal from "./forms/FormAnimal";
 import InterfaceAnimal from "../models/interfaces/animal/InterfaceAnimal";
 import AxiosAnimal from "../api/AxiosAnimal";
+import TopArrowBack from "./elements/navigation/TopArrowBack";
 
 interface RegisterAnimalProps {
   messageError: string;
@@ -195,35 +196,38 @@ export default function RegisterAnimal({
   );
 
   return (
-    <FormAnimal
-      name={name}
-      weight={weight}
-      specie={specie}
-      gender={gender}
-      size={size}
-      age={age}
-      coat={coat}
-      description={description}
-      isHouseTrained={isHouseTrained}
-      temperament={temperament}
-      isSpecialNeeds={isSpecialNeeds}
-      isVaccinated={isVaccinated}
-      isCastrated={isCastrated}
-      handleName={handleName}
-      handleWeight={handleWeight}
-      handleSpecie={handleSpecie}
-      handleGender={handleGender}
-      handleSize={handleSize}
-      handleAge={handleAge}
-      handleCoat={handleCoat}
-      handleDescription={handleDescription}
-      handleTemperament={handleTemperament}
-      handleHouseTrained={handleHouseTrained}
-      handleSpecialNeeds={handleSpecialNeeds}
-      handleVaccinated={handleVaccinated}
-      handleCastrated={handleCastrated}
-      handleSubmit={handleSubmit}
-      messageError={messageError}
-    />
+    <React.Fragment>
+      <TopArrowBack />
+      <FormAnimal
+        name={name}
+        weight={weight}
+        specie={specie}
+        gender={gender}
+        size={size}
+        age={age}
+        coat={coat}
+        description={description}
+        isHouseTrained={isHouseTrained}
+        temperament={temperament}
+        isSpecialNeeds={isSpecialNeeds}
+        isVaccinated={isVaccinated}
+        isCastrated={isCastrated}
+        handleName={handleName}
+        handleWeight={handleWeight}
+        handleSpecie={handleSpecie}
+        handleGender={handleGender}
+        handleSize={handleSize}
+        handleAge={handleAge}
+        handleCoat={handleCoat}
+        handleDescription={handleDescription}
+        handleTemperament={handleTemperament}
+        handleHouseTrained={handleHouseTrained}
+        handleSpecialNeeds={handleSpecialNeeds}
+        handleVaccinated={handleVaccinated}
+        handleCastrated={handleCastrated}
+        handleSubmit={handleSubmit}
+        messageError={messageError}
+      />
+    </React.Fragment>
   );
 }
