@@ -1,9 +1,9 @@
 import * as MUI from "@mui/material";
 import * as React from "react";
-import InterfaceAnimal from "../models/interfaces/animal/InterfaceAnimal";
 import AxiosAnimal from "../api/AxiosAnimal";
-import CardAnimal from "./elements/cards/CardAnimal";
+import InterfaceAnimal from "../models/interfaces/animal/InterfaceAnimal";
 import PageNumber from "./elements/PageNumber";
+import CardAnimal from "./elements/cards/CardAnimal";
 
 export default function GridAnimal() {
   const [animals, setAnimals] = React.useState([]);
@@ -55,12 +55,14 @@ export default function GridAnimal() {
             <CardAnimal animal={animal} />
           </MUI.Grid>
         ))}
+      </MUI.Grid>
+      <MUI.Box mt={2}>
         <PageNumber
           page={page}
           totalPages={totalPages}
           handlePageChange={handlePageChange}
         />
-      </MUI.Grid>
+      </MUI.Box>
     </React.Fragment>
   );
 }

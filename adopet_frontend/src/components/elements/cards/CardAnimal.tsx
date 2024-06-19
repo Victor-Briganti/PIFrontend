@@ -3,6 +3,7 @@ import * as React from "react";
 import * as Router from "react-router-dom";
 import InterfaceAnimal from "../../../models/interfaces/animal/InterfaceAnimal";
 import AxiosAnimal from "../../../api/AxiosAnimal";
+import AnimalCardError from "../../errors/AnimalCardError";
 
 interface CardAnimalProps {
   animal: InterfaceAnimal;
@@ -48,7 +49,7 @@ export default function CardAnimal({ animal }: CardAnimalProps) {
   }, [animal, navigate]);
 
   if (imageUrl === "") {
-    return;
+    return <AnimalCardError />;
   }
 
   return (
