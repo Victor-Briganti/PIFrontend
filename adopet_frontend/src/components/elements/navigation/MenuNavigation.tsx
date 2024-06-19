@@ -53,7 +53,9 @@ export default function MenuNavigation({
           display: { xs: "block", md: "none" },
         }}
       >
-        <LinkItem pages={pages} pageLinks={pageLinks}
+        <LinkItem
+          pages={pages}
+          pageLinks={pageLinks}
           textAlign="center"
           width={"100%"}
           sx={{ px: "14px" }}

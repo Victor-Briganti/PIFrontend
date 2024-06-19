@@ -1,6 +1,6 @@
 import * as MUI from "@mui/material";
 import * as Router from "react-router-dom";
-import ErrorLayout from "../components/layouts/ErrorLayout";
+import ErrorLayout from "../layouts/ErrorLayout";
 
 export default function NotFound() {
   return (
