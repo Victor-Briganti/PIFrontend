@@ -5,7 +5,9 @@ import InterfaceAnimal from "../models/interfaces/animal/InterfaceAnimal";
 import PageNumber from "./elements/PageNumber";
 import CardDonorAnimal from "./elements/cards/CardDonorAnimal";
 
-export default function GridDonorAnimal() {
+export default function GridRequestAnimal() {
+  const [messageError, setMessageError] = React.useState("");
+  const [loading, setLoading] = React.useState(true);
   const [animals, setAnimals] = React.useState([]);
   const [page, setPage] = React.useState<number>(1);
   const [totalPages, setTotalPages] = React.useState<number>(1);
@@ -13,33 +15,37 @@ export default function GridDonorAnimal() {
 
   React.useEffect(() => {
     axiosDonor
-      .getAdoptionAnimalList()
+      .getRequestsAnimalList()
       .then((response) => {
         setAnimals(response.results);
         setTotalPages(Math.ceil(response.count / 9));
       })
       .catch((error) => {
-        console.error(error);
+        setMessageError(error);
       });
+
+    setLoading(false);
   }, [axiosDonor]);
 
   const handlePageChange = React.useCallback(
     (event: React.ChangeEvent<unknown>, value: number) => {
+      setLoading(true);
       event.preventDefault();
       axiosDonor
-        .getAdoptionAnimalList(value)
+        .getRequestsAnimalList(value)
         .then((response) => {
           setAnimals(response.results);
           setPage(value);
         })
         .catch((error) => {
-          console.error(error);
+          setMessageError(error);
         });
+      setLoading(false);
     },
     [axiosDonor]
   );
 
-  if (!animals) {
+  if (loading) {
     return (
       <div>
         <h1>Carregando...</h1>
@@ -47,26 +53,38 @@ export default function GridDonorAnimal() {
     );
   }
 
+  if (messageError !== "") {
+    return (
+      <div>
+        <h1>O animal não pode ser carregado</h1>
+      </div>
+    );
+  }
+
+  if (animals.length === 0) {
+    return (
+      <div>
+        <h1>Não há animais para serem mostrados</h1>
+      </div>
+    );
+  }
+
   return (
     <React.Fragment>
-      {animals.length === 0 ? (
-        <div>
-          <h1>Nenhum Animal Cadastrado</h1>
-        </div>
-      ) : (
-        <MUI.Grid container spacing={3}>
-          {animals.map((animal: InterfaceAnimal) => (
-            <MUI.Grid item key={animal.id} xs={4}>
-              <CardDonorAnimal animal={animal} />
-            </MUI.Grid>
-          ))}
-          <PageNumber
-            page={page}
-            totalPages={totalPages}
-            handlePageChange={handlePageChange}
-          />
-        </MUI.Grid>
-      )}
+      <MUI.Grid container spacing={3}>
+        {animals.map((animal: InterfaceAnimal) => (
+          <MUI.Grid item key={animal.id} xs={4}>
+            <CardDonorAnimal animal={animal} />
+          </MUI.Grid>
+        ))}
+      </MUI.Grid>
+      <MUI.Box mt={2}>
+        <PageNumber
+          page={page}
+          totalPages={totalPages}
+          handlePageChange={handlePageChange}
+        />
+      </MUI.Box>
     </React.Fragment>
   );
 }

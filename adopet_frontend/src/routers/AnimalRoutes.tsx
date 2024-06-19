@@ -2,8 +2,9 @@ import AnimalDonorList from "../pages/AnimalDonorList";
 import AnimalList from "../pages/AnimalList";
 import AnimalProfile from "../pages/AnimalProfile";
 import AnimalRegister from "../pages/AnimalRegister";
-import AnimalAdoptionList from "../pages/AnimalAdoptionList";
+import AnimalAdoptedList from "../pages/AnimalAdoptedList";
 import AnimalDonorProfile from "../pages/AnimalDonorProfile";
+import AnimalRequestList from "../pages/AnimalRequestList";
 import GlobalError from "../components/errors/GlobalError";
 
 const animalRoutes = [
@@ -17,8 +18,13 @@ const animalRoutes = [
     errorElement: <GlobalError />,
   },
   {
+    path: "/animals/adopted",
+    element: <AnimalAdoptedList />,
+    errorElement: <GlobalError />,
+  },
+  {
     path: "/animals/requests",
-    element: <AnimalAdoptionList />,
+    element: <AnimalRequestList />,
     errorElement: <GlobalError />,
   },
   {

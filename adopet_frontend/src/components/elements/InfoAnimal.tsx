@@ -154,7 +154,9 @@ export default function InfoAnimal({ animal }: InfoAnimalProps) {
           )}
         </MUI.Grid>
         <MUI.Grid item xs={6}>
-          {user.context !== null && user.context.id === animal.donor ? (
+          {user.context !== null &&
+          user.context.id === animal.donor &&
+          animal.is_adopted === false ? (
             <React.Fragment>
               <MUI.Button
                 variant="contained"
@@ -165,7 +167,8 @@ export default function InfoAnimal({ animal }: InfoAnimalProps) {
               </MUI.Button>
             </React.Fragment>
           ) : (
-            activeAdoptionButton && (
+            activeAdoptionButton &&
+            animal.is_adopted === false && (
               <MUI.Button
                 color="primary"
                 variant="contained"

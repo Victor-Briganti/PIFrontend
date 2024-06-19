@@ -6,6 +6,8 @@ import PageNumber from "./elements/PageNumber";
 import CardAnimal from "./elements/cards/CardAnimal";
 
 export default function GridAnimal() {
+  const [messageError, setMessageError] = React.useState("");
+  const [loading, setLoading] = React.useState(true);
   const [animals, setAnimals] = React.useState([]);
   const [page, setPage] = React.useState<number>(1);
   const [totalPages, setTotalPages] = React.useState<number>(1);
@@ -19,12 +21,15 @@ export default function GridAnimal() {
         setTotalPages(Math.ceil(response.count / 9));
       })
       .catch((error) => {
-        console.error(error);
+        setMessageError(error);
       });
+
+    setLoading(false);
   }, [axiosAnimal]);
 
   const handlePageChange = React.useCallback(
     (event: React.ChangeEvent<unknown>, value: number) => {
+      setLoading(true);
       event.preventDefault();
       axiosAnimal
         .listAnimals(value)
@@ -33,16 +38,33 @@ export default function GridAnimal() {
           setPage(value);
         })
         .catch((error) => {
-          console.error(error);
+          setMessageError(error);
         });
+      setLoading(false);
     },
     [axiosAnimal]
   );
 
-  if (!animals) {
+  if (loading) {
     return (
       <div>
         <h1>Carregando...</h1>
+      </div>
+    );
+  }
+
+  if (messageError !== "") {
+    return (
+      <div>
+        <h1>O animal não pode ser carregado</h1>
+      </div>
+    );
+  }
+
+  if (animals.length === 0) {
+    return (
+      <div>
+        <h1>Não há animais para serem mostrados</h1>
       </div>
     );
   }

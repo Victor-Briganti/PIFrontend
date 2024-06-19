@@ -25,7 +25,11 @@ export default function CardUser({ userCommon, handleLogout }: CardUserProps) {
     navigate("/animals/donor");
   }, [navigate]);
 
-  const handleAdoptionList = React.useCallback(() => {
+  const handleAdoptedList = React.useCallback(() => {
+    navigate("/animals/adopted");
+  }, [navigate]);
+
+  const handleRequestsList = React.useCallback(() => {
     navigate("/animals/requests");
   }, [navigate]);
 
@@ -71,8 +75,12 @@ export default function CardUser({ userCommon, handleLogout }: CardUserProps) {
             </MUI.Box>
 
             <MUI.Box display="flex" justifyContent="center" alignItems="center">
-              <MUI.Link onClick={handleAdoptionList}>
-                Requisição de Adoções
+              <MUI.Link onClick={handleAdoptedList}>Animais adotados</MUI.Link>
+            </MUI.Box>
+
+            <MUI.Box display="flex" justifyContent="center" alignItems="center">
+              <MUI.Link onClick={handleRequestsList}>
+                Requisições de adoção
               </MUI.Link>
             </MUI.Box>
           </MUI.Typography>

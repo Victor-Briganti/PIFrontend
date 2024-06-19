@@ -4,7 +4,7 @@ import UserContext from "../../hooks/UserContext";
 import InterfaceAnimal from "../../models/interfaces/animal/InterfaceAnimal";
 import InterfaceAdoption from "../../models/interfaces/adoption/InterfaceAdoption";
 import AxiosDonor from "../../api/AxiosDonor";
-import CardAdoption from "./cards/CardAdoption";
+import CardRequest from "./cards/CardRequest";
 
 interface InfoDonorAnimalProps {
   animal: InterfaceAnimal;
@@ -25,37 +25,39 @@ export default function InfoDonorAnimal({ animal }: InfoDonorAnimalProps) {
     )
       return;
 
-    axiosDonor.getAdoptionDetailByAnimalId(animal.id).then((response) => {
-      setRequests(response);
-    }).catch(() => {
-      setMessageError("Erro ao carregar as requisições");
-    });
+    axiosDonor
+      .getAdoptionDetailByAnimalId(animal.id)
+      .then((response) => {
+        setRequests(response);
+      })
+      .catch(() => {
+        setMessageError("Erro ao carregar as requisições");
+      });
   }, [user, animal]);
 
   if (requests === undefined) {
-    return <h1>
-      Animal não pode ser carregado
-    </h1>;
+    return <h1>Animal não pode ser carregado</h1>;
   }
-
 
   return (
     <MUI.Box>
       <MUI.Typography variant="h4">{animal.name}</MUI.Typography>
       <MUI.Grid container justifyContent={"flex-start"}>
-        {messageError !== "" ?
+        {messageError !== "" ? (
           <MUI.Grid item xs={6}>
             {messageError}
           </MUI.Grid>
-          :
+        ) : (
           <MUI.Grid item xs={6}>
-            {requests.map((request) => (
-              request.request_status === "pending" &&
-              <CardAdoption adoption={request} />
-            ))}
+            {requests.map(
+              (request) =>
+                request.request_status === "pending" && (
+                  <CardRequest adoption={request} />
+                )
+            )}
           </MUI.Grid>
-        }
+        )}
       </MUI.Grid>
-    </MUI.Box >
+    </MUI.Box>
   );
 }

@@ -1,15 +1,15 @@
 import * as MUI from "@mui/material";
 import * as React from "react";
-import CloseIcon from '@mui/icons-material/Close';
-import CheckIcon from '@mui/icons-material/Check';
+import CloseIcon from "@mui/icons-material/Close";
+import CheckIcon from "@mui/icons-material/Check";
 import InterfaceAdoption from "../../../models/interfaces/adoption/InterfaceAdoption";
 import AxiosDonor from "../../../api/AxiosDonor";
 
-interface CardAdoptionProps {
-  adoption: InterfaceAdoption
+interface CardRequestProps {
+  adoption: InterfaceAdoption;
 }
 
-export default function CardAdoption({ adoption }: CardAdoptionProps) {
+export default function CardRequest({ adoption }: CardRequestProps) {
   const axiosDonor = React.useMemo(() => new AxiosDonor(), []);
 
   const handleAccept = () => {
@@ -31,9 +31,7 @@ export default function CardAdoption({ adoption }: CardAdoptionProps) {
       <MUI.CardContent>
         <MUI.Grid container spacing={1} alignItems="center">
           <MUI.Grid item>
-            <MUI.Typography>
-              {adoption.id}
-            </MUI.Typography>
+            <MUI.Typography>{adoption.id}</MUI.Typography>
           </MUI.Grid>
           <MUI.Grid item>
             <MUI.Button
