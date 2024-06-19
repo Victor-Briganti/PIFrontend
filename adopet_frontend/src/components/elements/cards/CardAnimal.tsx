@@ -12,6 +12,7 @@ interface CardAnimalProps {
 export default function CardAnimal({ animal }: CardAnimalProps) {
   const [imageUrl, setImageUrl] = React.useState<string>("");
   const [description, setDescription] = React.useState<string>("");
+  const [loading, setLoading] = React.useState<boolean>(true);
   const axiosAnimal = React.useMemo(() => new AxiosAnimal(), []);
   const navigate = Router.useNavigate();
 
@@ -31,6 +32,9 @@ export default function CardAnimal({ animal }: CardAnimalProps) {
         })
         .catch((error) => {
           console.log(error);
+        })
+        .finally(() => {
+          setLoading(false);
         });
     }
 
@@ -47,6 +51,32 @@ export default function CardAnimal({ animal }: CardAnimalProps) {
       console.log("error");
     }
   }, [animal, navigate]);
+
+  if (loading) {
+    return (
+      <MUI.Card sx={{ maxWidth: 345 }}>
+        <MUI.CardActionArea>
+          <MUI.Skeleton variant="rectangular" height={250} />
+          <MUI.CardContent>
+            <MUI.Skeleton
+              variant="text"
+              sx={{ fontSize: "1.5rem", marginBottom: 1 }}
+            />
+            <MUI.Skeleton
+              variant="text"
+              sx={{ fontSize: "1rem" }}
+              width="80%"
+            />
+            <MUI.Skeleton
+              variant="text"
+              sx={{ fontSize: "1rem" }}
+              width="60%"
+            />
+          </MUI.CardContent>
+        </MUI.CardActionArea>
+      </MUI.Card>
+    );
+  }
 
   if (imageUrl === "") {
     return <AnimalCardError />;
