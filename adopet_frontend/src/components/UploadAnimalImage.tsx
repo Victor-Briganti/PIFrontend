@@ -8,12 +8,14 @@ import ImageUploadPreview from "./elements/form_control/ImageUploadPreview";
 
 interface UploadAnimalImageProps {
   messageError: string;
+  animalName: string | undefined;
   setMessageError: React.Dispatch<React.SetStateAction<string>>;
   handleUploadStep: (images: InterfaceAnimalImageFile[]) => void;
 }
 
 export default function UploadAnimalImage({
   messageError,
+  animalName,
   setMessageError,
   handleUploadStep,
 }: UploadAnimalImageProps) {
@@ -150,7 +152,7 @@ export default function UploadAnimalImage({
   return (
     <React.Fragment>
       <MUI.Typography component="h1" variant="h5">
-        Upload de Imagens do Placeholder
+        Upload de Imagens do {animalName}
       </MUI.Typography>
 
       <MUI.Box sx={{ mt: 3 }}>

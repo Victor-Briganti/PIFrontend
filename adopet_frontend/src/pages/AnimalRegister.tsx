@@ -28,7 +28,6 @@ export default function AnimalRegister() {
           for (let i = 0; i < animalImages.length; i++) {
             const image = animalImages[i];
             image.animal = animal.id;
-            console.log("Aqui");
             axiosAnimal.uploadImage(image).catch((error) => {
               setMessageError("Erro ao enviar imagem");
               return;
@@ -64,6 +63,7 @@ export default function AnimalRegister() {
       {!registerStep && (
         <AnimalImageUpload
           messageError={messageError}
+          animalName={animal?.name}
           setMessageError={setMessageError}
           handleUploadStep={handleUploadStep}
         />

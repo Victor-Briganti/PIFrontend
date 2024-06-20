@@ -1,13 +1,18 @@
 import * as MUI from "@mui/material";
 import * as React from "react";
 import * as Router from "react-router-dom";
+import AxiosAdoption from "../../api/AxiosAdoption";
 import AxiosAnimal from "../../api/AxiosAnimal";
 import UserContext from "../../hooks/UserContext";
+import InterfaceAdoption from "../../models/interfaces/adoption/InterfaceAdoption";
 import InterfaceAnimal from "../../models/interfaces/animal/InterfaceAnimal";
 import Modal from "../elements/Modal";
-import AxiosAdoption from "../../api/AxiosAdoption";
-import InterfaceAdoption from "../../models/interfaces/adoption/InterfaceAdoption";
-import { SuccessMessage, ErrorMessage } from "./Message";
+import AgeChoiceMap from "../../models/map_choices/AgeChoiceMap";
+import CoatChoiceMap from "../../models/map_choices/CoatChoiceMap";
+import GenderChoiceMap from "../../models/map_choices/GenderChoiceMap";
+import SizeChoiceMap from "../../models/map_choices/SizeChoiceMap";
+import SpecieChoiceMap from "../../models/map_choices/SpecieChoiceMap";
+import { ErrorMessage, SuccessMessage } from "./Message";
 
 interface InfoAnimalProps {
   animal: InterfaceAnimal;
@@ -19,11 +24,21 @@ export default function InfoAnimal({ animal }: InfoAnimalProps) {
   const [errorMessage, setErrorMessage] = React.useState<string>("");
   const [activeAdoptionButton, setActiveAdoptionButton] =
     React.useState<boolean>(true);
+  const [age, setAge] = React.useState<string>("");
+  const [specie, setSpecie] = React.useState<string>("");
+  const [gender, setGender] = React.useState<string>("");
+  const [size, setSize] = React.useState<string>("");
+  const [coat, setCoat] = React.useState<string>("");
   const user = React.useContext(UserContext);
   const navigate = Router.useNavigate();
 
   React.useEffect(() => {
     const axiosAdoption = new AxiosAdoption();
+    const ageMap = new AgeChoiceMap();
+    const specieMap = new SpecieChoiceMap();
+    const genderMap = new GenderChoiceMap();
+    const sizeMap = new SizeChoiceMap();
+    const coatMap = new CoatChoiceMap();
 
     if (
       user.context === null ||
@@ -40,6 +55,31 @@ export default function InfoAnimal({ animal }: InfoAnimalProps) {
       )
         setActiveAdoptionButton(false);
     });
+
+    if (animal.age !== undefined) {
+      const ageValue = ageMap.getValueByKey(animal.age);
+      if (ageValue !== undefined) setAge(ageValue);
+    }
+
+    if (animal.specie !== undefined) {
+      const specieValue = specieMap.getValueByKey(animal.specie);
+      if (specieValue !== undefined) setSpecie(specieValue);
+    }
+
+    if (animal.gender !== undefined) {
+      const genderValue = genderMap.getValueByKey(animal.gender);
+      if (genderValue !== undefined) setGender(genderValue);
+    }
+
+    if (animal.size !== undefined) {
+      const sizeValue = sizeMap.getValueByKey(animal.size);
+      if (sizeValue !== undefined) setSize(sizeValue);
+    }
+
+    if (animal.coat !== undefined) {
+      const coatValue = coatMap.getValueByKey(animal.coat);
+      if (coatValue !== undefined) setCoat(coatValue);
+    }
   }, [user, animal]);
 
   const handleExclusion = React.useCallback(() => {
@@ -115,15 +155,15 @@ export default function InfoAnimal({ animal }: InfoAnimalProps) {
           <MUI.Typography variant="h5">Características</MUI.Typography>
 
           <MUI.Box component={"ul"} textAlign={"start"} sx={{ pl: 16 }}>
-            <MUI.Typography>Idade: {animal.age}</MUI.Typography>
+            <MUI.Typography>Idade: {age}</MUI.Typography>
 
-            <MUI.Typography>Espécie: {animal.specie}</MUI.Typography>
+            <MUI.Typography>Espécie: {specie}</MUI.Typography>
 
-            <MUI.Typography>Genêro: {animal.gender}</MUI.Typography>
+            <MUI.Typography>Genêro: {gender}</MUI.Typography>
 
-            <MUI.Typography>Tamanho: {animal.size}</MUI.Typography>
+            <MUI.Typography>Tamanho: {size}</MUI.Typography>
 
-            <MUI.Typography>Pelagem: {animal.coat}</MUI.Typography>
+            <MUI.Typography>Pelagem: {coat}</MUI.Typography>
 
             <MUI.Typography>Peso: {animal.weight?.toString()}</MUI.Typography>
 
