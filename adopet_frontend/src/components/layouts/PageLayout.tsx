@@ -8,7 +8,11 @@ interface PageLayoutProps {
   color?: string;
 }
 
-export default function PageLayout({ children, bgcolor, color }: PageLayoutProps) {
+export default function PageLayout({
+  children,
+  bgcolor,
+  color,
+}: PageLayoutProps) {
   return (
     <MUI.Box
       component="main"

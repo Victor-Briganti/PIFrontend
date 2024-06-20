@@ -1,50 +1,26 @@
 import * as MUI from "@mui/material";
 import * as React from "react";
-import AxiosAnimal from "../api/AxiosAnimal";
 import InterfaceAnimal from "../models/interfaces/animal/InterfaceAnimal";
 import PageNumber from "./elements/PageNumber";
 import CardAnimal from "./elements/cards/CardAnimal";
 
-export default function GridAnimal() {
-  const [messageError, setMessageError] = React.useState("");
-  const [loading, setLoading] = React.useState(true);
-  const [animals, setAnimals] = React.useState([]);
-  const [page, setPage] = React.useState<number>(1);
-  const [totalPages, setTotalPages] = React.useState<number>(1);
-  const axiosAnimal = React.useMemo(() => new AxiosAnimal(), []);
+interface GridAnimalProps {
+  page: number;
+  totalPages: number;
+  loading: boolean;
+  messageError: string;
+  animals: InterfaceAnimal[];
+  handlePageChange: (event: React.ChangeEvent<unknown>, value: number) => void;
+}
 
-  React.useEffect(() => {
-    axiosAnimal
-      .listAnimals()
-      .then((response) => {
-        setAnimals(response.results);
-        setTotalPages(Math.ceil(response.count / 9));
-      })
-      .catch((error) => {
-        setMessageError(error);
-      });
-
-    setLoading(false);
-  }, [axiosAnimal]);
-
-  const handlePageChange = React.useCallback(
-    (event: React.ChangeEvent<unknown>, value: number) => {
-      setLoading(true);
-      event.preventDefault();
-      axiosAnimal
-        .listAnimals(value)
-        .then((response) => {
-          setAnimals(response.results);
-          setPage(value);
-        })
-        .catch((error) => {
-          setMessageError(error);
-        });
-      setLoading(false);
-    },
-    [axiosAnimal]
-  );
-
+export default function GridAnimal({
+  page,
+  totalPages,
+  loading,
+  messageError,
+  animals,
+  handlePageChange,
+}: GridAnimalProps) {
   if (loading) {
     return (
       <div>
@@ -71,7 +47,7 @@ export default function GridAnimal() {
 
   return (
     <React.Fragment>
-      <MUI.Grid container spacing={3}>
+      <MUI.Grid container spacing={3} sx={{ t: "10px" }}>
         {animals.map((animal: InterfaceAnimal) => (
           <MUI.Grid item key={animal.id} xs={4}>
             <CardAnimal animal={animal} />

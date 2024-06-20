@@ -9,6 +9,7 @@ interface MenuItemsProps {
   name: string;
   label: string;
   readOnly: boolean;
+  noneOption?: boolean;
 }
 
 export default function MenuItems({
@@ -18,6 +19,7 @@ export default function MenuItems({
   name,
   label,
   readOnly = false,
+  noneOption = false,
 }: MenuItemsProps) {
   return (
     <React.Fragment>
@@ -32,6 +34,11 @@ export default function MenuItems({
           readOnly: readOnly,
         }}
       >
+        {noneOption && (
+          <MUI.MenuItem key="none" value="">
+            Vazio
+          </MUI.MenuItem>
+        )}
         {map.getArray().map((choice: [string, string]) => (
           <MUI.MenuItem key={choice[0]} value={choice[1]}>
             {choice[1]}

@@ -66,8 +66,20 @@ class AxiosAnimal extends SuperAxios<InterfaceAnimal> {
     this.axiosImage = new AxiosAnimalImage();
   }
 
-  async listAnimals(page: number = 0) {
-    return await this.get(page > 0 ? `?page=${page}` : "");
+  async listAnimals(search: string[] = [], page: number = 1) {
+    console.log(search);
+    let listSearch: string = "?search=";
+    for (let i = 0; i < search.length; i++) {
+      if (i === 0) {
+        listSearch += `${search[i]}`;
+      } else if (search[i] !== "") {
+        listSearch += `,${search[i]}`;
+      }
+    }
+    listSearch += `&page=${page}`;
+    console.log(listSearch);
+
+    return await this.get(listSearch);
   }
 
   async listAnimalsByDonor(page: number = 0): Promise<InterfaceAnimal[]> {

@@ -11,6 +11,8 @@ interface FormFieldProps {
   handleValue: (event: MUI.SelectChangeEvent) => void;
   map: AbstractChoiceMap;
   readOnly?: boolean;
+  required?: boolean;
+  noneOption?: boolean;
 }
 
 export default function FormControlField({
@@ -21,6 +23,8 @@ export default function FormControlField({
   handleValue,
   map,
   readOnly = false,
+  required = true,
+  noneOption = false,
 }: FormFieldProps) {
   return (
     <React.Fragment>
@@ -34,8 +38,11 @@ export default function FormControlField({
             value={value}
             name={name}
             readOnly={readOnly}
+            noneOption={noneOption}
           />
-          <MUI.FormHelperText>Campo Obrigatório</MUI.FormHelperText>
+          {required && (
+            <MUI.FormHelperText>Campo Obrigatório</MUI.FormHelperText>
+          )}
         </MUI.FormControl>
       </MUI.Grid>
     </React.Fragment>
