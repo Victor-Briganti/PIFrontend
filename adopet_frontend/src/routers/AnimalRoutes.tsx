@@ -1,11 +1,12 @@
+import GlobalError from "../components/errors/GlobalError";
+import AnimalAdoptedList from "../pages/AnimalAdoptedList";
 import AnimalDonorList from "../pages/AnimalDonorList";
+import AnimalDonorProfile from "../pages/AnimalDonorProfile";
 import AnimalList from "../pages/AnimalList";
 import AnimalProfile from "../pages/AnimalProfile";
 import AnimalRegister from "../pages/AnimalRegister";
-import AnimalAdoptedList from "../pages/AnimalAdoptedList";
-import AnimalDonorProfile from "../pages/AnimalDonorProfile";
 import AnimalRequestList from "../pages/AnimalRequestList";
-import GlobalError from "../components/errors/GlobalError";
+import AnimalUpdate from "../pages/AnimalUpdate";
 
 const animalRoutes = [
   {
@@ -40,6 +41,11 @@ const animalRoutes = [
   {
     path: "/animal/register",
     element: <AnimalRegister />,
+    errorElement: <GlobalError />,
+  },
+  {
+    path: "/animal/update",
+    element: <AnimalUpdate />,
     errorElement: <GlobalError />,
   },
 ];

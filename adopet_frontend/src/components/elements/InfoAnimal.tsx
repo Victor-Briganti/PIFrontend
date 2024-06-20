@@ -46,6 +46,10 @@ export default function InfoAnimal({ animal }: InfoAnimalProps) {
     setOpenModal(true);
   }, []);
 
+  const handleUpdate = React.useCallback(() => {
+    navigate("/animal/update", { state: { animal: animal } });
+  }, [animal, navigate]);
+
   const handleAdoption = React.useCallback(() => {
     const axiosAdoption = new AxiosAdoption();
 
@@ -158,6 +162,13 @@ export default function InfoAnimal({ animal }: InfoAnimalProps) {
           user.context.id === animal.donor &&
           animal.is_adopted === false ? (
             <React.Fragment>
+              <MUI.Button
+                variant="contained"
+                color="primary"
+                onClick={handleUpdate}
+              >
+                Editar
+              </MUI.Button>
               <MUI.Button
                 variant="contained"
                 color="error"

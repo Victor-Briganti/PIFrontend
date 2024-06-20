@@ -51,7 +51,6 @@ export default function CardDonorAnimal({ animal }: CardDonorAnimalProps) {
     }
   }, [animal, navigate]);
 
-  // Show Skeleton while loading
   if (loading || imageUrl === "") {
     return (
       <MUI.Card sx={{ maxWidth: 345 }}>

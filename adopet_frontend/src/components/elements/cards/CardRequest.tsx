@@ -1,15 +1,17 @@
+import CheckIcon from "@mui/icons-material/Check";
+import CloseIcon from "@mui/icons-material/Close";
 import * as MUI from "@mui/material";
 import * as React from "react";
-import CloseIcon from "@mui/icons-material/Close";
-import CheckIcon from "@mui/icons-material/Check";
-import InterfaceAdoption from "../../../models/interfaces/adoption/InterfaceAdoption";
+import * as Router from "react-router-dom";
 import AxiosDonor from "../../../api/AxiosDonor";
+import InterfaceAdoption from "../../../models/interfaces/adoption/InterfaceAdoption";
 
 interface CardRequestProps {
   adoption: InterfaceAdoption;
 }
 
 export default function CardRequest({ adoption }: CardRequestProps) {
+  const navigate = Router.useNavigate();
   const axiosDonor = React.useMemo(() => new AxiosDonor(), []);
 
   const [loading, setLoading] = React.useState(true);
@@ -21,6 +23,7 @@ export default function CardRequest({ adoption }: CardRequestProps) {
   const handleAccept = () => {
     if (adoption.id !== undefined) {
       axiosDonor.acceptRequest(adoption.id);
+      navigate("/animals/requests");
     }
   };
 

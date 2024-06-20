@@ -135,8 +135,6 @@ export function validatedUpdateAnimal(
     if (coat === undefined) {
       throw new Error("Pelagem não pode ser definido");
     }
-
-    animal.coat = coatMap.getValueByKey(animal.coat);
   }
 
   return animal;
