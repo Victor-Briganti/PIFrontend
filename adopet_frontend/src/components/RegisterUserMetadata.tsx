@@ -126,9 +126,9 @@ export default function RegisterUserMetadata({
       const userMetadata = {
         user: user,
         address: address,
-        cpf: cpf,
+        cpf: formattedCPF,
         birth_date: birthdate,
-        phone: phone,
+        phone: formattedPhone,
       } as InterfaceUserMetadata;
       try {
         await axiosUser.registerMetadata(userMetadata);

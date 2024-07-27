@@ -69,28 +69,38 @@ export function validatedCPF(value: string): boolean {
     "99999999999",
   ];
 
-  if (!/[0-9]{11}/.test(value) && !invalidCPF.includes(value)) {
+  if (
+    !/[0-9]{11}/.test(value) ||
+    invalidCPF.includes(value) ||
+    value.length > 11
+  ) {
     return false;
   }
 
   let sum = 0;
-
   for (let i = 1; i <= 9; i++) {
     sum += parseInt(value.substring(i - 1, i)) * (11 - i);
   }
 
-  const digito1 = 11 - (sum % 11);
-  if (digito1 !== parseInt(value.substring(9, 10))) {
-    return false;
+  let digito1 = 11 - (sum % 11);
+  if (digito1 == 10) {
+    digito1 = 0;
   }
 
   sum = 0;
   for (let i = 1; i <= 9; i++) {
     sum += parseInt(value.substring(i - 1, i)) * (12 - i);
   }
-  const digito2 = 11 - ((sum + digito1 * 2) % 11);
 
-  if (digito2 !== parseInt(value.substring(10, 11))) {
+  let digito2 = 11 - ((sum + digito1 * 2) % 11);
+  if (digito2 == 10) {
+    digito2 = 0;
+  }
+
+  if (
+    digito2 !== parseInt(value.substring(10, 11)) ||
+    digito1 !== parseInt(value.substring(9, 10))
+  ) {
     return false;
   }
 
