@@ -156,7 +156,6 @@ export default function FormAddress({
 
             <MUI.Grid item xs={12} sm={12}>
               <MUI.TextField
-                required
                 fullWidth
                 id="complement"
                 label="Complemento"
