@@ -1,3 +1,4 @@
+import React from "react"
 import * as MUI from "@mui/material";
 import * as Router from "react-router-dom";
 import MenuNavigation from "../elements/navigation/MenuNavigation";
@@ -20,7 +21,7 @@ export default function Header() {
           <MUI.Button component={Router.Link} to={"/"}>
             <MUI.Box pr={2}>
               <img
-                src={"src/assets/logo.png"}
+                src={"../src/assets/logo.png"}
                 width={40}
                 height={40}
                 loading="lazy"
