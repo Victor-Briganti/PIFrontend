@@ -52,7 +52,7 @@ export default function InfoDonorAnimal({ animal }: InfoDonorAnimalProps) {
             {requests.map(
               (request) =>
                 request.request_status === "pending" && (
-                  <CardRequest adoption={request} />
+                  <CardRequest key={request.id} adoption={request} />
                 )
             )}
           </MUI.Grid>

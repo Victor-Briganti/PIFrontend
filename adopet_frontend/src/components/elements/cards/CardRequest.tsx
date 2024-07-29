@@ -13,7 +13,7 @@ interface CardRequestProps {
 export default function CardRequest({ adoption }: CardRequestProps) {
   const navigate = Router.useNavigate();
   const axiosDonor = React.useMemo(() => new AxiosDonor(), []);
-
+  const [activate, setActivate] = React.useState(true);
   const [loading, setLoading] = React.useState(true);
 
   React.useEffect(() => {
@@ -30,6 +30,7 @@ export default function CardRequest({ adoption }: CardRequestProps) {
   const handleReject = () => {
     if (adoption.id !== undefined) {
       axiosDonor.rejectRequest(adoption.id);
+      setActivate(false);
     }
   };
 
@@ -57,33 +58,37 @@ export default function CardRequest({ adoption }: CardRequestProps) {
     );
   }
 
-  return (
-    <MUI.Card sx={{ minWidth: 400 }}>
-      <MUI.CardContent>
-        <MUI.Grid container spacing={1} alignItems="center">
-          <MUI.Grid item>
-            <MUI.Typography>{adoption.id}</MUI.Typography>
+  if (activate) {
+    return (
+      <MUI.Card sx={{ minWidth: 400 }}>
+        <MUI.CardContent>
+          <MUI.Grid container spacing={1} alignItems="center">
+            <MUI.Grid item>
+              <MUI.Typography>{adoption.id}</MUI.Typography>
+            </MUI.Grid>
+            <MUI.Grid item>
+              <MUI.Button
+                startIcon={<CheckIcon />}
+                variant="outlined"
+                onClick={handleAccept}
+              >
+                Aceitar
+              </MUI.Button>
+            </MUI.Grid>
+            <MUI.Grid item>
+              <MUI.Button
+                startIcon={<CloseIcon />}
+                variant="outlined"
+                onClick={handleReject}
+              >
+                Recusar
+              </MUI.Button>
+            </MUI.Grid>
           </MUI.Grid>
-          <MUI.Grid item>
-            <MUI.Button
-              startIcon={<CheckIcon />}
-              variant="outlined"
-              onClick={handleAccept}
-            >
-              Aceitar
-            </MUI.Button>
-          </MUI.Grid>
-          <MUI.Grid item>
-            <MUI.Button
-              startIcon={<CloseIcon />}
-              variant="outlined"
-              onClick={handleReject}
-            >
-              Recusar
-            </MUI.Button>
-          </MUI.Grid>
-        </MUI.Grid>
-      </MUI.CardContent>
-    </MUI.Card>
-  );
+        </MUI.CardContent>
+      </MUI.Card>
+    );
+  } else {
+    return;
+  }
 }
