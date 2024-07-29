@@ -47,11 +47,12 @@ export default function InfoAnimal({ animal }: InfoAnimalProps) {
     )
       return;
 
-    axiosAdoption.getAdoptionDetailByAnimalId(animal.id).then((response) => {
+    axiosAdoption.getUserAdoptionDetail(animal.id).then((response) => {
       if (
         user.context !== null &&
         response.adopter === user.context.id &&
-        response.request_status === "pending"
+        (response.request_status === "pending" ||
+          response.request_status === "rejected")
       )
         setActiveAdoptionButton(false);
     });

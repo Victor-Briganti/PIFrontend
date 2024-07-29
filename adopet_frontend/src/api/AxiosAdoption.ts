@@ -20,6 +20,10 @@ export default class AxiosAdoption extends SuperAxios<InterfaceAdoption> {
     return await this.get(`animal/${id}`);
   }
 
+  async getUserAdoptionDetail(id: number): Promise<InterfaceAdoption> {
+    return await this.get(`adopter/${id}`);
+  }
+
   async registerAdoption(
     adoption: InterfaceAdoption
   ): Promise<InterfaceAdoption> {
