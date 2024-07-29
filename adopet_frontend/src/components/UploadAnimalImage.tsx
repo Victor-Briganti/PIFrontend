@@ -28,6 +28,7 @@ export default function UploadAnimalImage({
 
   const handleFileChange = React.useCallback(
     (files: FileList) => {
+      setMessageError("");
       setLoading(true);
 
       // Inicializa arrays para armazenar pŕevias, promessas e imagens
@@ -37,6 +38,20 @@ export default function UploadAnimalImage({
 
       for (let i = 0; i < files.length; i++) {
         const file = files[i];
+
+        // Verifica se o arquivo é uma imagem(e é válido)
+        if (!file.type.startsWith("image/")) {
+          setMessageError("Um ou mais arquivos não são uma imagem válida.");
+          setLoading(false);
+          return;
+        }
+
+        if (file.type === "image/svg+xml") {
+          setMessageError(".svg não é suportado como uma imagem.");
+          setLoading(false);
+          return;
+        }
+
         // Adiciona URL da prévia do arquivo
         previews.push(URL.createObjectURL(file));
         // Adiciona o arquivo á lista de imagens
