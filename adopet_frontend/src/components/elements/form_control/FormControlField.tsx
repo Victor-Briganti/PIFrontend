@@ -13,6 +13,10 @@ interface FormFieldProps {
   readOnly?: boolean;
   required?: boolean;
   noneOption?: boolean;
+  width?: string;
+  xs?: number,
+  sm?: number,
+  md?: number,
 }
 
 export default function FormControlField({
@@ -25,11 +29,15 @@ export default function FormControlField({
   readOnly = false,
   required = true,
   noneOption = false,
+  xs = 12,
+  sm = 6,
+  md = 4,
+  width = '30vh',
 }: FormFieldProps) {
   return (
     <React.Fragment>
-      <MUI.Grid item xs={12} sm={12}>
-        <MUI.FormControl sx={{ m: 1, minWidth: 400 }}>
+      <MUI.Grid item xs={xs} sm={sm} md={md}>
+        <MUI.FormControl sx={{ m: 1, minWidth: '15vh', width: width, maxWidth: '35vh' }}>
           <MUI.InputLabel id={`${id}Input`}>{label}</MUI.InputLabel>
           <MenuItems
             map={map}

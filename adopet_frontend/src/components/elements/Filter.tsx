@@ -40,71 +40,77 @@ export default function Filter({
 
   return (
     <React.Fragment>
-      <MUI.Grid container>
-        <MUI.Grid item xs={12}>
-          <FormControlField
-            id={"specie"}
-            label={"Éspecie"}
-            name={"specie"}
-            value={specie}
-            handleValue={handleSpecie}
-            map={specieMap}
-            required={false}
-            noneOption={true}
-          />
-        </MUI.Grid>
-      </MUI.Grid>
-      <MUI.Grid container>
-        <MUI.Grid item xs={6}>
-          <FormControlField
-            id={"age"}
-            label={"Idade"}
-            name={"age"}
-            value={age}
-            handleValue={handleAge}
-            map={ageMap}
-            required={false}
-            noneOption={true}
-          />
-        </MUI.Grid>
-        <MUI.Grid item xs={6}>
-          <FormControlField
-            id={"gender"}
-            label={"Gênero"}
-            name={"gender"}
-            value={gender}
-            handleValue={handleGender}
-            map={genderMap}
-            required={false}
-            noneOption={true}
-          />
-        </MUI.Grid>
-      </MUI.Grid>
-      <MUI.Grid container>
-        <MUI.Grid item xs={6}>
-          <FormControlField
-            id={"size"}
-            label={"Tamanho"}
-            name={"size"}
-            value={size}
-            handleValue={handleSize}
-            map={sizeMap}
-            required={false}
-            noneOption={true}
-          />
-        </MUI.Grid>
-        <MUI.Grid item xs={6}>
-          <FormControlField
-            id={"coat"}
-            label={"Pelagem"}
-            name={"coat"}
-            value={coat}
-            handleValue={handleCoat}
-            map={coatMap}
-            required={false}
-            noneOption={true}
-          />
-        </MUI.Grid>
+      <MUI.Grid container columnSpacing={2}>
+      <FormControlField
+        id={"specie"}
+        label={"Éspecie"}
+        name={"specie"}
+        value={specie}
+        handleValue={handleSpecie}
+        map={specieMap}
+        required={false}
+        noneOption={true}
+        width="18vh"
+        xs={6}
+        sm={3.6}
+        md={2.4}
+      />
+      <FormControlField
+        id={"age"}
+        label={"Idade"}
+        name={"age"}
+        value={age}
+        handleValue={handleAge}
+        map={ageMap}
+        required={false}
+        noneOption={true}
+        width="18vh"
+        xs={6}
+        sm={3.6}
+        md={2.4}
+      />
+      <FormControlField
+        id={"gender"}
+        label={"Gênero"}
+        name={"gender"}
+        value={gender}
+        handleValue={handleGender}
+        map={genderMap}
+        required={false}
+        noneOption={true}
+        width="18vh"
+        xs={6}
+        sm={3.6}
+        md={2.4}
+      />
+      <FormControlField
+        id={"size"}
+        label={"Tamanho"}
+        name={"size"}
+        value={size}
+        handleValue={handleSize}
+        map={sizeMap}
+        required={false}
+        noneOption={true}
+        width="18vh"
+        xs={6}
+        sm={3.6}
+        md={2.4}
+      />
+      <FormControlField
+        id={"coat"}
+        label={"Pelagem"}
+        name={"coat"}
+        value={coat}
+        handleValue={handleCoat}
+        map={coatMap}
+        required={false}
+        noneOption={true}
+        width="18vh"
+        xs={6}
+        sm={3.6}
+        md={2.4}
+      />
       </MUI.Grid>
     </React.Fragment>
   );
