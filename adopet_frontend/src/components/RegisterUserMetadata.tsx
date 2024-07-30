@@ -5,16 +5,12 @@ import { validatedCPF, validatedNumber } from "../utils/Verification";
 import FormUserMetadata from "./forms/FormUserMetadata";
 
 interface RegisterUserMetadataProps {
-  user: number | undefined;
-  address: number | undefined;
   messageError: string;
   setMessageError: React.Dispatch<React.SetStateAction<string>>;
   handleRegisterStep: () => void;
 }
 
 export default function RegisterUserMetadata({
-  user,
-  address,
   messageError,
   setMessageError,
   handleRegisterStep,
@@ -118,30 +114,30 @@ export default function RegisterUserMetadata({
       return;
     }
 
-    if (
-      user !== undefined &&
-      address !== undefined &&
-      birthdate !== undefined
-    ) {
-      const userMetadata = {
-        user: user,
-        address: address,
-        cpf: formattedCPF,
-        birth_date: birthdate,
-        phone: formattedPhone,
-      } as InterfaceUserMetadata;
-      try {
-        await axiosUser.registerMetadata(userMetadata);
-        setMessageError("");
-        handleRegisterStep();
-        return;
-      } catch (error) {
-        setMessageError(error.message);
-        return;
-      }
+    if (birthdate === undefined) {
+      setMessageError("Usuário não pode ser cadastrado");
+      return;
     }
 
-    setMessageError("Usuário não pode ser cadastrado");
+    if (birthdate.getFullYear() < 1900) {
+      setMessageError("Ano do aniversário não pode ser menor que 1900");
+      return;
+    }
+
+    const userMetadata = {
+      cpf: formattedCPF,
+      birth_date: birthdate,
+      phone: formattedPhone,
+    } as InterfaceUserMetadata;
+    try {
+      await axiosUser.registerMetadata(userMetadata);
+      setMessageError("");
+      handleRegisterStep();
+      return;
+    } catch (error) {
+      setMessageError(error.message);
+      return;
+    }
   };
 
   return (
