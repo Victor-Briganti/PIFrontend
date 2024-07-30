@@ -6,6 +6,7 @@ import AnimalImageUpload from "../components/UploadAnimalImage";
 import FormLayout from "../components/layouts/FormLayout";
 import InterfaceAnimal from "../models/interfaces/animal/InterfaceAnimal";
 import { InterfaceAnimalImageFile } from "../models/interfaces/animal/InterfaceAnimalImage";
+import TopArrowBack from "../components/elements/navigation/TopArrowBack";
 
 export default function AnimalRegister() {
   const [messageError, setMessageError] = React.useState<string>("");
@@ -21,28 +22,18 @@ export default function AnimalRegister() {
   const handleUploadStep = React.useCallback(
     async (animalImages: InterfaceAnimalImageFile[]) => {
       const axiosAnimal = new AxiosAnimal();
-      let hasImages = false;
 
       if (animal) {
-        if (animal && animal.id) {
-          for (let i = 0; i < animalImages.length; i++) {
-            const image = animalImages[i];
-            image.animal = animal.id;
-            axiosAnimal.uploadImage(image).catch((error) => {
-              setMessageError("Erro ao enviar imagem");
-              return;
-            });
-            hasImages = true;
-          }
-
-          if (hasImages === false) {
-            animal.is_active = false;
-            axiosAnimal.updateAnimal(animal);
-          }
-
-          navigate("/");
-          return;
+        for (let i = 0; i < animalImages.length; i++) {
+          const image = animalImages[i];
+          axiosAnimal.uploadImage(image).catch((error) => {
+            setMessageError("Erro ao enviar imagem");
+            return;
+          });
         }
+
+        navigate("/");
+        return;
       }
       setMessageError("Animal inexistente");
     },
@@ -52,21 +43,27 @@ export default function AnimalRegister() {
   return (
     <FormLayout>
       {registerStep && (
-        <RegisterAnimal
-          messageError={messageError}
-          setMessageError={setMessageError}
-          animal={animal}
-          handleRegisterStep={handleRegisterStep}
-        />
+        <React.Fragment>
+          <TopArrowBack />
+          <RegisterAnimal
+            messageError={messageError}
+            setMessageError={setMessageError}
+            animal={animal}
+            handleRegisterStep={handleRegisterStep}
+          />
+        </React.Fragment>
       )}
 
       {!registerStep && (
-        <AnimalImageUpload
-          messageError={messageError}
-          animalName={animal?.name}
-          setMessageError={setMessageError}
-          handleUploadStep={handleUploadStep}
-        />
+        <React.Fragment>
+          <TopArrowBack />
+          <AnimalImageUpload
+            messageError={messageError}
+            animalName={animal?.name}
+            setMessageError={setMessageError}
+            handleUploadStep={handleUploadStep}
+          />
+        </React.Fragment>
       )}
     </FormLayout>
   );
