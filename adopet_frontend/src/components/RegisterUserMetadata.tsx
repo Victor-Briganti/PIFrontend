@@ -5,16 +5,12 @@ import { validatedCPF, validatedNumber } from "../utils/Verification";
 import FormUserMetadata from "./forms/FormUserMetadata";
 
 interface RegisterUserMetadataProps {
-  user: number | undefined;
-  address: number | undefined;
   messageError: string;
   setMessageError: React.Dispatch<React.SetStateAction<string>>;
   handleRegisterStep: () => void;
 }
 
 export default function RegisterUserMetadata({
-  user,
-  address,
   messageError,
   setMessageError,
   handleRegisterStep,
@@ -118,14 +114,8 @@ export default function RegisterUserMetadata({
       return;
     }
 
-    if (
-      user !== undefined &&
-      address !== undefined &&
-      birthdate !== undefined
-    ) {
+    if (birthdate !== undefined) {
       const userMetadata = {
-        user: user,
-        address: address,
         cpf: formattedCPF,
         birth_date: birthdate,
         phone: formattedPhone,

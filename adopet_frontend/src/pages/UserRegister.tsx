@@ -15,23 +15,14 @@ enum RegisterStep {
 export default function UserRegister() {
   const [messageError, setMessageError] = React.useState<string>("");
   const [step, setStep] = React.useState<RegisterStep>(RegisterStep.common);
-  const [userId, setUserId] = React.useState<number>();
-  const [addressId, setAddressId] = React.useState<number>();
   const navigate = Router.useNavigate();
 
-  const handleUserCommonStep = React.useCallback((user: number | undefined) => {
-    setUserId(user);
+  const handleUserCommonStep = React.useCallback(() => {
     setStep(RegisterStep.address);
   }, []);
 
-  const handleAddressStep = React.useCallback((address: number | undefined) => {
-    if (address !== undefined) {
-      setAddressId(address);
-      setStep(RegisterStep.metadata);
-      return;
-    }
-
-    setMessageError("Não foi possível cadastrar endereço");
+  const handleAddressStep = React.useCallback(() => {
+    setStep(RegisterStep.metadata);
   }, []);
 
   const handleUserMetadataStep = React.useCallback(
@@ -53,21 +44,25 @@ export default function UserRegister() {
       )}
 
       {step === RegisterStep.address && (
-        <RegisterAddress
-          messageError={messageError}
-          setMessageError={setMessageError}
-          handleRegisterStep={handleAddressStep}
-        />
+        <React.Fragment>
+          <TopArrowBack />
+          <RegisterAddress
+            messageError={messageError}
+            setMessageError={setMessageError}
+            handleRegisterStep={handleAddressStep}
+          />
+        </React.Fragment>
       )}
 
       {step === RegisterStep.metadata && (
-        <RegisterUserMetadata
-          user={userId}
-          address={addressId}
-          messageError={messageError}
-          setMessageError={setMessageError}
-          handleRegisterStep={handleUserMetadataStep}
-        />
+        <React.Fragment>
+          <TopArrowBack />
+          <RegisterUserMetadata
+            messageError={messageError}
+            setMessageError={setMessageError}
+            handleRegisterStep={handleUserMetadataStep}
+          />
+        </React.Fragment>
       )}
     </FormLayout>
   );

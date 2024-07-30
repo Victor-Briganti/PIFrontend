@@ -12,7 +12,7 @@ import FormAddress from "./forms/FormAddress";
 interface RegisterAddressProps {
   messageError: string;
   setMessageError: React.Dispatch<React.SetStateAction<string>>;
-  handleRegisterStep: (address: number | undefined) => void;
+  handleRegisterStep: () => void;
 }
 
 export default function RegisterAddress({
@@ -152,8 +152,14 @@ export default function RegisterAddress({
       house_number: houseNumber,
     } as InterfaceAddress;
 
-    const response = await axiosAddress.registerAddress(newAddress);
-    handleRegisterStep(response.id);
+    await axiosAddress
+      .registerAddress(newAddress)
+      .then(() => {
+        handleRegisterStep();
+      })
+      .catch(() => {
+        setMessageError("Não foi possível cadastrar endereço");
+      });
   };
 
   return (
