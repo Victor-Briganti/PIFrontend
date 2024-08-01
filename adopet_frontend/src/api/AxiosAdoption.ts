@@ -1,5 +1,6 @@
 import SuperAxios from "./super/SuperAxios";
 import InterfaceAdoption from "../models/interfaces/adoption/InterfaceAdoption";
+import InterfaceAnimal from "../models/interfaces/animal/InterfaceAnimal";
 import { validatedRegisterAdoption } from "../models/validators/ValidateAdoption";
 
 export default class AxiosAdoption extends SuperAxios<InterfaceAdoption> {
@@ -10,6 +11,10 @@ export default class AxiosAdoption extends SuperAxios<InterfaceAdoption> {
 
   async getAdoptionList(): Promise<InterfaceAdoption[]> {
     return await this.get("");
+  }
+
+  async getAdoptionAnimalsList(page: number): Promise<InterfaceAnimal[]> {
+    return await this.get(page > 0 ? `animals/?page=${page}` : "animals/");
   }
 
   async getAdoptionDetailById(id: number): Promise<InterfaceAdoption> {

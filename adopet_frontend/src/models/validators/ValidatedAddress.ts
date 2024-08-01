@@ -26,7 +26,7 @@ export default function validatedAddress(
     throw new Error(`CEP inválido: ${address.zip_code}`);
   }
 
-  if (validatedString(address.street, 100) === false) {
+  if (address.street === "") {
     throw new Error(`Logradouro com nome inválido: ${address.city.name}`);
   }
 
