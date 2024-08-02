@@ -3,6 +3,7 @@ import {
   InterfaceAnimalImageFile,
   InterfaceAnimalImageLink,
 } from "../models/interfaces/animal/InterfaceAnimalImage";
+import InterfaceUser from "../models/interfaces/user/InterfaceUser";
 import {
   validatedAnimalImage,
   validatedRegisterAnimal,
@@ -114,6 +115,10 @@ class AxiosAnimal extends SuperAxios<InterfaceAnimal> {
 
     const validAnimal = validatedUpdateAnimal(animal);
     return await this.put("update/" + validAnimal.id, validAnimal);
+  }
+
+  async getUserDonor(id: number): Promise<InterfaceUser> {
+    return await this.get(id + "/donor/");
   }
 
   async uploadImage(

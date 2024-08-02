@@ -13,6 +13,7 @@ import GenderChoiceMap from "../../models/map_choices/GenderChoiceMap";
 import SizeChoiceMap from "../../models/map_choices/SizeChoiceMap";
 import SpecieChoiceMap from "../../models/map_choices/SpecieChoiceMap";
 import { ErrorMessage, SuccessMessage } from "./Message";
+import InterfaceUserCommon from "../../models/interfaces/user/InterfaceUserCommon";
 
 interface InfoAnimalProps {
   animal: InterfaceAnimal;
@@ -29,11 +30,13 @@ export default function InfoAnimal({ animal }: InfoAnimalProps) {
   const [gender, setGender] = React.useState<string>("");
   const [size, setSize] = React.useState<string>("");
   const [coat, setCoat] = React.useState<string>("");
+  const [donor, setDonor] = React.useState<InterfaceUserCommon>();
   const user = React.useContext(UserContext);
   const navigate = Router.useNavigate();
 
   React.useEffect(() => {
     const axiosAdoption = new AxiosAdoption();
+    const axiosAnimal = new AxiosAnimal();
     const ageMap = new AgeChoiceMap();
     const specieMap = new SpecieChoiceMap();
     const genderMap = new GenderChoiceMap();
@@ -47,15 +50,31 @@ export default function InfoAnimal({ animal }: InfoAnimalProps) {
     )
       return;
 
-    axiosAdoption.getUserAdoptionDetail(animal.id).then((response) => {
-      if (
-        user.context !== null &&
-        response.adopter === user.context.id &&
-        (response.request_status === "pending" ||
-          response.request_status === "rejected")
-      )
-        setActiveAdoptionButton(false);
-    });
+    axiosAdoption
+      .getUserAdoptionDetail(animal.id)
+      .then((response) => {
+        if (
+          user.context !== null &&
+          response.adopter === user.context.id &&
+          (response.request_status === "pending" ||
+            response.request_status === "rejected")
+        )
+          setActiveAdoptionButton(false);
+      })
+      .catch((_error) => {});
+
+    axiosAnimal
+      .getUserDonor(animal.id)
+      .then((response) => {
+        if (response === undefined) {
+          setErrorMessage("Não foi possível carregar o doador deste animal");
+        } else {
+          setDonor(response);
+        }
+      })
+      .catch((error) => {
+        setErrorMessage("Não foi possível carregar o doador deste animal");
+      });
 
     if (animal.age !== undefined) {
       const ageValue = ageMap.getValueByKey(animal.age);
@@ -86,10 +105,6 @@ export default function InfoAnimal({ animal }: InfoAnimalProps) {
   const handleExclusion = React.useCallback(() => {
     setOpenModal(true);
   }, []);
-
-  const handleUpdate = React.useCallback(() => {
-    navigate("/animal/update", { state: { animal: animal } });
-  }, [animal, navigate]);
 
   const handleAdoption = React.useCallback(() => {
     const axiosAdoption = new AxiosAdoption();
@@ -137,7 +152,7 @@ export default function InfoAnimal({ animal }: InfoAnimalProps) {
 
     if (animal.id !== undefined) {
       axiosAnimal.deleteAnimal(animal.id).then((response) => {
-        navigate("/animals/donor");
+        navigate(-1);
       });
     }
 
@@ -153,6 +168,20 @@ export default function InfoAnimal({ animal }: InfoAnimalProps) {
       <MUI.Typography variant="h4">{animal.name}</MUI.Typography>
       <MUI.Grid container justifyContent={"flex-start"}>
         <MUI.Grid item xs={6}>
+          {donor !== undefined && (
+            <React.Fragment>
+              <MUI.Typography variant="h5">Doador</MUI.Typography>
+
+              <MUI.Box component={"ul"} textAlign={"start"} sx={{ pl: 16 }}>
+                <MUI.Typography>
+                  Nome: {donor.firstname} {donor.lastname}
+                </MUI.Typography>
+
+                <MUI.Typography>Email: {donor.email}</MUI.Typography>
+              </MUI.Box>
+            </React.Fragment>
+          )}
+
           <MUI.Typography variant="h5">Características</MUI.Typography>
 
           <MUI.Box component={"ul"} textAlign={"start"} sx={{ pl: 16 }}>
@@ -203,13 +232,6 @@ export default function InfoAnimal({ animal }: InfoAnimalProps) {
           user.context.id === animal.donor &&
           animal.is_adopted === false ? (
             <React.Fragment>
-              <MUI.Button
-                variant="contained"
-                color="primary"
-                onClick={handleUpdate}
-              >
-                Editar
-              </MUI.Button>
               <MUI.Button
                 variant="contained"
                 color="error"
