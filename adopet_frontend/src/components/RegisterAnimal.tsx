@@ -2,21 +2,22 @@ import * as React from "react";
 import * as MUI from "@mui/material";
 import FormAnimal from "./forms/FormAnimal";
 import InterfaceAnimal from "../models/interfaces/animal/InterfaceAnimal";
-import AxiosAnimal from "../api/AxiosAnimal";
 import TopArrowBack from "./elements/navigation/TopArrowBack";
+import { InterfaceAnimalImageFile } from "../models/interfaces/animal/InterfaceAnimalImage";
 
 interface RegisterAnimalProps {
   messageError: string;
   setMessageError: React.Dispatch<React.SetStateAction<string>>;
-  animal: InterfaceAnimal | undefined;
-  handleRegisterStep: (animal: InterfaceAnimal) => void;
+  handleRegister: (
+    animal: InterfaceAnimal,
+    image: InterfaceAnimalImageFile[]
+  ) => void;
 }
 
 export default function RegisterAnimal({
   messageError,
   setMessageError,
-  animal,
-  handleRegisterStep,
+  handleRegister,
 }: RegisterAnimalProps) {
   const [name, setName] = React.useState<string>("");
   const [weight, setWeight] = React.useState<number | undefined>(undefined);
@@ -31,25 +32,9 @@ export default function RegisterAnimal({
   const [isSpecialNeeds, setSpecialNeeds] = React.useState<boolean>(false);
   const [isVaccinated, setVaccinated] = React.useState<boolean>(false);
   const [isCastrated, setCastrated] = React.useState<boolean>(false);
-  const axiosAnimal = React.useMemo(() => new AxiosAnimal(), []);
-
-  React.useEffect(() => {
-    if (animal) {
-      setName(animal.name);
-      setWeight(animal.weight);
-      setSpecie(animal.specie);
-      setGender(animal.gender);
-      setSize(animal.size);
-      setAge(animal.age);
-      setDescription(animal.description ?? "");
-      setTemperament(animal.temperament ?? "");
-      setHouseTrained(animal.is_house_trained ?? false);
-      setCastrated(animal.is_castrated ?? false);
-      setSpecialNeeds(animal.is_special_needs ?? false);
-      setVaccinated(animal.is_vaccinated ?? false);
-      setCoat(animal.coat ?? "");
-    }
-  }, [animal]);
+  const [animalImages, setAnimalImages] = React.useState<
+    InterfaceAnimalImageFile[]
+  >([]);
 
   const handleName = React.useCallback(
     (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
@@ -145,9 +130,55 @@ export default function RegisterAnimal({
     [setCastrated]
   );
 
+  const handleImages = React.useCallback(
+    (
+      imageUpdate: (
+        prevImages: InterfaceAnimalImageFile[]
+      ) => InterfaceAnimalImageFile[]
+    ) => {
+      setAnimalImages((prevImages) => imageUpdate(prevImages));
+    },
+    [setAnimalImages]
+  );
+
   const handleSubmit = React.useCallback(
     async (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault();
+
+      if (name === "") {
+        setMessageError("Nome é um campo obrigatório");
+        return;
+      }
+
+      if (weight === undefined) {
+        setMessageError("Peso é um campo obrigatório");
+        return;
+      }
+
+      if (specie === "") {
+        setMessageError("Espécie é um campo obrigatório");
+        return;
+      }
+
+      if (gender === "") {
+        setMessageError("Genêro é um campo obrigatório");
+        return;
+      }
+
+      if (age === "") {
+        setMessageError("Idade é um campo obrigatório");
+        return;
+      }
+
+      if (coat === "") {
+        setMessageError("Pelagem é um campo obrigatório");
+        return;
+      }
+
+      if (size === "") {
+        setMessageError("Tamanho é um campo obrigatório");
+        return;
+      }
 
       const animal = {
         name: name,
@@ -168,14 +199,13 @@ export default function RegisterAnimal({
       } as InterfaceAnimal;
 
       try {
-        const response = await axiosAnimal.registerAnimal(animal);
-        setMessageError("");
-        handleRegisterStep(response);
+        handleRegister(animal, animalImages);
       } catch (error) {
         setMessageError(error.message);
       }
     },
     [
+      animalImages,
       name,
       age,
       size,
@@ -189,8 +219,7 @@ export default function RegisterAnimal({
       isSpecialNeeds,
       isVaccinated,
       isCastrated,
-      axiosAnimal,
-      handleRegisterStep,
+      handleRegister,
       setMessageError,
     ]
   );
@@ -212,6 +241,7 @@ export default function RegisterAnimal({
         isSpecialNeeds={isSpecialNeeds}
         isVaccinated={isVaccinated}
         isCastrated={isCastrated}
+        handleImages={handleImages}
         handleName={handleName}
         handleWeight={handleWeight}
         handleSpecie={handleSpecie}
