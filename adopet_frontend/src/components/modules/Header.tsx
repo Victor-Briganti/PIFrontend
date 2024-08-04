@@ -21,7 +21,7 @@ export default function Header() {
           <MUI.Button component={Router.Link} to={"/"}>
             <MUI.Box pr={2}>
               <img
-                src={"../src/assets/logo.png"}
+                src={"../../src/assets/logo.png"}
                 width={40}
                 height={40}
                 loading="lazy"
