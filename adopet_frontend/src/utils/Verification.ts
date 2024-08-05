@@ -83,7 +83,7 @@ export function validatedCPF(value: string): boolean {
   }
 
   let digito1 = 11 - (sum % 11);
-  if (digito1 > 10) {
+  if (digito1 >= 10) {
     digito1 = 0;
   }
 
@@ -93,7 +93,7 @@ export function validatedCPF(value: string): boolean {
   }
 
   let digito2 = 11 - ((sum + digito1 * 2) % 11);
-  if (digito2 > 10) {
+  if (digito2 >= 10) {
     digito2 = 0;
   }
 

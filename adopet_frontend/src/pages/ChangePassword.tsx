@@ -1,5 +1,6 @@
 import * as React from "react";
 import * as Router from "react-router-dom";
+import * as MUI from "@mui/material";
 import AxiosUser from "../api/AxiosUser";
 import FormChangePassword from "../components/forms/FormChangePassword";
 import FormLayout from "../components/layouts/FormLayout";
@@ -21,7 +22,7 @@ export default function ChangePassword() {
         setPassword(event.target.value);
       }
     },
-    [openModal]
+    [openModal],
   );
 
   const handleConfirmPassword = React.useCallback(
@@ -44,7 +45,7 @@ export default function ChangePassword() {
         setConfirmPassword(value);
       }
     },
-    [openModal, password]
+    [openModal, password],
   );
 
   const handleSubmit = React.useCallback(
@@ -71,7 +72,7 @@ export default function ChangePassword() {
       setMessageError("Usuário não encontrado");
       return;
     },
-    [user, password, confirmPassword]
+    [user, password, confirmPassword],
   );
 
   const handleConfirmModal = React.useCallback(() => {
@@ -100,7 +101,28 @@ export default function ChangePassword() {
   }, []);
 
   if (user.context === null) {
-    return <h1>Faça login para acessar.</h1>;
+    return (
+      <React.Fragment>
+        <h1>Faça login para acessar.</h1>
+        <MUI.Box sx={{ mt: 2 }}>
+          <MUI.Link
+            component={Router.Link}
+            to={"/"}
+            variant="body2"
+            fontSize={20}
+            sx={{
+              color: "white",
+              textDecoration: "none",
+              "&:hover": {
+                textDecoration: "underline",
+              },
+            }}
+          >
+            Voltar para home
+          </MUI.Link>
+        </MUI.Box>
+      </React.Fragment>
+    );
   }
 
   return (
