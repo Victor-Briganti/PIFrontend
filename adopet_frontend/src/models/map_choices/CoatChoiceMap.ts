@@ -5,7 +5,7 @@ export default class CoatChoiceMap extends AbstractChoiceMap {
     super(
       new Map([
         ["short", "Curto"],
-        ["medium", "Médio"],
+        ["average", "Médio"],
         ["long", "Longo"],
       ])
     );
