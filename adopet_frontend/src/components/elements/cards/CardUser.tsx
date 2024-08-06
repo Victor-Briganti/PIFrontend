@@ -69,13 +69,11 @@ export default function CardUser({ userCommon, handleLogout }: CardUserProps) {
             </MUI.Box>
 
             <MUI.Box display="flex" justifyContent="center" alignItems="center">
-              <MUI.Link onClick={handleAnimalList}>
-                Lista de Animais Registrados
-              </MUI.Link>
+              <MUI.Link onClick={handleAnimalList}>Animais Divulgados</MUI.Link>
             </MUI.Box>
 
             <MUI.Box display="flex" justifyContent="center" alignItems="center">
-              <MUI.Link onClick={handleAdoptedList}>Animais adotados</MUI.Link>
+              <MUI.Link onClick={handleAdoptedList}>Animais Adotados</MUI.Link>
             </MUI.Box>
 
             <MUI.Box display="flex" justifyContent="center" alignItems="center">

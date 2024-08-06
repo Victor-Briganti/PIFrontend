@@ -7,7 +7,7 @@ import ErrorAlert from "../elements/ErrorAlert";
 import FormControlField from "../elements/form_control/FormControlField";
 
 interface FromAddressProps {
-  readOnly: boolean;
+  fetched: boolean;
   messageError: string;
   uf: string;
   cep: string;
@@ -39,7 +39,7 @@ interface FromAddressProps {
 }
 
 export default function FormAddress({
-  readOnly,
+  fetched,
   messageError,
   uf,
   cep,
@@ -103,7 +103,7 @@ export default function FormAddress({
               value={uf}
               handleValue={handleUf}
               map={stateMap}
-              readOnly={readOnly}
+              readOnly={uf !== "" && fetched}
             />
 
             <MUI.Grid item xs={12} sm={12}>
@@ -115,9 +115,9 @@ export default function FormAddress({
                 name="city"
                 value={city}
                 onChange={handleCity}
-                variant={readOnly ? "filled" : "outlined"}
+                variant={fetched && city !== "" ? "filled" : "outlined"}
                 InputProps={{
-                  readOnly: readOnly,
+                  readOnly: fetched && city !== "",
                 }}
               />
             </MUI.Grid>
@@ -131,9 +131,9 @@ export default function FormAddress({
                 name="district"
                 value={district}
                 onChange={handleDistrict}
-                variant={readOnly ? "filled" : "outlined"}
+                variant={fetched && district !== "" ? "filled" : "outlined"}
                 InputProps={{
-                  readOnly: readOnly,
+                  readOnly: fetched && district !== "",
                 }}
               />
             </MUI.Grid>
@@ -147,9 +147,9 @@ export default function FormAddress({
                 name="street"
                 value={street}
                 onChange={handleStreet}
-                variant={readOnly ? "filled" : "outlined"}
+                variant={fetched && street !== "" ? "filled" : "outlined"}
                 InputProps={{
-                  readOnly: readOnly,
+                  readOnly: fetched && street !== "",
                 }}
               />
             </MUI.Grid>
@@ -162,9 +162,9 @@ export default function FormAddress({
                 name="complement"
                 value={complement}
                 onChange={handleComplement}
-                variant={readOnly ? "filled" : "outlined"}
+                variant={fetched && complement !== "" ? "filled" : "outlined"}
                 InputProps={{
-                  readOnly: readOnly,
+                  readOnly: fetched && complement !== "",
                 }}
               />
             </MUI.Grid>

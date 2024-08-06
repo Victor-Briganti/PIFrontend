@@ -3,7 +3,7 @@ import StateChoiceMap from "../../models/map_choices/StateChoiceMap";
 import { validatedString, validatedNumber } from "../../utils/Verification";
 
 export default function validatedAddress(
-  address: InterfaceAddress
+  address: InterfaceAddress,
 ): InterfaceAddress {
   const mapState = new StateChoiceMap();
 

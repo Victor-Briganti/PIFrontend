@@ -1,5 +1,6 @@
 import InterfaceAdoption from "../models/interfaces/adoption/InterfaceAdoption";
 import InterfaceAnimal from "../models/interfaces/animal/InterfaceAnimal";
+import InterfaceUserCommon from "../models/interfaces/user/InterfaceUserCommon";
 import { validatedUpdateAdoption } from "../models/validators/ValidateAdoption";
 import SuperAxios from "./super/SuperAxios";
 
@@ -31,14 +32,18 @@ export default class AxiosDonor extends SuperAxios<InterfaceAdoption> {
 
   async getAdoptionAnimalList(page: number = 0): Promise<InterfaceAnimal[]> {
     return await this.get(
-      page > 0 ? `animal/list/?page=${page}` : "animal/list/"
+      page > 0 ? `animal/list/?page=${page}` : "animal/list/",
     );
   }
 
   async getRequestsAnimalList(page: number = 0): Promise<InterfaceAnimal[]> {
     return await this.get(
-      page > 0 ? `animal/requests/?page=${page}` : "animal/requests/"
+      page > 0 ? `animal/requests/?page=${page}` : "animal/requests/",
     );
+  }
+
+  async getUserById(id: number): Promise<InterfaceUserCommon> {
+    return await this.get(`${id}/user/`);
   }
 
   async getAdoptionDetailById(id: number): Promise<InterfaceAdoption> {
@@ -54,7 +59,7 @@ export default class AxiosDonor extends SuperAxios<InterfaceAdoption> {
   }
 
   async updateAdoption(
-    adoption: InterfaceAdoption
+    adoption: InterfaceAdoption,
   ): Promise<InterfaceAdoption> {
     const requestAdoption = validatedUpdateAdoption(adoption);
     return await this.post(`update/${requestAdoption.id}`, requestAdoption);

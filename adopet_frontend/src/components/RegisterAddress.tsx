@@ -27,7 +27,7 @@ export default function RegisterAddress({
   const [street, setStreet] = React.useState<string>("");
   const [complement, setComplement] = React.useState<string>("");
   const [houseNumber, setHouseNumber] = React.useState<string>("");
-  const [readOnly, setReadOnly] = React.useState<boolean>(false);
+  const [fetched, setFetched] = React.useState<boolean>(false);
   const axiosViaCep = React.useMemo(() => new AxiosViaCep(), []);
   const axiosAddress = React.useMemo(() => new AxiosAddress(), []);
 
@@ -49,7 +49,7 @@ export default function RegisterAddress({
       }
 
       setCep(data);
-      setReadOnly(false);
+      setFetched(false);
 
       if (data.length === 9) {
         try {
@@ -65,7 +65,7 @@ export default function RegisterAddress({
           setStreet(response.logradouro);
           setComplement(response.complemento);
           setUf(uf);
-          setReadOnly(true);
+          setFetched(true);
         } catch (error) {
           setMessageError("Não foi possível encontrar este CEP");
         }
@@ -78,7 +78,7 @@ export default function RegisterAddress({
       setStreet,
       setComplement,
       setUf,
-      setReadOnly,
+      setFetched,
       setMessageError,
       axiosViaCep,
     ]
@@ -164,7 +164,7 @@ export default function RegisterAddress({
 
   return (
     <FormAddress
-      readOnly={readOnly}
+      fetched={fetched}
       messageError={messageError}
       uf={uf}
       cep={cep}

@@ -5,6 +5,7 @@ import * as React from "react";
 import * as Router from "react-router-dom";
 import AxiosDonor from "../../../api/AxiosDonor";
 import InterfaceAdoption from "../../../models/interfaces/adoption/InterfaceAdoption";
+import InterfaceUserCommon from "../../../models/interfaces/user/InterfaceUserCommon";
 
 interface CardRequestProps {
   adoption: InterfaceAdoption;
@@ -15,10 +16,20 @@ export default function CardRequest({ adoption }: CardRequestProps) {
   const axiosDonor = React.useMemo(() => new AxiosDonor(), []);
   const [activate, setActivate] = React.useState(true);
   const [loading, setLoading] = React.useState(true);
+  const [adopter, setAdopter] = React.useState<InterfaceUserCommon>();
+  const [messageError, setMessageError] = React.useState<string>("");
 
   React.useEffect(() => {
     setLoading(false);
-  }, []);
+    if (adoption.id !== undefined) {
+      axiosDonor
+        .getUserById(adoption.id)
+        .then((res) => setAdopter(res))
+        .catch(() => setMessageError("Não foi possível acessar o adotante"));
+    } else {
+      setMessageError("Adoção não definida");
+    }
+  }, [adoption.id, axiosDonor, setAdopter, setMessageError]);
 
   const handleAccept = () => {
     if (adoption.id !== undefined) {
@@ -33,6 +44,14 @@ export default function CardRequest({ adoption }: CardRequestProps) {
       setActivate(false);
     }
   };
+
+  if (messageError) {
+    return (
+      <MUI.Card sx={{ minWidth: 400 }}>
+        <MUI.Typography>{messageError}</MUI.Typography>
+      </MUI.Card>
+    );
+  }
 
   if (loading) {
     return (
@@ -64,7 +83,13 @@ export default function CardRequest({ adoption }: CardRequestProps) {
         <MUI.CardContent>
           <MUI.Grid container spacing={1} alignItems="center">
             <MUI.Grid item>
-              <MUI.Typography>{adoption.id}</MUI.Typography>
+              <MUI.Typography>usuário: {adopter?.firstname}</MUI.Typography>
+            </MUI.Grid>
+            <MUI.Grid item>
+              <MUI.Typography>{adopter?.lastname}</MUI.Typography>
+            </MUI.Grid>
+            <MUI.Grid item>
+              <MUI.Typography>email: {adopter?.email}</MUI.Typography>
             </MUI.Grid>
             <MUI.Grid item>
               <MUI.Button
