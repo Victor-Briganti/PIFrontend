@@ -16,7 +16,7 @@ export default function UserIconNavigation() {
         user.setContext(data);
       });
     }
-  });
+  }, [user, axiosUser]);
 
   return user.context ? (
     <UserAvatar user={user.context} />
