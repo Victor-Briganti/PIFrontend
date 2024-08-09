@@ -8,6 +8,7 @@ import InterfaceState from "../models/interfaces/address/InterfaceState";
 import StateChoiceMap from "../models/map_choices/StateChoiceMap";
 import { validatedString } from "../utils/Verification";
 import FormAddress from "./forms/FormAddress";
+import { AlreadyFetched } from "../models/validators/AlreadyFetched";
 
 interface RegisterAddressProps {
   messageError: string;
@@ -20,14 +21,25 @@ export default function RegisterAddress({
   setMessageError,
   handleRegisterStep,
 }: RegisterAddressProps) {
-  const [uf, setUf] = React.useState<string>("");
   const [cep, setCep] = React.useState<string>("");
-  const [city, setCity] = React.useState<string>("");
-  const [district, setDistrict] = React.useState<string>("");
-  const [street, setStreet] = React.useState<string>("");
   const [complement, setComplement] = React.useState<string>("");
   const [houseNumber, setHouseNumber] = React.useState<string>("");
-  const [fetched, setFetched] = React.useState<boolean>(false);
+  const [uf, setUf] = React.useState<AlreadyFetched<string>>({
+    data: "",
+    isFetched: false,
+  });
+  const [city, setCity] = React.useState<AlreadyFetched<string>>({
+    data: "",
+    isFetched: false,
+  });
+  const [district, setDistrict] = React.useState<AlreadyFetched<string>>({
+    data: "",
+    isFetched: false,
+  });
+  const [street, setStreet] = React.useState<AlreadyFetched<string>>({
+    data: "",
+    isFetched: false,
+  });
   const axiosViaCep = React.useMemo(() => new AxiosViaCep(), []);
   const axiosAddress = React.useMemo(() => new AxiosAddress(), []);
 
@@ -49,7 +61,6 @@ export default function RegisterAddress({
       }
 
       setCep(data);
-      setFetched(false);
 
       if (data.length === 9) {
         try {
@@ -60,12 +71,11 @@ export default function RegisterAddress({
             return;
           }
 
-          setCity(response.localidade);
-          setDistrict(response.bairro);
-          setStreet(response.logradouro);
+          setUf({ data: uf, isFetched: true });
+          setCity({ data: response.localidade, isFetched: true });
+          setDistrict({ data: response.bairro, isFetched: true });
+          setStreet({ data: response.logradouro, isFetched: true });
           setComplement(response.complemento);
-          setUf(uf);
-          setFetched(true);
         } catch (error) {
           setMessageError("Não foi possível encontrar este CEP");
         }
@@ -78,7 +88,6 @@ export default function RegisterAddress({
       setStreet,
       setComplement,
       setUf,
-      setFetched,
       setMessageError,
       axiosViaCep,
     ]
@@ -86,7 +95,7 @@ export default function RegisterAddress({
 
   const handleUf = React.useCallback(
     (event: MUI.SelectChangeEvent) => {
-      setUf(event.target.value);
+      setUf({ data: event.target.value, isFetched: false });
     },
     [setUf]
   );
@@ -99,7 +108,7 @@ export default function RegisterAddress({
         return;
       }
 
-      setCity(city);
+      setCity({ data: city, isFetched: false });
     },
     [setCity, setMessageError]
   );
@@ -112,9 +121,16 @@ export default function RegisterAddress({
         return;
       }
 
-      setDistrict(district);
+      setDistrict({ data: district, isFetched: false });
     },
     [setDistrict, setMessageError]
+  );
+
+  const handleStreet = React.useCallback(
+    (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+      setStreet({ data: event.target.value, isFetched: false });
+    },
+    [setStreet]
   );
 
   const handleComplement = React.useCallback(
@@ -122,13 +138,6 @@ export default function RegisterAddress({
       setComplement(event.target.value);
     },
     [setComplement]
-  );
-
-  const handleStreet = React.useCallback(
-    (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-      setStreet(event.target.value);
-    },
-    [setStreet]
   );
 
   const handleHouseNumber = React.useCallback(
@@ -141,13 +150,13 @@ export default function RegisterAddress({
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const newState = { uf: uf } as InterfaceState;
-    const newCity = { name: city, state: newState } as InterfaceCity;
+    const newState = { uf: uf.data } as InterfaceState;
+    const newCity = { name: city.data, state: newState } as InterfaceCity;
     const newAddress = {
       city: newCity,
       zip_code: cep.replace(/\D/g, ""),
-      district: district,
-      street: street,
+      district: district.data,
+      street: street.data,
       complement: complement,
       house_number: houseNumber,
     } as InterfaceAddress;
@@ -164,15 +173,14 @@ export default function RegisterAddress({
 
   return (
     <FormAddress
-      fetched={fetched}
       messageError={messageError}
-      uf={uf}
       cep={cep}
+      complement={complement}
+      houseNumber={houseNumber}
+      uf={uf}
       city={city}
       district={district}
       street={street}
-      complement={complement}
-      houseNumber={houseNumber}
       handleUf={handleUf}
       handleCep={handleCep}
       handleCity={handleCity}

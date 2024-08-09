@@ -135,7 +135,8 @@ export default function RegisterUserMetadata({
       handleRegisterStep();
       return;
     } catch (error) {
-      setMessageError(error.message);
+      console.log(error);
+      setMessageError("Não foi possível cadastrar o usuário");
       return;
     }
   };

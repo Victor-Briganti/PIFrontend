@@ -5,17 +5,17 @@ import * as Router from "react-router-dom";
 import StateChoiceMap from "../../models/map_choices/StateChoiceMap";
 import ErrorAlert from "../elements/ErrorAlert";
 import FormControlField from "../elements/form_control/FormControlField";
+import { AlreadyFetched } from "../../models/validators/AlreadyFetched";
 
 interface FromAddressProps {
-  fetched: boolean;
   messageError: string;
-  uf: string;
   cep: string;
-  city: string;
-  district: string;
-  street: string;
   complement: string;
   houseNumber: string;
+  uf: AlreadyFetched<string>;
+  city: AlreadyFetched<string>;
+  district: AlreadyFetched<string>;
+  street: AlreadyFetched<string>;
   handleUf: (event: MUI.SelectChangeEvent) => void;
   handleCep: (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -39,7 +39,6 @@ interface FromAddressProps {
 }
 
 export default function FormAddress({
-  fetched,
   messageError,
   uf,
   cep,
@@ -58,6 +57,14 @@ export default function FormAddress({
   handleSubmit,
 }: FromAddressProps) {
   const stateMap = new StateChoiceMap();
+
+  console.log("uf: ", uf);
+  console.log("cep: ", cep);
+  console.log("city: ", city);
+  console.log("district: ", district);
+  console.log("street: ", street);
+  console.log("complement: ", complement);
+  console.log("houseNumber: ", houseNumber);
 
   return (
     <React.Fragment>
@@ -100,10 +107,10 @@ export default function FormAddress({
               id="uf"
               label="Estado"
               name="uf"
-              value={uf}
+              value={uf.data}
               handleValue={handleUf}
               map={stateMap}
-              readOnly={uf !== "" && fetched}
+              readOnly={uf.data !== "" && uf.isFetched}
             />
 
             <MUI.Grid item xs={12} sm={12}>
@@ -113,11 +120,13 @@ export default function FormAddress({
                 id="city"
                 label="Cidade"
                 name="city"
-                value={city}
+                value={city.data}
                 onChange={handleCity}
-                variant={fetched && city !== "" ? "filled" : "outlined"}
+                variant={
+                  city.data !== "" && city.isFetched ? "filled" : "outlined"
+                }
                 InputProps={{
-                  readOnly: fetched && city !== "",
+                  readOnly: city.data !== "" && city.isFetched,
                 }}
               />
             </MUI.Grid>
@@ -129,11 +138,15 @@ export default function FormAddress({
                 id="district"
                 label="Bairro"
                 name="district"
-                value={district}
+                value={district.data}
                 onChange={handleDistrict}
-                variant={fetched && district !== "" ? "filled" : "outlined"}
+                variant={
+                  district.isFetched && district.data !== ""
+                    ? "filled"
+                    : "outlined"
+                }
                 InputProps={{
-                  readOnly: fetched && district !== "",
+                  readOnly: district.isFetched && district.data !== "",
                 }}
               />
             </MUI.Grid>
@@ -145,11 +158,13 @@ export default function FormAddress({
                 id="street"
                 label="Logradouro"
                 name="street"
-                value={street}
+                value={street.data}
                 onChange={handleStreet}
-                variant={fetched && street !== "" ? "filled" : "outlined"}
+                variant={
+                  street.isFetched && street.data !== "" ? "filled" : "outlined"
+                }
                 InputProps={{
-                  readOnly: fetched && street !== "",
+                  readOnly: street.isFetched && street.data !== "",
                 }}
               />
             </MUI.Grid>
@@ -162,10 +177,7 @@ export default function FormAddress({
                 name="complement"
                 value={complement}
                 onChange={handleComplement}
-                variant={fetched && complement !== "" ? "filled" : "outlined"}
-                InputProps={{
-                  readOnly: fetched && complement !== "",
-                }}
+                variant="outlined"
               />
             </MUI.Grid>
 
