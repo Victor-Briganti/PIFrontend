@@ -1,4 +1,5 @@
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import * as MUI from "@mui/material";
 import * as React from "react";
 import * as Router from "react-router-dom";
@@ -91,6 +92,9 @@ export default function FormUserCommon({
                 type="email"
                 onChange={handleEmail}
               />
+              <MUI.FormHelperText>
+                {messageError.includes("Email inválido") && messageError}
+              </MUI.FormHelperText>
             </MUI.Grid>
 
             <MUI.Grid item xs={12} sm={12}>
@@ -101,6 +105,31 @@ export default function FormUserCommon({
                 label="Senha"
                 name="password"
                 type="password"
+                InputProps={{
+                  endAdornment: (
+                    messageError.includes("Senha inválida") && (
+                      <MUI.InputAdornment position="end">
+                        <MUI.Tooltip
+                          title={
+                            <span style={{ color: "#fff", fontSize: "14px" }}>
+                              A senha precisa ter 8 caracteres.
+                            </span>
+                          }
+                          sx={{
+                            backgroundColor: "#000000", // Preto mais intenso
+                            '& .MuiTooltip-arrow': {
+                              color: "#000000", // Preto mais intenso
+                            },
+                          }}
+                          arrow
+                          placement="right"
+                        >
+                          <InfoOutlinedIcon sx={{ color: "#000000" }} />
+                        </MUI.Tooltip>
+                      </MUI.InputAdornment>
+                    )
+                  ),
+                }}
               />
             </MUI.Grid>
 
@@ -113,6 +142,9 @@ export default function FormUserCommon({
                 name="confirmPassword"
                 type="password"
               />
+              <MUI.FormHelperText>
+                {messageError.includes("Senhas não coincidem") && messageError}
+              </MUI.FormHelperText>
             </MUI.Grid>
 
             <MUI.Grid item xs={12} sm={12}>

@@ -2,6 +2,8 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import * as MUI from "@mui/material";
 import * as Router from "react-router-dom";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import dayjs from "dayjs";
 import * as React from "react";
 import ErrorAlert from "../elements/ErrorAlert";
@@ -81,12 +83,16 @@ export default function FormUserMetadata({
             </MUI.Grid>
 
             <MUI.Grid item xs={12} sm={12}>
-              <DatePicker
-                label={"Data de Aniversário"}
-                views={["day", "month", "year"]}
-                value={birthdate ? dayjs(birthdate) : null}
-                onChange={(date) => handleBirthdate(date?.toDate())}
-              />
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DatePicker
+                  label="Data de Aniversário"
+                  format="DD/MM/YYYY"
+                  views={["year", "month", "day"]}
+                  value={birthdate ? dayjs(birthdate) : null}
+                  onChange={(date) => handleBirthdate(date?.toDate())}
+                  renderInput={(params) => <MUI.TextField {...params} fullWidth />}
+                />
+              </LocalizationProvider>
             </MUI.Grid>
 
             <MUI.Grid item xs={12} sm={12}>
