@@ -90,8 +90,12 @@ export default function RegisterUserCommon({
         .then(() => {
           handleRegisterStep();
         })
-        .catch(() => {
-          setMessageError("Não foi possível cadastrar o usuário");
+        .catch((error) => {
+          if(error.response?.data){
+            setMessageError(error.response.data[0])
+          }else{
+            setMessageError("Não foi possível cadastrar o usuário");
+          }
         });
     },
     [setMessageError, handleRegisterStep, axiosUser]

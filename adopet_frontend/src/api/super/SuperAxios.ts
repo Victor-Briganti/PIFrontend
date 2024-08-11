@@ -35,6 +35,12 @@ abstract class SuperAxios<T> {
       return response.data;
     } catch (error) {
       if (axios.isAxiosError(error)) {
+        if(error.response?.data.cpf){
+          throw error;
+        }
+        if(error.response?.data){
+          throw error;
+        }
         throw new Error(`${error.status}: ${error.response?.data?.detail}`);
       }
       throw new Error(String(error));
