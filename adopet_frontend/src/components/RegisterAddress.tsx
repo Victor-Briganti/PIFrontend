@@ -6,7 +6,7 @@ import InterfaceAddress from "../models/interfaces/address/InterfaceAddress";
 import InterfaceCity from "../models/interfaces/address/InterfaceCity";
 import InterfaceState from "../models/interfaces/address/InterfaceState";
 import StateChoiceMap from "../models/map_choices/StateChoiceMap";
-import { validatedString } from "../utils/Verification";
+import { validatedEmoji, validatedString } from "../utils/Verification";
 import FormAddress from "./forms/FormAddress";
 import { AlreadyFetched } from "../models/validators/AlreadyFetched";
 
@@ -107,6 +107,12 @@ export default function RegisterAddress({
         setMessageError("Cidade inválida");
         return;
       }
+      if(city !== ""){
+        if(validatedEmoji(city) === false){
+          setMessageError("Cidade não pode conter emojis");
+          return;
+        }
+      }
 
       setCity({ data: city, isFetched: false });
     },
@@ -117,10 +123,15 @@ export default function RegisterAddress({
     (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
       const district = event.target.value;
       if (validatedString(district, 100) === false && district !== "") {
-        setMessageError("Cidade inválida");
+        setMessageError("Bairro inválido");
         return;
       }
-
+      if(district !== ""){
+        if(validatedEmoji(district) === false){
+          setMessageError("Bairro não pode conter emojis");
+          return;
+        }
+      }
       setDistrict({ data: district, isFetched: false });
     },
     [setDistrict, setMessageError]
@@ -128,6 +139,13 @@ export default function RegisterAddress({
 
   const handleStreet = React.useCallback(
     (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+      const street = event.target.value;
+      if(street !== ""){
+        if(validatedEmoji(street) === false){
+          setMessageError("Rua não pode conter emojis");
+          return;
+        }
+      }
       setStreet({ data: event.target.value, isFetched: false });
     },
     [setStreet]
@@ -135,6 +153,13 @@ export default function RegisterAddress({
 
   const handleComplement = React.useCallback(
     (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+      const complement = event.target.value;
+      if(complement !== ""){
+        if(validatedEmoji(complement) === false){
+          setMessageError("Complemento não pode conter emojis");
+          return;
+        }
+      }
       setComplement(event.target.value);
     },
     [setComplement]
@@ -142,6 +167,13 @@ export default function RegisterAddress({
 
   const handleHouseNumber = React.useCallback(
     (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+      const houseNumber = event.target.value;
+      if(houseNumber !== ""){
+        if(validatedEmoji(houseNumber) === false){
+          setMessageError("Número da casa não pode conter emojis");
+          return;
+        }
+      }
       setHouseNumber(event.target.value);
     },
     [setHouseNumber]

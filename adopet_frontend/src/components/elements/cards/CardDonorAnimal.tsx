@@ -69,7 +69,7 @@ export default function CardDonorAnimal({ animal }: CardDonorAnimalProps) {
     <MUI.Card sx={{ maxWidth: 345 }} onClick={handleClick}>
       <MUI.CardActionArea>
         <MUI.CardMedia component="img" height="250px" image={imageUrl} />
-        <MUI.Box position={"absolute"} width={"350px"} bottom={"92.5px"}>
+        <MUI.Box position={"absolute"} width={"100%"} bottom={"92.5px"}>
           <MUI.Typography variant="h5" component="div" sx={{backgroundColor: 'rgba(129, 40, 173, 0.9)'}} color={"white"}>
             {animal.is_adopted ? "Adotado" : ""}
           </MUI.Typography>

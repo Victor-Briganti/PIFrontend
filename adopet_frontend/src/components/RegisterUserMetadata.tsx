@@ -136,7 +136,7 @@ export default function RegisterUserMetadata({
       return;
     } catch (error) {
       if(error.response?.data.cpf){
-        setMessageError("Não foi possível cadastrar o usuário, este CPF já está cadastrado");
+        setMessageError("Este CPF já está cadastrado");
       } else{
       setMessageError("Não foi possível cadastrar o usuário");
       }

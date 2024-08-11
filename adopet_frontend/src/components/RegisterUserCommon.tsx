@@ -1,7 +1,7 @@
 import * as React from "react";
 import AxiosUser from "../api/AxiosUser";
 import InterfaceUserCommon from "../models/interfaces/user/InterfaceUserCommon";
-import { validatedEmail, validatedString } from "../utils/Verification";
+import { validatedEmail, validatedString, validatedEmoji } from "../utils/Verification";
 import FormUserCommon from "./forms/FormUserCommon";
 import TopArrowBack from "./elements/navigation/TopArrowBack";
 
@@ -54,12 +54,18 @@ export default function RegisterUserCommon({
         setMessageError("Primeiro nome inválido");
         return;
       }
-
+      if(validatedEmoji(firstname) === false){
+        setMessageError("Primeiro nome não pode conter emojis")
+        return;
+      }
       if (validatedString(lastname, 100) === false) {
         setMessageError("Último nome inválido");
         return;
       }
-
+      if(validatedEmoji(lastname) === false){
+        setMessageError("Último nome não pode conter emojis")
+        return;
+      }
       if (validatedEmail(email) === false) {
         setMessageError("Email inválido");
         return;
@@ -70,6 +76,10 @@ export default function RegisterUserCommon({
         return;
       }
 
+      if(validatedEmoji(password) === false){
+        setMessageError("Senha não pode conter emojis");
+        return;
+      }
       if (confirmPassword !== password) {
         setMessageError("Senhas não coincidem");
         return;
