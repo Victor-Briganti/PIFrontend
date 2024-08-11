@@ -53,7 +53,8 @@ export default function DescriptionDonorAnimal({ animal }: DescriptionDonorAnima
 
   return (
     <React.Fragment>
-      <Slider banners={imageAnimals} /> <InfoDonorAnimal animal={animal} />
+      <Slider banners={imageAnimals} />
+      <InfoDonorAnimal animal={animal} />
     </React.Fragment>
   );
 }

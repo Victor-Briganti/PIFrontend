@@ -6,6 +6,7 @@ import * as Router from "react-router-dom";
 import AxiosDonor from "../../../api/AxiosDonor";
 import InterfaceAdoption from "../../../models/interfaces/adoption/InterfaceAdoption";
 import InterfaceUserCommon from "../../../models/interfaces/user/InterfaceUserCommon";
+import Modal from "../../elements/Modal";
 
 interface CardRequestProps {
   adoption: InterfaceAdoption;
@@ -18,6 +19,7 @@ export default function CardRequest({ adoption }: CardRequestProps) {
   const [loading, setLoading] = React.useState(true);
   const [adopter, setAdopter] = React.useState<InterfaceUserCommon>();
   const [messageError, setMessageError] = React.useState<string>("");
+  const [openModal, setOpenModal] = React.useState<boolean>(false);
 
   React.useEffect(() => {
     setLoading(false);
@@ -37,13 +39,19 @@ export default function CardRequest({ adoption }: CardRequestProps) {
       navigate("/animals/requests");
     }
   };
-
-  const handleReject = () => {
+  const handleReject = React.useCallback(() => {
+    setOpenModal(true);
+  }, []);
+  
+  const handleAcceptModal = () => {
     if (adoption.id !== undefined) {
       axiosDonor.rejectRequest(adoption.id);
       setActivate(false);
     }
   };
+  const handleCloseModal = React.useCallback(() => {
+    setOpenModal(false);
+  }, []);
 
   if (messageError) {
     return (
@@ -70,6 +78,13 @@ export default function CardRequest({ adoption }: CardRequestProps) {
               <MUI.Button startIcon={<CloseIcon />} variant="outlined" disabled>
                 Recusar
               </MUI.Button>
+              <Modal
+              title={`Deseja rejeitar ${adopter?.firstname}?`}
+              dialog="Essa ação não pode ser desfeita."
+              openModal={openModal}
+              handleConfirmModal={handleAccept}
+              handleCloseModal={handleCloseModal}
+              />
             </MUI.Grid>
           </MUI.Grid>
         </MUI.CardContent>
@@ -81,16 +96,15 @@ export default function CardRequest({ adoption }: CardRequestProps) {
     return (
       <MUI.Card sx={{ minWidth: 400 }}>
         <MUI.CardContent>
-          <MUI.Grid container spacing={1} alignItems="center">
+          <MUI.Grid container spacing={1} flexDirection={"column"} paddingBottom={2}>
             <MUI.Grid item>
-              <MUI.Typography>usuário: {adopter?.firstname}</MUI.Typography>
+              <MUI.Typography>Usuário: {adopter?.firstname} {adopter?.lastname}</MUI.Typography>
             </MUI.Grid>
             <MUI.Grid item>
-              <MUI.Typography>{adopter?.lastname}</MUI.Typography>
+              <MUI.Typography>Email: {adopter?.email}</MUI.Typography>
             </MUI.Grid>
-            <MUI.Grid item>
-              <MUI.Typography>email: {adopter?.email}</MUI.Typography>
-            </MUI.Grid>
+          </MUI.Grid>
+          <MUI.Grid container spacing={1} flexDirection={"row"} justifyContent={"center"}>
             <MUI.Grid item>
               <MUI.Button
                 startIcon={<CheckIcon />}
@@ -108,6 +122,13 @@ export default function CardRequest({ adoption }: CardRequestProps) {
               >
                 Recusar
               </MUI.Button>
+              <Modal
+              title={`Deseja rejeitar pedido de ${adopter?.firstname}?`}
+              dialog="Essa ação não pode ser desfeita."
+              openModal={openModal}
+              handleConfirmModal={handleAcceptModal}
+              handleCloseModal={handleCloseModal}
+              />
             </MUI.Grid>
           </MUI.Grid>
         </MUI.CardContent>

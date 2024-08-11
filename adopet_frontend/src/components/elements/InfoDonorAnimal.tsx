@@ -40,24 +40,24 @@ export default function InfoDonorAnimal({ animal }: InfoDonorAnimalProps) {
   }
 
   return (
-    <MUI.Box>
-      <MUI.Typography variant="h4">{animal.name}</MUI.Typography>
-      <MUI.Grid container justifyContent={"flex-start"}>
+    <MUI.Box alignSelf={"center"}>
+      <MUI.Typography paddingBottom={2} variant="h4">{animal.name}</MUI.Typography>
         {messageError !== "" ? (
-          <MUI.Grid item xs={6}>
+          <MUI.Box>
             {messageError}
-          </MUI.Grid>
+          </MUI.Box>
         ) : (
-          <MUI.Grid item xs={6}>
+          <MUI.Grid container spacing={2}>
             {requests.map(
               (request) =>
                 request.request_status === "pending" && (
-                  <CardRequest key={request.id} adoption={request} />
+                  <MUI.Grid item>
+                    <CardRequest key={request.id} adoption={request} />
+                  </MUI.Grid>
                 )
             )}
           </MUI.Grid>
         )}
-      </MUI.Grid>
     </MUI.Box>
   );
 }
