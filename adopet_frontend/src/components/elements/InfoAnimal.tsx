@@ -164,109 +164,147 @@ export default function InfoAnimal({ animal }: InfoAnimalProps) {
   }, []);
 
   return (
-    <MUI.Box>
+    <MUI.Box width={"100%"}>
       <MUI.Typography variant="h4">{animal.name}</MUI.Typography>
-      <MUI.Grid container justifyContent={"flex-start"}>
-        <MUI.Grid item xs={6}>
+      {/* CONTAINER INFORMAÇÕES*/}
+      <MUI.Grid container>
+        <MUI.Grid container item spacing={2} paddingY={2}>
+          {/* INFORMAÇÕES DOADOR */}
           {donor !== undefined && (
-            <React.Fragment>
-              <MUI.Typography variant="h5">Doador</MUI.Typography>
-
-              <MUI.Box component={"ul"} textAlign={"start"} sx={{ pl: 16 }}>
-                <MUI.Typography>
-                  Nome: {donor.firstname} {donor.lastname}
-                </MUI.Typography>
-
-                <MUI.Typography>Email: {donor.email}</MUI.Typography>
-              </MUI.Box>
-            </React.Fragment>
+            <MUI.Grid item xs={12} md={6}>
+              <MUI.Card>
+                <MUI.Box padding={2}>
+                  <MUI.Typography variant="h5">Doador</MUI.Typography>
+                  <MUI.Typography>
+                    Nome: {donor.firstname} {donor.lastname}
+                  </MUI.Typography>
+                  <MUI.Typography>Email: {donor.email}</MUI.Typography>
+                </MUI.Box>
+              </MUI.Card>
+            </MUI.Grid>
           )}
-
-          <MUI.Typography variant="h5">Características</MUI.Typography>
-
-          <MUI.Box component={"ul"} textAlign={"start"} sx={{ pl: 16 }}>
-            <MUI.Typography>Idade: {age}</MUI.Typography>
-
-            <MUI.Typography>Espécie: {specie}</MUI.Typography>
-
-            <MUI.Typography>Genêro: {gender}</MUI.Typography>
-
-            <MUI.Typography>Tamanho: {size}</MUI.Typography>
-
-            <MUI.Typography>Pelagem: {coat}</MUI.Typography>
-
-            <MUI.Typography>Peso: {animal.weight?.toString()}</MUI.Typography>
-
-            <MUI.Typography>
-              Treinado: {animal.is_house_trained ? "Sim" : "Não"}
-            </MUI.Typography>
-
-            <MUI.Typography>
-              Precisa de cuidados Especiais:{" "}
-              {animal.is_special_needs ? "Sim" : "Não"}
-            </MUI.Typography>
-
-            <MUI.Typography>
-              Castrado: {animal.is_castrated ? "Sim" : "Não"}
-            </MUI.Typography>
-
-            <MUI.Typography>
-              Vacinado: {animal.is_vaccinated ? "Sim" : "Não"}
-            </MUI.Typography>
-          </MUI.Box>
-        </MUI.Grid>
-        <MUI.Grid item xs={6}>
-          <MUI.Typography variant="h5">Sobre</MUI.Typography>
-          {animal.description && animal.description.length > 60 ? (
-            <MUI.Box textAlign={"center"} sx={{ px: 4 }}>
-              <MUI.Typography>{animal.description}</MUI.Typography>
-            </MUI.Box>
-          ) : (
-            <MUI.Box textAlign={"center"}>
-              <MUI.Typography>{animal.description}</MUI.Typography>
-            </MUI.Box>
-          )}
-        </MUI.Grid>
-        <MUI.Grid item xs={6}>
-          {user.context !== null &&
-          user.context.id === animal.donor &&
-          animal.is_adopted === false ? (
+          {/* DESCRIÇÃO */}
+          {animal.description !== undefined &&
+          animal.description.length > 10 ? (
             <React.Fragment>
-              <MUI.Button
-                variant="contained"
-                color="error"
-                onClick={handleExclusion}
-              >
-                Excluir
-              </MUI.Button>
+              <MUI.Grid item xs={12} md={6}>
+                <MUI.Card>
+                  <MUI.Box padding={2}>
+                    <MUI.Typography variant="h5">Descrição</MUI.Typography>
+                    <MUI.Typography sx={{ overflowWrap: "break-word" }}>
+                      {animal.description}
+                    </MUI.Typography>
+                  </MUI.Box>
+                </MUI.Card>
+              </MUI.Grid>
+              <MUI.Grid container item spacing={2} paddingY={2}>
+                <MUI.Grid item xs={12} md={12}>
+                  <MUI.Card>
+                    <MUI.Box padding={2}>
+                      <MUI.Typography variant="h5">
+                        Características
+                      </MUI.Typography>
+                      <MUI.Typography>Idade: {age}</MUI.Typography>
+                      <MUI.Typography>Espécie: {specie}</MUI.Typography>
+                      <MUI.Typography>Genêro: {gender}</MUI.Typography>
+                      <MUI.Typography>Tamanho: {size}</MUI.Typography>
+                      <MUI.Typography>Pelagem: {coat}</MUI.Typography>
+                      <MUI.Typography>
+                        Peso: {animal.weight?.toString()} Kg
+                      </MUI.Typography>
+                      <MUI.Typography>
+                        Treinado: {animal.is_house_trained ? "Sim" : "Não"}
+                      </MUI.Typography>
+                      <MUI.Typography>
+                        Precisa de cuidados Especiais:{" "}
+                        {animal.is_special_needs ? "Sim" : "Não"}
+                      </MUI.Typography>
+                      <MUI.Typography>
+                        Castrado: {animal.is_castrated ? "Sim" : "Não"}
+                      </MUI.Typography>
+                      <MUI.Typography>
+                        Vacinado: {animal.is_vaccinated ? "Sim" : "Não"}
+                      </MUI.Typography>
+                    </MUI.Box>
+                  </MUI.Card>
+                </MUI.Grid>
+              </MUI.Grid>
             </React.Fragment>
           ) : (
-            activeAdoptionButton &&
-            animal.is_adopted === false && (
-              <MUI.Button
-                color="primary"
-                variant="contained"
-                onClick={handleAdoption}
-              >
-                Adotar
-              </MUI.Button>
-            )
+            // <MUI.Grid container item spacing={2} paddingY={2}>
+            <MUI.Grid item xs={12} md={6}>
+              <MUI.Card>
+                <MUI.Box padding={2}>
+                  <MUI.Typography variant="h5">Características</MUI.Typography>
+                  <MUI.Typography>Idade: {age}</MUI.Typography>
+                  <MUI.Typography>Espécie: {specie}</MUI.Typography>
+                  <MUI.Typography>Genêro: {gender}</MUI.Typography>
+                  <MUI.Typography>Tamanho: {size}</MUI.Typography>
+                  <MUI.Typography>Pelagem: {coat}</MUI.Typography>
+                  <MUI.Typography>
+                    Peso: {animal.weight?.toString()} Kg
+                  </MUI.Typography>
+                  <MUI.Typography>
+                    Treinado: {animal.is_house_trained ? "Sim" : "Não"}
+                  </MUI.Typography>
+                  <MUI.Typography>
+                    Precisa de cuidados Especiais:{" "}
+                    {animal.is_special_needs ? "Sim" : "Não"}
+                  </MUI.Typography>
+                  <MUI.Typography>
+                    Castrado: {animal.is_castrated ? "Sim" : "Não"}
+                  </MUI.Typography>
+                  <MUI.Typography>
+                    Vacinado: {animal.is_vaccinated ? "Sim" : "Não"}
+                  </MUI.Typography>
+                </MUI.Box>
+              </MUI.Card>
+            </MUI.Grid>
+            // </MUI.Grid>
           )}
         </MUI.Grid>
-        {successMessage && !errorMessage && (
-          <SuccessMessage message={successMessage} />
-        )}
-        {errorMessage && !successMessage && (
-          <ErrorMessage message={errorMessage} />
-        )}
-        <Modal
-          title={`Deseja excluir ${animal.name}?`}
-          dialog="Essa ação não pode ser desfeita."
-          openModal={openModal}
-          handleConfirmModal={handleConfirmModal}
-          handleCloseModal={handleCloseModal}
-        />
+
+        {/* FIM container informações */}
       </MUI.Grid>
+      {/*BOTÕES ADOÇÃO */}
+      {user.context !== null &&
+      user.context.id === animal.donor &&
+      animal.is_adopted === false ? (
+        <React.Fragment>
+          <MUI.Button
+            variant="contained"
+            color="error"
+            onClick={handleExclusion}
+          >
+            Excluir
+          </MUI.Button>
+        </React.Fragment>
+      ) : (
+        activeAdoptionButton &&
+        animal.is_adopted === false && (
+          <MUI.Button
+            color="primary"
+            variant="contained"
+            onClick={handleAdoption}
+          >
+            Adotar
+          </MUI.Button>
+        )
+      )}
+      {/*MODAIS ADOçÃO */}
+      {successMessage && !errorMessage && (
+        <SuccessMessage message={successMessage} />
+      )}
+      {errorMessage && !successMessage && (
+        <ErrorMessage message={errorMessage} />
+      )}
+      <Modal
+        title={`Deseja excluir ${animal.name}?`}
+        dialog="Essa ação não pode ser desfeita."
+        openModal={openModal}
+        handleConfirmModal={handleConfirmModal}
+        handleCloseModal={handleCloseModal}
+      />
     </MUI.Box>
   );
 }
