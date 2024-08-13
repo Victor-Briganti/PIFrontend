@@ -185,7 +185,7 @@ export default function InfoAnimal({ animal }: InfoAnimalProps) {
           )}
           {/* DESCRIÇÃO */}
           {animal.description !== undefined &&
-          animal.description.length > 10 ? (
+          animal.description.length > 0 ? (
             <React.Fragment>
               <MUI.Grid item xs={12} md={6}>
                 <MUI.Card>
@@ -263,7 +263,6 @@ export default function InfoAnimal({ animal }: InfoAnimalProps) {
             // </MUI.Grid>
           )}
         </MUI.Grid>
-
         {/* FIM container informações */}
       </MUI.Grid>
       {/*BOTÕES ADOÇÃO */}
