@@ -1,9 +1,10 @@
 import * as MUI from "@mui/material";
 import * as React from "react";
+import * as Router from "react-router-dom";
 import AxiosAdoption from "../api/AxiosAdoption";
 import InterfaceAnimal from "../models/interfaces/animal/InterfaceAnimal";
 import PageNumber from "./elements/PageNumber";
-import CardDonorAnimal from "./elements/cards/CardDonorAnimal";
+import CardAnimal from "./elements/cards/CardAnimal";
 
 export default function GridAdoptedAnimal() {
   const [messageError, setMessageError] = React.useState("");
@@ -12,10 +13,11 @@ export default function GridAdoptedAnimal() {
   const [page, setPage] = React.useState<number>(1);
   const [totalPages, setTotalPages] = React.useState<number>(1);
   const axiosAdoption = React.useMemo(() => new AxiosAdoption(), []);
+  const navigate = Router.useNavigate();
 
   React.useEffect(() => {
     axiosAdoption
-      .getAdoptionAnimalsList()
+      .getAdoptionAnimalsList(0)
       .then((response) => {
         setAnimals(response.results);
         setTotalPages(Math.ceil(response.count / 9));
@@ -73,7 +75,16 @@ export default function GridAdoptedAnimal() {
       <MUI.Grid container spacing={3}>
         {animals.map((animal: InterfaceAnimal) => (
           <MUI.Grid item key={animal.id} xs={4}>
-            <CardDonorAnimal animal={animal} />
+            <CardAnimal
+              animal={animal}
+              handleClick={() => {
+                try {
+                  navigate(`/animal/donor/${animal.id}`);
+                } catch (error) {
+                  console.log("error");
+                }
+              }}
+            />
           </MUI.Grid>
         ))}
       </MUI.Grid>

@@ -1,20 +1,19 @@
 import * as MUI from "@mui/material";
 import * as React from "react";
-import * as Router from "react-router-dom";
 import InterfaceAnimal from "../../../models/interfaces/animal/InterfaceAnimal";
 import AxiosAnimal from "../../../api/AxiosAnimal";
 import AnimalCardError from "../../errors/AnimalCardError";
 
 interface CardAnimalProps {
   animal: InterfaceAnimal;
+  handleClick: () => void;
 }
 
-export default function CardAnimal({ animal }: CardAnimalProps) {
+export default function CardAnimal({ animal, handleClick }: CardAnimalProps) {
   const [imageUrl, setImageUrl] = React.useState<string>("");
   const [description, setDescription] = React.useState<string>("");
   const [loading, setLoading] = React.useState<boolean>(true);
   const axiosAnimal = React.useMemo(() => new AxiosAnimal(), []);
-  const navigate = Router.useNavigate();
 
   React.useEffect(() => {
     const animalId = animal.id;
@@ -43,14 +42,6 @@ export default function CardAnimal({ animal }: CardAnimalProps) {
       setDescription(animalDesc);
     }
   }, [animal, axiosAnimal]);
-
-  const handleClick = React.useCallback(() => {
-    try {
-      navigate(`/animal/${animal.id}`);
-    } catch (error) {
-      console.log("error");
-    }
-  }, [animal, navigate]);
 
   if (loading) {
     return (
@@ -85,9 +76,19 @@ export default function CardAnimal({ animal }: CardAnimalProps) {
   return (
     <MUI.Card sx={{ maxWidth: 345 }} onClick={handleClick}>
       <MUI.CardActionArea>
-        <MUI.CardMedia component="img" height="250px" image={imageUrl} sx={{objectFit: 'fill'}}/>
+        <MUI.CardMedia
+          component="img"
+          height="250px"
+          image={imageUrl}
+          sx={{ objectFit: "fill" }}
+        />
         <MUI.Box position={"absolute"} width={"100%"} bottom={"10vh"}>
-          <MUI.Typography variant="h5" component="div" sx={{backgroundColor: 'rgba(129, 40, 173, 0.9)'}} color={"white"}>
+          <MUI.Typography
+            variant="h5"
+            component="div"
+            sx={{ backgroundColor: "rgba(129, 40, 173, 0.9)" }}
+            color={"white"}
+          >
             {animal.is_adopted ? "Adotado" : ""}
           </MUI.Typography>
         </MUI.Box>

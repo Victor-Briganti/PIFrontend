@@ -3,6 +3,7 @@ import * as React from "react";
 import InterfaceAnimal from "../models/interfaces/animal/InterfaceAnimal";
 import PageNumber from "./elements/PageNumber";
 import CardAnimal from "./elements/cards/CardAnimal";
+import * as Router from "react-router-dom";
 
 interface GridAnimalProps {
   page: number;
@@ -21,6 +22,8 @@ export default function GridAnimal({
   animals,
   handlePageChange,
 }: GridAnimalProps) {
+  const navigate = Router.useNavigate();
+
   if (loading) {
     return (
       <div>
@@ -50,7 +53,16 @@ export default function GridAnimal({
       <MUI.Grid container spacing={3} sx={{ t: "10px" }}>
         {animals.map((animal: InterfaceAnimal) => (
           <MUI.Grid item key={animal.id} xs={4}>
-            <CardAnimal animal={animal} />
+            <CardAnimal
+              animal={animal}
+              handleClick={() => {
+                try {
+                  navigate(`/animal/${animal.id}`);
+                } catch (error) {
+                  console.log("error");
+                }
+              }}
+            />
           </MUI.Grid>
         ))}
       </MUI.Grid>
