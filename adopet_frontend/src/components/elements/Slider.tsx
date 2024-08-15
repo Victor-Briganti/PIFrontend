@@ -21,7 +21,7 @@ export default function Slider({ banners }: SliderProps) {
           sx={{
             width: "100%",
             height: "700px",
-            objectFit: "cover",
+            objectFit: "contain",
           }}
           src={banner}
           alt={`Slide ${index}`}

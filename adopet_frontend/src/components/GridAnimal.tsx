@@ -66,7 +66,7 @@ export default function GridAnimal({
           </MUI.Grid>
         ))}
       </MUI.Grid>
-      <MUI.Box mt={2}>
+      <MUI.Box mt={2} width={"100%"}>
         <PageNumber
           page={page}
           totalPages={totalPages}

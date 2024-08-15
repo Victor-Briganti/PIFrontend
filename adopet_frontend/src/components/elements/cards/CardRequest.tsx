@@ -20,6 +20,7 @@ export default function CardRequest({ adoption }: CardRequestProps) {
   const [adopter, setAdopter] = React.useState<InterfaceUserCommon>();
   const [messageError, setMessageError] = React.useState<string>("");
   const [openModal, setOpenModal] = React.useState<boolean>(false);
+  const [openModAcc, setOpenModAcc] = React.useState<boolean>(false);
 
   React.useEffect(() => {
     setLoading(false);
@@ -35,8 +36,7 @@ export default function CardRequest({ adoption }: CardRequestProps) {
 
   const handleAccept = () => {
     if (adoption.id !== undefined) {
-      axiosDonor.acceptRequest(adoption.id);
-      navigate("/animals/requests");
+      setOpenModAcc(true);
     }
   };
   const handleReject = React.useCallback(() => {
@@ -52,6 +52,18 @@ export default function CardRequest({ adoption }: CardRequestProps) {
   const handleCloseModal = React.useCallback(() => {
     setOpenModal(false);
   }, []);
+
+  const handleCloseModAcc = React.useCallback(() => {
+    setOpenModAcc(false);
+  }, []);
+
+  const handleAcceptModAdoption = () => {
+    if (adoption.id !== undefined) {
+      axiosDonor.acceptRequest(adoption.id);
+      setActivate(false);
+      navigate("/animals/requests");
+    }
+  };
 
   if (messageError) {
     return (
@@ -73,6 +85,14 @@ export default function CardRequest({ adoption }: CardRequestProps) {
               <MUI.Button startIcon={<CheckIcon />} variant="outlined" disabled>
                 Aceitar
               </MUI.Button>
+              <Modal
+              title={`Deseja aceitar pedido de ${adopter?.firstname}?`}
+              dialog="Essa ação não pode ser desfeita."
+              colorButton="green"
+              openModal={openModAcc}
+              handleConfirmModal={handleAcceptModAdoption}
+              handleCloseModal={handleCloseModAcc}
+              />
             </MUI.Grid>
             <MUI.Grid item>
               <MUI.Button startIcon={<CloseIcon />} variant="outlined" disabled>
@@ -113,6 +133,14 @@ export default function CardRequest({ adoption }: CardRequestProps) {
               >
                 Aceitar
               </MUI.Button>
+              <Modal
+              title={`Deseja aceitar pedido de ${adopter?.firstname}?`}
+              dialog="Essa ação não pode ser desfeita."
+              colorButton="green"
+              openModal={openModAcc}
+              handleConfirmModal={handleAcceptModAdoption}
+              handleCloseModal={handleCloseModAcc}
+              />
             </MUI.Grid>
             <MUI.Grid item>
               <MUI.Button
