@@ -11,12 +11,12 @@ export function validatedEmoji(value: string): boolean {
 }
 
 export function validatedString(value: string, size: number): boolean {
-  const numberRegex = /[0-9]/;
-  if (numberRegex.test(value) || value === "" || value.length > size) {
-    return false;
+  const regex = /^[a-zA-Z]*$/;
+  if (regex.test(value) && value.length <= size) {
+    return true;
   }
 
-  return true;
+  return false;
 }
 
 export function validatedNumber(value: string): boolean {
@@ -26,6 +26,11 @@ export function validatedNumber(value: string): boolean {
   }
 
   return true;
+}
+
+export function validatedAlphaNum(value: string): boolean {
+  const regex = /^[a-zA-Z0-9]+$/;
+  return regex.test(value);
 }
 
 export function validatedEmail(value: string): boolean {
