@@ -43,12 +43,7 @@ export default function InfoAnimal({ animal }: InfoAnimalProps) {
     const sizeMap = new SizeChoiceMap();
     const coatMap = new CoatChoiceMap();
 
-    if (
-      user.context === null ||
-      animal.id === undefined ||
-      user.context.id === undefined
-    )
-      return;
+    if (animal.id === undefined) return;
 
     axiosAdoption
       .getUserAdoptionDetail(animal.id)
@@ -184,8 +179,7 @@ export default function InfoAnimal({ animal }: InfoAnimalProps) {
             </MUI.Grid>
           )}
           {/* DESCRIÇÃO */}
-          {animal.description !== undefined &&
-          animal.description.length > 0 ? (
+          {animal.description !== undefined && animal.description.length > 0 ? (
             <React.Fragment>
               <MUI.Grid item xs={12} md={6}>
                 <MUI.Card>
