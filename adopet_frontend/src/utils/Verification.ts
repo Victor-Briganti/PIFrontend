@@ -11,7 +11,7 @@ export function validatedEmoji(value: string): boolean {
 }
 
 export function validatedString(value: string, size: number): boolean {
-  const regex = /^[a-zA-Z]*$/;
+  const regex = /^[A-zÀ-ú ]*$/;
   if (regex.test(value) && value.length <= size) {
     return true;
   }
@@ -29,7 +29,7 @@ export function validatedNumber(value: string): boolean {
 }
 
 export function validatedAlphaNum(value: string): boolean {
-  const regex = /^[a-zA-Z0-9]+$/;
+  const regex = /^[A-zÀ-ú0-9 ]+$/;
   return regex.test(value);
 }
 
