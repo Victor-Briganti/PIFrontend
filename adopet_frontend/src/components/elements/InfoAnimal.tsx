@@ -164,23 +164,20 @@ export default function InfoAnimal({ animal }: InfoAnimalProps) {
       {/* CONTAINER INFORMAÇÕES*/}
       <MUI.Grid container>
         <MUI.Grid container item spacing={2} paddingY={2}>
-          {/* INFORMAÇÕES DOADOR */}
-          {donor !== undefined && (
-            <MUI.Grid item xs={12} md={6}>
-              <MUI.Card>
-                <MUI.Box padding={2}>
-                  <MUI.Typography variant="h5">Doador</MUI.Typography>
-                  <MUI.Typography>
-                    Nome: {donor.firstname} {donor.lastname}
-                  </MUI.Typography>
-                  <MUI.Typography>Email: {donor.email}</MUI.Typography>
-                </MUI.Box>
-              </MUI.Card>
-            </MUI.Grid>
-          )}
           {/* DESCRIÇÃO */}
-          {animal.description !== undefined && animal.description.length > 0 ? (
+          {animal.description !== undefined && donor !== undefined && animal.description.length > 0 ? (
             <React.Fragment>
+              <MUI.Grid item xs={12} md={6}>
+                <MUI.Card>
+                  <MUI.Box padding={2}>
+                    <MUI.Typography variant="h5">Doador</MUI.Typography>
+                    <MUI.Typography>
+                      Nome: {donor.firstname} {donor.lastname}
+                    </MUI.Typography>
+                    <MUI.Typography>Email: {donor.email}</MUI.Typography>
+                  </MUI.Box>
+                </MUI.Card>
+              </MUI.Grid>
               <MUI.Grid item xs={12} md={6}>
                 <MUI.Card>
                   <MUI.Box padding={2}>
@@ -225,36 +222,49 @@ export default function InfoAnimal({ animal }: InfoAnimalProps) {
               </MUI.Grid>
             </React.Fragment>
           ) : (
-            // <MUI.Grid container item spacing={2} paddingY={2}>
-            <MUI.Grid item xs={12} md={6}>
-              <MUI.Card>
-                <MUI.Box padding={2}>
-                  <MUI.Typography variant="h5">Características</MUI.Typography>
-                  <MUI.Typography>Idade: {age}</MUI.Typography>
-                  <MUI.Typography>Espécie: {specie}</MUI.Typography>
-                  <MUI.Typography>Genêro: {gender}</MUI.Typography>
-                  <MUI.Typography>Tamanho: {size}</MUI.Typography>
-                  <MUI.Typography>Pelagem: {coat}</MUI.Typography>
-                  <MUI.Typography>
-                    Peso: {animal.weight?.toString()} Kg
-                  </MUI.Typography>
-                  <MUI.Typography>
-                    Treinado: {animal.is_house_trained ? "Sim" : "Não"}
-                  </MUI.Typography>
-                  <MUI.Typography>
-                    Precisa de cuidados Especiais:{" "}
-                    {animal.is_special_needs ? "Sim" : "Não"}
-                  </MUI.Typography>
-                  <MUI.Typography>
-                    Castrado: {animal.is_castrated ? "Sim" : "Não"}
-                  </MUI.Typography>
-                  <MUI.Typography>
-                    Vacinado: {animal.is_vaccinated ? "Sim" : "Não"}
-                  </MUI.Typography>
-                </MUI.Box>
-              </MUI.Card>
-            </MUI.Grid>
-            // </MUI.Grid>
+            <React.Fragment>
+              {donor !== undefined && (
+                <MUI.Grid item xs={12} md={12}>
+                  <MUI.Card>
+                    <MUI.Box padding={2}>
+                      <MUI.Typography variant="h5">Doador</MUI.Typography>
+                      <MUI.Typography>
+                        Nome: {donor.firstname} {donor.lastname}
+                      </MUI.Typography>
+                      <MUI.Typography>Email: {donor.email}</MUI.Typography>
+                    </MUI.Box>
+                  </MUI.Card>
+                </MUI.Grid>
+              )}
+              <MUI.Grid item xs={12} md={12}>
+                <MUI.Card>
+                  <MUI.Box padding={2}>
+                    <MUI.Typography variant="h5">Características</MUI.Typography>
+                    <MUI.Typography>Idade: {age}</MUI.Typography>
+                    <MUI.Typography>Espécie: {specie}</MUI.Typography>
+                    <MUI.Typography>Genêro: {gender}</MUI.Typography>
+                    <MUI.Typography>Tamanho: {size}</MUI.Typography>
+                    <MUI.Typography>Pelagem: {coat}</MUI.Typography>
+                    <MUI.Typography>
+                      Peso: {animal.weight?.toString()} Kg
+                    </MUI.Typography>
+                    <MUI.Typography>
+                      Treinado: {animal.is_house_trained ? "Sim" : "Não"}
+                    </MUI.Typography>
+                    <MUI.Typography>
+                      Precisa de cuidados Especiais:{" "}
+                      {animal.is_special_needs ? "Sim" : "Não"}
+                    </MUI.Typography>
+                    <MUI.Typography>
+                      Castrado: {animal.is_castrated ? "Sim" : "Não"}
+                    </MUI.Typography>
+                    <MUI.Typography>
+                      Vacinado: {animal.is_vaccinated ? "Sim" : "Não"}
+                    </MUI.Typography>
+                  </MUI.Box>
+                </MUI.Card>
+              </MUI.Grid>
+            </React.Fragment>
           )}
         </MUI.Grid>
         {/* FIM container informações */}

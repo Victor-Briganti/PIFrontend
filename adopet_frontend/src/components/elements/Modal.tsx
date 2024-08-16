@@ -4,6 +4,7 @@ interface ModalProps {
   title: string;
   dialog: string;
   openModal: boolean;
+  colorButton?: string;
   handleConfirmModal: () => void;
   handleCloseModal: () => void;
 }
@@ -12,6 +13,7 @@ export default function Modal({
   title,
   dialog,
   openModal,
+  colorButton= "red",
   handleConfirmModal,
   handleCloseModal,
 }: ModalProps) {
@@ -35,7 +37,7 @@ export default function Modal({
           autoFocus
           style={{
             marginRight: "10px",
-            backgroundColor: "red",
+            backgroundColor: colorButton,
             color: "white",
           }}
         >
