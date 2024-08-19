@@ -5,7 +5,7 @@ import UserIconNavigation from "../elements/navigation/UserIconNavigation";
 import LinkItem from "../elements/navigation/LinkItem";
 
 export default function Header() {
-  const pages = ["Sobre", "Animais"];
+  const pages = ["Sobre", "Doações"];
   const pageLinks = ["/about", "/animals"];
 
   const isSmallScreen = MUI.useMediaQuery((theme: MUI.Theme) =>

@@ -42,24 +42,24 @@ export default function About() {
             lar em abrigos por todo o país. Nosso objetivo é de possibilitar os
             animais de encontraram um lugar onde possam descansar tranquilos,
             brincar livremente e receber todo o amor e carinho que merecem!
-            <MUI.Box
+          </MUI.Typography>
+          <MUI.Box
+            sx={{
+              width: "100%",
+            }}
+          >
+            <MUI.Button
+              variant="contained"
+              onClick={() => navigate("/animals")}
               sx={{
-                width: "100%",
+                marginTop: "50px",
+                width: "50%",
+                fontWeight: "bold",
               }}
             >
-              <MUI.Button
-                variant="contained"
-                onClick={() => navigate("/animals")}
-                sx={{
-                  marginTop: "100px",
-                  width: "50%",
-                  fontWeight: "bold",
-                }}
-              >
-                Adotar
-              </MUI.Button>
-            </MUI.Box>
-          </MUI.Typography>
+              Adotar
+            </MUI.Button>
+          </MUI.Box>
         </MUI.Container>
       </MUI.Box>
       <Footer />
