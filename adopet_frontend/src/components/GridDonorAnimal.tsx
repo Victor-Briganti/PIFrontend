@@ -81,7 +81,7 @@ export default function GridDonorAnimal() {
               animal={animal}
               handleClick={() => {
                 try {
-                  navigate(`/animal/donor/${animal.id}`);
+                  navigate(`/animal/${animal.id}`);
                 } catch (error) {
                   console.log("error");
                 }

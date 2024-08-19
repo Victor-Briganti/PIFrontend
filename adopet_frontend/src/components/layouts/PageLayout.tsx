@@ -4,13 +4,13 @@ import Header from "../modules/Header";
 
 interface PageLayoutProps {
   children: React.ReactNode;
-  bgcolor?: string;
+  //bgcolor?: string;
   color?: string;
 }
 
 export default function PageLayout({
   children,
-  bgcolor,
+ // bgcolor,
   color,
 }: PageLayoutProps) {
   return (
@@ -19,7 +19,7 @@ export default function PageLayout({
       display={"flex"}
       flexDirection={"column"}
       alignItems={"center"}
-      bgcolor={bgcolor ?? "secondary.light"}
+      bgcolor="transparent"
       color={color ?? "primary.contrastText"}
       minHeight="100vh"
       height={"100%"}
