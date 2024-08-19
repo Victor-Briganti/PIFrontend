@@ -1,4 +1,3 @@
-import React from "react"
 import * as MUI from "@mui/material";
 import * as Router from "react-router-dom";
 import InterfaceUserCommon from "../../../models/interfaces/user/InterfaceUserCommon";

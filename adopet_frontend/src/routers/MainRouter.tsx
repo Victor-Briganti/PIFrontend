@@ -2,7 +2,6 @@ import * as Router from "react-router-dom";
 import GlobalError from "../components/errors/GlobalError";
 import NotFound from "../components/errors/NotFound";
 import About from "../pages/About";
-import Donation from "../pages/Donation";
 import Home from "../pages/Home";
 import animalRoutes from "./AnimalRoutes";
 import userRoutes from "./UserRoutes";
@@ -16,11 +15,6 @@ const mainRoutes = [
   {
     path: "/about",
     element: <About />,
-    errorElement: <GlobalError />,
-  },
-  {
-    path: "/donation",
-    element: <Donation />,
     errorElement: <GlobalError />,
   },
   ...userRoutes,

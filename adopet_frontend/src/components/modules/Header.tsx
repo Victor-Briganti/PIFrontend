@@ -1,4 +1,3 @@
-import React from "react"
 import * as MUI from "@mui/material";
 import * as Router from "react-router-dom";
 import MenuNavigation from "../elements/navigation/MenuNavigation";
@@ -6,9 +5,8 @@ import UserIconNavigation from "../elements/navigation/UserIconNavigation";
 import LinkItem from "../elements/navigation/LinkItem";
 
 export default function Header() {
-  const pages = ["Sobre Nós", "Doação", "Animais"];
-  const pageLinks = ["/about", "/donation", "/animals"];
-
+  const pages = ["Sobre", "Animais"];
+  const pageLinks = ["/about", "/animals"];
 
   const isSmallScreen = MUI.useMediaQuery((theme: MUI.Theme) =>
     theme.breakpoints.down("sm")
@@ -44,13 +42,14 @@ export default function Header() {
             >
               Adopet
             </MUI.Typography>
-
           </MUI.Button>
 
           {isSmallScreen ? (
             <MenuNavigation pages={pages} pageLinks={pageLinks} />
           ) : (
-            <LinkItem pages={pages} pageLinks={pageLinks}
+            <LinkItem
+              pages={pages}
+              pageLinks={pageLinks}
               textAlign="center"
               width={"100%"}
               sx={{ px: "14px" }}
