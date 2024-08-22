@@ -2,11 +2,14 @@ import * as MUI from "@mui/material";
 import Slider from "../components/elements/Slider";
 import Header from "../components/modules/Header";
 import Footer from "../components/modules/Footer";
-
-// Icons
-import VolunteerActivismIcon from "@mui/icons-material/VolunteerActivism";
 import PetsIcon from "@mui/icons-material/Pets";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import VolunteerActivismIcon from "@mui/icons-material/VolunteerActivism";
+
+import * as React from "react";
+import AxiosAnimal from "../api/AxiosAnimal";
+import InterfaceAnimal from "../models/interfaces/animal/InterfaceAnimal";
+import SliderHome from "../components/elements/HomeSlider";
 
 const banners = [
   "src/assets/banner1.webp",
@@ -16,6 +19,20 @@ const banners = [
 ];
 
 export default function Home() {
+  const axiosAnimal = React.useMemo(() => new AxiosAnimal(), []);
+  const [adoptedanimals, setAdoptedAnimals] = React.useState<InterfaceAnimal[]>([]);
+
+  React.useEffect(() => {
+    axiosAnimal
+      .listAnimalsAdopted()
+      .then((response) => {
+        setAdoptedAnimals(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [axiosAnimal]);  // Only run once
+
   return (
     <>
       <Header />
@@ -44,7 +61,7 @@ export default function Home() {
               marginTop: "50px",
             }}
           >
-            <Slider banners={banners} />
+            <SliderHome banners={banners} animals={adoptedanimals} />
           </MUI.Box>
 
           <MUI.Box
