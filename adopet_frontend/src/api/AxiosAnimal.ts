@@ -87,6 +87,10 @@ class AxiosAnimal extends SuperAxios<InterfaceAnimal> {
     return await this.get(page > 0 ? `donor/?page=${page}` : "donor/");
   }
 
+  async listAnimalsAdopted(): Promise<InterfaceAnimal[]> {
+    return await this.get("adopted/");
+  }
+
   async getAnimalByID(id: number): Promise<InterfaceAnimal> {
     if (id < 0) {
       throw new Error("Animal com id inválido: " + id);
