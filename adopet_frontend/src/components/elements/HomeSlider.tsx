@@ -5,13 +5,12 @@ import AxiosAnimal from "../../api/AxiosAnimal";
 import * as React from "react";
 
 interface SliderProps {
-  banners: string[];
   animals: InterfaceAnimal[];
 }
 
-export default function SliderHome({ banners, animals }: SliderProps) {
+export default function SliderHome({ animals }: SliderProps) {
   const axiosAnimal = React.useMemo(() => new AxiosAnimal(), []);
-  const [images, setImages] = React.useState<{ [key: string]: string }>({});
+  const [images, setImages] = React.useState<{ [key: string]: string | null }>({});
   const [loading, setLoading] = React.useState(true);
 
   React.useEffect(() => {
@@ -21,7 +20,7 @@ export default function SliderHome({ banners, animals }: SliderProps) {
           if (response.length > 0 && response[0].image) {
             return { animalId: animal.id, imageUrl: response[0].image };
           }
-          return { animalId: animal.id, imageUrl: "default_image.png" }; // Fallback
+          return { animalId: animal.id, imageUrl: null }; // Null for missing image
         })
       );
 
@@ -30,7 +29,7 @@ export default function SliderHome({ banners, animals }: SliderProps) {
       const imagesMap = imageResults.reduce((acc, curr) => {
         acc[curr.animalId!] = curr.imageUrl;
         return acc;
-      }, {} as { [key: string]: string });
+      }, {} as { [key: string]: string | null });
 
       setImages(imagesMap);
       setLoading(false);
@@ -51,52 +50,55 @@ export default function SliderHome({ banners, animals }: SliderProps) {
         objectFit: "cover",
       }}
     >
-      {animals.length > 0 ? (
-        animals.map((animal, index) => (
+      {animals.map((animal, index) => {
+        const imageUrl = images[animal.id!];
+
+        return (
           <MUI.Box
             key={index}
             sx={{
               width: "100%",
-              height: "700px",
+              height: "600px",
               objectFit: "contain",
-              display: "flex",
+              display: "grid",
               flexDirection: "column",
+              quality: "full",
               alignItems: "center",
               justifyContent: "center",
               backgroundColor: "white",
             }}
           >
-            <MUI.CardMedia
-              component="img"
-              height="400"
-              image={images[animal.id!] || "default_image.png"} // Use the image fetched or a default
-              alt={animal.name}
-            />
+            {imageUrl ? (
+              <MUI.CardMedia
+                component="img"
+                height="530px"
+                image={imageUrl}
+                alt={animal.name}
+              />
+            ) : (
+              <MUI.Box
+                sx={{
+                  width: "100%",
+                  height: "400px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  backgroundColor: "lightgray",
+                }}
+              >
+                <MUI.Typography variant="h6" color="text.secondary">
+                  Image not available
+                </MUI.Typography>
+              </MUI.Box>
+            )}
             <MUI.CardContent>
               <MUI.Typography gutterBottom variant="h5" component="div">
                 {animal.name}
               </MUI.Typography>
-              <MUI.Typography variant="body2" color="text.secondary">
-                {animal.description}
-              </MUI.Typography>
             </MUI.CardContent>
           </MUI.Box>
-        ))
-      ) : (
-        banners.map((banner, index) => (
-          <MUI.Box
-            key={index}
-            component="img"
-            sx={{
-              width: "100%",
-              height: "700px",
-              objectFit: "contain",
-            }}
-            src={banner}
-            alt={`Banner ${index + 1}`}
-          />
-        ))
-      )}
+        );
+      })}
     </Carousel>
   );
 }

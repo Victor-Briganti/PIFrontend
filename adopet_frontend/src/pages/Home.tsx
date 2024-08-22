@@ -61,7 +61,13 @@ export default function Home() {
               marginTop: "50px",
             }}
           >
-            <SliderHome banners={banners} animals={adoptedanimals} />
+            {adoptedanimals.length > 0 ? (
+              <SliderHome animals={adoptedanimals} />
+            ) : (
+              <Slider banners={banners} />
+            )}
+            
+
           </MUI.Box>
 
           <MUI.Box
