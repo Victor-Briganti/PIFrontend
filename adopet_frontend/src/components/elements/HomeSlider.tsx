@@ -43,62 +43,107 @@ export default function SliderHome({ animals }: SliderProps) {
   }
 
   return (
-    <Carousel
-      sx={{
-        width: "100%",
-        height: "100%",
-        objectFit: "cover",
-      }}
-    >
-      {animals.map((animal, index) => {
-        const imageUrl = images[animal.id!];
+    <MUI.Box sx={{ position: "relative" }}>
+      <MUI.Typography
+        variant="h4"
+        sx={{
+          position: "relative",
+          top: "10px",
+          left: "50%",
+          transform: "translateX(-50%)",
+          zIndex: 10,
+          backgroundColor: "rgba(129, 40, 173, 0.8)",
+          color: "white",
+          padding: "5px 10px",
+          borderRadius: "5px",
+        }}
+      >
+        Animais Já Adotados
+      </MUI.Typography>
+      <Carousel
+        sx={{
+          width: "100%",
+          height: "100%",
+          objectFit: "cover",
+          borderRadius: "15px",
+          boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
+        }}
+      >
+        {animals.map((animal, index) => {
+          const imageUrl = images[animal.id!];
 
-        return (
-          <MUI.Box
-            key={index}
-            sx={{
-              width: "100%",
-              height: "600px",
-              objectFit: "contain",
-              display: "grid",
-              flexDirection: "column",
-              quality: "full",
-              alignItems: "center",
-              justifyContent: "center",
-              backgroundColor: "white",
-            }}
-          >
-            {imageUrl ? (
-              <MUI.CardMedia
-                component="img"
-                height="530px"
-                image={imageUrl}
-                alt={animal.name}
-              />
-            ) : (
-              <MUI.Box
-                sx={{
-                  width: "100%",
-                  height: "400px",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  backgroundColor: "lightgray",
-                }}
-              >
-                <MUI.Typography variant="h6" color="text.secondary">
-                  Image not available
-                </MUI.Typography>
-              </MUI.Box>
-            )}
-            <MUI.CardContent>
-              <MUI.Typography gutterBottom variant="h5" component="div">
-                {animal.name}
-              </MUI.Typography>
-            </MUI.CardContent>
-          </MUI.Box>
-        );
-      })}
-    </Carousel>
+          return (
+            <MUI.Box
+              key={index}
+              sx={{
+                width: "100%",
+                height: "600px",
+                objectFit: "contain",
+                display: "grid",
+                quality: "full",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+                backgroundColor: "white",
+                borderRadius: "10px",
+                overflow: "hidden",
+              }}
+            >
+              {imageUrl ? (
+                <MUI.CardMedia
+                  component="img"
+                  height="580px"
+                  image={imageUrl}
+                  alt={animal.name}
+                  sx={{
+                    borderRadius: "10px",
+                    transition: "transform 0.5s ease-in-out",
+                    "&:hover": {
+                      transform: "scale(1.05)",
+                    },
+                  }}
+                />
+              ) : (
+                <MUI.Box
+                  sx={{
+                    width: "100%",
+                    height: "400px",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    backgroundColor: "lightgray",
+                  }}
+                >
+                  <MUI.Typography variant="h6" color="text.secondary">
+                    Image not available
+                  </MUI.Typography>
+                </MUI.Box>
+              )}
+              <MUI.CardContent>
+              <MUI.Typography
+              variant="h4" 
+              component="div"
+              sx={{
+                backgroundColor: "rgba(0, 0, 0, 0.7)", // Semi-transparent background
+                color: "white", // Text color
+                padding: "10px 20px", 
+                borderRadius: "5px", 
+                textShadow: "2px 2px 4px rgba(0, 0, 0, 0.6)", 
+                position: "absolute", 
+                bottom: "100px", 
+                left: "100%",
+                transform: "translate(-100%,215%)", 
+                textAlign: "center", 
+              }}
+            >
+              {animal.name}
+            </MUI.Typography>
+
+              </MUI.CardContent>
+            </MUI.Box>
+          );
+        })}
+      </Carousel>
+    </MUI.Box>
   );
 }
