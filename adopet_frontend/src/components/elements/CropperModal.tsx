@@ -8,7 +8,7 @@ interface CropperModalProps {
   open: boolean;
   image: string;
   onClose: () => void;
-  onCropCompleteCallback: (preview: string) => void;
+  onCropCompleteCallback: (preview: string, fileBlob: Blob) => void;
 }
 
 export default function CropperModal({
@@ -19,35 +19,39 @@ export default function CropperModal({
 }: CropperModalProps) {
   const [crop, setCrop] = React.useState<Point>({ x: 0, y: 0 });
   const [rotation, setRotation] = React.useState(0);
-  const [zoom, setZoom] = React.useState<number>(0);
-  const [croppedImage, setCroppedImage] = React.useState<string | null>(null);
+  const [zoom, setZoom] = React.useState<number>(1);
+  const [croppedImage, setCroppedImage] = React.useState<Blob | null>(null);
   const [croppedAreaPixels, setCroppedAreaPixels] = React.useState<Area | null>(
     null
   );
 
-  const handleShowCroppedImage = async () => {
-    try {
-      if (croppedAreaPixels) {
-        const croppedImage = await getCroppedImg(image, croppedAreaPixels);
-
-        setCroppedImage(croppedImage);
-        console.log("Cropped image: ", croppedImage);
-      }
-    } catch (e) {
-      console.error(e);
-    }
-  };
-
-  const onCropComplete = (croppedAreaPixels: Area) => {
+  const onCropComplete = (croppedArea: Area, croppedAreaPixels: Area) => {
+    console.log("Cropped area: ", croppedAreaPixels);
     setCroppedAreaPixels(croppedAreaPixels);
 
     // Chama o callback após cortar a imagem
     handleShowCroppedImage();
   };
 
+  const handleShowCroppedImage = async () => {
+    try {
+      if (croppedAreaPixels) {
+        const croppedImage = await getCroppedImg(
+          image,
+          croppedAreaPixels,
+          rotation
+        );
+
+        setCroppedImage(croppedImage);
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
   const handleCropAndSave = async () => {
     if (croppedImage) {
-      onCropCompleteCallback(croppedImage);
+      onCropCompleteCallback(URL.createObjectURL(croppedImage), croppedImage);
     }
     onClose();
   };
@@ -85,8 +89,8 @@ export default function CropperModal({
           <MUI.Slider
             value={zoom}
             min={1}
-            max={100}
-            step={1}
+            max={3}
+            step={0.1}
             onChange={(e, zoom) => setZoom(zoom)}
           />
         </MUI.Box>

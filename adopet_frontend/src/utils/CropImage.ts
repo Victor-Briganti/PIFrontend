@@ -5,6 +5,16 @@ interface PixelCrop {
   height: number;
 }
 
+interface Flip {
+  horizontal: boolean;
+  vertical: boolean;
+}
+
+interface Size {
+  width: number;
+  height: number;
+}
+
 // Cria um HTMLImageElement a partir da URL.
 export const createImage = (url: string): Promise<HTMLImageElement> =>
   new Promise((resolve, reject) => {
@@ -14,10 +24,31 @@ export const createImage = (url: string): Promise<HTMLImageElement> =>
     image.src = url;
   });
 
+export function getRadianAngle(degreeValue: number): number {
+  return (degreeValue * Math.PI) / 180;
+}
+
+export function rotateSize(
+  width: number,
+  height: number,
+  rotation: number
+): Size {
+  const rotRad = getRadianAngle(rotation);
+
+  return {
+    width:
+      Math.abs(Math.cos(rotRad) * width) + Math.abs(Math.sin(rotRad) * height),
+    height:
+      Math.abs(Math.sin(rotRad) * width) + Math.abs(Math.cos(rotRad) * height),
+  };
+}
+
 export default async function getCroppedImg(
   imageSrc: string,
-  pixelCrop: PixelCrop
-): Promise<string | null> {
+  pixelCrop: PixelCrop,
+  rotation: number = 0,
+  flip: Flip = { horizontal: false, vertical: false }
+): Promise<Blob | null> {
   const image = await createImage(imageSrc);
   const canvas = document.createElement("canvas");
   const ctx = canvas.getContext("2d");
@@ -26,15 +57,26 @@ export default async function getCroppedImg(
     return null;
   }
 
-  // Coloca o tamanho do canvas conforme os limites de borda
-  canvas.width = image.width;
-  canvas.height = image.height;
+  const rotRad = getRadianAngle(rotation);
 
-  // Seta a imagem no centro da tela
-  ctx.scale(1, 1);
-  ctx.translate(-canvas.width / 2, -canvas.height / 2);
+  // Calcula o limite da box conforme a imagem rotacionada
+  const { width: bBoxWidth, height: bBoxHeight } = rotateSize(
+    image.width,
+    image.height,
+    rotation
+  );
 
-  // Desenha a imagem
+  // Coloca o tamanho do canvas conforme o limite da box
+  canvas.width = bBoxWidth;
+  canvas.height = bBoxHeight;
+
+  // Traduz o canvas para uma localização central para permitir a edição
+  ctx.translate(bBoxWidth / 2, bBoxHeight / 2);
+  ctx.rotate(rotRad);
+  ctx.scale(flip.horizontal ? -1 : 1, flip.vertical ? -1 : 1);
+  ctx.translate(-image.width / 2, -image.height / 2);
+
+  // Desenha a imagem rotactionada
   ctx.drawImage(image, 0, 0);
 
   const croppedCanvas = document.createElement("canvas");
@@ -62,10 +104,10 @@ export default async function getCroppedImg(
   );
 
   // Retorna a imagem como um Blob
-  return new Promise<string | null>((resolve, reject) => {
+  return new Promise<Blob | null>((resolve, reject) => {
     croppedCanvas.toBlob((file) => {
       if (file) {
-        resolve(URL.createObjectURL(file));
+        resolve(file);
       } else {
         reject(new Error("Não foi possível criar o blob"));
       }
