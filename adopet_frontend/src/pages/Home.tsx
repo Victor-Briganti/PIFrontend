@@ -20,13 +20,13 @@ const banners = [
 
 export default function Home() {
   const axiosAnimal = React.useMemo(() => new AxiosAnimal(), []);
-  const [adoptedanimals, setAdoptedAnimals] = React.useState<InterfaceAnimal[]>([]);
+  const [recentanimals, setRecentAnimals] = React.useState<InterfaceAnimal[]>([]);
 
   React.useEffect(() => {
     axiosAnimal
-      .listAnimalsAdopted()
+      .listAnimalsCarousel()
       .then((response) => {
-        setAdoptedAnimals(response);
+        setRecentAnimals(response);
       })
       .catch((error) => {
         console.log(error);
@@ -61,8 +61,8 @@ export default function Home() {
               marginTop: "50px",
             }}
           >
-            {adoptedanimals.length > 0 ? (
-              <SliderHome animals={adoptedanimals} />
+            {recentanimals.length > 0 ? (
+              <SliderHome animals={recentanimals} />
             ) : (
               <Slider banners={banners} />
             )}

@@ -3,6 +3,7 @@ import Carousel from "react-material-ui-carousel";
 import InterfaceAnimal from "../../models/interfaces/animal/InterfaceAnimal";
 import AxiosAnimal from "../../api/AxiosAnimal";
 import * as React from "react";
+import { Link } from "react-router-dom";
 
 interface SliderProps {
   animals: InterfaceAnimal[];
@@ -43,6 +44,7 @@ export default function SliderHome({ animals }: SliderProps) {
   }
 
   return (
+    //caixa de texto acima do animal
     <MUI.Box sx={{ position: "relative" }}>
       <MUI.Typography
         variant="h4"
@@ -50,43 +52,57 @@ export default function SliderHome({ animals }: SliderProps) {
           position: "relative",
           top: "10px",
           left: "50%",
-          transform: "translateX(-50%)",
+          // transform: "translate(-50%,-20%)", 2 opcao
+          transform: "translate(-50%,1197%)",
           zIndex: 10,
-          backgroundColor: "rgba(129, 40, 173, 0.8)",
+          backgroundColor: "rgba(129, 40, 173, 1)",
           color: "white",
           padding: "5px 10px",
           borderRadius: "5px",
+          // borderBottomLeftRadius: 0, 2 opcao
+          // borderBottomRightRadius: 0, 2 opcao
+          borderTopLeftRadius: 0,
+          borderTopRightRadius: 0,
         }}
       >
-        Animais Já Adotados
+        Animais Recentes
       </MUI.Typography>
       <Carousel
         sx={{
           width: "100%",
           height: "100%",
           objectFit: "cover",
-          borderRadius: "15px",
-          boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
+          margin: 0,
+          padding: 0,
         }}
       >
         {animals.map((animal, index) => {
           const imageUrl = images[animal.id!];
 
           return (
+          <Link to ={`/animal/${animal.id}`} key={index} style={{ textDecoration: 'none' }}>
             <MUI.Box
               key={index}
               sx={{
                 width: "100%",
-                height: "600px",
-                objectFit: "contain",
-                display: "grid",
-                quality: "full",
-                flexDirection: "column",
+                height: "100%",
+                display: "flex",
+                flexDirection: "full",
                 alignItems: "center",
                 justifyContent: "center",
                 backgroundColor: "white",
                 borderRadius: "10px",
+                borderBottomLeftRadius: 0, // 1 opcao
+                borderBottomRightRadius: 0, // 1 opcao
+                // borderTopLeftRadius: 0, //2 opcao
+                // borderTopRightRadius: 0, // 2 opcao 
                 overflow: "hidden",
+                paddingBottom: 0,
+                marginBottom: 0,
+                position: "relative", // Necessary for positioning the name
+                '&:hover .animal-name': {
+                  opacity: 1, // Make the name visible on hover
+                }
               }}
             >
               {imageUrl ? (
@@ -94,12 +110,15 @@ export default function SliderHome({ animals }: SliderProps) {
                   component="img"
                   height="580px"
                   image={imageUrl}
-                  alt={animal.name}
+                  alt={animal.name} 
+                  
                   sx={{
                     borderRadius: "10px",
+                    transform: "scale(1.06)",
                     transition: "transform 0.5s ease-in-out",
                     "&:hover": {
-                      transform: "scale(1.05)",
+                      transform: "scale(1.10)",
+
                     },
                   }}
                 />
@@ -107,7 +126,7 @@ export default function SliderHome({ animals }: SliderProps) {
                 <MUI.Box
                   sx={{
                     width: "100%",
-                    height: "400px",
+                    height: "100%",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
@@ -123,10 +142,12 @@ export default function SliderHome({ animals }: SliderProps) {
               <MUI.Typography
               variant="h4" 
               component="div"
+              className="animal-name"
               sx={{
                 backgroundColor: "rgba(0, 0, 0, 0.7)", // Semi-transparent background
                 color: "white", // Text color
-                padding: "10px 20px", 
+                // width: "100%", // Full width
+                padding: "5px 10px", 
                 borderRadius: "5px", 
                 textShadow: "2px 2px 4px rgba(0, 0, 0, 0.6)", 
                 position: "absolute", 
@@ -134,6 +155,8 @@ export default function SliderHome({ animals }: SliderProps) {
                 left: "100%",
                 transform: "translate(-100%,215%)", 
                 textAlign: "center", 
+                opacity: 0, // Hidden by default
+                transition: "opacity 0.5s ease-in-out", // Smooth transition
               }}
             >
               {animal.name}
@@ -141,6 +164,7 @@ export default function SliderHome({ animals }: SliderProps) {
 
               </MUI.CardContent>
             </MUI.Box>
+            </Link>
           );
         })}
       </Carousel>
