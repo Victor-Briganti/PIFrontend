@@ -1,18 +1,19 @@
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import * as MUI from "@mui/material";
 import * as React from "react";
+import { InterfaceAnimalImageFile } from "../../models/interfaces/animal/InterfaceAnimalImage";
 import AgeChoiceMap from "../../models/map_choices/AgeChoiceMap";
 import CoatChoiceMap from "../../models/map_choices/CoatChoiceMap";
 import GenderChoiceMap from "../../models/map_choices/GenderChoiceMap";
 import SizeChoiceMap from "../../models/map_choices/SizeChoiceMap";
 import SpecieChoiceMap from "../../models/map_choices/SpecieChoiceMap";
+import CircularLoading from "../elements/CircularLoading";
 import ErrorAlert from "../elements/ErrorAlert";
 import FormCheckBox from "../elements/form_control/FormCheckbox";
 import FormControlField from "../elements/form_control/FormControlField";
-import DragBox from "../modules/DragBox";
-import CircularLoading from "../elements/CircularLoading";
 import ImageUploadPreview from "../elements/form_control/ImageUploadPreview";
-import { InterfaceAnimalImageFile } from "../../models/interfaces/animal/InterfaceAnimalImage";
+import DragBox from "../modules/DragBox";
+import CropperModal from "../elements/CropperModal";
 
 interface FormAnimalProps {
   name: string;
@@ -97,16 +98,44 @@ export default function FormAnimal({
   const [dragOver, setDragOver] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
   const [imagePreviews, setImagePreviews] = React.useState<string[]>([]);
+  const [openCropper, setOpenCropper] = React.useState<boolean>(false);
+  const [currentImage, setCurrentImage] = React.useState<string | null>(null);
+
+  const handleCropperClose = () => {
+    setOpenCropper(false);
+    setCurrentImage(null);
+  };
+
+  const handleCropperComplete = (preview: string, imageBlob: Blob) => {
+    // Não há problema em deixar o nome genérico, o próprio backend se encarrega de não gerar duplicatas.
+    const file = new File([imageBlob], "animal.jpeg", { type: "image/jpeg" });
+
+    // Adiciona imagens que serão enviadas
+    const newImages = { animal: 0, image: file } as InterfaceAnimalImageFile;
+    handleImages(
+      (prevImages: InterfaceAnimalImageFile[]) =>
+        [...prevImages, newImages] as InterfaceAnimalImageFile[]
+    );
+
+    setImagePreviews((prevPreviews) => [...prevPreviews, preview]);
+
+    setOpenCropper(false);
+    setCurrentImage(null);
+  };
+
+  const openCropperModal = (image: string) => {
+    setCurrentImage(image);
+    setOpenCropper(true);
+  };
 
   const handleFileChange = React.useCallback(
-    (files: FileList) => {
+    async (files: FileList) => {
       messageError = "";
       setLoading(true);
 
-      // Inicializa arrays para armazenar pŕevias, promessas e imagens
-      const previews = [];
-      const promises = [];
-      const images = [];
+      // Inicializa arrays para armazenar prévias e imagens
+      const previewUrls: string[] = [];
+      const imageFiles: File[] = [];
 
       for (let i = 0; i < files.length; i++) {
         const file = files[i];
@@ -124,69 +153,17 @@ export default function FormAnimal({
           return;
         }
 
-        // Adiciona URL da prévia do arquivo
-        previews.push(URL.createObjectURL(file));
-        // Adiciona o arquivo á lista de imagens
-        images.push(file);
-
-        // Cria uma promessa para carregar e converter a imagem para base64
-        promises.push(
-          new Promise<string>((resolve) => {
-            // Cria um novo leitor de arquivos
-            const reader = new FileReader();
-            reader.onload = async (event) => {
-              if (event.target) {
-                // Obtém o resultado como uma string
-                const result = event.target.result as string;
-                const image = new Image();
-                // Define a fonte da imagem como a URL dos dados de arquivo
-                image.src = result;
-                // Define o que fazer quando a imagem terminar de carregar
-                image.onload = async () => {
-                  // Usa o canvas para desenhar a imagem
-                  const canvas = document.createElement("canvas");
-                  const ctx = canvas.getContext("2d");
-                  if (ctx) {
-                    canvas.width = image.width;
-                    canvas.height = image.height;
-                    ctx.drawImage(image, 0, 0, image.width, image.height);
-                    // Obtém a imagem desenhada como uma imagem JPEG
-                    const dataUrl = canvas.toDataURL("image/jpeg");
-                    // Resolve a promessa com a URL dos dados da imagem
-                    resolve(dataUrl);
-                  }
-                };
-              }
-            };
-            // Inicia a leitura do arquivo como uma URL de dados
-            reader.readAsDataURL(file);
-          })
-        );
+        previewUrls.push(URL.createObjectURL(file));
+        imageFiles.push(file);
       }
 
-      // Executa todas as promessas em paraleleo
-      Promise.all(promises)
-        .then((results: string[]) => {
-          setLoading(false);
-          // Atualiza as prévias de imagem com os resultados obtidos
-          setImagePreviews((prevPreviews: string[]) => [
-            ...(prevPreviews as string[]),
-            ...(results as string[]),
-          ]);
-        })
-        .catch((error) => {
-          setLoading(false);
-          (messageError = "Error ao ler a imagem:"), error;
-        });
+      setLoading(false);
 
-      // Adiciona imagens que serão enviadas
-      const newImages = images.map((file) => {
-        return { animal: 0, image: file } as InterfaceAnimalImageFile;
-      });
-      handleImages(
-        (prevImages: InterfaceAnimalImageFile[]) =>
-          [...prevImages, ...newImages] as InterfaceAnimalImageFile[]
-      );
+      // Abre o modal conforme a fila de imagens
+      if (previewUrls.length > 0) {
+        setCurrentImage(previewUrls[0]);
+        openCropperModal(previewUrls[0]);
+      }
     },
     [messageError]
   );
@@ -402,6 +379,16 @@ export default function FormAnimal({
                 handleRemoveImage={handleRemoveImage}
               />
             </MUI.Grid>
+
+            {/* Cropper Modal */}
+            {currentImage && (
+              <CropperModal
+                open={openCropper}
+                onClose={handleCropperClose}
+                image={currentImage}
+                onCropCompleteCallback={handleCropperComplete}
+              />
+            )}
 
             <MUI.Grid item xs={12} sm={12}>
               <MUI.Button
