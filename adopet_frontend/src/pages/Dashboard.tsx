@@ -9,7 +9,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 const theme = createTheme({
   palette: {
     primary: {
-      main: "#673AB7", // Roxo principal
+      main: "#8128AD", // Roxo principal
       dark: "#512DA8", // Roxo escuro
       light: "#D1C4E9", // Roxo claro
     },
