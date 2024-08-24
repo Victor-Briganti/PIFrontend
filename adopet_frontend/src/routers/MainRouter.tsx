@@ -5,6 +5,7 @@ import About from "../pages/About";
 import Home from "../pages/Home";
 import animalRoutes from "./AnimalRoutes";
 import userRoutes from "./UserRoutes";
+import Dashboard from "../pages/Dashboard";
 
 const mainRoutes = [
   {
@@ -15,6 +16,11 @@ const mainRoutes = [
   {
     path: "/about",
     element: <About />,
+    errorElement: <GlobalError />,
+  },
+  {
+    path: "/dashboard", // Nova rota adicionada
+    element: <Dashboard />, // Referência ao componente Dashboard
     errorElement: <GlobalError />,
   },
   ...userRoutes,
