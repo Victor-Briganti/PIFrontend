@@ -4,6 +4,7 @@ import Header from "../components/modules/Header";
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 import ListIcon from "@mui/icons-material/List";
 import PetsIcon from "@mui/icons-material/Pets";
+import { useNavigate } from "react-router-dom";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 const theme = createTheme({
@@ -22,6 +23,8 @@ const theme = createTheme({
 });
 
 export default function Dashboard() {
+  const navigate = useNavigate();
+
   return (
     <ThemeProvider theme={theme}>
       <Header />
@@ -31,7 +34,7 @@ export default function Dashboard() {
         flexDirection="column"
         bgcolor="primary.contrastText"
         color="primary.contrastText"
-        minHeight="100vh"
+        minHeight="81vh"
       >
         <MUI.CssBaseline />
         <MUI.Container
@@ -59,6 +62,7 @@ export default function Dashboard() {
                   startIcon={<CalendarTodayIcon />}
                   variant="contained"
                   fullWidth
+                  onClick={() => navigate("/animal/register")}
                   sx={{
                     borderRadius: 3,
                     backgroundColor: "secondary.main",
@@ -69,7 +73,7 @@ export default function Dashboard() {
                     },
                   }}
                 >
-                  Adotar um Pet
+                  Doar um Pet
                 </MUI.Button>
               </MUI.Paper>
             </MUI.Grid>
@@ -86,6 +90,7 @@ export default function Dashboard() {
                   startIcon={<ListIcon />}
                   variant="contained"
                   fullWidth
+                  onClick={() => navigate("/animals/donor")}
                   sx={{
                     borderRadius: 3,
                     backgroundColor: "secondary.main",
@@ -115,7 +120,7 @@ export default function Dashboard() {
               }}
             >
               <PetsIcon sx={{ mr: 1 }} />
-              Histórico de Adoções
+              Requisições de Adoção
             </MUI.Typography>
             <MUI.Paper
               sx={{
@@ -137,7 +142,9 @@ export default function Dashboard() {
                 </MUI.TableHead>
                 <MUI.TableBody>
                   <MUI.TableRow
-                    sx={{ "&:nth-of-type(odd)": { backgroundColor: "grey.100" } }}
+                    sx={{
+                      "&:nth-of-type(odd)": { backgroundColor: "grey.100" },
+                    }}
                   >
                     <MUI.TableCell>-</MUI.TableCell>
                     <MUI.TableCell>-</MUI.TableCell>
@@ -146,9 +153,19 @@ export default function Dashboard() {
                     <MUI.TableCell>
                       <MUI.Button
                         variant="contained"
-                        sx={{ backgroundColor: "primary.main", color: "#fff" }}
+                        sx={{
+                          backgroundColor: "green",
+                          color: "#fff",
+                          mr: 2,
+                        }}
                       >
-                        Ver Detalhes
+                        Aceitar
+                      </MUI.Button>
+                      <MUI.Button
+                        variant="contained"
+                        sx={{ backgroundColor: "red", color: "#fff" }}
+                      >
+                        Recusar
                       </MUI.Button>
                     </MUI.TableCell>
                   </MUI.TableRow>
@@ -156,20 +173,6 @@ export default function Dashboard() {
               </MUI.Table>
             </MUI.Paper>
           </MUI.Box>
-
-          {/* E se colocar uma imagem aqui? 
-          <MUI.Box sx={{ mt: 4, textAlign: "center" }}>
-            <img
-              src="/assets/adopt-pet.png"
-              alt="Adotar um Pet"
-              width="100%"
-              style={{
-                maxWidth: "500px",
-                borderRadius: "8px",
-                boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)",
-              }}
-            />
-          </MUI.Box> */}
         </MUI.Container>
       </MUI.Box>
       <Footer />

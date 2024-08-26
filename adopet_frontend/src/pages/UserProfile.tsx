@@ -1,11 +1,10 @@
 import * as React from "react";
 import * as Router from "react-router-dom";
 import AxiosUser from "../api/AxiosUser";
-import CardUser from "../components/elements/cards/CardUser";
 import InterfaceUser from "../models/interfaces/user/InterfaceUser";
 import UserContext from "../hooks/UserContext";
-import UserProfileLayout from "../components/layouts/UserProfileLayout";
 import UserContextNode from "../components/UserContextNode";
+import Dashboard from "./Dashboard";
 
 export default function UserProfile() {
   const user = React.useContext(UserContext);
@@ -38,15 +37,7 @@ export default function UserProfile() {
 
   return (
     <UserContextNode>
-      <UserProfileLayout bgcolor="secondary.light" color="primary.contrastText">
-        {user.context === null ? (
-          <div>
-            <h1>Usuário não pode ser carregado</h1>
-          </div>
-        ) : (
-          <CardUser userCommon={user.context} handleLogout={handleLogout} />
-        )}
-      </UserProfileLayout>
+      <Dashboard />
     </UserContextNode>
   );
 }

@@ -1,8 +1,8 @@
-import UserRegister from "../pages/UserRegister";
-import UserProfile from "../pages/UserProfile";
-import Login from "../pages/Login";
-import ChangePassword from "../pages/ChangePassword";
 import GlobalError from "../components/errors/GlobalError";
+import ChangePassword from "../pages/ChangePassword";
+import Login from "../pages/Login";
+import UserProfile from "../pages/UserProfile";
+import UserRegister from "../pages/UserRegister";
 
 const userRoutes = [
   {
