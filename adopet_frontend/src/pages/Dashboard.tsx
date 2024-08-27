@@ -1,12 +1,16 @@
-import * as MUI from "@mui/material";
-import Footer from "../components/modules/Footer";
-import Header from "../components/modules/Header";
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
+import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import ListIcon from "@mui/icons-material/List";
 import PetsIcon from "@mui/icons-material/Pets";
-import { useNavigate } from "react-router-dom";
+import * as MUI from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import * as React from "react";
+import { useNavigate } from "react-router-dom";
+import AxiosUser from "../api/AxiosUser";
+import Footer from "../components/modules/Footer";
+import Header from "../components/modules/Header";
 import TableRequisitions from "../components/Table";
+import UserContext from "../hooks/UserContext";
 
 const theme = createTheme({
   palette: {
@@ -24,6 +28,7 @@ const theme = createTheme({
 });
 
 export default function Dashboard() {
+  const user = React.useContext(UserContext);
   const navigate = useNavigate();
 
   return (
@@ -103,6 +108,39 @@ export default function Dashboard() {
                   }}
                 >
                   Meus Pets
+                </MUI.Button>
+              </MUI.Paper>
+            </MUI.Grid>
+            <MUI.Grid item xs={12} sm={6} md={4}>
+              <MUI.Paper
+                sx={{
+                  p: 2,
+                  textAlign: "center",
+                  boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)",
+                  borderRadius: 2,
+                }}
+              >
+                <MUI.Button
+                  startIcon={<ExitToAppIcon />}
+                  variant="contained"
+                  fullWidth
+                  onClick={() => {
+                    const axiosUser = new AxiosUser();
+                    axiosUser.logout();
+                    user.setContext(null);
+                    navigate("/");
+                  }}
+                  sx={{
+                    borderRadius: 3,
+                    backgroundColor: "#db3c27",
+                    color: "#fff",
+                    boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+                    "&:hover": {
+                      backgroundColor: "red",
+                    },
+                  }}
+                >
+                  Sair
                 </MUI.Button>
               </MUI.Paper>
             </MUI.Grid>
