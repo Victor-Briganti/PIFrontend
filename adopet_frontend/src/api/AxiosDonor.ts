@@ -1,4 +1,7 @@
-import InterfaceAdoption from "../models/interfaces/adoption/InterfaceAdoption";
+import {
+  InterfaceAdoption,
+  InterfaceAdoptionDetails,
+} from "../models/interfaces/adoption/InterfaceAdoption";
 import InterfaceAnimal from "../models/interfaces/animal/InterfaceAnimal";
 import InterfaceUserCommon from "../models/interfaces/user/InterfaceUserCommon";
 import { validatedUpdateAdoption } from "../models/validators/ValidateAdoption";
@@ -18,6 +21,12 @@ export default class AxiosDonor extends SuperAxios<InterfaceAdoption> {
     return await this.get(page > 0 ? `requests/?page=${page}` : "requests/");
   }
 
+  async getRequestDetailList(
+    page: number
+  ): Promise<InterfaceAdoptionDetails[]> {
+    return await this.get(`requests/detail/?page=${page}`);
+  }
+
   async getRequestDetailById(id: number): Promise<InterfaceAdoption> {
     return await this.get(`request/${id}`);
   }
@@ -32,13 +41,13 @@ export default class AxiosDonor extends SuperAxios<InterfaceAdoption> {
 
   async getAdoptionAnimalList(page: number = 0): Promise<InterfaceAnimal[]> {
     return await this.get(
-      page > 0 ? `animal/list/?page=${page}` : "animal/list/",
+      page > 0 ? `animal/list/?page=${page}` : "animal/list/"
     );
   }
 
   async getRequestsAnimalList(page: number = 0): Promise<InterfaceAnimal[]> {
     return await this.get(
-      page > 0 ? `animal/requests/?page=${page}` : "animal/requests/",
+      page > 0 ? `animal/requests/?page=${page}` : "animal/requests/"
     );
   }
 
@@ -59,7 +68,7 @@ export default class AxiosDonor extends SuperAxios<InterfaceAdoption> {
   }
 
   async updateAdoption(
-    adoption: InterfaceAdoption,
+    adoption: InterfaceAdoption
   ): Promise<InterfaceAdoption> {
     const requestAdoption = validatedUpdateAdoption(adoption);
     return await this.post(`update/${requestAdoption.id}`, requestAdoption);

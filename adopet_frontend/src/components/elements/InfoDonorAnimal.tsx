@@ -2,7 +2,7 @@ import * as MUI from "@mui/material";
 import * as React from "react";
 import UserContext from "../../hooks/UserContext";
 import InterfaceAnimal from "../../models/interfaces/animal/InterfaceAnimal";
-import InterfaceAdoption from "../../models/interfaces/adoption/InterfaceAdoption";
+import { InterfaceAdoption } from "../../models/interfaces/adoption/InterfaceAdoption";
 import AxiosDonor from "../../api/AxiosDonor";
 import CardRequest from "./cards/CardRequest";
 
@@ -41,23 +41,23 @@ export default function InfoDonorAnimal({ animal }: InfoDonorAnimalProps) {
 
   return (
     <MUI.Box alignSelf={"center"}>
-      <MUI.Typography paddingBottom={2} variant="h4">{animal.name}</MUI.Typography>
-        {messageError !== "" ? (
-          <MUI.Box>
-            {messageError}
-          </MUI.Box>
-        ) : (
-          <MUI.Grid container spacing={2}>
-            {requests.map(
-              (request) =>
-                request.request_status === "pending" && (
-                  <MUI.Grid item>
-                    <CardRequest key={request.id} adoption={request} />
-                  </MUI.Grid>
-                )
-            )}
-          </MUI.Grid>
-        )}
+      <MUI.Typography paddingBottom={2} variant="h4">
+        {animal.name}
+      </MUI.Typography>
+      {messageError !== "" ? (
+        <MUI.Box>{messageError}</MUI.Box>
+      ) : (
+        <MUI.Grid container spacing={2}>
+          {requests.map(
+            (request) =>
+              request.request_status === "pending" && (
+                <MUI.Grid item>
+                  <CardRequest key={request.id} adoption={request} />
+                </MUI.Grid>
+              )
+          )}
+        </MUI.Grid>
+      )}
     </MUI.Box>
   );
 }

@@ -1,7 +1,7 @@
-import SuperAxios from "./super/SuperAxios";
-import InterfaceAdoption from "../models/interfaces/adoption/InterfaceAdoption";
+import { InterfaceAdoption } from "../models/interfaces/adoption/InterfaceAdoption";
 import InterfaceAnimal from "../models/interfaces/animal/InterfaceAnimal";
 import { validatedRegisterAdoption } from "../models/validators/ValidateAdoption";
+import SuperAxios from "./super/SuperAxios";
 
 export default class AxiosAdoption extends SuperAxios<InterfaceAdoption> {
   constructor() {

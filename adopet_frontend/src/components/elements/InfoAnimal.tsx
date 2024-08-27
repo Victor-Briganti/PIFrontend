@@ -4,7 +4,7 @@ import * as Router from "react-router-dom";
 import AxiosAdoption from "../../api/AxiosAdoption";
 import AxiosAnimal from "../../api/AxiosAnimal";
 import UserContext from "../../hooks/UserContext";
-import InterfaceAdoption from "../../models/interfaces/adoption/InterfaceAdoption";
+import { InterfaceAdoption } from "../../models/interfaces/adoption/InterfaceAdoption";
 import InterfaceAnimal from "../../models/interfaces/animal/InterfaceAnimal";
 import Modal from "../elements/Modal";
 import AgeChoiceMap from "../../models/map_choices/AgeChoiceMap";
@@ -165,7 +165,9 @@ export default function InfoAnimal({ animal }: InfoAnimalProps) {
       <MUI.Grid container>
         <MUI.Grid container item spacing={2} paddingY={2}>
           {/* DESCRIÇÃO */}
-          {animal.description !== undefined && donor !== undefined && animal.description.length > 0 ? (
+          {animal.description !== undefined &&
+          donor !== undefined &&
+          animal.description.length > 0 ? (
             <React.Fragment>
               <MUI.Grid item xs={12} md={6}>
                 <MUI.Card>
@@ -239,7 +241,9 @@ export default function InfoAnimal({ animal }: InfoAnimalProps) {
               <MUI.Grid item xs={12} md={12}>
                 <MUI.Card>
                   <MUI.Box padding={2}>
-                    <MUI.Typography variant="h5">Características</MUI.Typography>
+                    <MUI.Typography variant="h5">
+                      Características
+                    </MUI.Typography>
                     <MUI.Typography>Idade: {age}</MUI.Typography>
                     <MUI.Typography>Espécie: {specie}</MUI.Typography>
                     <MUI.Typography>Genêro: {gender}</MUI.Typography>

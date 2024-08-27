@@ -4,7 +4,7 @@ import * as MUI from "@mui/material";
 import * as React from "react";
 import * as Router from "react-router-dom";
 import AxiosDonor from "../../../api/AxiosDonor";
-import InterfaceAdoption from "../../../models/interfaces/adoption/InterfaceAdoption";
+import { InterfaceAdoption } from "../../../models/interfaces/adoption/InterfaceAdoption";
 import InterfaceUserCommon from "../../../models/interfaces/user/InterfaceUserCommon";
 import Modal from "../../elements/Modal";
 
@@ -42,7 +42,7 @@ export default function CardRequest({ adoption }: CardRequestProps) {
   const handleReject = React.useCallback(() => {
     setOpenModal(true);
   }, []);
-  
+
   const handleAcceptModal = () => {
     if (adoption.id !== undefined) {
       axiosDonor.rejectRequest(adoption.id);
@@ -86,12 +86,12 @@ export default function CardRequest({ adoption }: CardRequestProps) {
                 Aceitar
               </MUI.Button>
               <Modal
-              title={`Deseja aceitar pedido de ${adopter?.firstname}?`}
-              dialog="Essa ação não pode ser desfeita."
-              colorButton="green"
-              openModal={openModAcc}
-              handleConfirmModal={handleAcceptModAdoption}
-              handleCloseModal={handleCloseModAcc}
+                title={`Deseja aceitar pedido de ${adopter?.firstname}?`}
+                dialog="Essa ação não pode ser desfeita."
+                colorButton="green"
+                openModal={openModAcc}
+                handleConfirmModal={handleAcceptModAdoption}
+                handleCloseModal={handleCloseModAcc}
               />
             </MUI.Grid>
             <MUI.Grid item>
@@ -99,11 +99,11 @@ export default function CardRequest({ adoption }: CardRequestProps) {
                 Recusar
               </MUI.Button>
               <Modal
-              title={`Deseja rejeitar ${adopter?.firstname}?`}
-              dialog="Essa ação não pode ser desfeita."
-              openModal={openModal}
-              handleConfirmModal={handleAccept}
-              handleCloseModal={handleCloseModal}
+                title={`Deseja rejeitar ${adopter?.firstname}?`}
+                dialog="Essa ação não pode ser desfeita."
+                openModal={openModal}
+                handleConfirmModal={handleAccept}
+                handleCloseModal={handleCloseModal}
               />
             </MUI.Grid>
           </MUI.Grid>
@@ -116,15 +116,27 @@ export default function CardRequest({ adoption }: CardRequestProps) {
     return (
       <MUI.Card sx={{ minWidth: 400 }}>
         <MUI.CardContent>
-          <MUI.Grid container spacing={1} flexDirection={"column"} paddingBottom={2}>
+          <MUI.Grid
+            container
+            spacing={1}
+            flexDirection={"column"}
+            paddingBottom={2}
+          >
             <MUI.Grid item>
-              <MUI.Typography>Usuário: {adopter?.firstname} {adopter?.lastname}</MUI.Typography>
+              <MUI.Typography>
+                Usuário: {adopter?.firstname} {adopter?.lastname}
+              </MUI.Typography>
             </MUI.Grid>
             <MUI.Grid item>
               <MUI.Typography>Email: {adopter?.email}</MUI.Typography>
             </MUI.Grid>
           </MUI.Grid>
-          <MUI.Grid container spacing={1} flexDirection={"row"} justifyContent={"center"}>
+          <MUI.Grid
+            container
+            spacing={1}
+            flexDirection={"row"}
+            justifyContent={"center"}
+          >
             <MUI.Grid item>
               <MUI.Button
                 startIcon={<CheckIcon />}
@@ -134,12 +146,12 @@ export default function CardRequest({ adoption }: CardRequestProps) {
                 Aceitar
               </MUI.Button>
               <Modal
-              title={`Deseja aceitar pedido de ${adopter?.firstname}?`}
-              dialog="Essa ação não pode ser desfeita."
-              colorButton="green"
-              openModal={openModAcc}
-              handleConfirmModal={handleAcceptModAdoption}
-              handleCloseModal={handleCloseModAcc}
+                title={`Deseja aceitar pedido de ${adopter?.firstname}?`}
+                dialog="Essa ação não pode ser desfeita."
+                colorButton="green"
+                openModal={openModAcc}
+                handleConfirmModal={handleAcceptModAdoption}
+                handleCloseModal={handleCloseModAcc}
               />
             </MUI.Grid>
             <MUI.Grid item>
@@ -151,11 +163,11 @@ export default function CardRequest({ adoption }: CardRequestProps) {
                 Recusar
               </MUI.Button>
               <Modal
-              title={`Deseja rejeitar pedido de ${adopter?.firstname}?`}
-              dialog="Essa ação não pode ser desfeita."
-              openModal={openModal}
-              handleConfirmModal={handleAcceptModal}
-              handleCloseModal={handleCloseModal}
+                title={`Deseja rejeitar pedido de ${adopter?.firstname}?`}
+                dialog="Essa ação não pode ser desfeita."
+                openModal={openModal}
+                handleConfirmModal={handleAcceptModal}
+                handleCloseModal={handleCloseModal}
               />
             </MUI.Grid>
           </MUI.Grid>

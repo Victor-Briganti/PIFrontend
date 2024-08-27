@@ -6,6 +6,7 @@ import ListIcon from "@mui/icons-material/List";
 import PetsIcon from "@mui/icons-material/Pets";
 import { useNavigate } from "react-router-dom";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import StickyHeadTable from "./Table";
 
 const theme = createTheme({
   palette: {
@@ -34,7 +35,7 @@ export default function Dashboard() {
         flexDirection="column"
         bgcolor="primary.contrastText"
         color="primary.contrastText"
-        minHeight="81vh"
+        minHeight="100vh"
       >
         <MUI.CssBaseline />
         <MUI.Container
@@ -130,47 +131,7 @@ export default function Dashboard() {
                 borderRadius: 2,
               }}
             >
-              <MUI.Table>
-                <MUI.TableHead>
-                  <MUI.TableRow sx={{ backgroundColor: "secondary.light" }}>
-                    <MUI.TableCell>Animal</MUI.TableCell>
-                    <MUI.TableCell>Horário</MUI.TableCell>
-                    <MUI.TableCell>Data</MUI.TableCell>
-                    <MUI.TableCell>Status</MUI.TableCell>
-                    <MUI.TableCell>Ações</MUI.TableCell>
-                  </MUI.TableRow>
-                </MUI.TableHead>
-                <MUI.TableBody>
-                  <MUI.TableRow
-                    sx={{
-                      "&:nth-of-type(odd)": { backgroundColor: "grey.100" },
-                    }}
-                  >
-                    <MUI.TableCell>-</MUI.TableCell>
-                    <MUI.TableCell>-</MUI.TableCell>
-                    <MUI.TableCell>-</MUI.TableCell>
-                    <MUI.TableCell>-</MUI.TableCell>
-                    <MUI.TableCell>
-                      <MUI.Button
-                        variant="contained"
-                        sx={{
-                          backgroundColor: "green",
-                          color: "#fff",
-                          mr: 2,
-                        }}
-                      >
-                        Aceitar
-                      </MUI.Button>
-                      <MUI.Button
-                        variant="contained"
-                        sx={{ backgroundColor: "red", color: "#fff" }}
-                      >
-                        Recusar
-                      </MUI.Button>
-                    </MUI.TableCell>
-                  </MUI.TableRow>
-                </MUI.TableBody>
-              </MUI.Table>
+              <StickyHeadTable />
             </MUI.Paper>
           </MUI.Box>
         </MUI.Container>
