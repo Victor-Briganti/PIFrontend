@@ -14,7 +14,8 @@ import SizeChoiceMap from "../../models/map_choices/SizeChoiceMap";
 import SpecieChoiceMap from "../../models/map_choices/SpecieChoiceMap";
 import { ErrorMessage, SuccessMessage } from "./Message";
 import InterfaceUserCommon from "../../models/interfaces/user/InterfaceUserCommon";
-
+import PersonIcon from "@mui/icons-material/Person";
+import { useTheme } from "@mui/material/styles";
 interface InfoAnimalProps {
   animal: InterfaceAnimal;
 }
@@ -31,8 +32,11 @@ export default function InfoAnimal({ animal }: InfoAnimalProps) {
   const [size, setSize] = React.useState<string>("");
   const [coat, setCoat] = React.useState<string>("");
   const [donor, setDonor] = React.useState<InterfaceUserCommon>();
+  const [description, setDescription] = React.useState<string>("");
+  const [date, setDate] = React.useState<string>("");
   const user = React.useContext(UserContext);
   const navigate = Router.useNavigate();
+  const theme = useTheme();
 
   React.useEffect(() => {
     const axiosAdoption = new AxiosAdoption();
@@ -94,6 +98,13 @@ export default function InfoAnimal({ animal }: InfoAnimalProps) {
     if (animal.coat !== undefined) {
       const coatValue = coatMap.getValueByKey(animal.coat);
       if (coatValue !== undefined) setCoat(coatValue);
+    }
+    if (animal.register_date !== undefined) {
+      const date = new Date(animal.register_date);
+      setDate(date.toLocaleDateString());
+    }
+    if (animal.description !== undefined) {
+      setDescription(animal.description.replace(/\n/g, "<br />"));
     }
   }, [user, animal]);
 
@@ -159,143 +170,199 @@ export default function InfoAnimal({ animal }: InfoAnimalProps) {
   }, []);
 
   return (
-    <MUI.Box width={"100%"}>
-      <MUI.Typography variant="h4">{animal.name}</MUI.Typography>
-      {/* CONTAINER INFORMAÇÕES*/}
-      <MUI.Grid container>
-        <MUI.Grid container item spacing={2} paddingY={2}>
-          {/* DESCRIÇÃO */}
-          {animal.description !== undefined &&
-          donor !== undefined &&
-          animal.description.length > 0 ? (
-            <React.Fragment>
-              <MUI.Grid item xs={12} md={6}>
-                <MUI.Card>
-                  <MUI.Box padding={2}>
-                    <MUI.Typography variant="h5">Doador</MUI.Typography>
-                    <MUI.Typography>
-                      Nome: {donor.firstname} {donor.lastname}
-                    </MUI.Typography>
-                    <MUI.Typography>Email: {donor.email}</MUI.Typography>
-                  </MUI.Box>
-                </MUI.Card>
-              </MUI.Grid>
-              <MUI.Grid item xs={12} md={6}>
-                <MUI.Card>
-                  <MUI.Box padding={2}>
-                    <MUI.Typography variant="h5">Descrição</MUI.Typography>
-                    <MUI.Typography sx={{ overflowWrap: "break-word" }}>
-                      {animal.description}
-                    </MUI.Typography>
-                  </MUI.Box>
-                </MUI.Card>
-              </MUI.Grid>
-              <MUI.Grid container item spacing={2} paddingY={2}>
-                <MUI.Grid item xs={12} md={12}>
-                  <MUI.Card>
-                    <MUI.Box padding={2}>
-                      <MUI.Typography variant="h5">
-                        Características
-                      </MUI.Typography>
-                      <MUI.Typography>Idade: {age}</MUI.Typography>
-                      <MUI.Typography>Espécie: {specie}</MUI.Typography>
-                      <MUI.Typography>Genêro: {gender}</MUI.Typography>
-                      <MUI.Typography>Tamanho: {size}</MUI.Typography>
-                      <MUI.Typography>Pelagem: {coat}</MUI.Typography>
-                      <MUI.Typography>
-                        Peso: {animal.weight?.toString()} Kg
-                      </MUI.Typography>
-                      <MUI.Typography>
-                        Treinado: {animal.is_house_trained ? "Sim" : "Não"}
-                      </MUI.Typography>
-                      <MUI.Typography>
-                        Precisa de cuidados Especiais:{" "}
-                        {animal.is_special_needs ? "Sim" : "Não"}
-                      </MUI.Typography>
-                      <MUI.Typography>
-                        Castrado: {animal.is_castrated ? "Sim" : "Não"}
-                      </MUI.Typography>
-                      <MUI.Typography>
-                        Vacinado: {animal.is_vaccinated ? "Sim" : "Não"}
-                      </MUI.Typography>
-                    </MUI.Box>
-                  </MUI.Card>
-                </MUI.Grid>
-              </MUI.Grid>
-            </React.Fragment>
-          ) : (
-            <React.Fragment>
-              {donor !== undefined && (
-                <MUI.Grid item xs={12} md={12}>
-                  <MUI.Card>
-                    <MUI.Box padding={2}>
-                      <MUI.Typography variant="h5">Doador</MUI.Typography>
-                      <MUI.Typography>
-                        Nome: {donor.firstname} {donor.lastname}
-                      </MUI.Typography>
-                      <MUI.Typography>Email: {donor.email}</MUI.Typography>
-                    </MUI.Box>
-                  </MUI.Card>
-                </MUI.Grid>
-              )}
-              <MUI.Grid item xs={12} md={12}>
-                <MUI.Card>
-                  <MUI.Box padding={2}>
-                    <MUI.Typography variant="h5">
-                      Características
-                    </MUI.Typography>
-                    <MUI.Typography>Idade: {age}</MUI.Typography>
-                    <MUI.Typography>Espécie: {specie}</MUI.Typography>
-                    <MUI.Typography>Genêro: {gender}</MUI.Typography>
-                    <MUI.Typography>Tamanho: {size}</MUI.Typography>
-                    <MUI.Typography>Pelagem: {coat}</MUI.Typography>
-                    <MUI.Typography>
-                      Peso: {animal.weight?.toString()} Kg
-                    </MUI.Typography>
-                    <MUI.Typography>
-                      Treinado: {animal.is_house_trained ? "Sim" : "Não"}
-                    </MUI.Typography>
-                    <MUI.Typography>
-                      Precisa de cuidados Especiais:{" "}
-                      {animal.is_special_needs ? "Sim" : "Não"}
-                    </MUI.Typography>
-                    <MUI.Typography>
-                      Castrado: {animal.is_castrated ? "Sim" : "Não"}
-                    </MUI.Typography>
-                    <MUI.Typography>
-                      Vacinado: {animal.is_vaccinated ? "Sim" : "Não"}
-                    </MUI.Typography>
-                  </MUI.Box>
-                </MUI.Card>
-              </MUI.Grid>
-            </React.Fragment>
-          )}
-        </MUI.Grid>
-        {/* FIM container informações */}
-      </MUI.Grid>
+    <MUI.Box
+      width={"100%"}
+      height={"100%"}
+      flexDirection={"column"}
+      display={"flex"}
+      justifyContent={"space-between"}
+    >
+      {/* CONTAINER INFORMAÇÕES */}
+      <MUI.Box display={"flex"} flexDirection={"column"}>
+        <MUI.Box alignSelf={"start"}>
+          <MUI.Typography
+            variant="h4"
+            fontFamily={"PatuaOne"}
+            color={(theme) => theme.palette.primary.main}
+          >
+            <b>{animal.name}</b>
+          </MUI.Typography>
+        </MUI.Box>
+        <MUI.Box alignSelf={"start"}>
+          <MUI.Typography color={"gray"}>
+            {specie} | {gender} | {age} | {size} | Pelo {coat.toLowerCase()}
+          </MUI.Typography>
+        </MUI.Box>
+        <MUI.Box alignSelf={"start"} paddingTop={2}>
+          <MUI.Typography>
+            {donor !== undefined ? (
+              <React.Fragment>
+                <MUI.Icon fontSize="medium" sx={{ color: "#f3a718" }}>
+                  <PersonIcon />
+                </MUI.Icon>
+                Publicado por {donor?.firstname} {donor?.lastname} dia {date}
+              </React.Fragment>
+            ) : (
+              ""
+            )}
+          </MUI.Typography>
+        </MUI.Box>
+        {animal.description ? (
+          <MUI.Box alignSelf={"start"} paddingTop={3}>
+            <MUI.Typography
+              variant="h5"
+              fontFamily={"PatuaOne"}
+              color={"#f3a718"}
+              textAlign={"start"}
+            >
+              <b>Detalhes sobre {animal.name}</b>
+            </MUI.Typography>
+            <MUI.Typography
+              paddingY={2}
+              variant="body1"
+              textAlign={"left"}
+              color={"text.primary"}
+              sx={{ whiteSpace: "pre-line" }}
+            >
+              {animal.description}
+            </MUI.Typography>
+          </MUI.Box>
+        ) : (
+          ""
+        )}
+        <MUI.Box alignSelf={"start"} paddingTop={3}>
+          <MUI.Typography
+            variant="h5"
+            fontFamily={"PatuaOne"}
+            color={"#f3a718"}
+            textAlign={"start"}
+          >
+            <b>Mais detalhes sobre {animal.name}</b>
+          </MUI.Typography>
+          <MUI.Box display={"flex"}>
+            {animal.is_house_trained ? (
+              <MUI.Box
+                boxShadow={2}
+                borderRadius={2}
+                display={"inline-block"}
+                marginY={1}
+                marginX={"4px"}
+                alignSelf={"start"}
+              >
+                <MUI.Typography
+                  variant="body1"
+                  textAlign={"left"}
+                  color={"text.primary"}
+                  borderRadius={2}
+                  bgcolor={`${theme.palette.secondary.light}90`}
+                  paddingX={1}
+                >
+                  Treinado
+                </MUI.Typography>
+              </MUI.Box>
+            ) : (
+              ""
+            )}
+            {animal.is_vaccinated ? (
+              <MUI.Box
+                boxShadow={2}
+                borderRadius={2}
+                display={"inline-block"}
+                marginY={1}
+                marginX={"4px"}
+                alignSelf={"start"}
+              >
+                <MUI.Typography
+                  variant="body1"
+                  textAlign={"left"}
+                  color={"text.primary"}
+                  borderRadius={2}
+                  bgcolor={`${theme.palette.secondary.light}90`}
+                  paddingX={1}
+                >
+                  Vacinado
+                </MUI.Typography>
+              </MUI.Box>
+            ) : (
+              ""
+            )}
+            {animal.is_castrated ? (
+              <MUI.Box
+                boxShadow={2}
+                borderRadius={2}
+                display={"inline-block"}
+                marginY={1}
+                marginX={"4px"}
+                alignSelf={"start"}
+              >
+                <MUI.Typography
+                  variant="body1"
+                  textAlign={"left"}
+                  color={"text.primary"}
+                  borderRadius={2}
+                  bgcolor={`${theme.palette.secondary.light}90`}
+                  paddingX={1}
+                >
+                  Castrado
+                </MUI.Typography>
+              </MUI.Box>
+            ) : (
+              ""
+            )}
+            {animal.is_special_needs ? (
+              <MUI.Box
+                boxShadow={2}
+                borderRadius={2}
+                display={"inline-block"}
+                marginY={1}
+                marginX={"4px"}
+                alignSelf={"start"}
+              >
+                <MUI.Typography
+                  variant="body1"
+                  textAlign={"left"}
+                  color={"text.primary"}
+                  borderRadius={2}
+                  bgcolor={`${theme.palette.secondary.light}90`}
+                  paddingX={1}
+                >
+                  Possui necessidades especiais
+                </MUI.Typography>
+              </MUI.Box>
+            ) : (
+              ""
+            )}
+          </MUI.Box>
+        </MUI.Box>
+      </MUI.Box>
+      {/*FIM container informações */}
       {/*BOTÕES ADOÇÃO */}
       {user.context !== null &&
       user.context.id === animal.donor &&
       animal.is_adopted === false ? (
-        <React.Fragment>
+        <MUI.Box width={"100%"}>
           <MUI.Button
             variant="contained"
             color="error"
+            fullWidth
             onClick={handleExclusion}
           >
             Excluir
           </MUI.Button>
-        </React.Fragment>
+        </MUI.Box>
       ) : (
         activeAdoptionButton &&
         animal.is_adopted === false && (
-          <MUI.Button
-            color="primary"
-            variant="contained"
-            onClick={handleAdoption}
-          >
-            Adotar
-          </MUI.Button>
+          <MUI.Box>
+            <MUI.Button
+              color="primary"
+              variant="contained"
+              fullWidth
+              onClick={handleAdoption}
+            >
+              Adotar
+            </MUI.Button>
+          </MUI.Box>
         )
       )}
       {/*MODAIS ADOçÃO */}
