@@ -50,8 +50,8 @@ function createData(
     <>
       <MUI.Button
         variant="contained"
-        onClick={() => {
-          handleAccept(id);
+        onClick={async () => {
+          await handleAccept(id);
           handleReload(null);
         }}
         sx={{
@@ -64,8 +64,8 @@ function createData(
       </MUI.Button>
       <MUI.Button
         variant="contained"
-        onClick={() => {
-          handleReject(id);
+        onClick={async () => {
+          await handleReject(id);
           handleReload(null);
         }}
         sx={{ backgroundColor: "red", color: "#fff" }}
@@ -92,12 +92,12 @@ export default function TableRequisitions() {
     setReload(!reload);
   };
 
-  const handleAcceptRequest = (adoptionId: number) => {
-    axiosDonor.acceptRequest(adoptionId);
+  const handleAcceptRequest = async (adoptionId: number) => {
+    await axiosDonor.acceptRequest(adoptionId);
   };
 
-  const handleRejectRequest = (adoptionId: number) => {
-    axiosDonor.rejectRequest(adoptionId);
+  const handleRejectRequest = async (adoptionId: number) => {
+    await axiosDonor.rejectRequest(adoptionId);
   };
 
   React.useEffect(() => {
