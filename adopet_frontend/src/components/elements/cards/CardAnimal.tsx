@@ -97,11 +97,11 @@ export default function CardAnimal({ animal, handleClick }: CardAnimalProps) {
             {animal.name}
           </MUI.Typography>
           {description && description.length > 90 ? (
-            <MUI.Typography variant="body2" color="text.secondary" overflow={"hidden"} textOverflow={"ellipsis"}>
-              {description.length} MAIOR Q 90{description.slice(0, 90)}..
+            <MUI.Typography variant="body2" color="text.secondary">
+              {description.slice(0, 90)}...
             </MUI.Typography>
           ) : (
-            <MUI.Typography variant="body2" color="text.secondary" overflow={"hidden"} textOverflow={"ellipsis"}>
+            <MUI.Typography variant="body2" color="text.secondary">
               {description}
             </MUI.Typography>
           )}

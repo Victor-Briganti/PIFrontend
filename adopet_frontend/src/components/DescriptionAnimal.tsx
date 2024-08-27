@@ -1,4 +1,5 @@
 import * as React from "react";
+import * as MUI from "@mui/material";
 import InterfaceAnimal from "../models/interfaces/animal/InterfaceAnimal";
 import { InterfaceAnimalImageLink } from "../models/interfaces/animal/InterfaceAnimalImage";
 import AxiosAnimal from "../api/AxiosAnimal";
@@ -52,8 +53,13 @@ export default function DescriptionAnimal({ animal }: DescriptionAnimalProps) {
   }
 
   return (
-    <React.Fragment>
-      <Slider banners={imageAnimals} /> <InfoAnimal animal={animal} />
-    </React.Fragment>
+    <MUI.Grid container spacing={5}>
+      <MUI.Grid item xs={12} sm={6} md={6}>
+        <Slider banners={imageAnimals} />
+      </MUI.Grid>
+      <MUI.Grid item xs={12} sm={6} md={6}>
+        <InfoAnimal animal={animal} />
+      </MUI.Grid>
+    </MUI.Grid>
   );
 }

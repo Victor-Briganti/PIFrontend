@@ -20,7 +20,7 @@ export default function Slider({ banners }: SliderProps) {
           component="img"
           sx={{
             width: "100%",
-            height: "700px",
+            height: "500px",
             objectFit: "contain",
           }}
           src={banner}
