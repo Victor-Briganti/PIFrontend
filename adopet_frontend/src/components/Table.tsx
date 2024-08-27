@@ -42,14 +42,16 @@ function createData(
   animal: string,
   nome: string,
   email: string,
-  handleReload: (event: unknown) => void
+  handleReload: (event: unknown) => void,
+  handleAccept: (adoptionId: number) => void,
+  handleReject: (adoptionId: number) => void
 ): Data {
   const resposta = (
     <>
       <MUI.Button
         variant="contained"
         onClick={() => {
-          console.log("Aceitar");
+          handleAccept(id);
           handleReload(null);
         }}
         sx={{
@@ -63,7 +65,7 @@ function createData(
       <MUI.Button
         variant="contained"
         onClick={() => {
-          console.log("Recusar ");
+          handleReject(id);
           handleReload(null);
         }}
         sx={{ backgroundColor: "red", color: "#fff" }}
@@ -75,8 +77,10 @@ function createData(
   return { id, animal, nome, email, resposta };
 }
 
-export default function StickyHeadTable() {
+export default function TableRequisitions() {
   const rowsPerPage = 5;
+  const axiosDonor = React.useMemo(() => new AxiosDonor(), []);
+  const [loading, setLoading] = React.useState(true);
   const [page, setPage] = React.useState(1);
   const [pageTable, setPageTable] = React.useState(0);
   const [rows, setRows] = React.useState<Data[] | null>(null);
@@ -84,11 +88,20 @@ export default function StickyHeadTable() {
   const [reload, setReload] = React.useState(false);
 
   const handleReload = (event: unknown) => {
+    setPage(page);
     setReload(!reload);
   };
 
+  const handleAcceptRequest = (adoptionId: number) => {
+    axiosDonor.acceptRequest(adoptionId);
+  };
+
+  const handleRejectRequest = (adoptionId: number) => {
+    axiosDonor.rejectRequest(adoptionId);
+  };
+
   React.useEffect(() => {
-    const axiosDonor = new AxiosDonor();
+    setLoading(true);
     axiosDonor.getRequestDetailList(page).then((response) => {
       const newRows = response.results.map((adoption) => {
         return createData(
@@ -96,12 +109,15 @@ export default function StickyHeadTable() {
           adoption.animal.name,
           adoption.user.firstname + " " + adoption.user.lastname,
           adoption.user.email,
-          handleReload
+          handleReload,
+          handleAcceptRequest,
+          handleRejectRequest
         );
       });
       setCounts(response.count);
       setRows(newRows);
     });
+    setLoading(false);
   }, [page, reload]);
 
   const handleChangePage = (event: unknown, newPage: number) => {
@@ -115,9 +131,8 @@ export default function StickyHeadTable() {
     setPageTable(newPage);
   };
 
-  console.log(rows);
-  if (rows === null) {
-    return <h1>Aqui</h1>;
+  if (loading === true) {
+    return <h1>Carregando</h1>;
   }
 
   return (

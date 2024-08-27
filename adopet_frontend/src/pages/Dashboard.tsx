@@ -6,7 +6,7 @@ import ListIcon from "@mui/icons-material/List";
 import PetsIcon from "@mui/icons-material/Pets";
 import { useNavigate } from "react-router-dom";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import StickyHeadTable from "./Table";
+import TableRequisitions from "../components/Table";
 
 const theme = createTheme({
   palette: {
@@ -131,7 +131,7 @@ export default function Dashboard() {
                 borderRadius: 2,
               }}
             >
-              <StickyHeadTable />
+              <TableRequisitions />
             </MUI.Paper>
           </MUI.Box>
         </MUI.Container>
