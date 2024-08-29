@@ -14,10 +14,12 @@ export default function AnimalUpdate() {
 
   React.useEffect(() => {
     if (!animalLocation) {
-      throw new Error("Animal não encontrado");
+      setMessageError("Animal não encontrado");
+      navigate("/animals"); // Redirect to some safe route if animal is not found
+    } else {
+      setAnimal(animalLocation);
     }
-    setAnimal(animalLocation);
-  }, [animalLocation]);
+  }, [animalLocation, navigate]);
 
   const handleRegisterStep = React.useCallback(
     (_newAnimal: InterfaceAnimal) => {
