@@ -90,7 +90,7 @@ export default async function getCroppedImg(
   croppedCanvas.width = pixelCrop.width;
   croppedCanvas.height = pixelCrop.height;
 
-  // Desenha a imagem cortada no nov canvas
+  // Desenha a imagem cortada no novo canvas
   croppedCtx.drawImage(
     canvas,
     pixelCrop.x,
@@ -102,6 +102,8 @@ export default async function getCroppedImg(
     pixelCrop.width,
     pixelCrop.height
   );
+
+  console.log("PixelCrop", pixelCrop);
 
   // Retorna a imagem como um Blob
   return new Promise<Blob | null>((resolve, reject) => {

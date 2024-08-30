@@ -26,7 +26,6 @@ export default function CropperModal({
   );
 
   const onCropComplete = (croppedArea: Area, croppedAreaPixels: Area) => {
-    console.log("Cropped area: ", croppedAreaPixels);
     setCroppedAreaPixels(croppedAreaPixels);
 
     // Chama o callback após cortar a imagem
@@ -72,7 +71,7 @@ export default function CropperModal({
             crop={crop}
             rotation={rotation}
             zoom={zoom}
-            aspect={4 / 3}
+            aspect={1}
             onCropChange={setCrop}
             onRotationChange={setRotation}
             onCropComplete={onCropComplete}
