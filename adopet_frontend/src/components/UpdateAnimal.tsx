@@ -8,7 +8,7 @@ import GenderChoiceMap from "../models/map_choices/GenderChoiceMap";
 import SizeChoiceMap from "../models/map_choices/SizeChoiceMap";
 import SpecieChoiceMap from "../models/map_choices/SpecieChoiceMap";
 import TopArrowBack from "./elements/navigation/TopArrowBack";
-import FormAnimal from "./forms/FormAnimal";
+import FormAnimalUpdate from "./forms/FormAnimalUpdate";
 
 interface RegisterAnimalProps {
   messageError: string;
@@ -245,7 +245,7 @@ export default function RegisterAnimal({
   return (
     <React.Fragment>
       <TopArrowBack />
-      <FormAnimal
+      <FormAnimalUpdate
         name={name}
         weight={weight}
         specie={specie}

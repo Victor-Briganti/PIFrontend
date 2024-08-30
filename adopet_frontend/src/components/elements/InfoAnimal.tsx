@@ -169,6 +169,16 @@ export default function InfoAnimal({ animal }: InfoAnimalProps) {
     setOpenModal(false);
   }, []);
 
+  const handleEdit = React.useCallback(() => {
+    const axiosAnimal = new AxiosAnimal();
+    if (animal.id !== undefined) {
+      axiosAnimal.updateAnimal(animal).then((response) => {
+        navigate("/animal/update/" + animal.id, { state: { animal: response } });
+      });
+    }
+  }, [animal, navigate]);
+  
+
   return (
     <MUI.Box
       width={"100%"}
@@ -343,12 +353,22 @@ export default function InfoAnimal({ animal }: InfoAnimalProps) {
         <MUI.Box width={"100%"}>
           <MUI.Button
             variant="contained"
+            color="info"
+            fullWidth
+            onClick={handleEdit}
+            style={{ marginBottom: "10px" }} // Add some spacing between buttons
+          >
+          Editar
+          </MUI.Button>
+          <MUI.Button
+            variant="contained"
             color="error"
             fullWidth
             onClick={handleExclusion}
           >
             Excluir
           </MUI.Button>
+  
         </MUI.Box>
       ) : (
         activeAdoptionButton &&

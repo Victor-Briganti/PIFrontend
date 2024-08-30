@@ -44,7 +44,7 @@ const animalRoutes = [
     errorElement: <GlobalError />,
   },
   {
-    path: "/animal/update",
+    path: "/animal/update/:animalId",
     element: <AnimalUpdate />,
     errorElement: <GlobalError />,
   },
