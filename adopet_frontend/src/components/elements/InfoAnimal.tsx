@@ -353,7 +353,7 @@ export default function InfoAnimal({ animal }: InfoAnimalProps) {
         <MUI.Box width={"100%"}>
           <MUI.Button
             variant="contained"
-            color="primary"
+            color="info"
             fullWidth
             onClick={handleEdit}
             style={{ marginBottom: "10px" }} // Add some spacing between buttons
