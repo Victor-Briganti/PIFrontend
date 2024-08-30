@@ -29,10 +29,10 @@ export default function CropperModal({
     setCroppedAreaPixels(croppedAreaPixels);
 
     // Chama o callback após cortar a imagem
-    handleShowCroppedImage();
+    handleShowCroppedImage(croppedAreaPixels);
   };
 
-  const handleShowCroppedImage = async () => {
+  const handleShowCroppedImage = async (croppedAreaPixels: Area) => {
     try {
       if (croppedAreaPixels) {
         const croppedImage = await getCroppedImg(
