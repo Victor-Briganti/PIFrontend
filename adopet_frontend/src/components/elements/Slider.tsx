@@ -6,6 +6,8 @@ interface SliderProps {
 }
 
 export default function Slider({ banners }: SliderProps) {
+  const hideDots = banners.length <= 1;
+
   return (
     <Carousel
       sx={{
@@ -13,6 +15,8 @@ export default function Slider({ banners }: SliderProps) {
         height: "100%",
         objectFit: "cover",
       }}
+      indicators={!hideDots}
+      navButtonsAlwaysInvisible={hideDots}
     >
       {banners.map((banner, index) => (
         <MUI.Box
