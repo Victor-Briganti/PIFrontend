@@ -24,7 +24,9 @@ export default class AxiosDonor extends SuperAxios<InterfaceAdoption> {
   async getRequestDetailList(
     page: number
   ): Promise<InterfaceAdoptionDetails[]> {
-    return await this.get(`requests/detail/?page=${page}`);
+    return await this.get(
+      page > 0 ? `requests/detail/?page=${page}` : "requests/detail/"
+    );
   }
 
   async getRequestDetailById(id: number): Promise<InterfaceAdoption> {

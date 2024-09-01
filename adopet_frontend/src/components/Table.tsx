@@ -42,7 +42,7 @@ function createData(
   animal: string,
   nome: string,
   email: string,
-  handleReload: (event: unknown) => void,
+  handleReload: () => void,
   handleAccept: (adoptionId: number) => void,
   handleReject: (adoptionId: number) => void
 ): Data {
@@ -52,7 +52,7 @@ function createData(
         variant="contained"
         onClick={async () => {
           await handleAccept(id);
-          handleReload(null);
+          handleReload();
         }}
         sx={{
           backgroundColor: "green",
@@ -66,7 +66,7 @@ function createData(
         variant="contained"
         onClick={async () => {
           await handleReject(id);
-          handleReload(null);
+          handleReload();
         }}
         sx={{ backgroundColor: "red", color: "#fff" }}
       >
@@ -87,8 +87,17 @@ export default function TableRequisitions() {
   const [counts, setCounts] = React.useState(0);
   const [reload, setReload] = React.useState(false);
 
-  const handleReload = (event: unknown) => {
-    setPage(page);
+  const handleReload = () => {
+    if (counts > 0) {
+      setCounts(counts - 1);
+    }
+
+    if (page > 1 && (counts - 1) / rowsPerPage < page) {
+      handleChangePage(null, page - 1);
+    } else {
+      handleChangePage(null, page);
+    }
+
     setReload(!reload);
   };
 
@@ -125,8 +134,10 @@ export default function TableRequisitions() {
       const pageChange = page + 1;
       setPage(pageChange);
     } else {
-      const pageChange = page - 1;
-      setPage(pageChange);
+      if (page > 0) {
+        const pageChange = page - 1;
+        setPage(pageChange);
+      }
     }
     setPageTable(newPage);
   };
@@ -192,7 +203,7 @@ export default function TableRequisitions() {
         component="div"
         count={counts}
         rowsPerPage={rowsPerPage}
-        page={pageTable}
+        page={Math.min(counts, pageTable)}
         onPageChange={handleChangePage}
       />
     </MUI.Paper>
