@@ -44,29 +44,25 @@ export default function SliderHome({ animals }: SliderProps) {
   }
 
   return (
-    //caixa de texto acima do animal
-    <MUI.Box sx={{ position: "relative" }}>
+    <MUI.Box sx={{ position: "relative", padding: "10px 0" }}>
+      {/* Title Section */}
       <MUI.Typography
         variant="h4"
         sx={{
-          position: "relative",
-          top: "10px",
-          left: "50%",
-          // transform: "translate(-50%,-20%)", 2 opcao
-          transform: "translate(-50%,1197%)",
-          zIndex: 10,
-          backgroundColor: "rgba(129, 40, 173, 1)",
-          color: "white",
-          padding: "5px 10px",
-          borderRadius: "5px",
-          // borderBottomLeftRadius: 0, 2 opcao
-          // borderBottomRightRadius: 0, 2 opcao
-          borderTopLeftRadius: 0,
-          borderTopRightRadius: 0,
+          textAlign: "center",
+          fontWeight: "bold",
+          color: "#fff",
+          backgroundColor: "#6A1B9A", // Darker shade of purple
+          padding: "10px 0",
+          marginBottom: "20px",
+          borderRadius: "10px",
+          boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)",
         }}
       >
         Animais Recentes
       </MUI.Typography>
+
+      {/* Carousel Section */}
       <Carousel
         sx={{
           width: "100%",
@@ -89,39 +85,59 @@ export default function SliderHome({ animals }: SliderProps) {
                 display: "flex",
                 flexDirection: "full",
                 alignItems: "center",
+                backgroundColor: "#f9f9f9", // Light background for contrast
                 justifyContent: "center",
-                backgroundColor: "white",
+                boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)", // Subtle shadow for depth
                 borderRadius: "10px",
-                borderBottomLeftRadius: 0, // 1 opcao
-                borderBottomRightRadius: 0, // 1 opcao
-                // borderTopLeftRadius: 0, //2 opcao
-                // borderTopRightRadius: 0, // 2 opcao 
                 overflow: "hidden",
-                paddingBottom: 0,
-                marginBottom: 0,
+                border: "2px solid #f0f0f0", // Light border around the box
+                transition: "box-shadow 0.3s ease, transform 0.3s ease",
                 position: "relative", // Necessary for positioning the name
-                '&:hover .animal-name': {
-                  opacity: 1, // Make the name visible on hover
-                }
-              }}
-            >
+                  '&:hover': {
+                    transform: "translateY(-5px)", // Slight lift on hover
+                    boxShadow: "0 8px 16px rgba(0, 0, 0, 0.2)", // Stronger shadow on hover
+                  },
+                  '&:hover .animal-image-overlay': {
+                    opacity: 0.5, // Show gradient overlay on hover
+                  },
+                  '&:hover .animal-image': {
+                    filter: "brightness(1.1)", // Slightly brighten the image
+                  },
+                  '&:hover .animal-name': {
+                    opacity: 1, // Make the name visible on hover
+                  },
+                }}
+                >
               {imageUrl ? (
+                <>
                 <MUI.CardMedia
                   component="img"
-                  height="580px"
+                  height="550px"
                   image={imageUrl}
                   alt={animal.name} 
-                  
+                  className = "animal-image"
                   sx={{
+                    aspectRatio: "16 / 9", // Aspect ratio for the image
+                    transform: "scale(1.06)", // Slightly zoom in the image
                     borderRadius: "10px",
-                    transform: "scale(1.06)",
-                    transition: "transform 0.5s ease-in-out",
-                    "&:hover": {
-                      transform: "scale(1.10)",
-
-                    },
+                    transition: "filter 0.3s ease-in-out", // Smooth transition for brightness
                   }}
                 />
+                <MUI.Box
+                  className="animal-image-overlay"
+                  sx={{
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
+                  width: "100%",
+                  height: "100%",
+                  background: "linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.7) 100%)",
+                  opacity: 0, // Hidden by default
+                  transition: "opacity 0.3s ease-in-out", // Smooth transition
+                  borderRadius: "10px",
+                 }}
+                />
+              </>
               ) : (
                 <MUI.Box
                   sx={{
@@ -140,27 +156,25 @@ export default function SliderHome({ animals }: SliderProps) {
               )}
               <MUI.CardContent>
               <MUI.Typography
-              variant="h4" 
-              component="div"
-              className="animal-name"
-              sx={{
-                backgroundColor: "rgba(0, 0, 0, 0.7)", // Semi-transparent background
-                color: "white", // Text color
-                // width: "100%", // Full width
-                padding: "5px 10px", 
-                borderRadius: "5px", 
-                textShadow: "2px 2px 4px rgba(0, 0, 0, 0.6)", 
-                position: "absolute", 
-                bottom: "100px", 
-                left: "100%",
-                transform: "translate(-100%,215%)", 
-                textAlign: "center", 
-                opacity: 0, // Hidden by default
-                transition: "opacity 0.5s ease-in-out", // Smooth transition
-              }}
-            >
-              {animal.name}
-            </MUI.Typography>
+                  variant="h4"
+                  component="div"
+                  className="animal-name"
+                  sx={{
+                    // backgroundColor: "rgba(0, 0, 0, 0.6)", // Semi-transparent background
+                    color: "white", // Text color
+                    padding: "10px 20px",
+                    borderRadius: "5px",
+                    textShadow: "2px 2px 4px rgba(0, 0, 0, 0.6)",
+                    position: "absolute",
+                    bottom: "20px", // 20px from the bottom
+                    left: "20px", // 20px from the left
+                    textAlign: "center",
+                    opacity: 0, // Hidden by default
+                    transition: "opacity 0.5s ease-in-out", // Smooth transition
+                  }}
+                >
+                  {animal.name}
+                </MUI.Typography>
 
               </MUI.CardContent>
             </MUI.Box>
