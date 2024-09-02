@@ -110,22 +110,45 @@ export default function TableRequisitions() {
   };
 
   React.useEffect(() => {
+    let listing = async () => {
+      if (page > 1 && (counts - 1) / rowsPerPage < page) {
+        await axiosDonor.getRequestDetailList(page - 1).then((response) => {
+          const newRows = response.results.map((adoption) => {
+            return createData(
+              adoption.id,
+              adoption.animal.name,
+              adoption.user.firstname + " " + adoption.user.lastname,
+              adoption.user.email,
+              handleReload,
+              handleAcceptRequest,
+              handleRejectRequest
+            );
+          });
+          setCounts(response.count);
+          setRows(newRows);
+        });
+        await handleChangePage(null, page - 1);
+      } else {
+        await axiosDonor.getRequestDetailList(page).then((response) => {
+          const newRows = response.results.map((adoption) => {
+            return createData(
+              adoption.id,
+              adoption.animal.name,
+              adoption.user.firstname + " " + adoption.user.lastname,
+              adoption.user.email,
+              handleReload,
+              handleAcceptRequest,
+              handleRejectRequest
+            );
+          });
+          setCounts(response.count);
+          setRows(newRows);
+        });
+      }
+    };
+
     setLoading(true);
-    axiosDonor.getRequestDetailList(page).then((response) => {
-      const newRows = response.results.map((adoption) => {
-        return createData(
-          adoption.id,
-          adoption.animal.name,
-          adoption.user.firstname + " " + adoption.user.lastname,
-          adoption.user.email,
-          handleReload,
-          handleAcceptRequest,
-          handleRejectRequest
-        );
-      });
-      setCounts(response.count);
-      setRows(newRows);
-    });
+    listing();
     setLoading(false);
   }, [page, reload]);
 
