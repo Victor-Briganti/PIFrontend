@@ -9,8 +9,8 @@ import { useNavigate } from "react-router-dom";
 import AxiosUser from "../api/AxiosUser";
 import Footer from "../components/modules/Footer";
 import Header from "../components/modules/Header";
-import TableRequisitions from "../components/Table";
 import UserContext from "../hooks/UserContext";
+import AboutImage from "../assets/Dashboard.jpeg"; // Atualizando o caminho da imagem
 
 const theme = createTheme({
   palette: {
@@ -146,30 +146,23 @@ export default function Dashboard() {
             </MUI.Grid>
           </MUI.Grid>
 
-          {/* Histórico de Adoções */}
-          <MUI.Box sx={{ mt: 4 }}>
-            <MUI.Typography
-              variant="h6"
-              gutterBottom
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                fontWeight: "bold",
-                color: "secondary.main",
-              }}
-            >
-              <PetsIcon sx={{ mr: 1 }} />
-              Requisições de Adoção
-            </MUI.Typography>
+          {/* Imagem do Dashboard */}
+          <MUI.Box sx={{ mt: 12, display: 'flex', justifyContent: 'center' }}>
             <MUI.Paper
               sx={{
                 width: "100%",
-                overflowX: "auto",
+                maxWidth: "800px", // Aumentando a largura máxima da imagem
+                overflow: "hidden",
                 boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)",
                 borderRadius: 2,
+                p: 1, // Adiciona um pouco de padding ao redor da imagem
               }}
             >
-              <TableRequisitions />
+              <img
+                src={AboutImage}
+                alt="About"
+                style={{ width: "100%", height: "auto", borderRadius: 2 }}
+              />
             </MUI.Paper>
           </MUI.Box>
         </MUI.Container>
