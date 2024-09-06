@@ -95,11 +95,22 @@ export default function FormAnimal({
   const sizeMap = new SizeChoiceMap();
   const ageMap = new AgeChoiceMap();
   const coatMap = new CoatChoiceMap();
+
   const [dragOver, setDragOver] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
   const [imagePreviews, setImagePreviews] = React.useState<string[]>([]);
   const [openCropper, setOpenCropper] = React.useState<boolean>(false);
   const [currentImage, setCurrentImage] = React.useState<string | null>(null);
+  const [imageQueue, setImageQueue] = React.useState<string[]>([]);
+
+  const processImageQueue = (
+    queue: string[],
+    handleCropperModalOpen: (image: string) => void
+  ) => {
+    if (queue.length > 0) {
+      handleCropperModalOpen(queue[0]);
+    }
+  };
 
   const handleCropperClose = () => {
     setOpenCropper(false);
@@ -107,20 +118,21 @@ export default function FormAnimal({
   };
 
   const handleCropperComplete = (preview: string, imageBlob: Blob) => {
-    // Não há problema em deixar o nome genérico, o próprio backend se encarrega de não gerar duplicatas.
     const file = new File([imageBlob], "animal.jpeg", { type: "image/jpeg" });
-
-    // Adiciona imagens que serão enviadas
     const newImages = { animal: 0, image: file } as InterfaceAnimalImageFile;
-    handleImages(
-      (prevImages: InterfaceAnimalImageFile[]) =>
-        [...prevImages, newImages] as InterfaceAnimalImageFile[]
-    );
+
+    handleImages((prevImages) => [...prevImages, newImages]);
 
     setImagePreviews((prevPreviews) => [...prevPreviews, preview]);
 
-    setOpenCropper(false);
-    setCurrentImage(null);
+    setImageQueue((prevQueue) => {
+      const newQueue = [...prevQueue];
+      newQueue.shift();
+      if (newQueue.length > 0) {
+        processImageQueue(newQueue, openCropperModal);
+      }
+      return newQueue;
+    });
   };
 
   const openCropperModal = (image: string) => {
@@ -130,17 +142,13 @@ export default function FormAnimal({
 
   const handleFileChange = React.useCallback(
     async (files: FileList) => {
-      messageError = "";
       setLoading(true);
-
-      // Inicializa arrays para armazenar prévias e imagens
       const previewUrls: string[] = [];
       const imageFiles: File[] = [];
 
       for (let i = 0; i < files.length; i++) {
         const file = files[i];
 
-        // Verifica se o arquivo é uma imagem(e é válido)
         if (!file.type.startsWith("image/")) {
           messageError = "Um ou mais arquivos não são uma imagem válida.";
           setLoading(false);
@@ -159,10 +167,9 @@ export default function FormAnimal({
 
       setLoading(false);
 
-      // Abre o modal conforme a fila de imagens
       if (previewUrls.length > 0) {
-        setCurrentImage(previewUrls[0]);
-        openCropperModal(previewUrls[0]);
+        setImageQueue(previewUrls);
+        processImageQueue(previewUrls, openCropperModal);
       }
     },
     [messageError]
@@ -181,7 +188,7 @@ export default function FormAnimal({
       event.preventDefault();
       setDragOver(true);
     },
-    [setDragOver]
+    []
   );
 
   const handleDragLeave = React.useCallback(
@@ -189,7 +196,7 @@ export default function FormAnimal({
       event.preventDefault();
       setDragOver(false);
     },
-    [setDragOver]
+    []
   );
 
   const handleDrop = React.useCallback(
@@ -380,7 +387,6 @@ export default function FormAnimal({
               />
             </MUI.Grid>
 
-            {/* Cropper Modal */}
             {currentImage && (
               <CropperModal
                 open={openCropper}
