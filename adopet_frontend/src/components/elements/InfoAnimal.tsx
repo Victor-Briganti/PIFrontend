@@ -173,11 +173,12 @@ export default function InfoAnimal({ animal }: InfoAnimalProps) {
     const axiosAnimal = new AxiosAnimal();
     if (animal.id !== undefined) {
       axiosAnimal.updateAnimal(animal).then((response) => {
-        navigate("/animal/update/" + animal.id, { state: { animal: response } });
+        navigate("/animal/update/" + animal.id, {
+          state: { animal: response },
+        });
       });
     }
   }, [animal, navigate]);
-  
 
   return (
     <MUI.Box
@@ -200,7 +201,7 @@ export default function InfoAnimal({ animal }: InfoAnimalProps) {
         </MUI.Box>
         <MUI.Box alignSelf={"start"}>
           <MUI.Typography color={"gray"}>
-            {specie} | {gender} | {age} | {size} | Pelo {coat.toLowerCase()}
+            {specie} | {gender} | {age} | {size} | {coat}
           </MUI.Typography>
         </MUI.Box>
         <MUI.Box alignSelf={"start"} paddingTop={2}>
@@ -358,7 +359,7 @@ export default function InfoAnimal({ animal }: InfoAnimalProps) {
             onClick={handleEdit}
             style={{ marginBottom: "10px" }} // Add some spacing between buttons
           >
-          Editar
+            Editar
           </MUI.Button>
           <MUI.Button
             variant="contained"
@@ -368,7 +369,6 @@ export default function InfoAnimal({ animal }: InfoAnimalProps) {
           >
             Excluir
           </MUI.Button>
-  
         </MUI.Box>
       ) : (
         activeAdoptionButton &&

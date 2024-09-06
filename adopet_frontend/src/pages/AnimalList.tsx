@@ -28,30 +28,25 @@ export default function AnimalList() {
   const specieMap = React.useMemo(() => new SpecieChoiceMap(), []);
   const axiosAnimal = React.useMemo(() => new AxiosAnimal(), []);
 
-  const handleGender = React.useCallback(
-    (event: MUI.SelectChangeEvent) => setGender(event.target.value),
-    [setGender]
-  );
+  const handleGender = (gender: string) => {
+    setGender(gender);
+  };
 
-  const handleAge = React.useCallback(
-    (event: MUI.SelectChangeEvent) => setAge(event.target.value),
-    [setAge]
-  );
+  const handleAge = (age: string) => {
+    setAge(age);
+  };
 
-  const handleCoat = React.useCallback(
-    (event: MUI.SelectChangeEvent) => setCoat(event.target.value),
-    [setCoat]
-  );
+  const handleCoat = (coat: string) => {
+    setCoat(coat);
+  };
 
-  const handleSize = React.useCallback(
-    (event: MUI.SelectChangeEvent) => setSize(event.target.value),
-    [setSize]
-  );
+  const handleSize = (size: string) => {
+    setSize(size);
+  };
 
-  const handleSpecie = React.useCallback(
-    (event: MUI.SelectChangeEvent) => setSpecie(event.target.value),
-    [setSpecie]
-  );
+  const handleSpecie = (specie: string) => {
+    setSpecie(specie);
+  };
 
   React.useEffect(() => {
     if (
@@ -202,7 +197,7 @@ export default function AnimalList() {
   );
 
   return (
-    <PageLayout bgcolor="secondary.light" color="primary.contrastText">
+    <PageLayout color="primary.contrastText">
       <Filter
         age={age}
         gender={gender}
