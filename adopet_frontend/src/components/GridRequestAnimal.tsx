@@ -49,25 +49,49 @@ export default function GridRequestAnimal() {
 
   if (loading) {
     return (
-      <div>
-        <h1>Carregando...</h1>
-      </div>
+      <MUI.Box
+        display={"flex"}
+        justifyContent={"center"}
+        width={"100%"}
+        height={"100%"}
+        paddingTop={"15%"}
+      >
+        <MUI.Typography variant={"h3"}>
+          <b>Carregando.</b>
+        </MUI.Typography>
+      </MUI.Box>
     );
   }
 
   if (messageError !== "") {
     return (
-      <div>
-        <h1>O animal não pode ser carregado</h1>
-      </div>
+      <MUI.Box
+        display={"flex"}
+        justifyContent={"center"}
+        width={"100%"}
+        height={"100%"}
+        paddingTop={"15%"}
+      >
+        <MUI.Typography variant={"h3"}>
+          <b>O animal não pode ser carregado.</b>
+        </MUI.Typography>
+      </MUI.Box>
     );
   }
 
   if (animals.length === 0) {
     return (
-      <div>
-        <h1>Não há animais para serem mostrados</h1>
-      </div>
+      <MUI.Box
+        display={"flex"}
+        justifyContent={"center"}
+        width={"100%"}
+        height={"100%"}
+        paddingTop={"15%"}
+      >
+        <MUI.Typography variant={"h3"}>
+          <b>Não há animais para serem mostrados.</b>
+        </MUI.Typography>
+      </MUI.Box>
     );
   }
 

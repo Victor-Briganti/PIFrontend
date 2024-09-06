@@ -1,4 +1,5 @@
 import * as React from "react";
+import * as MUI from "@mui/material";
 import InterfaceAnimal from "../models/interfaces/animal/InterfaceAnimal";
 import { InterfaceAnimalImageLink } from "../models/interfaces/animal/InterfaceAnimalImage";
 import AxiosAnimal from "../api/AxiosAnimal";
@@ -9,7 +10,9 @@ interface DescriptionDonorAnimalProps {
   animal: InterfaceAnimal;
 }
 
-export default function DescriptionDonorAnimal({ animal }: DescriptionDonorAnimalProps) {
+export default function DescriptionDonorAnimal({
+  animal,
+}: DescriptionDonorAnimalProps) {
   const [loading, setLoading] = React.useState<boolean>(true);
   const [imageAnimals, setImagesAnimal] = React.useState<string[]>([]);
 
@@ -41,14 +44,34 @@ export default function DescriptionDonorAnimal({ animal }: DescriptionDonorAnima
 
   if (loading) {
     return (
-      <div>
-        <h1>Carregando...</h1>
-      </div>
+      <MUI.Box
+        display={"flex"}
+        justifyContent={"center"}
+        width={"100%"}
+        height={"100%"}
+        paddingTop={"15%"}
+      >
+        <MUI.Typography variant={"h3"}>
+          <b>Carregando</b>
+        </MUI.Typography>
+      </MUI.Box>
     );
   }
 
   if (imageAnimals.length === 0) {
-    return <h1>Animal não pode ser carregado.</h1>;
+    return (
+      <MUI.Box
+        display={"flex"}
+        justifyContent={"center"}
+        width={"100%"}
+        height={"100%"}
+        paddingTop={"15%"}
+      >
+        <MUI.Typography variant={"h3"}>
+          <b>O animal não pode ser carregado.</b>
+        </MUI.Typography>
+      </MUI.Box>
+    );
   }
 
   return (

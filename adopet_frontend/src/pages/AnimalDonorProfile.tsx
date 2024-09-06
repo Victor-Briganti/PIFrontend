@@ -1,5 +1,6 @@
 import * as React from "react";
 import * as Router from "react-router-dom";
+import * as MUI from "@mui/material";
 import AxiosAnimal from "../api/AxiosAnimal";
 import DescriptionDonorAnimal from "../components/DescriptionDonorAnimal";
 import PageLayout from "../components/layouts/PageLayout";
@@ -46,23 +47,39 @@ export default function AnimalDonorProfile() {
 
   if (loading) {
     return (
-      <div>
-        <h1>Carregando...</h1>
-      </div>
+      <MUI.Box
+        display={"flex"}
+        justifyContent={"center"}
+        width={"100%"}
+        height={"100%"}
+        paddingTop={"15%"}
+      >
+        <MUI.Typography variant={"h3"}>
+          <b>Carregando.</b>
+        </MUI.Typography>
+      </MUI.Box>
     );
   }
 
   if (messageError !== "") {
     return (
-      <div>
-        <h1>{messageError}</h1>
-      </div>
+      <MUI.Box
+        display={"flex"}
+        justifyContent={"center"}
+        width={"100%"}
+        height={"100%"}
+        paddingTop={"15%"}
+      >
+        <MUI.Typography variant={"h3"}>
+          <b>{messageError}</b>
+        </MUI.Typography>
+      </MUI.Box>
     );
   }
 
   return (
     <UserContextNode>
-      <PageLayout bgcolor="secondary.light" color="primary.contrastText">
+      <PageLayout color="primary.contrastText">
         {animal && <DescriptionDonorAnimal animal={animal} />}
       </PageLayout>
     </UserContextNode>

@@ -10,7 +10,6 @@ import ErrorAlert from "../elements/ErrorAlert";
 import FormCheckBox from "../elements/form_control/FormCheckbox";
 import FormControlField from "../elements/form_control/FormControlField";
 
-
 interface FormAnimalUpdateProps {
   name: string;
   weight: number | undefined;
@@ -244,7 +243,7 @@ export default function FormAnimalUpdate({
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
               >
-                Cadastrar
+                Atualizar
               </MUI.Button>
             </MUI.Grid>
 

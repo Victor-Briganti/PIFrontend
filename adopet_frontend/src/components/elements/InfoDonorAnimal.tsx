@@ -47,12 +47,12 @@ export default function InfoDonorAnimal({ animal }: InfoDonorAnimalProps) {
       {messageError !== "" ? (
         <MUI.Box>{messageError}</MUI.Box>
       ) : (
-        <MUI.Grid container spacing={2}>
+        <MUI.Grid container direction="column" spacing={2}>
           {requests.map(
             (request) =>
               request.request_status === "pending" && (
-                <MUI.Grid item>
-                  <CardRequest key={request.id} adoption={request} />
+                <MUI.Grid item key={request.id}>
+                  <CardRequest adoption={request} />
                 </MUI.Grid>
               )
           )}

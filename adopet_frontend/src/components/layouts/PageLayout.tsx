@@ -10,7 +10,7 @@ interface PageLayoutProps {
 
 export default function PageLayout({
   children,
- // bgcolor,
+  // bgcolor,
   color,
 }: PageLayoutProps) {
   return (

@@ -8,6 +8,7 @@ import * as Router from "react-router-dom";
 interface GridAnimalProps {
   page: number;
   totalPages: number;
+  filteringActive: boolean;
   loading: boolean;
   messageError: string;
   animals: InterfaceAnimal[];
@@ -17,6 +18,7 @@ interface GridAnimalProps {
 export default function GridAnimal({
   page,
   totalPages,
+  filteringActive,
   loading,
   messageError,
   animals,
@@ -34,17 +36,47 @@ export default function GridAnimal({
 
   if (messageError !== "") {
     return (
-      <div>
-        <h1>O animal não pode ser carregado</h1>
-      </div>
+      <MUI.Box
+        display={"flex"}
+        justifyContent={"center"}
+        width={"100%"}
+        height={"100%"}
+        paddingTop={"15%"}
+      >
+        <MUI.Typography variant={"h3"}>
+          <b>Houve um Erro: Os animais não puderam ser carregados.</b>
+        </MUI.Typography>
+      </MUI.Box>
     );
   }
 
-  if (animals.length === 0) {
+  if (animals.length === 0 && filteringActive) {
     return (
-      <div>
-        <h1>Não há animais para serem mostrados</h1>
-      </div>
+      <MUI.Box
+        display={"flex"}
+        justifyContent={"center"}
+        width={"100%"}
+        height={"100%"}
+        paddingTop={"15%"}
+      >
+        <MUI.Typography variant={"h3"}>
+          <b>Não foram encontrados animais com estas características.</b>
+        </MUI.Typography>
+      </MUI.Box>
+    );
+  } else if (animals.length === 0 && !filteringActive) {
+    return (
+      <MUI.Box
+        display={"flex"}
+        justifyContent={"center"}
+        width={"100%"}
+        height={"100%"}
+        paddingTop={"15%"}
+      >
+        <MUI.Typography variant={"h3"}>
+          <b>Não há animais para adoção.</b>
+        </MUI.Typography>
+      </MUI.Box>
     );
   }
 

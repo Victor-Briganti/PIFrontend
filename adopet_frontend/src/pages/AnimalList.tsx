@@ -1,4 +1,3 @@
-import * as MUI from "@mui/material";
 import * as React from "react";
 import AxiosAnimal from "../api/AxiosAnimal";
 import GridAnimal from "../components/GridAnimal";
@@ -21,6 +20,7 @@ export default function AnimalList() {
   const [coat, setCoat] = React.useState<string>("");
   const [size, setSize] = React.useState<string>("");
   const [specie, setSpecie] = React.useState<string>("");
+  const [filterActive, setFilterActive] = React.useState(false);
   const genderMap = React.useMemo(() => new GenderChoiceMap(), []);
   const ageMap = React.useMemo(() => new AgeChoiceMap(), []);
   const coatMap = React.useMemo(() => new CoatChoiceMap(), []);
@@ -65,7 +65,10 @@ export default function AnimalList() {
         .catch((error) => {
           setMessageError(error);
         });
+
+      setFilterActive(false);
     } else {
+      setFilterActive(true);
       let ageValue = "";
       let specieValue = "";
       let genderValue = "";
@@ -213,6 +216,7 @@ export default function AnimalList() {
       <GridAnimal
         page={page}
         totalPages={totalPages}
+        filteringActive={filterActive}
         loading={loading}
         messageError={messageError}
         animals={animals}

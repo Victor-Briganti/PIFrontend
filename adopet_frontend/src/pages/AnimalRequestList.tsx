@@ -5,7 +5,7 @@ import UserContextNode from "../components/UserContextNode";
 export default function AnimalRequestList() {
   return (
     <UserContextNode>
-      <PageLayout bgcolor="secondary.light" color="primary.contrastText">
+      <PageLayout color="primary.contrastText">
         <GridRequestAnimal />
       </PageLayout>
     </UserContextNode>

@@ -37,7 +37,7 @@ export default function UserProfile() {
 
   return (
     <UserContextNode>
-      <Dashboard />
+      <Dashboard userCommon={user.context} handleLogout={handleLogout} />
     </UserContextNode>
   );
 }
