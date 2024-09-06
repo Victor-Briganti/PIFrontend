@@ -12,10 +12,16 @@ import InterfaceAnimal from "../models/interfaces/animal/InterfaceAnimal";
 import SliderHome from "../components/elements/HomeSlider";
 
 const banners = [
-  "src/assets/banner1.webp",
-  "src/assets/banner2.webp",
-  "src/assets/banner3.webp",
-  "src/assets/banner4.webp",
+  "src/assets/banner1.png",
+  "src/assets/banner2.jpg",
+  "src/assets/banner3.jpg",
+  "src/assets/banner4.png",
+];
+const links = [
+  "/",
+  "/animals",
+  "/",
+  "/about",
 ];
 
 export default function Home() {
@@ -51,6 +57,8 @@ export default function Home() {
           sx={{
             display: "flex",
             flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
             color: "text.primary",
             marginTop: "auto",
             marginBottom: "auto",
@@ -61,11 +69,8 @@ export default function Home() {
               marginTop: "50px",
             }}
           >
-            {recentanimals.length > 0 ? (
-              <SliderHome animals={recentanimals} />
-            ) : (
-              <Slider banners={banners} />
-            )}
+            <SliderHome banners={banners}
+            links = {links} />
             
 
           </MUI.Box>
