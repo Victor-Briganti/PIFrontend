@@ -1,87 +1,49 @@
 import * as MUI from "@mui/material";
-import Slider from "../components/elements/Slider";
 import Header from "../components/modules/Header";
 import Footer from "../components/modules/Footer";
 import PetsIcon from "@mui/icons-material/Pets";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import VolunteerActivismIcon from "@mui/icons-material/VolunteerActivism";
-
-import * as React from "react";
-import AxiosAnimal from "../api/AxiosAnimal";
-import InterfaceAnimal from "../models/interfaces/animal/InterfaceAnimal";
 import SliderHome from "../components/elements/HomeSlider";
 
-const banners = [
-  "src/assets/banner1.png",
-  "src/assets/banner2.jpg",
-  "src/assets/banner3.jpg",
-  "src/assets/banner4.png",
-];
-const links = [
-  "/",
-  "/animals",
-  "/",
-  "/about",
-];
+const banners = ["src/assets/banner2.jpg", "src/assets/banner4.png"];
+const links = ["/animals", "/about"];
 
 export default function Home() {
-  const axiosAnimal = React.useMemo(() => new AxiosAnimal(), []);
-  const [recentanimals, setRecentAnimals] = React.useState<InterfaceAnimal[]>([]);
-
-  React.useEffect(() => {
-    axiosAnimal
-      .listAnimalsCarousel()
-      .then((response) => {
-        setRecentAnimals(response);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, [axiosAnimal]);  // Only run once
-
   return (
     <>
       <Header />
       <MUI.Box
         component="main"
-        display={"flex"}
-        flexDirection={"column"}
+        display="flex"
+        flexDirection="column"
         bgcolor={"primary.contrastText"}
         color={"primary.contrastText"}
-        minHeight="120vh"
+        minHeight="100vh"
+        sx={{ paddingTop: 0 }}
       >
         <MUI.CssBaseline />
-        <MUI.Container
-          className="content"
-          maxWidth="lg"
+
+        <MUI.Box
           sx={{
+            flexGrow: 1,
             display: "flex",
             flexDirection: "column",
-            justifyContent: "center",
             alignItems: "center",
-            color: "text.primary",
-            marginTop: "auto",
-            marginBottom: "auto",
           }}
         >
-          <MUI.Box
-            sx={{
-              marginTop: "50px",
-            }}
-          >
-            <SliderHome banners={banners}
-            links = {links} />
-            
-
-          </MUI.Box>
+          <SliderHome banners={banners} links={links} />
 
           <MUI.Box
             sx={{
               marginTop: "40px",
+              padding: 2,
             }}
           >
-            <MUI.Typography variant="h4">Adote Hoje um Amigo</MUI.Typography>
-            <MUI.Typography variant="h6">
+            <MUI.Typography color={"black"} variant="h4">
+              Adote Hoje um Amigo
+            </MUI.Typography>
+            <MUI.Typography color={"black"} variant="h6">
               Estamos prontos para ajudar você a escolher um amigo para a vida
               toda.
             </MUI.Typography>
@@ -92,6 +54,7 @@ export default function Home() {
               alignItems="center"
               sx={{
                 marginTop: "40px",
+                gap: 2,
               }}
             >
               <MUI.Card
@@ -104,7 +67,7 @@ export default function Home() {
                   padding: 2,
                 }}
               >
-                <PetsIcon fontSize="large" sx={{ mb: 1 }} />{" "}
+                <PetsIcon fontSize="large" sx={{ mb: 1 }} />
                 <MUI.Typography
                   variant="h6"
                   sx={{
@@ -126,7 +89,7 @@ export default function Home() {
                   padding: 2,
                 }}
               >
-                <FavoriteIcon fontSize="large" sx={{ mb: 1 }} />{" "}
+                <FavoriteIcon fontSize="large" sx={{ mb: 1 }} />
                 <MUI.Typography
                   variant="h6"
                   sx={{
@@ -148,7 +111,7 @@ export default function Home() {
                   padding: 2,
                 }}
               >
-                <VolunteerActivismIcon fontSize="large" sx={{ mb: 1 }} />{" "}
+                <VolunteerActivismIcon fontSize="large" sx={{ mb: 1 }} />
                 <MUI.Typography
                   variant="h6"
                   sx={{
@@ -161,9 +124,10 @@ export default function Home() {
               </MUI.Card>
             </MUI.Box>
           </MUI.Box>
-        </MUI.Container>
+        </MUI.Box>
+
+        <Footer />
       </MUI.Box>
-      <Footer />
     </>
   );
 }
